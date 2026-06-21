@@ -62,16 +62,16 @@ header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline
 /* Interleaved pair: source block, then translation block. Scripts self-distinguish.
    Each pair is tappable — tap to highlight where you are (see script at the bottom). */
 .pair {
-  margin: 0 0 1.75rem; cursor: pointer; border-radius: 0 6px 6px 0;
-  transition: background 0.15s, border-color 0.15s;
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
 }
 .pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
 .pair .src { margin: 0; color: var(--ink); }
 .pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
 
-/* Tap-to-highlight: one pair at a time gets a warm wash so you keep your place. */
-.pair.current { background: color-mix(in srgb, var(--gold) 22%, var(--paper)); }
-.pair:not(.cite).current { border-left-color: var(--gold); box-shadow: inset 3px 0 0 var(--gold); }
+/* Tap-to-highlight: one pair at a time gets a cool-stone wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: #D7DEE5; }
 
 /* Turn marker — each packet is one spoken turn in the live alternating reading.
    The number is what the readers call out to stay synced. */

@@ -59,25 +59,33 @@ header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline
 }
 .talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
 
-/* Interleaved pair: source block, then translation block. Scripts self-distinguish. */
-.pair { margin: 0 0 1.75rem; }
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 0 6px 6px 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
 .pair .src { margin: 0; color: var(--ink); }
 .pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
 
+/* Tap-to-highlight: one pair at a time gets a warm wash so you keep your place. */
+.pair.current { background: color-mix(in srgb, var(--gold-soft) 20%, var(--paper)); }
+.pair:not(.cite).current { border-left-color: var(--gold); }
+
 /* Turn marker — each packet is one spoken turn in the live alternating reading.
-   Quiet by default; the number is the part the readers call out to stay synced. */
+   The number is what the readers call out to stay synced. */
 .turn {
-  display: block; font-family: "Fraunces", Georgia, serif;
-  font-size: 0.6rem; letter-spacing: 0.13em; color: var(--muted);
-  margin: 0 0 0.4rem;
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 0.82rem; letter-spacing: 0.03em; color: var(--gold);
+  margin: 0 0 0.35rem;
 }
-.turn b { color: var(--gold); font-weight: 600; font-size: 1.15em; }
 
 /* Subtle pair grouping (Both view only): a faint spine ties each EN/KO pair into one
    unit so a reader following along never loses which translation matches which line. */
 body:not(.lang-en):not(.lang-ko) .pair:not(.cite) {
-  border-left: 1px solid color-mix(in srgb, var(--hairline) 55%, var(--paper));
-  padding-left: 0.95rem; margin-bottom: 2rem;
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
 }
 
 /* Headings inside the talk */
@@ -208,163 +216,163 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
 
 <main>
   <div class="pair">
-    <span class="turn"><b>1</b> / 27</span>
+    <span class="turn">1</span>
     <p class="src en">Good morning, brothers and sisters. The stake presidency loves you and prays for you. You are an important part of this stake.</p>
     <p class="tgt ko">형제 자매 여러분, 안녕하십니까. 스테이크 회장단은 여러분을 사랑하며 여러분을 위해 기도합니다. 여러분은 이 스테이크의 소중한 일원입니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>2</b> / 27</span>
+    <span class="turn">2</span>
     <p class="src en">I would like to share some thoughts about our Father in Heaven. The Quorum of the Twelve Apostles said,</p>
     <p class="tgt ko">저는 하늘 아버지에 대해 몇 가지 생각을 나누고자 합니다. 십이사도 정원회는 이렇게 말씀했습니다.</p>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>3</b> / 27</span>
+    <span class="turn">3</span>
     <blockquote class="src en">“Of all the titles of respect and honor and admiration that are given to deity, He has asked us to address Him as Father.”</blockquote>
     <blockquote class="tgt ko">“하나님께 돌려지는 모든 존경과 영예와 경모의 칭호 중에서, 그분은 우리에게 자신을 아버지라고 부르도록 청하셨습니다.”</blockquote>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>4</b> / 27</span>
+    <span class="turn">4</span>
     <p class="src en">I share this with you so that we can understand His divine nature. When we understand His nature, we can become more like Him.</p>
     <p class="tgt ko">저는 우리가 그분의 신성한 성품을 이해할 수 있도록 이 말씀을 나눕니다. 그분의 성품을 이해할 때, 우리는 좀 더 그분처럼 될 수 있습니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>5</b> / 27</span>
+    <span class="turn">5</span>
     <p class="src en">I will not be able to speak about all of God's attributes, but I will speak of two: He loves us, and He is a perfect Father.</p>
     <p class="tgt ko">하나님의 모든 속성에 관해 다 말씀드릴 수는 없겠지만, 저는 두 가지를 말씀드리고자 합니다. 그분은 우리를 사랑하시며, 완전한 아버지이십니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>6</b> / 27</span>
+    <span class="turn">6</span>
     <p class="src en">The first attribute I want to emphasize is His love for us. He loves us deeply.</p>
     <p class="tgt ko">제가 강조하고 싶은 첫 번째 속성은 우리를 향한 그분의 사랑입니다. 그분은 우리를 깊이 사랑하십니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>7</b> / 27</span>
+    <span class="turn">7</span>
     <p class="src en">Jeffrey R. Holland, in the October 2021 general conference, said:</p>
     <p class="tgt ko">제프리 알 홀런드 장로님은 2021년 10월 연차 대회에서 이렇게 말씀하셨습니다.</p>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>8</b> / 27</span>
+    <span class="turn">8</span>
     <blockquote class="src en">“The first great commandment given to the human family—to love God wholeheartedly, without reservation or compromise, that is, with all our heart, might, mind, and strength. This love of God is the first great commandment in the universe.</blockquote>
     <blockquote class="tgt ko">“인류에게 주어진 크고 첫째 되는 계명은 하나님을 온 마음을 다해 사랑하라는 것입니다. 그것은 적당히 사랑하는 것이 아니라, 일말의 거리낌도 없이, 우리의 마음과 능력과 생각과 힘을 다하여 사랑하는 것을 의미합니다. 하나님에 대한 이런 사랑은 이 우주에서 크고 첫째 되는 계명입니다.</blockquote>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>9</b> / 27</span>
+    <span class="turn">9</span>
     <blockquote class="src en">But the first great truth in the universe is that God loves us exactly that way—wholeheartedly, without reservation or compromise, with all of His heart, might, mind, and strength.”<cite>Jeffrey R. Holland, October 2021</cite></blockquote>
     <blockquote class="tgt ko">그러나 우주에서 크고 첫째 되는 진리는 하나님께서 이와 똑같이, 적당히 사랑하는 것이 아니라, 일말의 거리낌도 없이, 그분의 온 마음과 능력과 생각과 힘을 다하여 우리를 사랑하신다는 사실입니다.”<cite>Jeffrey R. Holland, October 2021</cite></blockquote>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>10</b> / 27</span>
+    <span class="turn">10</span>
     <p class="src en">Jesus taught us what loving God means for His disciples. In Matthew 5:43–44, it says:</p>
     <p class="tgt ko">예수께서는 그분의 제자들에게 하나님을 사랑한다는 것이 무엇을 의미하는지 가르치셨습니다. 마태복음 5장 43~44절에는 이렇게 기록되어 있습니다.</p>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>11</b> / 27</span>
+    <span class="turn">11</span>
     <blockquote class="src en">“Ye have heard that it hath been said, Thou shalt love thy neighbour, and hate thine enemy. But I say unto you, Love your enemies, bless them that curse you, do good to them that hate you, and pray for them which despitefully use you, and persecute you.”<cite>Matthew 5:43–44 · 마태복음 5:43~44</cite></blockquote>
     <blockquote class="tgt ko">“또 네 이웃을 사랑하고 네 원수를 미워하라 하였다는 것을 너희가 들었으나, 나는 너희에게 이르노니 너희 원수를 사랑하며 너희를 박해하는 자를 위하여 기도하라.”<cite>Matthew 5:43–44 · 마태복음 5:43~44</cite></blockquote>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>12</b> / 27</span>
+    <span class="turn">12</span>
     <p class="src en">Because of this, we must learn to love as Heavenly Father does in order to become more like Him. It is hard to do!</p>
     <p class="tgt ko">그러므로 우리는 좀 더 그분처럼 되기 위해 하늘 아버지께서 사랑하시는 것처럼 사랑하는 법을 배워야 합니다. 그것은 행하기 어려운 일입니다!</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>13</b> / 27</span>
+    <span class="turn">13</span>
     <p class="src en">Why is this important? It is important because our goal in life should be to become like the Savior and Heavenly Father.</p>
     <p class="tgt ko">이것이 왜 중요합니까? 우리 삶의 목표가 구주와 하늘 아버지처럼 되는 것이어야 하기에 중요합니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>14</b> / 27</span>
+    <span class="turn">14</span>
     <p class="src en">I had an experience with one brother a long time ago. One day, I didn't say “Hi” to him in the hallway at church. This inaction angered him, and one day he yelled at me for it. He was right that I should have been friendlier.</p>
     <p class="tgt ko">저는 오래전 한 형제와 겪은 경험이 있습니다. 어느 날, 저는 교회 복도에서 그에게 인사를 건네지 못했습니다. 이 작은 무심함에 그는 화가 났고, 어느 날 그는 그 일로 제게 언성을 높였습니다. 제가 좀 더 다정하게 대했어야 했다는 그의 말이 옳았습니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>15</b> / 27</span>
+    <span class="turn">15</span>
     <p class="src en">It was then that I decided to pray for him and to say “Hi” to him in the hallway each time I saw him, but his response to me was not positive. For about two years, I persisted in showing my love for this brother in any way that I could.</p>
     <p class="tgt ko">그때 저는 그를 위해 기도하고, 그를 볼 때마다 복도에서 인사를 건네기로 마음먹었습니다. 그러나 그의 반응은 좋지 않았습니다. 약 2년 동안, 저는 할 수 있는 모든 방법으로 그 형제에게 계속 사랑을 표현했습니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>16</b> / 27</span>
+    <span class="turn">16</span>
     <p class="src en">There were times when I thought things would never change. Then, finally, he said “Hi” back to me and gave me a big hug. Because of this experience, I learned to deepen my love for the brothers and sisters of the ward.</p>
     <p class="tgt ko">아무것도 달라지지 않을 것 같다고 생각한 때도 있었습니다. 그러던 어느 날, 마침내 그가 제게 인사를 건네며 저를 꼭 안아 주었습니다. 이 경험을 통해, 저는 와드의 형제 자매들을 향한 제 사랑을 더 깊게 하는 법을 배웠습니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>17</b> / 27</span>
+    <span class="turn">17</span>
     <p class="src en">In Moses 7:28–33, it talks about when Enoch saw wickedness fill the earth before the flood, and Enoch saw God weep:</p>
     <p class="tgt ko">모세서 7장 28~33절에는, 에녹이 홍수 전에 사악함이 땅에 가득한 것을 보았을 때, 그리고 하나님께서 우시는 것을 본 일이 나옵니다.</p>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>18</b> / 27</span>
+    <span class="turn">18</span>
     <blockquote class="src en">“And it came to pass that the God of heaven looked upon the residue of the people, and he wept; and Enoch bore record of it, saying: How is it that the heavens weep, and shed forth their tears as the rain upon the mountains? And Enoch said unto the Lord: How is it that thou canst weep, seeing thou art holy, and from all eternity to all eternity?</blockquote>
     <blockquote class="tgt ko">“28 그리고 이렇게 되었나니, 하늘의 하나님이 나머지 백성을 보시고 울었더라. 그리고 에녹이 그것에 대하여 증언하였으니, 이르되, 어찌하여 하늘들이 울며 산 위에 내리는 비같이 눈물을 흘리는고? 29 또 에녹이 주께 아뢰되, 당신은 거룩하시며 모든 영원에서 모든 영원까지 계시는 분이시온대 어찌 우실 수 있나이까?</blockquote>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>19</b> / 27</span>
+    <span class="turn">19</span>
     <blockquote class="src en">And were it possible that man could number the particles of the earth, yea, millions of earths like this, it would not be a beginning to the number of thy creations; and thy curtains are stretched out still; and yet thou art there, and thy bosom is there; and also thou art just; thou art merciful and kind forever; And thou hast taken Zion to thine own bosom, from all thy creations, from all eternity to all eternity; and naught but peace, justice, and truth is the habitation of thy throne; and mercy shall go before thy face and have no end; how is it thou canst weep?</blockquote>
     <blockquote class="tgt ko">30 또 사람이 땅의 티끌 참으로 이 땅과 같은 수백만의 땅을 셀 수 있다 할지라도 그것은 당신의 창조의 수의 시작도 되지 못하리이다. 그리고 당신의 막은 여전히 펼쳐져 있고 아직도 당신은 그 곳에 계시오며, 당신의 품도 거기 있사옵고, 또한 당신은 공의로우시며, 당신은 영원토록 자비롭고, 친절하시나이다. 31 또 당신께서는 시온을 모든 영원에서 모든 영원까지 당신의 모든 창조물에서 당신의 품으로 데려 가셨사오며 오직 평강과 공의와 진리만이 당신 보좌의 처소이며, 자비는 당신을 앞서 나아가며, 끝이 없거늘 어찌 당신께서 우실 수 있나이까?</blockquote>
   </div>
 
   <div class="pair cite">
-    <span class="turn"><b>20</b> / 27</span>
+    <span class="turn">20</span>
     <blockquote class="src en">The Lord said unto Enoch: Behold these thy brethren; they are the workmanship of mine own hands, and I gave unto them their knowledge, in the day I created them; and in the Garden of Eden, gave I unto man his agency; And unto thy brethren have I said, and also given commandment, that they should love one another, and that they should choose me, their Father; but behold, they are without affection, and they hate their own blood.”<cite>Moses 7:28–33 · 모세서 7:28~33</cite></blockquote>
     <blockquote class="tgt ko">32 주가 에녹에게 이르되, 이 네 형제들을 보라, 그들은 내 손으로 지은 것이니, 내가 그들을 창조하던 날에 그들에게 그들의 지식을 주었고, 에덴동산에서 내가 사람에게 그의 선택의지를 주었느니라. 33 그리고 네 형제들에게 내가 말하고 계명도 또한 주기를, 서로 사랑하라 하고, 너희의 아버지인 나를 택하라 하였으나, 보라, 그들은 애정이 없으며 그들 자신의 혈육을 미워하느니라.”<cite>Moses 7:28–33 · 모세서 7:28~33</cite></blockquote>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>21</b> / 27</span>
+    <span class="turn">21</span>
     <p class="src en">The Lord experiences the emotions that we experience! He weeps. Is heaven a place where we only feel happy? No, but it is a place where we feel what we call in the Church the joy of Christ, which we should all strive to have.</p>
     <p class="tgt ko">주님은 우리가 느끼는 감정을 똑같이 느끼십니다! 그분은 우십니다. 하늘은 우리가 오직 행복만을 느끼는 곳입니까? 아닙니다. 그러나 그곳은 우리가 교회에서 그리스도의 기쁨이라 부르는 것을 느끼는 곳이며, 우리 모두가 그것을 얻고자 힘써야 합니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>22</b> / 27</span>
+    <span class="turn">22</span>
     <p class="src en">We experience a range of emotions, much like a righteous father or mother for their children. Seeing His children falter must be the most difficult thing for our Heavenly Father.</p>
     <p class="tgt ko">우리는 마치 의로운 아버지나 어머니가 자녀에게 느끼듯, 다양한 감정을 경험합니다. 자녀가 흔들리는 모습을 보시는 것은 하늘 아버지께 가장 힘든 일임에 틀림없습니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>23</b> / 27</span>
+    <span class="turn">23</span>
     <p class="src en">This is something I have learned while being a father. I have felt the ups and downs of raising children. It is hard. All that I am is put into raising my kids.</p>
     <p class="tgt ko">이것은 제가 아버지로 살아오면서 배운 것입니다. 저는 자녀를 키우며 오르막과 내리막을 겪어 왔습니다. 그것은 힘든 일입니다. 저는 제 모든 것을 다해 아이들을 키웁니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>24</b> / 27</span>
+    <span class="turn">24</span>
     <p class="src en">Although it is very hard to see my children make bad decisions, I am filled with joy to know that the Atonement of Jesus Christ allows us all to repent and be cleansed of our sins. My children are what drive me in life. In a way, they are my legacy. They are more important than all of the things I can obtain in this life.</p>
     <p class="tgt ko">제 아이들이 잘못된 결정을 내리는 것을 보는 일은 무척 힘들지만, 예수 그리스도의 속죄를 통해 우리 모두가 회개하고 죄에서 깨끗해질 수 있음을 알기에 저는 기쁨으로 가득 찹니다. 제 아이들은 제 삶의 원동력입니다. 어떤 의미에서 그들은 저의 유산입니다. 그들은 제가 이 생에서 얻을 수 있는 그 어떤 것보다도 소중합니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>25</b> / 27</span>
+    <span class="turn">25</span>
     <p class="src en">This is part of His plan for us—to go through these trials and troubles, these ups and downs. When we follow Christ in these moments, we become more like Him. Indeed, as we progress, we hope to be like Him in the end.</p>
     <p class="tgt ko">이것은 우리가 이러한 시련과 어려움, 오르막과 내리막을 겪도록 하시는 그분의 계획의 일부입니다. 이러한 순간에 우리가 그리스도를 따를 때, 우리는 좀 더 그분처럼 됩니다. 참으로, 우리가 발전해 나가면서, 우리는 끝내 그분과 같이 되기를 소망합니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>26</b> / 27</span>
+    <span class="turn">26</span>
     <p class="src en">This is His plan for us: that His children become like their Heavenly Parents, which is more valuable than all the riches of the world.</p>
     <p class="tgt ko">이것이 우리를 향한 그분의 계획입니다. 곧 그분의 자녀가 하늘 부모님처럼 되는 것이며, 이는 세상의 모든 재물보다 더 값진 것입니다.</p>
   </div>
 
   <div class="pair">
-    <span class="turn"><b>27</b> / 27</span>
+    <span class="turn">27</span>
     <p class="src en">I hope that we can become more like the Savior in this life, that when “he shall appear, we shall be like him; for we shall see him as he is,” and find the joy of Christ in this life and eternal life in the next. In the name of Jesus Christ, the Son of God. Amen.</p>
     <p class="tgt ko">저는 우리가 이 생에서 좀 더 구주처럼 되어, “그가 나타나실 때에 그가 계신 그대로 우리가 그를 볼 것인즉, 우리가 그와 같이 되”기를, 그리고 이 생에서 그리스도의 기쁨을, 다음 생에서 영생을 얻기를 소망합니다. 하나님의 아들이신 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
   </div>
@@ -416,6 +424,21 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
   var savedSize = "md";
   try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
   applySize(savedSize);
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
 })();
 </script>
 </body>

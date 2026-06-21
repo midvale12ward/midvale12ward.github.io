@@ -99,9 +99,9 @@ header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline
 /* Turn marker — each packet is one spoken turn in the live alternating reading.
    The number is what the readers call out to stay synced. */
 .turn {
-  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 600;
-  font-size: 0.82rem; letter-spacing: 0.03em; color: var(--gold);
-  margin: 0 0 0.35rem;
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
 }
 
 /* Subtle pair grouping (Both view only): a faint spine ties each EN/KO pair into one
@@ -174,10 +174,6 @@ footer.colophon {
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--hairline);
 }
-.langbar-label {
-  font-family: "Fraunces", Georgia, serif; font-size: 0.64rem; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--gold); margin-right: 0.2rem;
-}
 .langbar button {
   font-family: "Fraunces", Georgia, serif;
   font-size: 0.84rem; letter-spacing: 0.03em;
@@ -231,9 +227,9 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
 </header>
 
 <nav class="langbar" aria-label="Reading options">
-  <button type="button" data-lang="both" aria-pressed="true">Both 둘 다</button>
   <button type="button" data-lang="en" aria-pressed="false">English</button>
   <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+  <button type="button" data-lang="both" aria-pressed="true">Both 둘 다</button>
   <span class="sep" aria-hidden="true"></span>
   <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
   <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>

@@ -27,36 +27,59 @@ body{
 }
 .ko{font-family:"Noto Serif KR","Source Serif 4",serif;}
 .sheet{max-width:33rem;margin:0 auto;padding:0 1.3rem 4rem;text-align:center;}
-.head{padding:3.6rem 0 0;}
-.head .eyebrow{font-family:"Fraunces",serif;font-size:.7rem;letter-spacing:.26em;
-  text-transform:uppercase;color:var(--gold);margin:0 0 .9rem;}
+
+.head{padding:2.6rem 0 0;}
+
+/* temple photo frame */
+.temple{margin:0 auto 1.8rem;max-width:30rem;}
+.temple img{width:100%;height:auto;display:block;border-radius:10px;
+  box-shadow:0 2px 14px rgba(0,0,0,.18);}
+.temple .placeholder{width:100%;aspect-ratio:16/10;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(160deg,#E7DCC4,#D9CDB0);color:var(--muted);
+  font-family:"Fraunces",serif;font-style:italic;font-size:.95rem;
+  border:1px solid var(--hairline);}
+.temple .cap{font-family:"Fraunces",serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold);margin-top:.6rem;}
+
 .head h1{font-family:"Fraunces",serif;font-variation-settings:"opsz" 144,"wght" 420;
   font-size:clamp(1.8rem,6vw,2.5rem);line-height:1.1;margin:0;}
 .head h1 .ko{display:block;font-weight:500;font-size:.8em;margin-top:.3rem;}
-.flourish{color:var(--gold-soft);font-size:1rem;margin:1.6rem 0 .2rem;letter-spacing:.5em;}
-.placeholder{font-family:"Fraunces",serif;font-style:italic;color:var(--muted);
-  font-size:1.05rem;margin:2.6rem auto;max-width:24rem;}
-.placeholder .ko{font-style:normal;display:block;font-size:.92rem;margin-top:.4rem;}
-footer{margin-top:3rem;color:var(--muted);font-size:.8rem;line-height:1.5;}
-footer .ko{display:block;margin-top:.2rem;}
+
+.intro{font-family:"Fraunces",serif;font-size:1.15rem;color:var(--ink-soft);margin:1.8rem 0 .2rem;}
+.intro .ko{display:block;font-size:.92rem;color:var(--muted);margin-top:.3rem;}
+
+.flourish{color:var(--gold-soft);font-size:1rem;margin:1.4rem 0 .2rem;letter-spacing:.5em;}
+
+/* weekly talks list goes here */
+.talks{margin:2.4rem 0 0;}
+.empty{font-style:italic;color:var(--muted);font-size:.95rem;margin-top:2rem;}
+.empty .ko{display:block;font-size:.86rem;margin-top:.3rem;}
 </style>
 </head>
 <body>
 <div class="sheet">
 
 <div class="head">
-  <p class="eyebrow">The Church of Jesus Christ of Latter-day Saints</p>
+  <div class="temple">
+    <!-- When a licensed photo is available, replace the placeholder div below with:
+         <img src="seoul-temple.jpg" alt="Seoul Korea Temple"> -->
+    <div class="placeholder">Seoul Korea Temple</div>
+    <div class="cap">Seoul Korea Temple · 서울 성전</div>
+  </div>
+
   <h1>Midvale 12th Ward<span class="ko">미드베일 12와드</span></h1>
+
+  <p class="intro">Here are this week&rsquo;s talks.
+    <span class="ko">이번 주 말씀입니다.</span></p>
   <div class="flourish">&#10022;</div>
 </div>
 
-<p class="placeholder">This week&rsquo;s sacrament meeting program and translated talks will appear here.
-  <span class="ko">이번 주 성찬식 순서와 번역된 말씀이 여기에 표시됩니다.</span></p>
-
-<footer>
-  The Church of Jesus Christ of Latter-day Saints
-  <span class="ko">예수 그리스도 후기성도 교회</span>
-</footer>
+<div class="talks">
+  <!-- weekly speakers + translation links will be listed here -->
+  <p class="empty">This week&rsquo;s talks will be posted soon.
+    <span class="ko">이번 주 말씀이 곧 게시됩니다.</span></p>
+</div>
 
 </div>
 </body>

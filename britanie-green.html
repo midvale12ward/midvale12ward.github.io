@@ -154,6 +154,8 @@ body:not(.lang-en):not(.lang-ko) .pair:not(.cite) {
 footer.colophon {
   margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
 }
+.colophon .en, .colophon .ko { display: block; }
+.colophon .ko { margin-top: 0.15rem; }
 .feedback-btn {
   display: inline-block; margin-bottom: 1rem; text-decoration: none;
   font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
@@ -551,7 +553,7 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
 
 <footer class="colophon">
   <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
-  <p style="margin:0;">Translated by AI. Use the feedback button to recommend corrections.</p>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span></p>
 </footer>
 </div>
 <script>

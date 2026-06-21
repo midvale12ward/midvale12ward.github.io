@@ -122,6 +122,16 @@ body:not(.lang-en):not(.lang-ko) .pair:not(.cite) {
 footer.colophon {
   margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
 }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
 
 /* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
 /* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
@@ -476,7 +486,10 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
 
 
 
-<footer class="colophon">Translated and reviewed by the Sacrament Meeting Talk Prep pipeline.</footer>
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;">Translated by AI. Use the feedback button to recommend corrections.</p>
+</footer>
 </div>
 <script>
 // Language view toggle. Adds a class to <body>; never alters saved content.

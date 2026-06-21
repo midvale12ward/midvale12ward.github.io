@@ -206,6 +206,11 @@ html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(
 .langbar button[data-size="md"] { font-size: 0.8rem; }
 .langbar button[data-size="lg"] { font-size: 1rem; }
 .langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
 body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
 html.text-lg { font-size: 21px; }  /* "Larger"  */
 html.text-xl { font-size: 25px; }  /* "Largest" */
@@ -231,11 +236,12 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
   <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
   <button type="button" data-lang="both" aria-pressed="true">Both 둘 다</button>
   <span class="sep" aria-hidden="true"></span>
-  <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
-  <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
-  <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
-  <span class="sep" aria-hidden="true"></span>
   <button type="button" data-theme aria-pressed="false" aria-label="Toggle dark mode">Dark · 어둡게</button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
 </nav>
 
 <main>
@@ -415,7 +421,7 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
 (function () {
   var bar = document.querySelector(".langbar");
   if (!bar) return;
-  var btns = bar.querySelectorAll("button");
+  var btns = bar.querySelectorAll("button[data-lang]");
   function apply(lang) {
     document.body.classList.remove("lang-en", "lang-ko");
     if (lang === "en" || lang === "ko") document.body.classList.add("lang-" + lang);

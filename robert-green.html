@@ -12,14 +12,12 @@
     var t = localStorage.getItem("talkTheme");
     if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
     if (t === "dark") d.classList.add("dark");
-    d.classList.add("kofont-" + (localStorage.getItem("talkKoFont") || "gowun"));
-    d.classList.add("enfont-" + (localStorage.getItem("talkEnFont") || "serif"));
   } catch (e) {}
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Nanum+Myeongjo:wght@400;700&family=Gowun+Batang:wght@400;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --paper: #F5EFE3;
@@ -32,15 +30,7 @@
   --crimson: #8A2E2E;
   --muted: #6E5F4E;
   --hairline: #D9CFB9;
-  /* Reader-selectable fonts (defaults). Overridden by html.kofont-* / html.enfont-* below. */
-  --ko-font: "Gowun Batang";
-  --en-font: "Source Serif 4";
 }
-/* Font choices — set as classes on <html> so the no-flash head script can apply them. */
-html.kofont-nanum { --ko-font: "Nanum Myeongjo"; }
-html.kofont-gowun { --ko-font: "Gowun Batang"; }
-html.enfont-serif { --en-font: "Source Serif 4"; }
-html.enfont-sans  { --en-font: "Atkinson Hyperlegible"; }
 /* Warm dark theme — overrides the same variables so everything below adapts. */
 html.dark {
   --paper: #17140F;
@@ -59,7 +49,7 @@ html, body {
   margin: 0; padding: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--en-font), Georgia, serif;
+  font-family: "Source Serif 4", Georgia, serif;
   font-size: 18px; line-height: 1.62;
   font-feature-settings: "liga", "kern";
   /* defensive: never let a long token force sideways scroll */
@@ -72,7 +62,7 @@ body {
     var(--paper);
   min-height: 100vh;
 }
-.ko { font-family: var(--ko-font), "Source Serif 4", serif; }
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
 
 /* Reading column: a max-width that simply shrinks to fit a phone. */
 .wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
@@ -223,16 +213,24 @@ html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(
   align-items: center; justify-content: center; gap: 0.45rem;
 }
 
-/* Font choices: each group sits on its own row, and only shows for the language in view
-   (Korean fonts when reading Korean; English fonts when reading English; hidden in Both). */
-.langbar .fontgroup { display: none; flex-basis: 100%; flex-wrap: nowrap;
-  align-items: center; justify-content: center; gap: 0.45rem; }
-body.lang-ko .langbar .ko-fonts { display: flex; }
-body.lang-en .langbar .en-fonts { display: flex; }
-.fontgroup button[data-kofont="nanum"] { font-family: "Nanum Myeongjo", serif; }
-.fontgroup button[data-kofont="gowun"] { font-family: "Gowun Batang", serif; }
-.fontgroup button[data-enfont="serif"] { font-family: "Source Serif 4", serif; }
-.fontgroup button[data-enfont="sans"]  { font-family: "Atkinson Hyperlegible", sans-serif; }
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; display: block; }
+.langbar .theme-switch .ic-sun { color: var(--card); }
+.langbar .theme-switch .ic-moon { color: var(--paper); display: none; }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
 body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
 html.text-lg { font-size: 21px; }  /* "Larger"  */
 html.text-xl { font-size: 25px; }  /* "Largest" */
@@ -258,19 +256,16 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
   <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
   <button type="button" data-lang="both" aria-pressed="true">Both 둘 다</button>
   <span class="sep" aria-hidden="true"></span>
-  <button type="button" data-theme aria-pressed="false" aria-label="Toggle dark mode">Dark · 어둡게</button>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
   <span class="sizegroup">
     <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
     <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
     <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
-  </span>
-  <span class="fontgroup ko-fonts" aria-label="Korean font">
-    <button type="button" data-kofont="nanum" aria-pressed="false">나눔명조</button>
-    <button type="button" data-kofont="gowun" aria-pressed="true">고운바탕</button>
-  </span>
-  <span class="fontgroup en-fonts" aria-label="English font">
-    <button type="button" data-enfont="serif" aria-pressed="true">Serif</button>
-    <button type="button" data-enfont="sans" aria-pressed="false">Sans</button>
   </span>
 </nav>
 
@@ -491,10 +486,7 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
   function applyTheme(mode) {
     var dark = mode === "dark";
     document.documentElement.classList.toggle("dark", dark);
-    if (themeBtn) {
-      themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
-      themeBtn.textContent = dark ? "Light · 밝게" : "Dark · 어둡게";
-    }
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
     try { localStorage.setItem("talkTheme", mode); } catch (e) {}
   }
   if (themeBtn) {
@@ -503,29 +495,6 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
     });
   }
   applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
-
-  // Reader font choices. The class lives on <html> (set pre-paint by the head script);
-  // here we wire the buttons and sync their pressed state. Stored per browser.
-  function fontControl(attr, classPrefix, storeKey, options, fallback) {
-    var els = bar.querySelectorAll("button[" + attr + "]");
-    function apply(val) {
-      var html = document.documentElement;
-      options.forEach(function (o) { html.classList.remove(classPrefix + o); });
-      html.classList.add(classPrefix + val);
-      els.forEach(function (b) {
-        b.setAttribute("aria-pressed", b.getAttribute(attr) === val ? "true" : "false");
-      });
-      try { localStorage.setItem(storeKey, val); } catch (e) {}
-    }
-    els.forEach(function (b) {
-      b.addEventListener("click", function () { apply(b.getAttribute(attr)); });
-    });
-    var saved = fallback;
-    try { saved = localStorage.getItem(storeKey) || fallback; } catch (e) {}
-    apply(saved);
-  }
-  fontControl("data-kofont", "kofont-", "talkKoFont", ["nanum", "gowun"], "gowun");
-  fontControl("data-enfont", "enfont-", "talkEnFont", ["serif", "sans"], "serif");
 })();
 
 // Tap a paragraph to highlight where you are. One at a time; tap it again to clear.

@@ -136,6 +136,22 @@ footer.colophon {
 }
 .langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
 
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
 /* The actual hide rules: one body class hides the other language everywhere. */
 body.lang-en .ko { display: none; }
 body.lang-ko .en { display: none; }
@@ -157,6 +173,11 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
   <button type="button" data-lang="both" aria-pressed="true">Both 둘 다</button>
   <button type="button" data-lang="en" aria-pressed="false">English</button>
   <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+  <span class="sep" aria-hidden="true"></span>
+  <span class="langbar-label">Text · 글자</span>
+  <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+  <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+  <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
 </nav>
 
 <main>
@@ -416,6 +437,24 @@ body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
   var saved = "both";
   try { saved = localStorage.getItem("talkLang") || "both"; } catch (e) {}
   apply(saved);
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
 })();
 </script>
 </body>

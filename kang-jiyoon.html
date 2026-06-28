@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Do Covenants Transform Us? · 성약은 우리를 어떻게 변화시키는가?</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping (Both view only): a faint spine ties each EN/KO pair into one
+   unit so a reader following along never loses which translation matches which line. */
+body:not(.lang-en):not(.lang-ko) .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko { display: block; }
+.colophon .ko { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* The actual hide rules: one body class hides the other language everywhere. */
+body.lang-en .ko { display: none; }
+body.lang-ko .en { display: none; }
+body.lang-en .title-sep, body.lang-ko .title-sep { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">How Do Covenants Transform Us?</span><br class="title-sep"><span class="ko">성약은 우리를 어떻게 변화시키는가?</span></h1>
+  <p class="byline">Sister Kang Ji-yoon · 강지윤 자매 &nbsp;·&nbsp; 28 June 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="false">English</button>
+  <button type="button" data-lang="ko" aria-pressed="false">한국어</button>
+  <button type="button" data-lang="both" aria-pressed="true">Both 둘 다</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">제가 지난번 말씀에서 중1 봄에 선교사 집에 찾아갔고 그것을 계기로 교회에 들어왔다고 했는데, 오늘은 그 2탄입니다.</p>
+    <p class="tgt en">In my last talk, I told you that one spring during my first year of middle school I went to the missionaries’ apartment, and that this was what led me into the Church. Today is part two of that story.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">친구와 저는 선교사 집이 3층이라 계단을 올라가는데, 선교사 집 앞집에 놓인 우유 2개가 먼저 눈에 들어왔습니다. 아무런 거리낌 없이 그 우유를 마시고 나서 선교사 집 초인종을 눌렀습니다. 띵동!</p>
+    <p class="tgt en">My friend and I were climbing the stairs, since the missionaries lived on the third floor. But before we reached their door, what we noticed first were two bottles of milk sitting in front of the apartment next door. Without a second thought, we drank the milk, and then we rang the missionaries’ doorbell. Ding-dong!</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">괴물이 나오지 않을 텐데도 갑자기 둘 다 무서운 마음이 생겨서 계단을 막 뛰어 내려가는데 문이 열리고 한국 사람이 “누구세요?” 하는 목소리가 들렸습니다.</p>
+    <p class="tgt en">Even though no monster was going to jump out at us, the two of us were suddenly seized with fear and went racing back down the stairs. Just then the door opened, and we heard a Korean voice ask, “Who is it?”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">저희는 멈춰서 아무렇지도 않은 듯 “미국 사람 집 아니에요?”라고 물으니 “여기 미국 사람 있어요”라며 미국인이 얼굴을 내밀어서 빼도 박도 못하고 이야기를 시작하게 되었습니다.</p>
+    <p class="tgt en">We stopped, and acting as if nothing had happened, we asked, “Isn’t this where the Americans live?” “Yes, the Americans are right here,” came the reply, and an American leaned out of the doorway. Now there was no way out, and so we ended up talking with them.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">그 후에 침례를 받고 교회에 다니기 시작했습니다.</p>
+    <p class="tgt en">And after that, I was baptized and began coming to church.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">만약 미국 사람이 처음부터 나왔으면 계속 도망쳤을 텐데요. ㅎㅎ</p>
+    <p class="tgt en">If the American had been the one to come out first, I probably would have just kept running. (laughs)</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">참고로, 지금은 훔치지 않아요. ㅎㅎ</p>
+    <p class="tgt en">And just for the record — I don’t steal anymore. (laughs)</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">“성약은 우리를 어떻게 변화시키는가?”라는 주제에 대해 말씀드리고 싶습니다.</p>
+    <p class="tgt en">I would like to speak on the topic, “How Do Covenants Transform Us?”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">교회에 들어옴으로써 우리는 침례 성약, 성전 성약 등 성약을 맺습니다. 성약은 내가 침례를 받으면 하나님께서 축복해 주신다 등의 단순한 약속일까요?</p>
+    <p class="tgt en">As we come into the Church, we make covenants with God — the baptismal covenant, temple covenants, and others. But is a covenant merely a simple promise, something like, “If I am baptized, God will bless me”?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">창세기 28장에서 야곱은 형 에서를 피해 광야로 도망하던 도중, 돌을 베개 삼아 잠이 들었는데 하늘까지 닿은 사다리 시현을 봅니다.</p>
+    <p class="tgt en">In Genesis chapter 28, Jacob was fleeing from his brother Esau into the wilderness. He lay down with a stone for his pillow, and as he slept he saw a vision of a ladder reaching all the way up to heaven.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">그곳에서 주님을 만났고 주님은 야곱에게 네가 누워 있는 땅을 내가 너와 네 자손에게 주시고, 네 자손이 동서남북 티끌같이 되어 퍼져나갈 것이라는 축복을 약속하십니다.</p>
+    <p class="tgt en">There he met the Lord, who promised him this blessing: that the land on which he lay would be given to him and to his posterity, and that his descendants would spread abroad in every direction — east and west, north and south — like the dust of the earth.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">또한 모든 족속이 너와 너의 자손으로 말미암아 복을 받을 것이며, 주님께서 함께 하셔서 어디로 가든지 지켜주시고 다시 이 땅으로 돌아오게 하시겠다고 약속하셨습니다. (창세기 28:13~15)</p>
+    <p class="tgt en">He promised, too, that through him and his seed all the families of the earth would be blessed, and that the Lord would be with him, keep him wherever he went, and bring him back again to this land. (Genesis 28:13–15)</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">그러나 잠에서 깬 야곱은 그 축복의 깊이를 다 알지 못했습니다.</p>
+    <p class="tgt en">But when Jacob awoke, he did not yet understand the full depth of that blessing.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src ko">야곱은 이렇게 말했습니다.</p>
+    <p class="tgt en">Jacob said:</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">15</span>
+    <blockquote class="src ko">“하나님이 나와 함께 계셔서 내가 가는 이 길에서 나를 지키시고 먹을 떡과 입을 옷을 주시어 내가 평안히 아버지 집으로 돌아가게 하시오면, 여호와께서 나의 하나님이 되실 것이요.”<cite>창세기 28:20~21 · Genesis 28:20–21</cite></blockquote>
+    <blockquote class="tgt en">“If God will be with me, and will keep me in this way that I go, and will give me bread to eat, and raiment to put on, So that I come again to my father’s house in peace; then shall the Lord be my God.”<cite>창세기 28:20~21 · Genesis 28:20–21</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">이때의 야곱에게 성약은 “하나님이 나를 안전하게 지켜주시고 먹을 것과 입을 것을 주신다면, 저도 하나님을 섬기겠습니다”라는 단순한 약속이었습니다.</p>
+    <p class="tgt en">For Jacob at that moment, the covenant was a simple promise: “If God keeps me safe and gives me food and clothing, then I too will serve Him.”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">성약은 과연 단순한 약속이나 계약에 불과합니까? 만약 그렇다면 그것은 ‘거래’로 끝날 것입니다.</p>
+    <p class="tgt en">But is a covenant really nothing more than a promise or a contract? If it were, it would end as nothing more than a transaction.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">하지만 성약은 거래가 아니라 ‘관계’입니다. 그리고 그 관계는 결국 우리의 존재를 변화시킵니다.</p>
+    <p class="tgt en">But a covenant is not a transaction — it is a relationship. And that relationship, in the end, changes who we are.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">성약을 지키는 과정에서 우린 무엇이 되는가?</p>
+    <p class="tgt en">What do we become as we keep our covenants?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src ko">데이비드 에이 베드나 장로님은 복음과 성약이 주는 이 변화의 본질에 대해 이렇게 말씀하셨습니다.</p>
+    <p class="tgt en">Elder David A. Bednar taught about the nature of this change that comes through the gospel and through our covenants:</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">20</span>
+    <blockquote class="src ko">“예수 그리스도의 복음은 우리가 단순히 더 나은 사람이 되는 것만을 뜻하지 않습니다. 그것은 우리의 본성 자체가 본질적으로 변화하는 것을 의미합니다.</blockquote>
+    <blockquote class="tgt en">“The gospel of Jesus Christ does not mean simply becoming a better person. It means that our very nature is fundamentally changed.</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">21</span>
+    <blockquote class="src ko">성약을 맺고 지킬 때, 우리는 그리스도를 닮은 사람으로 변화되며 하나님의 성품에 참여하는 자가 됩니다.”<cite>David A. Bednar</cite></blockquote>
+    <blockquote class="tgt en">As we make and keep covenants, we are changed to become more like Christ, and made partakers of the divine nature.”<cite>David A. Bednar</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src ko">야곱은 외삼촌 집에서 20년 동안 혹독한 시련을 겪은 후 고향으로 돌아가던 중에 형 에서가 자기를 죽일 것이라는 공포를 느낍니다.</p>
+    <p class="tgt en">After enduring twenty harsh years in his uncle’s house, Jacob was on his way back home when he was gripped by the fear that his brother Esau would kill him.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src ko">하나님과 씨름했다고 하는 창세기 32장에 보면 야곱이 구한 축복은 20년 전 구했던 ‘먹을 떡’이나 ‘입을 옷’이 아니었습니다.</p>
+    <p class="tgt en">In Genesis chapter 32, where Jacob wrestled with God, the blessing he now sought was no longer the “bread to eat” or the “raiment to put on” that he had asked for twenty years before.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src ko">주님의 보호 없이는 살 수 없다는 철저한 겸손이자, 주님과 온전히 동행하겠다는 영적인 갈망으로 밤새 축복을 갈구하며 이렇게 말했습니다.</p>
+    <p class="tgt en">He knew he could not survive without the Lord’s protection, and he longed to walk wholly with Him. All through the night he pleaded for a blessing, saying:</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">25</span>
+    <blockquote class="src ko">“당신이 내게 축복하지 아니하면 가게 하지 아니하겠나이다.”<cite>창세기 32:26 · Genesis 32:26</cite></blockquote>
+    <blockquote class="tgt en">“I will not let thee go, except thou bless me.”<cite>창세기 32:26 · Genesis 32:26</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">26</span>
+    <p class="src ko">그때 하나님께서는 야곱에게 이렇게 말씀하셨습니다.</p>
+    <p class="tgt en">Then God said to Jacob:</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">27</span>
+    <blockquote class="src ko">“네 이름을 다시는 야곱이라 부를 것이 아니요 이스라엘이라 부를 것이니.”<cite>창세기 32:28 · Genesis 32:28</cite></blockquote>
+    <blockquote class="tgt en">“Thy name shall be called no more Jacob, but Israel.”<cite>창세기 32:28 · Genesis 32:28</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">28</span>
+    <p class="src ko">“다른 사람의 자리를 차지하는 사람”이라는 뜻인 야곱이라는 이름을 버리고, ‘하나님이 승리하시게 하다’라는 의미의 이스라엘로 그의 존재를 완전히 바꾸어 주신 것입니다.</p>
+    <p class="tgt en">He left behind the name Jacob — which can mean “one who takes another’s place” — and received the name Israel, which means “let God prevail.” In that moment, God changed his very being.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">성약이 영생과 어떻게 연결되는가?</p>
+    <p class="tgt en">How are covenants connected to eternal life?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">29</span>
+    <p class="src ko">야곱이 ‘이스라엘’로 이름이 바뀐 후 그의 삶에도 여전히 아내 라헬의 죽음, 요셉을 잃은 슬픔 등 거대한 시련이 휘몰아쳤습니다.</p>
+    <p class="tgt en">Even after his name was changed to Israel, great trials still swept through Jacob’s life — the death of his wife Rachel, the grief of losing Joseph, and many other sorrows.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">30</span>
+    <p class="src ko">과거의 야곱이었다면 자신의 힘으로 상황을 뒤엎으려 꾀를 부렸겠지만, 이스라엘이 된 야곱에게 주님은 내가 계명을 지키면 복을 주실 분이라는 계약적 관계가 아니었습니다.</p>
+    <p class="tgt en">The old Jacob would have schemed to turn things around by his own strength. But for Jacob, now made Israel, the Lord was no longer simply a partner in a contract — the One who would bless him only if he kept the commandments.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">31</span>
+    <p class="src ko">주님과 동행하며 안식과 보호를 누리는 결속의 관계로 “나의 존재를 지탱하시는 나의 주님”이 되셨습니다.</p>
+    <p class="tgt en">Through this binding bond — walking with the Lord, resting in His protection — He had become “my Lord, who sustains my very being.”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">32</span>
+    <p class="src ko">성약은 이처럼 ‘주님과 매일 동행하는 이야기’입니다.</p>
+    <p class="tgt en">A covenant, then, is the story of walking with the Lord every single day.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">33</span>
+    <p class="src ko">우리가 성약을 지킬 때 주님은 우리와 한 멍에를 메고 함께 걸어가 주시며, 우리를 죄와 유혹으로부터 지켜주고, 마침내 우리의 본성 자체를 구주를 닮은 ‘이스라엘’로 만들어 주실 것입니다.</p>
+    <p class="tgt en">As we keep our covenants, the Lord takes up the same yoke and walks beside us; He keeps us from sin and temptation, and in time He shapes our very nature into an “Israel” — a soul made to resemble the Savior.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">34</span>
+    <p class="src ko">남의 우유를 아무렇지 않게 서리하던 철부지 소녀가 복음을 만나고, 변화의 시작을 가져왔던 것처럼, 성약은 지금 이 순간에도 부족한 저를 변화시키려 합니다.</p>
+    <p class="tgt en">Just as a thoughtless little girl who could swipe someone else’s milk without a flicker of guilt met the gospel and began to change, so the covenant is working, even in this very moment, to change me, weak as I am.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">35</span>
+    <p class="src ko">침례에서는 “나는 주님을 따르겠습니다.” 성찬에서는 “오늘도 그 약속을 지키겠습니다.” 성전에서는 “내 삶 전체를 주님께 드리겠습니다.” 인봉에서는 “나의 가족까지 이 성약 안에 두겠습니다.”라는 성약을 맺습니다.</p>
+    <p class="tgt en">In baptism we covenant, “I will follow the Lord.” In the sacrament, “Today, once again, I will keep that promise.” In the temple, “I will give my whole life to the Lord.” In the sealing, “I will bring even my family into this covenant.”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">36</span>
+    <p class="src ko">성약은 사건이 아니라 방향이기 때문에 매일 조금씩, 매주 조금씩, 매년 조금씩, 우리를 그리스도께 더 가깝게 이끌어 갑니다.</p>
+    <p class="tgt en">Because a covenant is not an event but a direction, it draws us closer to Christ — a little each day, a little each week, a little each year.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">37</span>
+    <p class="src ko">야곱에게 이미 정말 많은 것을 주시려 하신 하나님을 야곱은 알지 못했습니다. 야곱은 처음에는 먹을 떡과 입을 옷을 구했습니다.</p>
+    <p class="tgt en">Jacob did not realize how much God had already meant to give him. At first, Jacob asked only for bread to eat and clothing to wear.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">38</span>
+    <p class="src ko">그러나 하나님께서는 처음부터 떡보다 더 큰 것, 옷보다 더 큰 것, 안전보다 더 큰 것을 준비하고 계셨습니다.</p>
+    <p class="tgt en">But from the very beginning, God was preparing something greater than bread, greater than clothing, greater than safety.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">39</span>
+    <p class="src ko">저도 제 삶을 돌아보며, 하나님께서 제가 구한 것보다 훨씬 더 좋은 것을 오래전부터 준비하고 계셨음을 느꼈습니다.</p>
+    <p class="tgt en">As I look back on my own life, I too have felt that God was preparing things far better than what I asked for, long before I ever knew to ask.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">40</span>
+    <p class="src ko">제가 말씀을 준비하면서 제 삶에서 주님의 축복과 인도에 감사드리며 울컥했습니다. 성약은 저에게 무엇을 요구하시는 것이 아니라 축복을 주시기 위한 방법이라는 것도 배웠습니다.</p>
+    <p class="tgt en">As I prepared this talk, I was moved to tears with gratitude for the Lord’s blessings and His guidance in my life. And I have learned that the covenant is not God demanding something of me — it is His way of blessing me.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">41</span>
+    <p class="src ko">제가 선교사 집에 찾아간 1983년 봄, 제 인생에서 가장 멋진 일이 시작된 그 시간에 감사드립니다. 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="tgt en">I am grateful for that spring of 1983, when I went to the missionaries’ apartment and the most wonderful journey of my life began. In the name of Jesus Christ, amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  function apply(lang) {
+    document.body.classList.remove("lang-en", "lang-ko");
+    if (lang === "en" || lang === "ko") document.body.classList.add("lang-" + lang);
+    btns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false");
+    });
+    try { localStorage.setItem("talkLang", lang); } catch (e) {}
+  }
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () { apply(b.dataset.lang); });
+  });
+  var saved = "both";
+  try { saved = localStorage.getItem("talkLang") || "both"; } catch (e) {}
+  apply(saved);
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

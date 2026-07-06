@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Midvale 12th Ward · 미드베일 12와드</title>
+<script>
+/* Which languages are checked (homepage default = Korean). Pre-paint, no flash. */
+(function(){
+  var d=document.documentElement;
+  try{
+    var a=JSON.parse(localStorage.getItem("homeLangs"));
+    if(!Array.isArray(a)||!a.length) a=["ko"];
+    ["en","ko","zh","th"].forEach(function(l){ if(a.indexOf(l)!==-1) d.classList.add("show-"+l); });
+  }catch(e){ d.classList.add("show-ko"); }
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..500&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..500&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#F7F3EA; --ink:#1E1B16; --ink-soft:#46402F; --muted:#6E5F4E;
-  --crimson:#8A2E2E; --gold:#9B7230; --hairline:#DED4BF;
+  --crimson:#8A2E2E; --gold:#9B7230; --hairline:#DED4BF; --card:#FBF7EE;
 }
 *{box-sizing:border-box;}
 html,body{
@@ -18,24 +29,48 @@ html,body{
   font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.55;
 }
 .ko{font-family:"Gowun Batang","Source Serif 4",serif;}
+.zh{font-family:"Noto Serif SC","Source Serif 4",serif;}
+.th{font-family:"Noto Serif Thai","Source Serif 4",serif;line-height:1.9;}
 .sheet{max-width:34rem;margin:0 auto;padding:2.8rem 1.4rem 4rem;}
+
+/* Per-language visibility: each language shows only when its checkbox is on.
+   Any combination allowed; homepage defaults to Korean. Classes on <html> = pre-paint. */
+html:not(.show-en) .l-en{display:none;}
+html:not(.show-ko) .l-ko{display:none;}
+html:not(.show-zh) .l-zh{display:none;}
+html:not(.show-th) .l-th{display:none;}
 
 .hero{display:block;width:100%;height:auto;border-radius:9px;
   border:1px solid var(--hairline);box-shadow:0 2px 12px rgba(30,27,22,.12);
   margin:0 0 2rem;}
 
 h1{font-size:1.7rem;line-height:1.2;margin:0 0 .15rem;text-align:center;}
-h1 .ko{display:block;font-weight:400;font-size:.78em;color:var(--ink-soft);margin-top:.2rem;}
+h1 .l-ko{display:block;font-weight:400;font-size:.78em;color:var(--ink-soft);margin-top:.2rem;}
 .intro{text-align:center;color:var(--ink-soft);font-size:1.05rem;margin:.9rem 0 1rem;}
-.intro .ko{display:block;font-size:.9rem;color:var(--muted);margin-top:.2rem;}
 .weektopic{text-align:center;font-style:italic;color:var(--ink);font-size:1.05rem;margin:0 0 2.2rem;}
-.weektopic .ko{display:block;font-style:normal;font-size:.92rem;color:var(--ink-soft);margin-top:.25rem;}
+.weektopic .l-zh, .weektopic .l-th{font-style:normal;}
+
+/* Language menu — independent checkboxes, native labels; default Korean. */
+.langbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.45rem;
+  margin:0 0 2rem;padding:.2rem 0;}
+.langbar button{
+  font-family:"Source Serif 4",Georgia,serif;font-size:.86rem;letter-spacing:.02em;
+  color:var(--ink-soft);background:var(--card);border:1.5px solid var(--hairline);
+  border-radius:999px;padding:.42rem 1.05rem;cursor:pointer;line-height:1;
+  transition:color .15s,background .15s,border-color .15s;}
+.langbar button:hover{border-color:var(--gold);color:var(--ink);}
+.langbar button[aria-pressed="true"]{
+  color:#FBF7EE;background:var(--gold);border-color:var(--gold);font-weight:600;
+  box-shadow:0 1px 3px rgba(0,0,0,.14);}
+.langbar button[data-lang="ko"]{font-family:"Gowun Batang",serif;}
+.langbar button[data-lang="zh"]{font-family:"Noto Serif SC",serif;}
+.langbar button[data-lang="th"]{font-family:"Noto Serif Thai",serif;}
 
 /* one speaker per row */
 .speaker{padding:1.25rem 0;border-top:1px solid var(--hairline);}
 .speaker:last-of-type{border-bottom:1px solid var(--hairline);}
 .speaker .who{font-size:1.2rem;font-weight:600;}
-.speaker .who .ko{font-weight:400;color:var(--ink-soft);}
+.speaker .who .name-ko{font-weight:400;color:var(--ink-soft);}
 .speaker a.talk{display:inline-block;margin-top:.55rem;color:var(--crimson);
   text-decoration:none;font-weight:600;font-size:1rem;}
 .speaker a.talk:hover{color:var(--gold);text-decoration:underline;}
@@ -43,7 +78,6 @@ h1 .ko{display:block;font-weight:400;font-size:.78em;color:var(--ink-soft);margi
 .archive-link{text-align:center;margin:2.1rem 0 .5rem;}
 .archive-link a{color:var(--muted);text-decoration:none;font-size:1rem;}
 .archive-link a:hover{color:var(--gold);text-decoration:underline;}
-.archive-link .ko{font-family:"Gowun Batang","Source Serif 4",serif;}
 
 .foot{text-align:center;margin-top:2.6rem;}
 .feedback-btn{display:inline-block;text-decoration:none;
@@ -53,48 +87,114 @@ h1 .ko{display:block;font-weight:400;font-size:.78em;color:var(--ink-soft);margi
   box-shadow:0 1px 3px rgba(0,0,0,.14);transition:background .15s,border-color .15s;}
 .feedback-btn:hover{background:#876328;border-color:#876328;}
 .foot .note{display:block;margin-top:.9rem;font-size:.8rem;color:var(--muted);}
-.foot .note .ko{font-family:"Gowun Batang","Source Serif 4",serif;}
 </style>
 </head>
 <body>
 <div class="sheet">
 
   <img class="hero" src="seoul-temple.jpg" alt="Seoul Korea Temple" loading="lazy">
-  <h1>Midvale 12th Ward<span class="ko">미드베일 12와드</span></h1>
-  <p class="intro">Here are this week&rsquo;s talks.
-    <span class="ko">이번 주 말씀입니다.</span></p>
+  <h1>Midvale 12th Ward<span class="l-ko ko">미드베일 12와드</span></h1>
+
+  <!-- Language menu (native labels; default Korean). -->
+  <nav class="langbar" aria-label="Language / 언어">
+    <button type="button" data-lang="en" aria-pressed="false">English</button>
+    <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+    <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    <button type="button" data-lang="th" aria-pressed="false">ไทย</button>
+  </nav>
+
+  <p class="intro">
+    <span class="l-en">Here are this week&rsquo;s talks.</span>
+    <span class="l-ko ko">이번 주 말씀입니다.</span>
+    <span class="l-zh zh">以下是本周的演讲。</span>
+    <span class="l-th th">ต่อไปนี้คือคำปราศรัยประจำสัปดาห์นี้</span>
+  </p>
 
   <!-- ===== SPEAKERS: add one block per speaker ====================================
-       Copy this block, fill in the name, the topic (optional), and the talk file name.
-       Drop the <a> line if a speaker has no translated talk to link.
-
-    <div class="speaker">
-      <div class="who">Speaker Name <span class="ko">이름</span></div>
-      <a class="talk" href="speaker-name.html">Read the talk &middot; 번역문 보기 &rarr;</a>
-    </div>
+       Copy a .speaker block, fill in the name (Roman + Korean stay in all views —
+       proper nouns), and the talk file name. Drop the <a> line if no translated talk.
+       Update the .weektopic spans (en/ko/zh/th) with the shared topic each week.
   ============================================================================== -->
 
-  <p class="weektopic">&ldquo;How Do Covenants Transform Us?&rdquo;
-    <span class="ko">&ldquo;성약은 우리를 어떻게 변화시키는가?&rdquo;</span></p>
+  <p class="weektopic">
+    <span class="l-en">&ldquo;How Do Covenants Transform Us?&rdquo;</span>
+    <span class="l-ko ko">&ldquo;성약은 우리를 어떻게 변화시키는가?&rdquo;</span>
+    <span class="l-zh zh">&ldquo;圣约如何改变我们？&rdquo;</span>
+    <span class="l-th th">&ldquo;พันธสัญญาเปลี่ยนแปลงเราอย่างไร?&rdquo;</span>
+  </p>
 
   <div class="speaker">
-    <div class="who">Sister Kang Ji-yoon <span class="ko">강지윤 자매</span></div>
-    <a class="talk" href="kang-jiyoon.html">Read the talk &middot; 번역문 보기 &rarr;</a>
+    <div class="who">Sister Kang Ji-yoon <span class="name-ko ko">· 강지윤 자매</span></div>
+    <a class="talk" href="kang-jiyoon.html">
+      <span class="l-en">Read the talk &rarr;</span>
+      <span class="l-ko ko">번역문 보기 &rarr;</span>
+      <span class="l-zh zh">阅读演讲 &rarr;</span>
+      <span class="l-th th">อ่านคำปราศรัย &rarr;</span>
+    </a>
   </div>
 
   <div class="speaker">
-    <div class="who">Brother Lee Jun-seok <span class="ko">이준석 형제</span></div>
-    <a class="talk" href="lee-junseok.html">Read the talk &middot; 번역문 보기 &rarr;</a>
+    <div class="who">Brother Lee Jun-seok <span class="name-ko ko">· 이준석 형제</span></div>
+    <a class="talk" href="lee-junseok.html">
+      <span class="l-en">Read the talk &rarr;</span>
+      <span class="l-ko ko">번역문 보기 &rarr;</span>
+      <span class="l-zh zh">阅读演讲 &rarr;</span>
+      <span class="l-th th">อ่านคำปราศรัย &rarr;</span>
+    </a>
   </div>
 
-  <p class="archive-link"><a href="archive.html">&larr; Previous weeks &middot; <span class="ko">지난 말씀</span></a></p>
+  <p class="archive-link"><a href="archive.html">&larr;
+    <span class="l-en">Previous weeks</span>
+    <span class="l-ko ko">지난 말씀</span>
+    <span class="l-zh zh">往期内容</span>
+    <span class="l-th th">สัปดาห์ที่ผ่านมา</span>
+  </a></p>
 
   <div class="foot">
-    <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback &middot; 의견 보내기</a>
-    <span class="note">Translated by AI. Use the feedback button to recommend corrections.
-      <span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span></span>
+    <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback</a>
+    <span class="note">
+      <span class="l-en">Translated by AI. Use the feedback button to recommend corrections.</span>
+      <span class="l-ko ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span>
+      <span class="l-zh zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span>
+      <span class="l-th th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span>
+    </span>
   </div>
 
 </div>
+<script>
+(function(){
+  var bar=document.querySelector(".langbar"); if(!bar) return;
+  var btns=bar.querySelectorAll("button[data-lang]");
+  var docEl=document.documentElement;
+  var LANGS=["en","ko","zh","th"];
+  var FB={en:"Feedback",ko:"의견 보내기",zh:"意见反馈",th:"แสดงความคิดเห็น"};
+  var fbBtn=document.querySelector(".feedback-btn");
+  function apply(active,save){
+    LANGS.forEach(function(l){
+      var on=active.indexOf(l)!==-1;
+      docEl.classList.toggle("show-"+l,on);
+      var b=bar.querySelector('button[data-lang="'+l+'"]');
+      if(b) b.setAttribute("aria-pressed",on?"true":"false");
+    });
+    if(fbBtn) fbBtn.textContent=LANGS.filter(function(l){return active.indexOf(l)!==-1;})
+      .map(function(l){return FB[l];}).join(" · ");
+    if(save){ try{ localStorage.setItem("homeLangs",JSON.stringify(active)); }catch(e){} }
+  }
+  var active;
+  try{ active=JSON.parse(localStorage.getItem("homeLangs")); }catch(e){}
+  if(!Array.isArray(active)||!active.length) active=["ko"];
+  active=active.filter(function(l){ return LANGS.indexOf(l)!==-1; });
+  if(!active.length) active=["ko"];
+  apply(active,false);
+  btns.forEach(function(b){
+    b.addEventListener("click",function(){
+      var l=b.dataset.lang, i=active.indexOf(l);
+      if(i===-1) active.push(l);
+      else if(active.length>1) active.splice(i,1); // never turn the last one off
+      apply(active,true);
+    });
+  });
+})();
+</script>
 </body>
 </html>

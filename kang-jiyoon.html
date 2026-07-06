@@ -17,13 +17,13 @@
   try {
     var a = JSON.parse(localStorage.getItem("talkLangs"));
     if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
-    ["en", "ko", "zh"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
   } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --paper: #F5EFE3;
@@ -70,15 +70,21 @@ body {
 }
 .ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
 
-/* Simplified-Chinese reading-aid layer. Opt-in (its checkbox starts off), so the
-   pulpit KO/EN experience is unchanged. Only present on talks with a `zh` field. */
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
 .zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
-.pair .zh { margin: 0.5rem 0 0; color: var(--ink); }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.pair .zh, .pair .th { margin: 0.5rem 0 0; color: var(--ink); }
 .talk-h .zh {
   font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
   font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
 }
-.pair.cite .zh {
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: normal;
 }
@@ -96,7 +102,7 @@ header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline
 }
 .talk-head h1 .ko { font-weight: 500; }
 /* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
-.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh { display: block; }
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th { display: block; }
 .talk-head .byline {
   font-family: "Fraunces", Georgia, serif;
   font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
@@ -175,8 +181,8 @@ html.show-en.show-ko .pair:not(.cite) {
 footer.colophon {
   margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
 }
-.colophon .en, .colophon .ko, .colophon .zh { display: block; }
-.colophon .ko, .colophon .zh { margin-top: 0.15rem; }
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th { margin-top: 0.15rem; }
 .feedback-btn {
   display: inline-block; margin-bottom: 1rem; text-decoration: none;
   font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
@@ -212,6 +218,7 @@ footer.colophon {
 }
 .langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
 .langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
 
 /* In dark mode the gold is light, so put dark text on the filled buttons. */
 html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
@@ -264,6 +271,7 @@ html.text-xl { font-size: 25px; }  /* "Largest" */
 html:not(.show-en) .en { display: none; }
 html:not(.show-ko) .ko { display: none; }
 html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
 
 @media print { .langbar { display: none; } }
 </style>
@@ -271,7 +279,7 @@ html:not(.show-zh) .zh { display: none; }
 <body>
 <div class="wrap">
 <header class="talk-head">
-  <h1><span class="en">How Do Covenants Transform Us?</span><span class="ko">성약은 우리를 어떻게 변화시키는가?</span><span class="zh">圣约如何改变我们？</span></h1>
+  <h1><span class="en">How Do Covenants Transform Us?</span><span class="ko">성약은 우리를 어떻게 변화시키는가?</span><span class="zh">圣约如何改变我们？</span><span class="th">พันธสัญญาเปลี่ยนแปลงเราอย่างไร?</span></h1>
   <p class="byline">Sister Kang Ji-yoon · 강지윤 자매 &nbsp;·&nbsp; 28 June 2026</p>
   <div class="rule"></div>
 </header>
@@ -280,6 +288,7 @@ html:not(.show-zh) .zh { display: none; }
   <button type="button" data-lang="en" aria-pressed="true">English</button>
   <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
   <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
   <span class="sep" aria-hidden="true"></span>
   <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
     <span class="knob" aria-hidden="true">
@@ -300,6 +309,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">제가 지난번 말씀에서 중1 봄에 선교사 집에 찾아갔고 그것을 계기로 교회에 들어왔다고 했는데, 오늘은 그 2탄입니다.</p>
     <p class="tgt en">In my last talk, I told you that one spring during my first year of middle school I went to the missionaries’ apartment, and that this was what led me into the Church. Today is part two of that story.</p>
     <p class="zh">我上次演讲时曾提到，初中一年级那年的春天，我去了传教士的住处，也正是从那时起，我加入了教会。今天要讲的，是那个故事的第二集。</p>
+    <p class="th">ในคำพูดครั้งก่อน ดิฉันได้เล่าให้ทุกท่านฟังว่า ในฤดูใบไม้ผลิตอนที่ดิฉันเรียนอยู่ชั้นมัธยมศึกษาปีที่ ๑ ดิฉันได้ไปที่บ้านของผู้สอนศาสนา และนั่นเองที่เป็นจุดเริ่มต้นให้ดิฉันเข้ามาสู่ศาสนจักร วันนี้คือภาคสองของเรื่องนั้นค่ะ</p>
   </div>
 
   <div class="pair">
@@ -307,6 +317,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">친구와 저는 선교사 집이 3층이라 계단을 올라가는데, 선교사 집 앞집에 놓인 우유 2개가 먼저 눈에 들어왔습니다. 아무런 거리낌 없이 그 우유를 마시고 나서 선교사 집 초인종을 눌렀습니다. 띵동!</p>
     <p class="tgt en">My friend and I were climbing the stairs, since the missionaries lived on the third floor. But before we reached their door, what we noticed first were two bottles of milk sitting in front of the apartment next door. Without a second thought, we drank the milk, and then we rang the missionaries’ doorbell. Ding-dong!</p>
     <p class="zh">传教士住在三楼，我和朋友沿着楼梯往上爬。可还没走到他们门口，先映入眼帘的，却是放在传教士对门那户人家门前的两瓶牛奶。我们毫无顾忌地把那牛奶喝了，然后才按响传教士家的门铃。叮咚！</p>
+    <p class="th">เพราะบ้านของผู้สอนศาสนาอยู่ชั้นสาม ดิฉันกับเพื่อนจึงเดินขึ้นบันไดไป แต่สิ่งแรกที่สะดุดตาเรากลับเป็นนมสองขวดที่วางอยู่หน้าบ้านของเพื่อนบ้านที่อยู่ตรงข้ามห้องผู้สอนศาสนา เราดื่มนมนั้นไปอย่างไม่คิดอะไรเลย แล้วจึงกดกริ่งหน้าบ้านผู้สอนศาสนา ติ๊งต่อง!</p>
   </div>
 
   <div class="pair">
@@ -314,6 +325,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">괴물이 나오지 않을 텐데도 갑자기 둘 다 무서운 마음이 생겨서 계단을 막 뛰어 내려가는데 문이 열리고 한국 사람이 “누구세요?” 하는 목소리가 들렸습니다.</p>
     <p class="tgt en">Even though no monster was going to jump out at us, the two of us were suddenly seized with fear and went racing back down the stairs. Just then the door opened, and we heard a Korean voice ask, “Who is it?”</p>
     <p class="zh">明明不会有什么怪物跳出来，可我们俩忽然都害怕起来，拔腿就往楼下跑。就在这时，门开了，我们听见一个韩国人的声音问道：「是谁呀？」</p>
+    <p class="th">ทั้งที่ไม่มีสัตว์ประหลาดตัวไหนจะโผล่ออกมาสักหน่อย แต่จู่ๆ เราทั้งสองคนก็เกิดความกลัวขึ้นมา จึงพากันวิ่งลงบันไดอย่างรวดเร็ว พอดีกับที่ประตูเปิดออก และได้ยินเสียงคนเกาหลีถามว่า “ใครน่ะ?”</p>
   </div>
 
   <div class="pair">
@@ -321,6 +333,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">저희는 멈춰서 아무렇지도 않은 듯 “미국 사람 집 아니에요?”라고 물으니 “여기 미국 사람 있어요”라며 미국인이 얼굴을 내밀어서 빼도 박도 못하고 이야기를 시작하게 되었습니다.</p>
     <p class="tgt en">We stopped, and acting as if nothing had happened, we asked, “Isn’t this where the Americans live?” “Yes, the Americans are right here,” came the reply, and an American leaned out of the doorway. Now there was no way out, and so we ended up talking with them.</p>
     <p class="zh">我们停下脚步，装作若无其事的样子问：「这里不是美国人住的地方吗？」「美国人就在这里呀，」话音刚落，一位美国人探出头来。这下我们进退不得，只好和他们攀谈了起来。</p>
+    <p class="th">เราหยุดชะงัก แล้วทำเป็นไม่มีอะไรเกิดขึ้น ถามไปว่า “ที่นี่ไม่ใช่บ้านของคนอเมริกันหรือคะ?” “คนอเมริกันอยู่ที่นี่แหละ” ว่าแล้วชาวอเมริกันคนหนึ่งก็โผล่หน้าออกมา เราจึงจนมุม ต้องเริ่มพูดคุยกับพวกเขาในที่สุด</p>
   </div>
 
   <div class="pair">
@@ -328,6 +341,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">그 후에 침례를 받고 교회에 다니기 시작했습니다.</p>
     <p class="tgt en">And after that, I was baptized and began coming to church.</p>
     <p class="zh">从那以后，我受了洗，开始去教会。</p>
+    <p class="th">หลังจากนั้น ดิฉันก็รับบัพติศมาและเริ่มมาโบสถ์เป็นประจำ</p>
   </div>
 
   <div class="pair">
@@ -335,6 +349,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">만약 미국 사람이 처음부터 나왔으면 계속 도망쳤을 텐데요. ㅎㅎ</p>
     <p class="tgt en">If the American had been the one to come out first, I probably would have just kept running. (laughs)</p>
     <p class="zh">要是一开始出来的就是那位美国人，我大概会一路逃个没完吧。（笑）</p>
+    <p class="th">ถ้าหากคนอเมริกันเป็นคนแรกที่ออกมา ดิฉันคงวิ่งหนีต่อไปไม่หยุดแน่ๆ เลยค่ะ (หัวเราะ)</p>
   </div>
 
   <div class="pair">
@@ -342,6 +357,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">참고로, 지금은 훔치지 않아요. ㅎㅎ</p>
     <p class="tgt en">And just for the record — I don’t steal anymore. (laughs)</p>
     <p class="zh">顺便说一句，我现在不偷东西了。（笑）</p>
+    <p class="th">อ้อ บอกไว้ก่อนนะคะ เดี๋ยวนี้ดิฉันไม่ขโมยของแล้วค่ะ (หัวเราะ)</p>
   </div>
 
   <div class="pair">
@@ -349,6 +365,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">“성약은 우리를 어떻게 변화시키는가?”라는 주제에 대해 말씀드리고 싶습니다.</p>
     <p class="tgt en">I would like to speak on the topic, “How Do Covenants Transform Us?”</p>
     <p class="zh">我想和大家谈一谈「圣约如何改变我们？」这个主题。</p>
+    <p class="th">ดิฉันอยากจะพูดเกี่ยวกับหัวข้อที่ว่า “พันธสัญญาเปลี่ยนแปลงเราอย่างไร?”</p>
   </div>
 
   <div class="pair">
@@ -356,6 +373,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">교회에 들어옴으로써 우리는 침례 성약, 성전 성약 등 성약을 맺습니다. 성약은 내가 침례를 받으면 하나님께서 축복해 주신다 등의 단순한 약속일까요?</p>
     <p class="tgt en">As we come into the Church, we make covenants with God — the baptismal covenant, temple covenants, and others. But is a covenant merely a simple promise, something like, “If I am baptized, God will bless me”?</p>
     <p class="zh">当我们加入教会，就与神立下圣约——洗礼的圣约、圣殿的圣约，等等。可是，圣约只是「我若受洗，神就赐福给我」这样一个单纯的约定吗？</p>
+    <p class="th">เมื่อเราเข้ามาสู่ศาสนจักร เราก็ทำพันธสัญญาต่างๆ เช่น พันธสัญญาแห่งบัพติศมา พันธสัญญาแห่งพระวิหาร และอื่นๆ แต่พันธสัญญาเป็นเพียงคำสัญญาง่ายๆ อย่างที่ว่า “ถ้าฉันรับบัพติศมา พระผู้เป็นเจ้าจะทรงอวยพรฉัน” เท่านั้นหรือ?</p>
   </div>
 
   <div class="pair">
@@ -363,6 +381,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">창세기 28장에서 야곱은 형 에서를 피해 광야로 도망하던 도중, 돌을 베개 삼아 잠이 들었는데 하늘까지 닿은 사다리 시현을 봅니다.</p>
     <p class="tgt en">In Genesis chapter 28, Jacob was fleeing from his brother Esau into the wilderness. He lay down with a stone for his pillow, and as he slept he saw a vision of a ladder reaching all the way up to heaven.</p>
     <p class="zh">在创世记第二十八章里，雅各为了躲避哥哥以扫，逃往旷野。途中他以石头为枕睡去，在睡梦中看见了一个直通天上的梯子的异象。</p>
+    <p class="th">ในหนังสือปฐมกาลบทที่ ๒๘ ยาโคบกำลังหนีจากเอซาวพี่ชายของเขาเข้าไปในถิ่นทุรกันดาร ระหว่างทางเขาใช้ก้อนหินต่างหมอนแล้วหลับไป และในขณะที่หลับอยู่นั้น เขาได้เห็นนิมิตของบันไดที่ทอดขึ้นไปจนถึงสวรรค์</p>
   </div>
 
   <div class="pair">
@@ -370,6 +389,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">그곳에서 주님을 만났고 주님은 야곱에게 네가 누워 있는 땅을 내가 너와 네 자손에게 주시고, 네 자손이 동서남북 티끌같이 되어 퍼져나갈 것이라는 축복을 약속하십니다.</p>
     <p class="tgt en">There he met the Lord, who promised him this blessing: that the land on which he lay would be given to him and to his posterity, and that his descendants would spread abroad in every direction — east and west, north and south — like the dust of the earth.</p>
     <p class="zh">在那里，他遇见了主。主应许赐福给雅各：他所躺卧之地，主必赐给他和他的后裔；他的后裔要如尘沙一般，向东西南北各方开展。</p>
+    <p class="th">ที่นั่นเขาได้พบกับพระเจ้า และพระเจ้าทรงสัญญาจะประทานพรแก่ยาโคบว่า แผ่นดินที่เขานอนอยู่นั้น พระองค์จะประทานให้แก่เขาและเชื้อสายของเขา และเชื้อสายของเขาจะแผ่กระจายออกไปทั่วทุกทิศ ทั้งทิศตะวันออก ตะวันตก เหนือ ใต้ มากมายดุจผงคลีดิน</p>
   </div>
 
   <div class="pair">
@@ -377,6 +397,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">또한 모든 족속이 너와 너의 자손으로 말미암아 복을 받을 것이며, 주님께서 함께 하셔서 어디로 가든지 지켜주시고 다시 이 땅으로 돌아오게 하시겠다고 약속하셨습니다. (창세기 28:13~15)</p>
     <p class="tgt en">He promised, too, that through him and his seed all the families of the earth would be blessed, and that the Lord would be with him, keep him wherever he went, and bring him back again to this land. (Genesis 28:13–15)</p>
     <p class="zh">主也应许，地上万族都要因他和他的后裔而蒙福；主必与他同在，无论他往哪里去都保佑他，并且领他归回这地。（创世记28:13～15）</p>
+    <p class="th">อีกทั้งพระองค์ทรงสัญญาว่า บรรดาครอบครัวทั้งหลายบนแผ่นดินโลกจะได้รับพรโดยผ่านเขาและเชื้อสายของเขา และพระเจ้าจะสถิตอยู่กับเขา จะทรงพิทักษ์รักษาเขาไม่ว่าเขาจะไปที่ใด และจะทรงนำเขากลับมายังแผ่นดินนี้อีกครั้ง (ปฐมกาล ๒๘:๑๓–๑๕)</p>
   </div>
 
   <div class="pair">
@@ -384,6 +405,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">그러나 잠에서 깬 야곱은 그 축복의 깊이를 다 알지 못했습니다.</p>
     <p class="tgt en">But when Jacob awoke, he did not yet understand the full depth of that blessing.</p>
     <p class="zh">然而，雅各睡醒之后，还没有完全明白那祝福的深意。</p>
+    <p class="th">แต่เมื่อยาโคบตื่นขึ้น เขายังไม่เข้าใจความลึกซึ้งทั้งหมดของพรนั้น</p>
   </div>
 
   <div class="pair">
@@ -391,6 +413,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">야곱은 이렇게 말했습니다.</p>
     <p class="tgt en">Jacob said:</p>
     <p class="zh">雅各这样说道：</p>
+    <p class="th">ยาโคบกล่าวว่า</p>
   </div>
 
   <div class="pair cite">
@@ -398,6 +421,7 @@ html:not(.show-zh) .zh { display: none; }
     <blockquote class="src ko">“하나님이 나와 함께 계셔서 내가 가는 이 길에서 나를 지키시고 먹을 떡과 입을 옷을 주시어 내가 평안히 아버지 집으로 돌아가게 하시오면, 여호와께서 나의 하나님이 되실 것이요.”<cite>창세기 28:20~21 · Genesis 28:20–21</cite></blockquote>
     <blockquote class="tgt en">“If God will be with me, and will keep me in this way that I go, and will give me bread to eat, and raiment to put on, So that I come again to my father’s house in peace; then shall the Lord be my God.”<cite>창세기 28:20~21 · Genesis 28:20–21</cite></blockquote>
     <blockquote class="zh">「神若与我同在，在我所行的路上保佑我，又给我食物吃、衣服穿，使我平平安安地回到我父亲的家，我就必以耶和华为我的神。」<cite>창세기 28:20~21 · Genesis 28:20–21</cite></blockquote>
+    <blockquote class="th">ถ้าพระเจ้าทรงอยู่กับข้าพระองค์ ทรงพิทักษ์รักษาทางที่ข้าพระองค์จะไป ประทานอาหารให้ข้าพระองค์รับประทาน และเสื้อผ้าให้ข้าพระองค์สวม จนข้าพระองค์กลับมาบ้านบิดาของข้าพระองค์โดยสวัสดิภาพแล้ว พระยาห์เวห์จะทรงเป็นพระเจ้าของข้าพระองค์<cite>창세기 28:20~21 · Genesis 28:20–21</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -405,6 +429,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">이때의 야곱에게 성약은 “하나님이 나를 안전하게 지켜주시고 먹을 것과 입을 것을 주신다면, 저도 하나님을 섬기겠습니다”라는 단순한 약속이었습니다.</p>
     <p class="tgt en">For Jacob at that moment, the covenant was a simple promise: “If God keeps me safe and gives me food and clothing, then I too will serve Him.”</p>
     <p class="zh">对当时的雅各来说，圣约只是一个单纯的约定：「只要神保守我平安，赐我吃的、穿的，我也就事奉神。」</p>
+    <p class="th">สำหรับยาโคบในเวลานั้น พันธสัญญาเป็นเพียงคำสัญญาง่ายๆ ที่ว่า “ถ้าพระผู้เป็นเจ้าทรงคุ้มครองข้าพเจ้าให้ปลอดภัย และประทานอาหารกับเครื่องนุ่งห่มแก่ข้าพเจ้า ข้าพเจ้าก็จะรับใช้พระองค์เช่นกัน”</p>
   </div>
 
   <div class="pair">
@@ -412,6 +437,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">성약은 과연 단순한 약속이나 계약에 불과합니까? 만약 그렇다면 그것은 ‘거래’로 끝날 것입니다.</p>
     <p class="tgt en">But is a covenant really nothing more than a promise or a contract? If it were, it would end as nothing more than a transaction.</p>
     <p class="zh">但圣约当真只是一个约定或契约吗？倘若如此，它便只会以一场「交易」告终。</p>
+    <p class="th">พันธสัญญาเป็นเพียงคำสัญญาหรือข้อตกลงเท่านั้นจริงหรือ? หากเป็นเช่นนั้น ก็คงจบลงเพียงแค่ ‘การแลกเปลี่ยน’</p>
   </div>
 
   <div class="pair">
@@ -419,12 +445,14 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">하지만 성약은 거래가 아니라 ‘관계’입니다. 그리고 그 관계는 결국 우리의 존재를 변화시킵니다.</p>
     <p class="tgt en">But a covenant is not a transaction — it is a relationship. And that relationship, in the end, changes who we are.</p>
     <p class="zh">然而，圣约不是交易，而是一种「关系」。而这份关系，最终会改变我们成为怎样的人。</p>
+    <p class="th">แต่พันธสัญญาไม่ใช่การแลกเปลี่ยน หากเป็น ‘ความสัมพันธ์’ และความสัมพันธ์นั้นในที่สุดก็เปลี่ยนแปลงตัวตนของเรา</p>
   </div>
 
   <div class="talk-h">
     <p class="src ko">성약을 지키는 과정에서 우린 무엇이 되는가?</p>
     <p class="tgt en">What do we become as we keep our covenants?</p>
     <p class="zh">在遵守圣约的过程中，我们会成为什么样的人？</p>
+    <p class="th">เมื่อรักษาพันธสัญญา เราจะกลายเป็นคนแบบใด?</p>
   </div>
 
   <div class="pair">
@@ -432,6 +460,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">데이비드 에이 베드나 장로님은 복음과 성약이 주는 이 변화의 본질에 대해 이렇게 말씀하셨습니다.</p>
     <p class="tgt en">Elder David A. Bednar taught about the nature of this change that comes through the gospel and through our covenants:</p>
     <p class="zh">关于福音与圣约所带来的这种改变的本质，大卫·贝纳长老曾这样教导：</p>
+    <p class="th">เอ็ลเดอร์เดวิด เอ. เบดนาร์ ได้สอนเกี่ยวกับแก่นแท้ของการเปลี่ยนแปลงที่มาจากพระกิตติคุณและพันธสัญญาไว้ดังนี้</p>
   </div>
 
   <div class="pair cite">
@@ -439,6 +468,7 @@ html:not(.show-zh) .zh { display: none; }
     <blockquote class="src ko">“예수 그리스도의 복음은 우리가 단순히 더 나은 사람이 되는 것만을 뜻하지 않습니다. 그것은 우리의 본성 자체가 본질적으로 변화하는 것을 의미합니다.</blockquote>
     <blockquote class="tgt en">“The gospel of Jesus Christ does not mean simply becoming a better person. It means that our very nature is fundamentally changed.</blockquote>
     <blockquote class="zh">「耶稣基督的福音并不只是要我们单单成为更好的人，而是要我们的本性从根本上得到改变。</blockquote>
+    <blockquote class="th">“พระกิตติคุณของพระเยซูคริสต์มิได้หมายความเพียงว่าเราจะกลายเป็นคนที่ดีขึ้นเท่านั้น แต่หมายความว่าธรรมชาติแท้จริงของเรานั้นจะได้รับการเปลี่ยนแปลงอย่างถึงรากฐาน</blockquote>
   </div>
 
   <div class="pair cite">
@@ -446,6 +476,7 @@ html:not(.show-zh) .zh { display: none; }
     <blockquote class="src ko">성약을 맺고 지킬 때, 우리는 그리스도를 닮은 사람으로 변화되며 하나님의 성품에 참여하는 자가 됩니다.”<cite>David A. Bednar</cite></blockquote>
     <blockquote class="tgt en">As we make and keep covenants, we are changed to become more like Christ, and made partakers of the divine nature.”<cite>David A. Bednar</cite></blockquote>
     <blockquote class="zh">当我们订立并遵守圣约时，我们就被改变成更像基督的人，并得以有分于神圣的属性。」<cite>David A. Bednar</cite></blockquote>
+    <blockquote class="th">เมื่อเราทำและรักษาพันธสัญญา เราจะได้รับการเปลี่ยนแปลงให้เป็นเหมือนพระคริสต์มากขึ้น และกลายเป็นผู้มีส่วนในพระอุปนิสัยของพระผู้เป็นเจ้า”<cite>David A. Bednar</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -453,6 +484,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">야곱은 외삼촌 집에서 20년 동안 혹독한 시련을 겪은 후 고향으로 돌아가던 중에 형 에서가 자기를 죽일 것이라는 공포를 느낍니다.</p>
     <p class="tgt en">After enduring twenty harsh years in his uncle’s house, Jacob was on his way back home when he was gripped by the fear that his brother Esau would kill him.</p>
     <p class="zh">雅各在舅舅家里度过了二十年严酷的磨难，在返回故乡的途中，他心里充满了哥哥以扫会杀他的恐惧。</p>
+    <p class="th">หลังจากยาโคบผ่านการทดลองอันแสนสาหัสตลอด ๒๐ ปีในบ้านของลุงของเขา ระหว่างที่เขาเดินทางกลับบ้านเกิด เขารู้สึกหวาดกลัวว่าเอซาวพี่ชายจะฆ่าเขา</p>
   </div>
 
   <div class="pair">
@@ -460,6 +492,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">하나님과 씨름했다고 하는 창세기 32장에 보면 야곱이 구한 축복은 20년 전 구했던 ‘먹을 떡’이나 ‘입을 옷’이 아니었습니다.</p>
     <p class="tgt en">In Genesis chapter 32, where Jacob wrestled with God, the blessing he now sought was no longer the “bread to eat” or the “raiment to put on” that he had asked for twenty years before.</p>
     <p class="zh">在记载雅各与神摔跤的创世记第三十二章里，雅各这一次所求的祝福，已不再是二十年前所求的「食物」或「衣服」了。</p>
+    <p class="th">ในปฐมกาลบทที่ ๓๒ ซึ่งเล่าว่ายาโคบปล้ำสู้กับพระผู้เป็นเจ้า พรที่ยาโคบทูลขอในครั้งนี้ไม่ใช่ ‘อาหารที่จะรับประทาน’ หรือ ‘เสื้อผ้าที่จะสวมใส่’ อย่างที่เขาเคยทูลขอเมื่อ ๒๐ ปีก่อนอีกต่อไป</p>
   </div>
 
   <div class="pair">
@@ -467,6 +500,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">주님의 보호 없이는 살 수 없다는 철저한 겸손이자, 주님과 온전히 동행하겠다는 영적인 갈망으로 밤새 축복을 갈구하며 이렇게 말했습니다.</p>
     <p class="tgt en">He knew he could not survive without the Lord’s protection, and he longed to walk wholly with Him. All through the night he pleaded for a blessing, saying:</p>
     <p class="zh">他深知若没有主的保护便无法存活，怀着这份彻底的谦卑，也怀着渴望与主全然同行的灵性上的渴慕，他整夜恳求祝福，说道：</p>
+    <p class="th">ด้วยความถ่อมตนอย่างถึงที่สุดที่ว่าเขาไม่อาจมีชีวิตอยู่ได้หากปราศจากการปกป้องของพระเจ้า และด้วยความปรารถนาทางวิญญาณที่จะเดินไปกับพระองค์อย่างเต็มที่ เขาจึงเฝ้าวิงวอนขอพรตลอดทั้งคืน และทูลว่า</p>
   </div>
 
   <div class="pair cite">
@@ -474,6 +508,7 @@ html:not(.show-zh) .zh { display: none; }
     <blockquote class="src ko">“당신이 내게 축복하지 아니하면 가게 하지 아니하겠나이다.”<cite>창세기 32:26 · Genesis 32:26</cite></blockquote>
     <blockquote class="tgt en">“I will not let thee go, except thou bless me.”<cite>창세기 32:26 · Genesis 32:26</cite></blockquote>
     <blockquote class="zh">「你不给我祝福，我就不容你去。」<cite>창세기 32:26 · Genesis 32:26</cite></blockquote>
+    <blockquote class="th">ข้าพเจ้าไม่ยอมให้ท่านไป นอกจากท่านจะอวยพรแก่ข้าพเจ้า<cite>창세기 32:26 · Genesis 32:26</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -481,6 +516,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">그때 하나님께서는 야곱에게 이렇게 말씀하셨습니다.</p>
     <p class="tgt en">Then God said to Jacob:</p>
     <p class="zh">那时，神对雅各这样说：</p>
+    <p class="th">แล้วพระผู้เป็นเจ้าตรัสกับยาโคบว่า</p>
   </div>
 
   <div class="pair cite">
@@ -488,6 +524,7 @@ html:not(.show-zh) .zh { display: none; }
     <blockquote class="src ko">“네 이름을 다시는 야곱이라 부를 것이 아니요 이스라엘이라 부를 것이니.”<cite>창세기 32:28 · Genesis 32:28</cite></blockquote>
     <blockquote class="tgt en">“Thy name shall be called no more Jacob, but Israel.”<cite>창세기 32:28 · Genesis 32:28</cite></blockquote>
     <blockquote class="zh">「你的名不要再叫雅各，要叫以色列。」<cite>창세기 32:28 · Genesis 32:28</cite></blockquote>
+    <blockquote class="th">เขาจะไม่เรียกเจ้าว่ายาโคบต่อไป แต่จะเรียกว่า อิสราเอล<cite>창세기 32:28 · Genesis 32:28</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -495,12 +532,14 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">“다른 사람의 자리를 차지하는 사람”이라는 뜻인 야곱이라는 이름을 버리고, ‘하나님이 승리하시게 하다’라는 의미의 이스라엘로 그의 존재를 완전히 바꾸어 주신 것입니다.</p>
     <p class="tgt en">He left behind the name Jacob — which can mean “one who takes another’s place” — and received the name Israel, which means “let God prevail.” In that moment, God changed his very being.</p>
     <p class="zh">神让他舍弃了「雅各」这个意为「夺取他人位分的人」的名字，赐给他「以色列」——也就是「让神得胜」的意思——彻底改变了他这个人。</p>
+    <p class="th">พระองค์ทรงให้เขาละทิ้งชื่อ ‘ยาโคบ’ ซึ่งมีความหมายว่า “ผู้ที่แย่งชิงตำแหน่งของผู้อื่น” แล้วประทานชื่อ ‘อิสราเอล’ ซึ่งมีความหมายว่า “ให้พระผู้เป็นเจ้าทรงมีชัย” เป็นการเปลี่ยนแปลงตัวตนของเขาอย่างสิ้นเชิง</p>
   </div>
 
   <div class="talk-h">
     <p class="src ko">성약이 영생과 어떻게 연결되는가?</p>
     <p class="tgt en">How are covenants connected to eternal life?</p>
     <p class="zh">圣约与永生有着怎样的关联？</p>
+    <p class="th">พันธสัญญาเชื่อมโยงกับชีวิตนิรันดร์อย่างไร?</p>
   </div>
 
   <div class="pair">
@@ -508,6 +547,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">야곱이 ‘이스라엘’로 이름이 바뀐 후 그의 삶에도 여전히 아내 라헬의 죽음, 요셉을 잃은 슬픔 등 거대한 시련이 휘몰아쳤습니다.</p>
     <p class="tgt en">Even after his name was changed to Israel, great trials still swept through Jacob’s life — the death of his wife Rachel, the grief of losing Joseph, and many other sorrows.</p>
     <p class="zh">雅各的名字改为「以色列」之后，他的一生依旧遭受着巨大试炼的冲击——爱妻拉结的去世、失去约瑟的悲伤，还有许许多多的忧患。</p>
+    <p class="th">แม้หลังจากที่ยาโคบได้รับการเปลี่ยนชื่อเป็น ‘อิสราเอล’ แล้ว ชีวิตของเขาก็ยังคงถูกโหมกระหน่ำด้วยการทดลองอันใหญ่หลวง ทั้งการเสียชีวิตของราเชลภรรยาของเขา ความโศกเศร้าจากการสูญเสียโยเซฟ และความทุกข์อีกมากมาย</p>
   </div>
 
   <div class="pair">
@@ -515,6 +555,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">과거의 야곱이었다면 자신의 힘으로 상황을 뒤엎으려 꾀를 부렸겠지만, 이스라엘이 된 야곱에게 주님은 내가 계명을 지키면 복을 주실 분이라는 계약적 관계가 아니었습니다.</p>
     <p class="tgt en">The old Jacob would have schemed to turn things around by his own strength. But for Jacob, now made Israel, the Lord was no longer simply a partner in a contract — the One who would bless him only if he kept the commandments.</p>
     <p class="zh">若是从前的雅各，早就会凭自己的力量耍手段去扭转局面了；但对已成为以色列的雅各而言，主不再只是「我若遵守诫命，祂就赐福给我」这样一位契约中赐福的一方。</p>
+    <p class="th">หากเป็นยาโคบในอดีต เขาคงใช้เล่ห์กลเพื่อพลิกสถานการณ์ด้วยกำลังของตนเอง แต่สำหรับยาโคบที่ได้กลายเป็นอิสราเอลแล้ว พระเจ้ามิได้ทรงเป็นเพียงคู่สัญญาในความสัมพันธ์เชิงข้อตกลง ที่จะประทานพรให้ก็ต่อเมื่อเขารักษาพระบัญญัติอีกต่อไป</p>
   </div>
 
   <div class="pair">
@@ -522,6 +563,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">주님과 동행하며 안식과 보호를 누리는 결속의 관계로 “나의 존재를 지탱하시는 나의 주님”이 되셨습니다.</p>
     <p class="tgt en">Through this binding bond — walking with the Lord, resting in His protection — He had become “my Lord, who sustains my very being.”</p>
     <p class="zh">透过这种与主结合的关系——与主同行、在祂的护佑中享受安息——主成了那位「扶持我整个生命的主」。</p>
+    <p class="th">โดยผ่านความสัมพันธ์อันผูกพันแน่นแฟ้น ที่เขาได้เดินไปกับพระเจ้า และได้ลิ้มรสความสงบสุขและการปกป้องของพระองค์ พระเจ้าจึงทรงกลายเป็น “พระเจ้าของข้าพเจ้า ผู้ทรงค้ำจุนชีวิตของข้าพเจ้า”</p>
   </div>
 
   <div class="pair">
@@ -529,6 +571,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">성약은 이처럼 ‘주님과 매일 동행하는 이야기’입니다.</p>
     <p class="tgt en">A covenant, then, is the story of walking with the Lord every single day.</p>
     <p class="zh">圣约正是如此——它是「每一天与主同行的故事」。</p>
+    <p class="th">พันธสัญญาจึงเป็นเช่นนี้ คือ ‘เรื่องราวของการเดินไปกับพระเจ้าในทุกๆ วัน’</p>
   </div>
 
   <div class="pair">
@@ -536,6 +579,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">우리가 성약을 지킬 때 주님은 우리와 한 멍에를 메고 함께 걸어가 주시며, 우리를 죄와 유혹으로부터 지켜주고, 마침내 우리의 본성 자체를 구주를 닮은 ‘이스라엘’로 만들어 주실 것입니다.</p>
     <p class="tgt en">As we keep our covenants, the Lord takes up the same yoke and walks beside us; He keeps us from sin and temptation, and in time He shapes our very nature into an “Israel” — a soul made to resemble the Savior.</p>
     <p class="zh">当我们遵守圣约时，主会与我们同负一轭，与我们并肩同行，保守我们脱离罪恶与试探，并且最终把我们的本性，塑造成一个更像救主的「以色列」。</p>
+    <p class="th">เมื่อเรารักษาพันธสัญญา พระเจ้าจะทรงแบกแอกเดียวกันกับเราและทรงดำเนินไปเคียงข้างเรา ทรงปกป้องเราจากบาปและการล่อลวง และในที่สุดพระองค์จะทรงเปลี่ยนธรรมชาติของเราเองให้กลายเป็น ‘อิสราเอล’ ที่เป็นเหมือนพระผู้ช่วยให้รอด</p>
   </div>
 
   <div class="pair">
@@ -543,6 +587,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">남의 우유를 아무렇지 않게 서리하던 철부지 소녀가 복음을 만나고, 변화의 시작을 가져왔던 것처럼, 성약은 지금 이 순간에도 부족한 저를 변화시키려 합니다.</p>
     <p class="tgt en">Just as a thoughtless little girl who could swipe someone else’s milk without a flicker of guilt met the gospel and began to change, so the covenant is working, even in this very moment, to change me, weak as I am.</p>
     <p class="zh">就像那个曾经毫无愧色地偷喝别人牛奶的懵懂小女孩，遇见了福音、迎来了改变的开始一样，圣约在此时此刻，也正在改变着软弱不足的我。</p>
+    <p class="th">เช่นเดียวกับที่เด็กสาวไร้เดียงสาผู้ขโมยนมของคนอื่นได้อย่างหน้าตาเฉย ได้พบกับพระกิตติคุณและเริ่มต้นการเปลี่ยนแปลง พันธสัญญาก็กำลังพยายามเปลี่ยนแปลงดิฉันผู้ยังบกพร่องอยู่นี้ แม้ในขณะนี้เช่นกัน</p>
   </div>
 
   <div class="pair">
@@ -550,6 +595,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">침례에서는 “나는 주님을 따르겠습니다.” 성찬에서는 “오늘도 그 약속을 지키겠습니다.” 성전에서는 “내 삶 전체를 주님께 드리겠습니다.” 인봉에서는 “나의 가족까지 이 성약 안에 두겠습니다.”라는 성약을 맺습니다.</p>
     <p class="tgt en">In baptism we covenant, “I will follow the Lord.” In the sacrament, “Today, once again, I will keep that promise.” In the temple, “I will give my whole life to the Lord.” In the sealing, “I will bring even my family into this covenant.”</p>
     <p class="zh">在洗礼时，我们立约：「我要跟从主。」在圣餐时：「今天，我要再一次遵守那约定。」在圣殿里：「我要把我全部的生命献给主。」在印证时：「我要把我的家人也带进这圣约之中。」</p>
+    <p class="th">ในบัพติศมา เราทำพันธสัญญาว่า “ข้าพเจ้าจะติดตามพระเจ้า” ในศีลระลึกว่า “วันนี้ข้าพเจ้าจะรักษาสัญญานั้นอีกครั้ง” ในพระวิหารว่า “ข้าพเจ้าจะมอบทั้งชีวิตของข้าพเจ้าแด่พระเจ้า” และในการผนึกว่า “ข้าพเจ้าจะนำแม้กระทั่งครอบครัวของข้าพเจ้าเข้ามาอยู่ในพันธสัญญานี้”</p>
   </div>
 
   <div class="pair">
@@ -557,6 +603,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">성약은 사건이 아니라 방향이기 때문에 매일 조금씩, 매주 조금씩, 매년 조금씩, 우리를 그리스도께 더 가깝게 이끌어 갑니다.</p>
     <p class="tgt en">Because a covenant is not an event but a direction, it draws us closer to Christ — a little each day, a little each week, a little each year.</p>
     <p class="zh">因为圣约不是一个事件，而是一个方向，所以它每天一点、每周一点、每年一点地，引领我们更加靠近基督。</p>
+    <p class="th">เพราะพันธสัญญาไม่ใช่เหตุการณ์ แต่เป็นทิศทาง จึงนำเราเข้าใกล้พระคริสต์มากขึ้น ทีละเล็กทีละน้อยในแต่ละวัน แต่ละสัปดาห์ และแต่ละปี</p>
   </div>
 
   <div class="pair">
@@ -564,6 +611,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">야곱에게 이미 정말 많은 것을 주시려 하신 하나님을 야곱은 알지 못했습니다. 야곱은 처음에는 먹을 떡과 입을 옷을 구했습니다.</p>
     <p class="tgt en">Jacob did not realize how much God had already meant to give him. At first, Jacob asked only for bread to eat and clothing to wear.</p>
     <p class="zh">雅各并不知道，神早已预备要赐给他何等丰盛的一切。起初，雅各所求的，不过是吃的食物和穿的衣服。</p>
+    <p class="th">ยาโคบไม่รู้เลยว่าพระผู้เป็นเจ้าทรงเตรียมจะประทานสิ่งต่างๆ มากมายเพียงใดแก่เขาแล้ว ในตอนแรก ยาโคบทูลขอเพียงอาหารที่จะรับประทานและเสื้อผ้าที่จะสวมใส่</p>
   </div>
 
   <div class="pair">
@@ -571,6 +619,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">그러나 하나님께서는 처음부터 떡보다 더 큰 것, 옷보다 더 큰 것, 안전보다 더 큰 것을 준비하고 계셨습니다.</p>
     <p class="tgt en">But from the very beginning, God was preparing something greater than bread, greater than clothing, greater than safety.</p>
     <p class="zh">然而，神从一开始就在预备着比食物更大的、比衣服更大的、比安全更大的东西。</p>
+    <p class="th">แต่พระผู้เป็นเจ้าทรงเตรียมสิ่งที่ยิ่งใหญ่กว่าอาหาร ยิ่งใหญ่กว่าเสื้อผ้า และยิ่งใหญ่กว่าความปลอดภัยไว้ตั้งแต่แรกเริ่ม</p>
   </div>
 
   <div class="pair">
@@ -578,6 +627,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">저도 제 삶을 돌아보며, 하나님께서 제가 구한 것보다 훨씬 더 좋은 것을 오래전부터 준비하고 계셨음을 느꼈습니다.</p>
     <p class="tgt en">As I look back on my own life, I too have felt that God was preparing things far better than what I asked for, long before I ever knew to ask.</p>
     <p class="zh">回顾我自己的一生，我也深深感受到，神早在很久以前，就为我预备了远比我所求的更美好的事物。</p>
+    <p class="th">เมื่อดิฉันมองย้อนกลับไปในชีวิตของตนเอง ดิฉันก็รู้สึกได้ว่า พระผู้เป็นเจ้าทรงเตรียมสิ่งที่ดีกว่าที่ดิฉันทูลขอไว้มากมายนัก มาเป็นเวลานานแล้ว</p>
   </div>
 
   <div class="pair">
@@ -585,6 +635,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">제가 말씀을 준비하면서 제 삶에서 주님의 축복과 인도에 감사드리며 울컥했습니다. 성약은 저에게 무엇을 요구하시는 것이 아니라 축복을 주시기 위한 방법이라는 것도 배웠습니다.</p>
     <p class="tgt en">As I prepared this talk, I was moved to tears with gratitude for the Lord’s blessings and His guidance in my life. And I have learned that the covenant is not God demanding something of me — it is His way of blessing me.</p>
     <p class="zh">在准备这篇演讲的时候，我为主在我生命中的祝福与引导满怀感恩，不禁哽咽。我也学到，圣约并不是神向我要求什么，而是祂赐福给我的方式。</p>
+    <p class="th">ขณะที่ดิฉันเตรียมคำพูดครั้งนี้ ดิฉันรู้สึกซาบซึ้งจนน้ำตาคลอ ด้วยความสำนึกในพระคุณต่อพรและการนำทางของพระเจ้าในชีวิตของดิฉัน และดิฉันยังได้เรียนรู้ด้วยว่า พันธสัญญาไม่ใช่การที่พระองค์ทรงเรียกร้องสิ่งใดจากดิฉัน แต่เป็นวิธีการที่พระองค์จะประทานพรแก่ดิฉันต่างหาก</p>
   </div>
 
   <div class="pair">
@@ -592,6 +643,7 @@ html:not(.show-zh) .zh { display: none; }
     <p class="src ko">제가 선교사 집에 찾아간 1983년 봄, 제 인생에서 가장 멋진 일이 시작된 그 시간에 감사드립니다. 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
     <p class="tgt en">I am grateful for that spring of 1983, when I went to the missionaries’ apartment and the most wonderful journey of my life began. In the name of Jesus Christ, amen.</p>
     <p class="zh">我感谢一九八三年的那个春天——我去了传教士的住处，我生命中最美好的旅程，就从那一刻开始了。我奉耶稣基督的名，阿们。</p>
+    <p class="th">ดิฉันรู้สึกขอบพระทัยสำหรับฤดูใบไม้ผลิปี ๑๙๘๓ ช่วงเวลาที่ดิฉันได้ไปที่บ้านของผู้สอนศาสนา และเป็นจุดเริ่มต้นของสิ่งที่วิเศษที่สุดในชีวิตของดิฉัน ดิฉันกล่าวสิ่งนี้ในพระนามของพระเยซูคริสต์ เอเมน</p>
   </div>
 </main>
 
@@ -599,7 +651,7 @@ html:not(.show-zh) .zh { display: none; }
 
 <footer class="colophon">
   <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
-  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span></p>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span></p>
 </footer>
 </div>
 <script>
@@ -611,16 +663,19 @@ html:not(.show-zh) .zh { display: none; }
   var btns = bar.querySelectorAll("button[data-lang]");
   var docEl = document.documentElement;
   // Feedback link label follows the checked languages.
-  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈" };
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น" };
   var fbBtn = document.querySelector(".feedback-btn");
-  // Reveal the 中文 checkbox only when this talk actually carries Chinese content.
+  // Reveal an extra-language checkbox only when this talk carries that content.
   var hasZh = !!document.querySelector("main .zh");
   var zhBtn = bar.querySelector('button[data-lang="zh"]');
   if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
 
   // Each language is an independent checkbox; any combination may show. At least one
-  // stays on. Native labels (English / 한국어 / 中文) so no one needs language codes.
-  var LANGS = ["en", "ko", "zh"];
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th"];
   function apply(active) {
     LANGS.forEach(function (l) {
       var on = active.indexOf(l) !== -1;
@@ -639,7 +694,9 @@ html:not(.show-zh) .zh { display: none; }
   var active;
   try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
   if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
-  active = active.filter(function (l) { return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh); });
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh);
+  });
   if (!active.length) active = ["en", "ko"];
   apply(active);
   btns.forEach(function (b) {

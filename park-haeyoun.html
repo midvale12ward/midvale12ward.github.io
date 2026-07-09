@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eternal Life Is More Than a Destination · 영생은 목적지가 아니라 변화의 과정입니다</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.pair .zh, .pair .th { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Eternal Life Is More Than a Destination</span><span class="ko">영생은 목적지가 아니라 변화의 과정입니다</span><span class="zh">永生不只是终点</span><span class="th">ชีวิตนิรันดร์เป็นมากกว่าจุดหมายปลายทาง</span></h1>
+  <p class="byline">Sister Park Haeyoun · 박해연 자매 &nbsp;·&nbsp; 12 July 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">오늘의 주제는 “영생은 목적지가 아니라 변화의 과정이다”입니다.</p>
+    <p class="tgt en">The topic I have been given today is this: eternal life is not a destination, but a process of becoming.</p>
+    <p class="zh">我今天的主题是：「永生不是终点，而是转变的过程。」</p>
+    <p class="th">หัวข้อของดิฉันในวันนี้คือ “ชีวิตนิรันดร์ไม่ใช่จุดหมายปลายทาง แต่เป็นกระบวนการของการเปลี่ยนแปลง”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">영생은 단지 죽은 후에 받는 축복일까요? 지금 이 삶에서 영생은 어떻게 시작되는 것일까요? 그리고 하나님을 닮아 가는 것은 어떤 의미일까요?</p>
+    <p class="tgt en">Is eternal life only a blessing we receive after we die? How does eternal life begin here, in this present life? And what does it mean to grow to be like God?</p>
+    <p class="zh">永生只是我们死后才得到的祝福吗？在今生，永生是如何开始的呢？还有，逐渐变得像神，究竟意味着什么呢？</p>
+    <p class="th">ชีวิตนิรันดร์เป็นเพียงพรที่เราได้รับหลังจากตายแล้วเท่านั้นหรือ? ในชีวิตนี้ ชีวิตนิรันดร์เริ่มต้นอย่างไร? และการเติบโตขึ้นจนเป็นเหมือนพระผู้เป็นเจ้าหมายความว่าอย่างไร?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">경전을 통해 “영생”의 뜻을 함께 알아보겠습니다.</p>
+    <p class="tgt en">Let us turn to the scriptures to understand the meaning of “eternal life.”</p>
+    <p class="zh">让我们一同从经文来了解「永生」的意义。</p>
+    <p class="th">ให้เรามาศึกษาความหมายของ “ชีวิตนิรันดร์” ด้วยกันจากพระคัมภีร์</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">4</span>
+    <blockquote class="src ko">영생은 곧 유일하신 참 하나님과 그가 보내신 자 예수 그리스도를 아는 것이니이다<cite>John 17:1–3</cite></blockquote>
+    <blockquote class="tgt en">And this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent.<cite>John 17:1–3</cite></blockquote>
+    <blockquote class="zh">认识你，独一的真神，并且认识你所差来的耶稣基督，这就是永生。<cite>John 17:1–3</cite></blockquote>
+    <blockquote class="th">และนี่แหละคือชีวิตนิรันดร์ คือการที่พวกเขารู้จักพระองค์ ผู้ทรงเป็นพระเจ้าเที่ยงแท้องค์เดียว และรู้จักพระเยซูคริสต์ที่พระองค์ทรงใช้มา<cite>John 17:1–3</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">영생은 불사불멸 이상의 것입니다. 우리 인간은 선하든 악하든 관계없이 모두 불사불멸을 얻게 됩니다. 왜냐하면 모든 사람이 부활하기 때문입니다.</p>
+    <p class="tgt en">Eternal life is more than immortality. Every one of us, whether good or evil, will receive immortality, because all mankind will be resurrected.</p>
+    <p class="zh">永生不只是不死。我们每一个人，无论善恶，都将获得不死，因为所有的人都会复活。</p>
+    <p class="th">ชีวิตนิรันดร์เป็นมากกว่าความเป็นอมตะ เราทุกคน ไม่ว่าดีหรือชั่ว จะได้รับความเป็นอมตะ เพราะทุกคนจะฟื้นคืนชีวิต</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">그러나 “영생”은 하나님께서 누리시는 생명을 뜻하며, 아버지와 아들의 면전에서 누리게 되는 삶입니다. 그러므로 영생은 주님의 계명을 지켜 그분의 면전으로 돌아갈 자격을 갖춘 사람만이 받을 수 있는 축복입니다.</p>
+    <p class="tgt en">But “eternal life” means the very kind of life God Himself lives — a life in the presence of the Father and the Son. It is therefore a blessing given only to those who keep the Lord’s commandments and become worthy to return to His presence.</p>
+    <p class="zh">然而，「永生」是指神所拥有的那种生命，是在父与子面前所享有的生活。因此，永生是一项祝福，唯有遵守主的诫命、有资格回到祂面前的人，才能得到。</p>
+    <p class="th">แต่ “ชีวิตนิรันดร์” หมายถึงชีวิตแบบที่พระผู้เป็นเจ้าทรงมี เป็นชีวิตที่ดำเนินอยู่ต่อพระพักตร์พระบิดาและพระบุตร ดังนั้นชีวิตนิรันดร์จึงเป็นพรที่ประทานให้เฉพาะผู้ที่รักษาพระบัญญัติของพระเจ้าและมีค่าควรจะกลับไปสู่ที่ประทับของพระองค์เท่านั้น</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">영생은 우리 모두의 소망이자 목적지이지만, 지상 생활을 하는 동안 합당하고 충실하게 계명을 지키며, 불평하지 않고 인내하며 끝까지 자신의 본분을 다하는 사람에게만 주어지는 보상입니다.</p>
+    <p class="tgt en">Eternal life is the hope and the destination of us all; yet it is a reward given only to those who, throughout this mortal life, worthily and faithfully keep the commandments, endure without murmuring, and fulfill their duty to the end.</p>
+    <p class="zh">永生是我们所有人的盼望，也是我们的目的地；然而，这是一项奖赏，只赐给那些在世上生活时配称、忠信地遵守诫命，毫无怨言地忍耐，并坚守自己本分到底的人。</p>
+    <p class="th">ชีวิตนิรันดร์เป็นความหวังและจุดหมายปลายทางของเราทุกคน แต่เป็นรางวัลที่ประทานให้เฉพาะผู้ที่ตลอดชีวิตในโลกนี้รักษาพระบัญญัติอย่างมีค่าควรและซื่อสัตย์ อดทนโดยไม่พร่ำบ่น และทำหน้าที่ของตนจนถึงที่สุด</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">8</span>
+    <blockquote class="src ko">생명으로 인도하는 문은 좁고 길이 협착하여 찾는 자가 적음이라<cite>Matthew 7:14</cite></blockquote>
+    <blockquote class="tgt en">Because strait is the gate, and narrow is the way, which leadeth unto life, and few there be that find it.<cite>Matthew 7:14</cite></blockquote>
+    <blockquote class="zh">引到永生那门是窄的，路是小的，找着的人也少。<cite>Matthew 7:14</cite></blockquote>
+    <blockquote class="th">เพราะประตูที่แคบและทางที่ลำบากนั้นนำไปสู่ชีวิต และพวกที่หาพบก็มีน้อย<cite>Matthew 7:14</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">경전을 통해서도 우리는 이 지상에서 합당하게 생활하여 하나님의 면전으로 돌아가 “영생”을 누릴 수 있는 사람의 수가 매우 적다는 것을 알 수 있습니다.</p>
+    <p class="tgt en">From the scriptures, then, we learn that only a few will live worthily here on earth, return to the presence of God, and enjoy the blessing of “eternal life.”</p>
+    <p class="zh">我们从经文也可以知道，能够在世上过配称的生活、回到神的面前、享有「永生」的人，为数极少。</p>
+    <p class="th">จากพระคัมภีร์ เราจึงเรียนรู้ว่ามีคนเพียงไม่กี่คนที่จะดำเนินชีวิตอย่างมีค่าควรในโลกนี้ กลับไปสู่ที่ประทับของพระผู้เป็นเจ้า และได้รับพรแห่ง “ชีวิตนิรันดร์”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">그렇다면 영생은 단지 죽은 후에만 받는 축복이 아니라, 지금 이 지상 생활을 하는 동안 우리가 어떻게 사느냐에 따라 받게 되는 축복입니다.</p>
+    <p class="tgt en">So eternal life is not only a blessing we receive after death; it is a blessing that depends on how we live now, during this life on earth.</p>
+    <p class="zh">那么，永生并不只是死后才得到的祝福，而是取决于我们此刻在世上如何生活，才能得到的祝福。</p>
+    <p class="th">ดังนั้น ชีวิตนิรันดร์ไม่ใช่เพียงพรที่เราได้รับหลังความตายเท่านั้น แต่เป็นพรที่ขึ้นอยู่กับว่าเราดำเนินชีวิตอย่างไรในเวลานี้ ขณะที่เราอยู่ในโลกนี้</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">주님과 맺은 성약을 지키며 성약의 길을 걸을 때, 버릴 것을 버리고 바꿀 것을 바꾸어, 변화된 모습으로 주님이 원하시는 대로 살아갈 때, 우리는 영생이라는 축복을 얻을 수 있습니다.</p>
+    <p class="tgt en">As we keep the covenants we have made with the Lord and walk the covenant path — letting go of what we need to let go of, changing what we need to change, and living as changed people in the way the Lord desires — we can obtain the blessing of eternal life.</p>
+    <p class="zh">当我们遵守与主所立的圣约，走在圣约道路上，舍弃该舍弃的，改变该改变的，成为焕然一新的人，照主所愿的去生活时，我们就能得到永生这项祝福。</p>
+    <p class="th">เมื่อเรารักษาพันธสัญญาที่ทำไว้กับพระเจ้าและเดินบนทางแห่งพันธสัญญา ละทิ้งสิ่งที่ควรละทิ้ง เปลี่ยนสิ่งที่ควรเปลี่ยน และดำเนินชีวิตในฐานะผู้ที่เปลี่ยนแปลงแล้วตามที่พระเจ้าทรงประสงค์ เราก็จะได้รับพรแห่งชีวิตนิรันดร์</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">성약의 길을 걷는다는 것은 쉽지 않습니다. 그것은 불평하지 않고 구하며, 행하고, 끝까지 견뎌 내라는 권유입니다.</p>
+    <p class="tgt en">Walking the covenant path is not easy. It is an invitation to seek, to act, and to endure to the end — all without murmuring.</p>
+    <p class="zh">走在圣约道路上并不容易。这是一个邀请：毫无怨言地祈求、去行、并且忍耐到底。</p>
+    <p class="th">การเดินบนทางแห่งพันธสัญญาไม่ใช่เรื่องง่าย นี่เป็นคำเชื้อเชิญให้ทูลขอโดยไม่พร่ำบ่น ให้ลงมือทำ และให้อดทนจนถึงที่สุด</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">이것은 오래된 회원이든, 어제 침례받은 회원이든 모두에게 똑같이 적용됩니다. 우리의 신앙과 영적인 힘을 시험하는 요소들이 참으로 많습니다.</p>
+    <p class="tgt en">This applies alike to every one of us — whether we have been members for many years or were baptized only yesterday. There are so many things that test our faith and our spiritual strength.</p>
+    <p class="zh">无论是多年的教友，还是昨天才受洗的教友，这对我们每个人都同样适用。考验我们的信心和属灵力量的事物，实在太多了。</p>
+    <p class="th">สิ่งนี้ใช้ได้กับเราทุกคนเหมือนกัน ไม่ว่าจะเป็นสมาชิกมาหลายปีแล้ว หรือเพิ่งรับบัพติศมาเมื่อวานนี้ มีสิ่งต่าง ๆ มากมายเหลือเกินที่ทดสอบศรัทธาและความเข้มแข็งทางวิญญาณของเรา</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src ko">지난 연차 대회 때 프리맨 자매님께서 말씀하셨듯이, 우리의 일상에는 “최고의 날”과 “최악의 날”이 늘 함께 있습니다.</p>
+    <p class="tgt en">As Sister Freeman taught in the last general conference, our everyday life always holds both our “best days” and our “worst days.”</p>
+    <p class="zh">正如上次总会大会中傅利曼姊妹所教导的，我们的日常生活里，「最好的日子」和「最糟的日子」总是同时存在。</p>
+    <p class="th">ดังที่ซิสเตอร์ฟรีแมนได้กล่าวไว้ในการประชุมใหญ่สามัญครั้งที่แล้ว ชีวิตประจำวันของเรามีทั้ง “วันที่ดีที่สุด” และ “วันที่แย่ที่สุด” อยู่ด้วยกันเสมอ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src ko">저희에게는 작년 가을에 여섯 번째 손주를 보는 기쁜 일이 있었습니다. 저희는 늘 하던 대로 기쁜 마음으로 도우미 역할을 했습니다.</p>
+    <p class="tgt en">Last fall we were blessed with the joy of our sixth grandchild. As we always do, we gladly stepped in to help.</p>
+    <p class="zh">去年秋天，我们有幸迎来了第六个孙儿，满心欢喜。我们也像往常一样，欢欢喜喜地去帮忙照顾。</p>
+    <p class="th">เมื่อฤดูใบไม้ร่วงปีที่แล้ว เรามีความสุขที่ได้ต้อนรับหลานคนที่หก และเราก็ยินดีเข้าไปช่วยดูแลเหมือนที่เคยทำเสมอมา</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">그러면서도 힘에 부쳐 몇 달 동안 앓기도 했습니다. 또한 신체적, 정신적으로 어려움을 겪고 있던 딸에게도 개인적으로 힘든 일이 있었습니다.</p>
+    <p class="tgt en">Yet the effort wore me down, and I was not well for several months. And my daughter, who was struggling both physically and emotionally, went through a painful time of her own.</p>
+    <p class="zh">然而，我也因体力不支而病了好几个月。同时，我女儿当时身心都很煎熬，自己也经历了一段痛苦的日子。</p>
+    <p class="th">แต่ก็เหน็ดเหนื่อยจนล้มป่วยอยู่หลายเดือน อีกทั้งลูกสาวของดิฉันซึ่งกำลังเผชิญความยากลำบากทั้งทางร่างกายและจิตใจ ก็ต้องผ่านช่วงเวลาที่เจ็บปวดของเธอเองด้วย</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">이 모든 것이 우리 일상에 힘든 영향을 끼쳤지만, 우리는 빨리 회복할 수 있었고, 그것이 끝이 아니었습니다. 기쁜 일도 끝이 아니었고, 슬픈 일도 끝이 아니었습니다.</p>
+    <p class="tgt en">All of this weighed heavily on our daily life, but we were able to recover quickly — and that was not the end. The joy was not the end, and the sorrow was not the end.</p>
+    <p class="zh">这一切都为我们的日常带来沉重的影响，但我们很快就得以复原，而那并不是结束。喜乐不是结束，忧伤也不是结束。</p>
+    <p class="th">ทั้งหมดนี้ส่งผลกระทบอย่างหนักต่อชีวิตประจำวันของเรา แต่เราก็ฟื้นตัวได้อย่างรวดเร็ว และนั่นไม่ใช่จุดจบ ความชื่นชมยินดีไม่ใช่จุดจบ และความโศกเศร้าก็ไม่ใช่จุดจบเช่นกัน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">우리는 주님이 하시는 일이 무엇인지, 또 그분의 천사들이 어떤 역할을 하는지를 분명히 보고 느낄 수 있었습니다. 결국 우리는 주님께 감사의 기도를 드리고 마음의 평안을 느끼는 경험을 하게 되었습니다.</p>
+    <p class="tgt en">We could clearly see and feel what the Lord was doing, and the part His angels played. In the end, we offered a prayer of gratitude to the Lord and felt peace settle over our hearts.</p>
+    <p class="zh">我们能够清楚地看见并感受到主所做的工，以及祂的天使所扮演的角色。最终，我们向主献上感恩的祈祷，经历到内心的平安。</p>
+    <p class="th">เราสามารถเห็นและรู้สึกได้อย่างชัดเจนถึงสิ่งที่พระเจ้าทรงกระทำ และบทบาทของเหล่าทูตสวรรค์ของพระองค์ ในที่สุด เราก็ได้สวดอ้อนวอนขอบพระคุณพระเจ้า และได้สัมผัสถึงความสงบสุขในใจ</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">19</span>
+    <blockquote class="src ko">영생은 곧 유일하신 참 하나님과 그가 보내신 자 예수 그리스도를 아는 것이니이다<cite>John 17:3</cite></blockquote>
+    <blockquote class="tgt en">And this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent.<cite>John 17:3</cite></blockquote>
+    <blockquote class="zh">认识你，独一的真神，并且认识你所差来的耶稣基督，这就是永生。<cite>John 17:3</cite></blockquote>
+    <blockquote class="th">และนี่แหละคือชีวิตนิรันดร์ คือการที่พวกเขารู้จักพระองค์ ผู้ทรงเป็นพระเจ้าเที่ยงแท้องค์เดียว และรู้จักพระเยซูคริสต์ที่พระองค์ทรงใช้มา<cite>John 17:3</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">20</span>
+    <p class="src ko">그렇다면 어떻게 유일하신 참 하나님을 알고 영생을 얻을 수 있을까요? 영생을 얻는 유일한 방법은 무엇일까요? 그것은 그리스도께 나아가 그분을 따르는 것입니다.</p>
+    <p class="tgt en">How, then, can we come to know the only true God and gain eternal life? What is the one way to receive it? It is to come unto Christ and follow Him.</p>
+    <p class="zh">那么，我们要如何才能认识独一的真神，并得到永生呢？得到永生的唯一方法是什么呢？就是归向基督，跟随祂。</p>
+    <p class="th">แล้วเราจะรู้จักพระผู้เป็นเจ้าเที่ยงแท้เพียงองค์เดียวและได้รับชีวิตนิรันดร์ได้อย่างไร? หนทางเดียวที่จะได้รับชีวิตนิรันดร์คืออะไร? นั่นคือการมาหาพระคริสต์และติดตามพระองค์</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src ko">그렇다면 “그분을 따른다”는 것은 무슨 뜻일까요? 그것은 그리스도에 대해 배우고, 주님과 그분이 회복하신 복음으로 돌이키며, 버릴 것을 버리고 선한 변화를 이루어 간다는 뜻이라고 하셨습니다.</p>
+    <p class="tgt en">And what does it mean to “follow Him”? It means, we are taught, to learn of Christ, to turn to the Lord and His restored gospel, to let go of what we need to let go of, and to bring about good change.</p>
+    <p class="zh">那么，「跟随祂」是什么意思呢？我们受到的教导是：这意味着认识基督，归向主和祂所复兴的福音，舍弃该舍弃的，并带来美好的转变。</p>
+    <p class="th">แล้ว “การติดตามพระองค์” หมายความว่าอย่างไร? เราได้รับการสอนว่า นั่นหมายถึงการเรียนรู้เกี่ยวกับพระคริสต์ หันมาหาพระเจ้าและพระกิตติคุณที่พระองค์ทรงฟื้นฟู ละทิ้งสิ่งที่ควรละทิ้ง และนำมาซึ่งการเปลี่ยนแปลงที่ดี</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src ko">하나님 아버지께서는 우리가 지상 생활을 하는 동안 실수와 잘못을 범하리라는 것을 아셨고, 그분이 계신 본향으로 돌아가려면 도움이 필요하다는 것도 아셨습니다. 그래서 우리를 도와주실 예수 그리스도를 보내 주셨습니다.</p>
+    <p class="tgt en">Heavenly Father knew that we would make mistakes and do wrong during our mortal life, and He knew that we would need help to return to our heavenly home where He dwells. And so He sent Jesus Christ to help us.</p>
+    <p class="zh">天父知道我们在世上生活时会犯错、会犯罪，也知道我们若要回到祂所在的天家，就需要帮助。因此，祂差遣了耶稣基督来帮助我们。</p>
+    <p class="th">พระบิดาบนสวรรค์ทรงทราบว่าเราจะทำผิดพลาดและทำบาปในระหว่างชีวิตในโลกนี้ และทรงทราบว่าเราจำเป็นต้องได้รับความช่วยเหลือเพื่อจะกลับไปยังบ้านบนสวรรค์ที่พระองค์ประทับอยู่ ดังนั้นพระองค์จึงทรงส่งพระเยซูคริสต์มาช่วยเรา</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src ko">그래서 우리는 안식일에 성찬을 취하면서, 용서받은 허물을 기억하기보다 주님을 기억하는 것이 더 중요하다고 배웠습니다.</p>
+    <p class="tgt en">And so we have learned that as we partake of the sacrament on the Sabbath day, it is more important to remember the Lord than to dwell on the faults for which we have already been forgiven.</p>
+    <p class="zh">因此我们学到，当我们在安息日领受圣餐时，记念主，比记住那些已蒙赦免的过犯更为重要。</p>
+    <p class="th">ดังนั้นเราจึงได้เรียนรู้ว่า เมื่อเรารับส่วนศีลระลึกในวันสะบาโต การระลึกถึงพระเจ้าย่อมสำคัญกว่าการจดจำความผิดที่เราได้รับการอภัยไปแล้ว</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src ko">또한 성전에서 주님과 맺은 성약을 새롭게 하고, 성약의 중심에서 회개하여 새로운 삶을 얻기를 소망합니다.</p>
+    <p class="tgt en">I also hope that we will renew in the temple the covenants we have made with the Lord, and that, at the very heart of the covenant, we will repent and receive a new life.</p>
+    <p class="zh">我也盼望，我们能在圣殿中更新与主所立的圣约，并在圣约的核心处悔改，获得新的生命。</p>
+    <p class="th">ดิฉันยังหวังด้วยว่า เราจะต่อพันธสัญญาที่ทำไว้กับพระเจ้าในพระวิหาร และที่ใจกลางของพันธสัญญานั้น เราจะกลับใจและได้รับชีวิตใหม่</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">25</span>
+    <p class="src ko">저는 개인적으로 “불평”이라는 것이 하나님을 닮아 가는 데, 또 영생을 얻는 데 부분적인 걸림돌이 된다고 생각합니다.</p>
+    <p class="tgt en">Personally, I believe that “murmuring” is, in part, a stumbling block to our becoming like God and to our gaining eternal life.</p>
+    <p class="zh">就我个人而言，我认为「怨言」是一个绊脚石，会在某种程度上阻碍我们变得像神，也阻碍我们得到永生。</p>
+    <p class="th">โดยส่วนตัว ดิฉันเชื่อว่า “การพร่ำบ่น” เป็นอุปสรรคส่วนหนึ่งที่คอยขัดขวางไม่ให้เราเป็นเหมือนพระผู้เป็นเจ้าและได้รับชีวิตนิรันดร์</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">26</span>
+    <p class="src ko">수많은 어려움과 고통을 똑같이 겪었지만, 니파이와 레이맨, 레뮤엘의 태도는 매우 달랐습니다. 니파이전서 17장 2절은 니파이의 태도를 보여 줍니다.</p>
+    <p class="tgt en">Though Nephi, Laman, and Lemuel all passed through the very same trials and afflictions, their attitudes were very different. First Nephi chapter 17, verse 2, shows us Nephi’s attitude.</p>
+    <p class="zh">他们经历了同样众多的艰难和痛苦，但尼腓的态度与拉曼、雷米尔却截然不同。尼腓一书第十七章第二节让我们看见尼腓的态度。</p>
+    <p class="th">แม้พวกเขาจะผ่านความยากลำบากและความทุกข์ทรมานเดียวกัน แต่ทัศนคติของนีไฟกับของเลมันและเลมิวเอลนั้นแตกต่างกันมาก หนึ่งนีไฟบทที่ ๑๗ ข้อ ๒ แสดงให้เราเห็นทัศนคติของนีไฟ</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">27</span>
+    <blockquote class="src ko">또 우리에게 임한 주의 복이 얼마나 컸던지, 우리가 광야에서 날고기를 먹고 사는 동안 우리의 여자들은 그 아이들에게 젖을 넉넉히 빨렸으며, 참으로 남자들처럼 강건하였고 그리하여 그들은 불평 없이 여행을 감당하기 시작하였느니라.<cite>1 Nephi 17:2</cite></blockquote>
+    <blockquote class="tgt en">And so great were the blessings of the Lord upon us, that while we did live upon raw meat in the wilderness, our women did give plenty of suck for their children, and were strong, yea, even like unto the men; and they began to bear their journeyings without murmurings.<cite>1 Nephi 17:2</cite></blockquote>
+    <blockquote class="zh">主赐我们的祝福多么大，虽然我们在旷野中以生肉为食，我们的妇女却有许多奶水给孩子，她们像男子一样强壮；她们开始毫无怨言地忍受旅途的艰辛。<cite>1 Nephi 17:2</cite></blockquote>
+    <blockquote class="th">และพรของพระเจ้าที่ประทานให้เรานั้นยิ่งใหญ่นัก, คือขณะที่เราดำรงชีวิตอยู่ด้วยเนื้อดิบในแดนทุรกันดาร, ผู้หญิงของเรามีน้ำนมให้ลูก ๆ ของพวกนางมาก, และแข็งแรง, แท้จริงแล้ว, ประหนึ่งชาย; และพวกนางเริ่มอดทนต่อการเดินทางของพวกนางโดยปราศจากการพร่ำบ่น.<cite>1 Nephi 17:2</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">28</span>
+    <p class="src ko">니파이전서 2장 12절은 레이맨과 레뮤엘의 태도를 보여 줍니다.</p>
+    <p class="tgt en">First Nephi chapter 2, verse 12, shows us the attitude of Laman and Lemuel.</p>
+    <p class="zh">尼腓一书第二章第十二节让我们看见拉曼和雷米尔的态度。</p>
+    <p class="th">หนึ่งนีไฟบทที่ ๒ ข้อ ๑๒ แสดงให้เราเห็นทัศนคติของเลมันและเลมิวเอล</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">29</span>
+    <blockquote class="src ko">이같이 레이맨과 레뮤엘은 연장자들이면서도, 참으로 그들의 부친을 거스려 불평하였나니, 그들이 불평한 것은 그들을 창조하신 그 하나님의 행하심을 그들이 알지 못하였기 때문이니라.<cite>1 Nephi 2:12</cite></blockquote>
+    <blockquote class="tgt en">And thus Laman and Lemuel, being the eldest, did murmur against their father. And they did murmur because they knew not the dealings of that God who had created them.<cite>1 Nephi 2:12</cite></blockquote>
+    <blockquote class="zh">最年长的拉曼和雷米尔这样抱怨他们的父亲。他们抱怨，因为他们不知道创造他们的神的作为。<cite>1 Nephi 2:12</cite></blockquote>
+    <blockquote class="th">และดังนั้นเลมันกับเลมิวเอล, โดยที่เป็นพี่, พร่ำบ่นต่อต้านบิดาพวกเขา. และพวกเขาพร่ำบ่นเพราะพวกเขาหารู้ไม่ถึงการกระทำของพระผู้เป็นเจ้าองค์นั้นผู้ทรงสร้างพวกเขา.<cite>1 Nephi 2:12</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">30</span>
+    <p class="src ko">니파이전서 17장 20절도 함께 보겠습니다.</p>
+    <p class="tgt en">Let us also read First Nephi chapter 17, verse 20.</p>
+    <p class="zh">我们也来看尼腓一书第十七章第二十节。</p>
+    <p class="th">ให้เรามาอ่านหนึ่งนีไฟบทที่ ๑๗ ข้อ ๒๐ ด้วยกันด้วย</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">31</span>
+    <blockquote class="src ko">또 너는 그 마음의 어리석은 상상에 이끌려 나온 우리 아버지와 같도다. 참으로 아버지는 우리를 예루살렘 땅에서 이끌어 내었고, 우리는 이 여러 해를 광야에서 방황하였으며, 우리의 여자들은 아이를 가진 무거운 몸으로 수고하였고, 그들은 광야에서 아이들을 낳았으며 죽음이 아닐 뿐 온갖 고초를 다 겪었나니, 그들이 이러한 고난을 겪는 것보다 예루살렘에서 나오기 전에 죽는 것이 나았으리라.<cite>1 Nephi 17:20</cite></blockquote>
+    <blockquote class="tgt en">And thou art like unto our father, led away by the foolish imaginations of his heart; yea, he hath led us out of the land of Jerusalem, and we have wandered in the wilderness for these many years; and our women have toiled, being big with child; and they have borne children in the wilderness and suffered all things, save it were death; and it would have been better that they had died before they came out of Jerusalem than to have suffered these afflictions.<cite>1 Nephi 17:20</cite></blockquote>
+    <blockquote class="zh">你就跟父亲一样，他已经被他心中愚蠢的幻想所蒙蔽；是的，他把我们带出耶路撒冷地，而我们在旷野中流浪了这么多年；我们的妇女怀着身孕辛苦工作，她们在旷野中生下孩子，受尽了苦难，只差没把命赔上；要是她们在出耶路撒冷之前就死掉，要比受这些折磨好。<cite>1 Nephi 17:20</cite></blockquote>
+    <blockquote class="th">และเจ้าเป็นเหมือนบิดาเรา, ผู้ถูกจินตนาการอันโง่เขลาแห่งใจท่านชักนำไป; แท้จริงแล้ว, ท่านนำเราออกจากแผ่นดินแห่งเยรูซาเล็ม, และเราระหกระเหินในแดนทุรกันดารมาหลายปีนี้; และผู้หญิงของเราทำงานหนัก, โดยที่อุ้มท้อง; และพวกนางคลอดลูกในแดนทุรกันดารและทนทุกข์กับสิ่งทั้งปวง, นอกจากความตาย; และหากพวกนางตายก่อนที่พวกนางออกจากเยรูซาเล็มก็จะดีกว่าต้องมาทนความทุกข์ทรมานเหล่านี้.<cite>1 Nephi 17:20</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">32</span>
+    <p class="src ko">우리는 이 두 사람을 통해 배울 수 있습니다. 광야에서 똑같은 고난을 겪었지만, 그들의 태도는 서로 달랐습니다.</p>
+    <p class="tgt en">We can learn from these two examples. They endured the very same hardships in the wilderness, and yet their attitudes were entirely different.</p>
+    <p class="zh">我们可以从这两种人身上学到功课。他们在旷野中经历了同样的苦难，态度却大不相同。</p>
+    <p class="th">เราสามารถเรียนรู้จากคนสองพวกนี้ได้ พวกเขาเผชิญความทุกข์ยากเดียวกันในแดนทุรกันดาร แต่ทัศนคติของพวกเขากลับแตกต่างกัน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">33</span>
+    <p class="src ko">복음대로 생활하면서 불평 없이 주님의 계획을 이해한다면, 우리는 좋은 결정과 올바른 동기를 갖게 되어 하나님을 닮아 가는 모습으로 변하지 않을까요?</p>
+    <p class="tgt en">If we live the gospel and, without murmuring, seek to understand the Lord’s plan, won’t we then make good decisions with the right motives, and grow to become more like God?</p>
+    <p class="zh">如果我们按照福音生活，毫无怨言地接受主的计划，我们岂不会做出正确的决定、怀着正确的动机，逐渐变得更像神吗？</p>
+    <p class="th">หากเราดำเนินชีวิตตามพระกิตติคุณและพยายามเข้าใจแผนของพระเจ้าโดยไม่พร่ำบ่น เราย่อมจะตัดสินใจได้ดีและมีแรงจูงใจที่ถูกต้อง และเติบโตขึ้นเป็นเหมือนพระผู้เป็นเจ้ามากขึ้นมิใช่หรือ?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">34</span>
+    <p class="src ko">불평할 때 우리는 영원한 관점을 잃어버리거나, 하나님의 뜻과 일치하지 않는 결정을 내리게 될 수도 있다고 배웠습니다.</p>
+    <p class="tgt en">We have been taught that when we murmur, we can lose the eternal perspective, or make decisions that are not in harmony with the will of God.</p>
+    <p class="zh">我们学到，当我们发怨言时，可能会失去永恒的眼光，或做出与神的旨意不一致的决定。</p>
+    <p class="th">เราได้รับการสอนว่า เมื่อเราพร่ำบ่น เราอาจสูญเสียมุมมองนิรันดร์ หรือตัดสินใจในสิ่งที่ไม่สอดคล้องกับพระประสงค์ของพระผู้เป็นเจ้า</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">35</span>
+    <p class="src ko">이것은 가정에서나, 학교에서나, 사회와 직장에서나, 교회에서나, 그 어떤 모임에서나 모두 해당되는 것 같습니다.</p>
+    <p class="tgt en">This seems to hold true everywhere — at home, at school, out in the community and at work, at church, and in any gathering at all.</p>
+    <p class="zh">无论是在家里、在学校、在社会和职场、在教会，还是在任何聚会当中，这一点似乎都同样适用。</p>
+    <p class="th">ดูเหมือนว่าสิ่งนี้เป็นจริงในทุกที่ ไม่ว่าจะที่บ้าน ที่โรงเรียน ในสังคมและที่ทำงาน ที่โบสถ์ หรือในการรวมกลุ่มใด ๆ ก็ตาม</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">36</span>
+    <p class="src ko">저에게는 여섯 명의 손주가 있습니다. 셋째 손자는 퍼즐을 무척 좋아합니다.</p>
+    <p class="tgt en">I have six grandchildren. My third grandson loves puzzles.</p>
+    <p class="zh">我有六个孙儿。我的第三个孙子非常喜欢拼图。</p>
+    <p class="th">ดิฉันมีหลานหกคน หลานชายคนที่สามของดิฉันชอบเล่นจิ๊กซอว์มาก</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">37</span>
+    <p class="src ko">제가 처음부터 도와주려고 하면 만지지도 못하게 하고 싫어합니다. 그러다 애써 혼자 하다가 잘 맞춰지지 않으면, 짜증을 내며 저를 쳐다보고는 도움을 청합니다.</p>
+    <p class="tgt en">If I try to help him from the very start, he won’t even let me touch it — he doesn’t want my help. But when he has struggled on his own and the pieces won’t fit, he grows frustrated, looks over at me, and asks for help.</p>
+    <p class="zh">如果我一开始就想帮他，他连碰都不让我碰，很不喜欢。可是当他自己努力半天却拼不上时，就会一脸不耐烦地望着我，向我求助。</p>
+    <p class="th">ถ้าดิฉันพยายามช่วยตั้งแต่แรก เขาจะไม่ยอมให้แตะด้วยซ้ำ เพราะเขาไม่ชอบ แต่พอเขาพยายามทำเองจนต่อไม่ติด เขาก็จะหงุดหงิด หันมามองดิฉัน แล้วขอความช่วยเหลือ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">38</span>
+    <p class="src ko">그리고 퍼즐이 다 맞춰진 것을 보면, 마치 혼자서 다 해낸 것처럼 뛸 듯이 기뻐합니다.</p>
+    <p class="tgt en">And when he sees the puzzle finally complete, he jumps for joy — as though he had done the whole thing all by himself.</p>
+    <p class="zh">等到拼图完成，他就欢天喜地地又蹦又跳，仿佛整幅都是他自己独力完成的。</p>
+    <p class="th">และเมื่อเขาเห็นจิ๊กซอว์ต่อเสร็จสมบูรณ์ เขาก็กระโดดโลดเต้นด้วยความดีใจ ราวกับว่าเขาทำทั้งหมดนั้นได้ด้วยตัวเองคนเดียว</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">39</span>
+    <p class="src ko">하나님 아버지께서도 우리가 할 수 있는 만큼 최선을 다한 뒤에, 우리가 할 수 없는 부분에 손을 내밀어 여러 가지 방법으로 도와주십니다. 처음부터 도와주시지는 않으십니다.</p>
+    <p class="tgt en">Heavenly Father does the same with us. After we have done our very best with all that is within our power, He reaches out where we fall short and helps us in many ways. He does not step in to help from the very beginning.</p>
+    <p class="zh">天父对我们也是如此。当我们已尽了自己一切所能之后，祂才会在我们无法完成的部分伸出手来，以各种方式帮助我们。祂不会从一开始就帮我们。</p>
+    <p class="th">พระบิดาบนสวรรค์ก็ทรงกระทำกับเราเช่นนั้น เมื่อเราได้ทำสุดความสามารถเท่าที่เราจะทำได้แล้ว พระองค์จึงทรงยื่นพระหัตถ์มาช่วยในส่วนที่เราทำไม่ได้ ด้วยวิธีต่าง ๆ พระองค์ไม่ทรงเข้ามาช่วยตั้งแต่แรก</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">40</span>
+    <p class="src ko">우리의 삶은 퍼즐을 한 조각 한 조각 맞추어 나가는 것과 같습니다. 불평하지 않고 끝까지 인내하며, 완성된 모습이 어떠할지를 생각하면서 전체 그림을 보려고 노력해야 합니다.</p>
+    <p class="tgt en">Our life is like fitting a puzzle together, one piece at a time. Without murmuring, we must endure to the end, keeping the finished picture in mind and trying to see the whole.</p>
+    <p class="zh">我们的人生就像一片一片地拼起拼图。我们必须毫无怨言地忍耐到底，心里想着完成后的样子，努力去看见整幅图画。</p>
+    <p class="th">ชีวิตของเราเปรียบเสมือนการต่อจิ๊กซอว์ทีละชิ้น ๆ เราต้องอดทนจนถึงที่สุดโดยไม่พร่ำบ่น นึกถึงภาพที่เสร็จสมบูรณ์ และพยายามมองให้เห็นภาพทั้งหมด</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">41</span>
+    <p class="src ko">주님께서는 각 퍼즐 조각이 그분의 계획 안에서 어디에 꼭 맞는지를 정확히 알고 계십니다.</p>
+    <p class="tgt en">The Lord knows exactly where each piece of the puzzle fits within His plan.</p>
+    <p class="zh">主确切地知道，每一片拼图在祂的计划中该放在哪里，恰好合适。</p>
+    <p class="th">พระเจ้าทรงทราบอย่างแน่ชัดว่าจิ๊กซอว์แต่ละชิ้นควรอยู่ตรงไหนในแผนของพระองค์</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">42</span>
+    <p class="src ko">만일 제가 지키기 쉬운 계명에만 충실하다면 퍼즐은 군데군데 비어 완성되지 않을 것입니다. 그러나 지키기 어려운 계명에도 충실하다면, 멋지게 완성된 퍼즐 작품을 보며 성취감을 느끼게 될 것입니다.</p>
+    <p class="tgt en">If I am faithful only to the commandments that are easy to keep, the puzzle will be full of gaps and never complete. But if I am faithful even to the commandments that are hard to keep, I will look at the beautiful, finished puzzle and feel a real sense of accomplishment.</p>
+    <p class="zh">假如我只忠于那些容易遵守的诫命，拼图就会处处留空，永远无法完成。但假如我连难以遵守的诫命也忠心遵守，就会看着一幅精美完成的拼图，感受到成就感。</p>
+    <p class="th">หากดิฉันซื่อสัตย์เฉพาะต่อพระบัญญัติที่รักษาได้ง่าย จิ๊กซอว์ก็จะมีช่องว่างอยู่หลายจุดและไม่มีวันเสร็จสมบูรณ์ แต่หากดิฉันซื่อสัตย์แม้ต่อพระบัญญัติที่รักษาได้ยาก ดิฉันก็จะได้มองดูผลงานจิ๊กซอว์ที่สวยงามและเสร็จสมบูรณ์ และรู้สึกถึงความสำเร็จ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">43</span>
+    <p class="src ko">이것이 바로 주님께서 원하시는 것이며, 영생으로 나아가는 퍼즐 조각을 하나씩 맞추어 가는 일입니다. 주님께서는 우리 각자가 무엇을 이루기를 바라시는지 알고 계십니다.</p>
+    <p class="tgt en">This is exactly what the Lord desires, and it is how we fit together, piece by piece, the puzzle that leads to eternal life. The Lord knows what He hopes each one of us will accomplish.</p>
+    <p class="zh">这正是主所愿的，也就是一片一片地拼起那通往永生的拼图。主知道祂盼望我们每一个人成为什么样的人。</p>
+    <p class="th">นี่แหละคือสิ่งที่พระเจ้าทรงประสงค์ และเป็นการต่อจิ๊กซอว์ที่นำไปสู่ชีวิตนิรันดร์ทีละชิ้น ๆ พระเจ้าทรงทราบว่าพระองค์ทรงปรารถนาให้เราแต่ละคนกลายเป็นเช่นไร</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">44</span>
+    <p class="src ko">매년 1월 1일이 되면, 보통 집집마다 한 해 계획을 세우고, 신권 소유자에게 축복을 받고, 맛있는 떡국을 먹으며 덕담을 나누고, 윷놀이 같은 게임도 합니다.</p>
+    <p class="tgt en">Every year on the first of January, in most homes we make our plans for the year, receive a blessing from a priesthood holder, share good wishes over a warm bowl of tteokguk — rice-cake soup — and play games such as yut.</p>
+    <p class="zh">每年一月一日，家家户户通常都会订下一年的计划，请圣职持有人给予祝福，一边吃着美味的年糕汤，一边彼此道贺，还会玩掷柶之类的传统游戏。</p>
+    <p class="th">ทุกปีในวันที่ ๑ มกราคม ครอบครัวส่วนใหญ่มักจะวางแผนสำหรับปีนั้น รับพรจากผู้ดำรงฐานะปุโรหิต รับประทานต๊อกกุก—ซุปเค้กข้าวแสนอร่อย—พร้อมกับกล่าวคำอวยพรให้กัน และเล่นเกมอย่างเช่น “ยุด”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">45</span>
+    <p class="src ko">저도 지난 일을 돌아보다가, 저의 실수로 상처를 준 사람에게 연락해야겠다는 마음이 들어 그분에게 연락을 드렸습니다. 만나서 용서를 구하고, 이야기를 나누고 싶었기 때문입니다.</p>
+    <p class="tgt en">As I looked back over the past, I felt that I should reach out to someone I had hurt by a mistake I had made, and so I contacted that person — because I wanted to meet, to ask forgiveness, and to talk together.</p>
+    <p class="zh">我在回顾过去时，心里生起一个念头：我应该联络一位曾因我的过失而受伤的人。于是我联络了对方，因为我很想与他见面、请求原谅，好好谈一谈。</p>
+    <p class="th">ขณะที่ดิฉันหวนคิดถึงเรื่องที่ผ่านมา ดิฉันรู้สึกว่าควรติดต่อไปหาคนที่ดิฉันเคยทำให้เจ็บปวดเพราะความผิดพลาดของดิฉันเอง ดิฉันจึงติดต่อไป เพราะอยากพบเขา ขอการให้อภัย และพูดคุยกัน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">46</span>
+    <p class="src ko">그러나 상대방에게서 답이 없어서, 저는 그 가족을 위해 기도하는 것이 최선이자 답이라고 결론짓고 마음을 편안히 내려놓았습니다.</p>
+    <p class="tgt en">But no reply came, and so I concluded that praying for that family was both the best I could do and the answer itself, and I laid the matter down with a peaceful heart.</p>
+    <p class="zh">然而对方一直没有回音，于是我作出结论：为那个家庭祈祷，既是我所能做的最好的事，也就是答案本身。我便安心地把这件事放下了。</p>
+    <p class="th">แต่ไม่มีคำตอบใด ๆ กลับมา ดิฉันจึงสรุปว่าการสวดอ้อนวอนเพื่อครอบครัวนั้นเป็นทั้งสิ่งที่ดีที่สุดที่ดิฉันทำได้และเป็นคำตอบในตัวมันเอง แล้วดิฉันก็วางเรื่องนี้ลงด้วยใจที่สงบ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">47</span>
+    <p class="src ko">우리에게는 “선한 변화”를 이루어 낼 수 있는 능력이 주어졌다고 배웠습니다.</p>
+    <p class="tgt en">We have been taught that we have been given the power to bring about “good change.”</p>
+    <p class="zh">我们受到的教导是：我们已经被赋予能力，去实现「美好的转变」。</p>
+    <p class="th">เราได้รับการสอนว่า เราได้รับพลังที่จะทำให้เกิด “การเปลี่ยนแปลงที่ดี”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">48</span>
+    <p class="src ko">스펜서 더블유 킴볼 회장께서는 이렇게 말씀하셨습니다.</p>
+    <p class="tgt en">President Spencer W. Kimball taught:</p>
+    <p class="zh">斯宾塞·甘会长曾这样说：</p>
+    <p class="th">ประธานสเปนเซอร์ ดับเบิลยู. คิมบัลล์ ได้กล่าวไว้ดังนี้</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">49</span>
+    <blockquote class="src ko">필멸의 생을 삶의 전부로 바라본다면, 그때에는 고통, 슬픔, 실패 그리고 짧은 삶이 재앙으로 다가올 것입니다.</blockquote>
+    <blockquote class="tgt en">If we looked at mortality as the whole of existence, then pain, sorrow, failure, and short life would be calamity.</blockquote>
+    <blockquote class="zh">如果我们把现世生活看作生命的全部，那么痛苦、忧伤、失败和短暂的一生，就都是灾难了。</blockquote>
+    <blockquote class="th">ถ้าเรามองว่าความเป็นมรรตัยคือภาพรวมทั้งหมดของการดำรงอยู่ เมื่อนั้น ความเจ็บปวด ความเศร้าโศก ความล้มเหลว และชีวิตอันสั้นคงจะเป็นความหายนะ</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">50</span>
+    <blockquote class="src ko">그러나 삶을 전세의 과거와 죽음 이후의 영원한 미래까지 멀리 펼쳐지는 영원한 것으로 바라본다면, 그때에는 일어나는 모든 일들을 올바른 관점에서 볼 수가 있습니다.<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
+    <blockquote class="tgt en">But if we look upon life as an eternal thing stretching far into the premortal past and on into the eternal post-death future, then all happenings may be put in proper perspective.<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
+    <blockquote class="zh">但如果我们把生命看作永恒的——从前生久远的过去，一直延伸到死后永恒的将来——那么所发生的一切，就都能放在正确的眼光中来看待了。<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
+    <blockquote class="th">แต่ถ้าเรามองว่าชีวิตเป็นนิรันดร์ที่ย้อนไปไกลในอดีตก่อนมรรตัยสู่อนาคตนิรันดร์หลังความตาย เมื่อนั้นเหตุการณ์ทั้งหลายน่าจะอยู่ในมุมมองที่ถูกต้อง<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">51</span>
+    <p class="src ko">화가이자 조각가였던 미켈란젤로가 커다란 대리석 덩어리를 조각하고 있을 때, 매일같이 찾아와 수줍게 그 모습을 지켜보던 한 소년이 있었습니다.</p>
+    <p class="tgt en">When Michelangelo, the painter and sculptor, was carving a great block of marble, there was a boy who came every day and shyly watched him work.</p>
+    <p class="zh">身兼画家与雕刻家的米开朗基罗，在雕琢一块巨大的大理石时，有一个小男孩每天都来，怯生生地看着他工作。</p>
+    <p class="th">เมื่อมิเกลันเจโล จิตรกรและประติมากร กำลังแกะสลักหินอ่อนก้อนใหญ่ มีเด็กชายคนหนึ่งมาทุกวันและเฝ้าดูเขาทำงานอย่างเหนียมอาย</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">52</span>
+    <p class="src ko">그 커다란 대리석 덩어리는 서서히, 저 유명한 “다윗과 골리앗” 이야기 속 다윗의 모습을 한 예술 작품이 되어 갔습니다.</p>
+    <p class="tgt en">Slowly, that great block of marble became a work of art in the form of David — the famous David from the story of David and Goliath.</p>
+    <p class="zh">那一大块大理石渐渐变成一件艺术品，塑成了那位著名的大卫——就是「大卫与歌利亚」故事中的大卫。</p>
+    <p class="th">หินอ่อนก้อนใหญ่นั้นค่อย ๆ กลายเป็นงานศิลปะในรูปของดาวิด—ดาวิดผู้โด่งดังจากเรื่องราวของดาวิดกับโกลิอัท</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">53</span>
+    <p class="src ko">그 소년은 미켈란젤로에게 물었습니다. “그가 그 안에 있다는 것을 어떻게 아셨어요?”</p>
+    <p class="tgt en">The boy asked Michelangelo, “How did you know he was inside there?”</p>
+    <p class="zh">那男孩问米开朗基罗：「您怎么知道他就在那里面呢？」</p>
+    <p class="th">เด็กชายถามมิเกลันเจโลว่า “คุณรู้ได้อย่างไรว่าเขาอยู่ในนั้น?”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">54</span>
+    <p class="src ko">그 대리석 덩어리를 바라보는 조각가의 관점과, 그 작업을 지켜보던 소년의 관점은 서로 달랐습니다. 이처럼 주님의 생각과 그분이 보시는 관점도 우리와 다릅니다.</p>
+    <p class="tgt en">The sculptor’s view of that block of marble and the boy’s view of the same work were not the same. In just this way, the Lord’s thoughts are not our thoughts, and the way He sees is different from ours.</p>
+    <p class="zh">雕刻家看那块大理石的眼光，与旁观那工作的男孩的眼光，是不一样的。同样地，主的意念和祂看事情的眼光，也与我们不同。</p>
+    <p class="th">มุมมองของประติมากรที่มีต่อหินอ่อนก้อนนั้น กับมุมมองของเด็กชายที่เฝ้าดูงานเดียวกัน ไม่เหมือนกัน เช่นเดียวกันนี้ ความคิดของพระเจ้าและวิธีที่พระองค์ทรงมองก็แตกต่างจากของเรา</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">55</span>
+    <p class="src ko">사랑이 많으시고 공정하시며 자비로우신 주님께 감사드립니다.</p>
+    <p class="tgt en">I am grateful to the Lord, who is full of love, who is just, and who is merciful.</p>
+    <p class="zh">我感谢主，祂满有慈爱、公正又慈悲。</p>
+    <p class="th">ดิฉันสำนึกในพระกรุณาธิคุณต่อพระเจ้า ผู้ทรงเปี่ยมด้วยความรัก ทรงยุติธรรม และทรงเมตตา</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">56</span>
+    <p class="src ko">하나님 아버지께서는 그분의 자녀들을 지극히 사랑하시기에, 그들이 잘못을 저지르고 진리를 외면할지라도 여전히 두 팔을 벌리고 계시며, 온갖 방법으로 그들을 다시 돌아오게 하시려고 애쓰십니다.</p>
+    <p class="tgt en">Because Heavenly Father loves His children so dearly, even when they do wrong and turn away from the truth, He still stands with His arms outstretched, striving in every way to bring them back.</p>
+    <p class="zh">天父极其疼爱祂的儿女，即使他们犯错、背离真理，祂仍然张开双臂，用尽各种方法，努力使他们重新回来。</p>
+    <p class="th">เพราะพระบิดาบนสวรรค์ทรงรักบุตรธิดาของพระองค์อย่างสุดซึ้ง แม้พวกเขาจะทำผิดและหันหลังให้ความจริง พระองค์ก็ยังทรงกางพระพาหุไว้ และทรงพยายามด้วยทุกวิถีทางที่จะนำพวกเขากลับมา</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">57</span>
+    <p class="src ko">우리가 할 일은, 불평하지 않고 인내하며 계명을 지키고, 전세에서 주님과 약속했던 것을 이 지상 생활에서 실천하려고 노력하며, 영생으로 가는 퍼즐을 하나씩 맞추어 가는 것이라고 생각합니다.</p>
+    <p class="tgt en">Our part, I believe, is to keep the commandments patiently and without murmuring, to strive, here in mortality, to live up to what we promised the Lord in our premortal life, and to fit together, piece by piece, the puzzle that leads to eternal life.</p>
+    <p class="zh">我认为，我们该做的，就是毫无怨言地忍耐、遵守诫命，努力在今生实践我们在前生对主所作的承诺，并一片一片地拼起那通往永生的拼图。</p>
+    <p class="th">ดิฉันเชื่อว่าสิ่งที่เราต้องทำคือ รักษาพระบัญญัติด้วยความอดทนโดยไม่พร่ำบ่น พยายามในชีวิตบนโลกนี้ที่จะทำตามสิ่งที่เราสัญญาไว้กับพระเจ้าในชีวิตก่อนมรรตัย และต่อจิ๊กซอว์ที่นำไปสู่ชีวิตนิรันดร์ทีละชิ้น ๆ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">58</span>
+    <p class="src ko">저의 부족한 말씀을 예수 그리스도의 이름으로 전해 드립니다. 아멘.</p>
+    <p class="tgt en">I leave these humble words with you, in the name of Jesus Christ. Amen.</p>
+    <p class="zh">我奉耶稣基督的名，将我这些浅薄的话语分享给大家。阿们。</p>
+    <p class="th">ดิฉันขอมอบถ้อยคำอันบกพร่องของดิฉันนี้แก่ท่านทั้งหลาย ในพระนามของพระเยซูคริสต์ เอเมน</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

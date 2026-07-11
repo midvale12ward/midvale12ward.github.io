@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eternal Life Is Not the Destination, but a Process of Change · 영생은 목적지가 아니라 변화의 과정입니다</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.pair .zh, .pair .th { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Eternal Life Is Not the Destination, but a Process of Change</span><span class="ko">영생은 목적지가 아니라 변화의 과정입니다</span><span class="zh">永生不是终点，而是改变的过程</span><span class="th">ชีวิตนิรันดร์ไม่ใช่จุดหมายปลายทาง แต่เป็นกระบวนการของการเปลี่ยนแปลง</span></h1>
+  <p class="byline">Brother Alex Kwon · 알렉스 권 형제 &nbsp;·&nbsp; 12 July 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">Good morning, brothers and sisters. My name is Brother Alex Kwon, and I have been asked to speak today and to introduce myself.</p>
+    <p class="tgt ko">형제 자매 여러분, 안녕하십니까. 저는 알렉스 권 형제이며, 오늘 말씀을 전하고 제 소개도 해 달라는 부탁을 받았습니다.</p>
+    <p class="zh">各位弟兄姊妹，早安。我是亚历克斯·权弟兄，今天受邀来讲话，并向大家做个自我介绍。</p>
+    <p class="th">สวัสดีครับ พี่น้องทั้งหลาย ผมชื่อบราเดอร์อเล็กซ์ ควอน วันนี้ผมได้รับมอบหมายให้พูดและแนะนำตัวให้ทุกท่านได้รู้จัก</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src en">I am originally from Philadelphia, Pennsylvania, where I grew up.</p>
+    <p class="tgt ko">저는 원래 펜실베이니아주 필라델피아 출신이며, 그곳에서 자랐습니다.</p>
+    <p class="zh">我来自宾夕法尼亚州的费城，从小在那里长大。</p>
+    <p class="th">เดิมทีผมมาจากเมืองฟิลาเดลเฟีย รัฐเพนซิลเวเนีย และเติบโตที่นั่น</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">I served a mission in Los Angeles, studied at Utah Valley University, and I am now in my final year of dental school at Roseman College of Dental Medicine in South Jordan.</p>
+    <p class="tgt ko">저는 로스앤젤레스에서 선교사로 봉사했고, 유타밸리대학교에서 공부했으며, 지금은 사우스조던에 있는 로즈먼 치과대학에서 마지막 학년을 보내고 있습니다.</p>
+    <p class="zh">我曾在洛杉矶传教，之后在犹他谷大学就读，如今在南乔登的罗斯曼牙医学院念最后一年。</p>
+    <p class="th">ผมเคยรับใช้งานเผยแผ่ที่ลอสแอนเจลิส เรียนที่มหาวิทยาลัยยูทาห์แวลลีย์ และตอนนี้กำลังเรียนปีสุดท้ายในคณะทันตแพทยศาสตร์ที่วิทยาลัยโรสแมนในเซาท์จอร์แดน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">My wife, Jinkyung Park, is from the Seoul Shindang Ward and did her undergraduate studies at BYU. We have been married for two years, and we now have a baby girl on the way.</p>
+    <p class="tgt ko">제 아내 박진경은 서울 신당 와드 출신이며, BYU에서 학부를 마쳤습니다. 저희는 결혼한 지 2년이 되었고, 지금은 딸의 출산을 앞두고 있습니다.</p>
+    <p class="zh">我的妻子朴珍卿来自首尔新堂支会，在杨百翰大学完成了大学学业。我们结婚两年了，现在正期待着一个女儿的到来。</p>
+    <p class="th">ภรรยาของผม พัคจินคยอง มาจากวอร์ดชินดังในกรุงโซล และเรียนระดับปริญญาตรีที่มหาวิทยาลัยบีวายยู เราแต่งงานกันได้สองปีแล้ว และตอนนี้กำลังจะมีลูกสาวด้วยกัน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">Today I would like to share my thoughts on what Eternal Life is. In simple terms, Eternal Life is living in the presence of our Heavenly Father in the next life. This is very different from Immortality, which is the ability to live forever.</p>
+    <p class="tgt ko">오늘은 영생이 무엇인지에 대한 제 생각을 나누고자 합니다. 간단히 말하면, 영생이란 다음 생에서 하나님 아버지의 면전에서 사는 것입니다. 이것은 영원히 살 수 있는 능력을 뜻하는 불멸과는 매우 다릅니다.</p>
+    <p class="zh">今天我想分享我对永生的一些想法。简单来说，永生就是在来生与天父同住。这与「不死」——也就是永远活着的能力——很不一样。</p>
+    <p class="th">วันนี้ผมอยากแบ่งปันความคิดของผมว่าชีวิตนิรันดร์คืออะไร พูดง่าย ๆ ก็คือ ชีวิตนิรันดร์หมายถึงการอยู่ต่อพระพักตร์พระบิดาบนสวรรค์ในชีวิตหน้า ซึ่งแตกต่างอย่างมากจากความเป็นอมตะ อันหมายถึงความสามารถที่จะมีชีวิตอยู่ตลอดไป</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">Both of these are gifts given to us through the Atonement of Jesus Christ. The notable difference is that Immortality is unconditional, while Eternal Life depends on our efforts in this life.</p>
+    <p class="tgt ko">이 두 가지는 모두 예수 그리스도의 속죄를 통해 우리에게 주어지는 은사입니다. 다만 그 뚜렷한 차이는, 불멸은 조건 없이 주어지는 반면 영생은 이 생에서 우리가 기울이는 노력에 달려 있다는 점입니다.</p>
+    <p class="zh">这两者都是藉着耶稣基督的赎罪赐给我们的恩赐。两者显著的差别在于：不死是无条件的，而永生则取决于我们今生的努力。</p>
+    <p class="th">ทั้งสองอย่างนี้เป็นของประทานที่มอบให้เราผ่านการชดใช้ของพระเยซูคริสต์ ข้อแตกต่างที่เห็นได้ชัดคือ ความเป็นอมตะนั้นไม่มีเงื่อนไข ส่วนชีวิตนิรันดร์ขึ้นอยู่กับความพยายามของเราในชีวิตนี้</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">A few years ago, I attended a reunion with some church friends from Pennsylvania, some of whom I have also known for many years outside of church. I was aware that one of these friends in particular had been involved in things that go against Church standards and the commandments.</p>
+    <p class="tgt ko">몇 년 전, 저는 펜실베이니아에서 알던 교회 친구들과 다시 만나는 모임에 참석했습니다. 그중 몇몇은 교회 밖에서도 오랫동안 알고 지낸 친구들이었습니다. 그런데 저는 그 친구들 중 특히 한 명이 교회의 표준과 계명에 어긋나는 일에 관여하고 있다는 것을 알고 있었습니다.</p>
+    <p class="zh">几年前，我参加了一场与宾州教会朋友的聚会，其中有些人我在教会以外也认识多年了。我知道其中一位朋友曾做过一些违反教会标准和诫命的事。</p>
+    <p class="th">เมื่อไม่กี่ปีก่อน ผมไปงานพบปะเพื่อน ๆ ที่โบสถ์ซึ่งมาจากรัฐเพนซิลเวเนีย บางคนผมก็รู้จักกันนอกโบสถ์มาหลายปีแล้ว ผมทราบว่าเพื่อนคนหนึ่งในกลุ่มนั้นเข้าไปเกี่ยวข้องกับสิ่งที่ขัดต่อมาตรฐานของศาสนจักรและพระบัญญัติ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">In the back of my mind, I kept wondering why this person still came to church and stayed in contact with church friends, if that was the lifestyle they had chosen. But at this reunion, the organizer — our former bishop — suddenly asked to hear our testimonies.</p>
+    <p class="tgt ko">한편으로 저는, 그런 삶을 택했다면 이 사람이 왜 여전히 교회에 나오고 교회 친구들과 연락을 이어 가는지 계속 궁금했습니다. 그런데 그 모임에서, 모임을 준비한 우리의 예전 감독님이 갑자기 우리에게 간증을 나눠 달라고 하셨습니다.</p>
+    <p class="zh">在我心底，我一直纳闷：如果这就是他选择的生活方式，那他为什么还来教会，还和教会朋友保持联系呢？但在这次聚会中，召集人——我们从前的主教——忽然请我们分享见证。</p>
+    <p class="th">ลึก ๆ ในใจ ผมยังสงสัยอยู่ว่า ถ้านั่นคือวิถีชีวิตที่เขาเลือกแล้ว เหตุใดเขาจึงยังมาโบสถ์และติดต่อกับเพื่อน ๆ ที่โบสถ์อยู่ แต่ในงานนี้ ผู้จัดงาน—ซึ่งเป็นอดีตอธิการของเรา—จู่ ๆ ก็ขอให้เราแบ่งปันประจักษ์พยาน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src en">So we each took turns bearing our testimonies. When it came to this particular friend’s turn, they testified about always trying to keep the commandments and never giving up.</p>
+    <p class="tgt ko">그래서 우리는 돌아가며 간증을 전했습니다. 바로 그 친구의 차례가 되었을 때, 그 친구는 늘 계명을 지키려 애쓰며 결코 포기하지 않는다는 간증을 전했습니다.</p>
+    <p class="zh">于是我们轮流分享见证。轮到那位朋友时，他见证说自己始终努力遵守诫命，从不放弃。</p>
+    <p class="th">เราจึงผลัดกันแสดงประจักษ์พยาน เมื่อถึงตาของเพื่อนคนนั้น เขาแสดงประจักษ์พยานว่าเขาพยายามรักษาพระบัญญัติเสมอและไม่เคยยอมแพ้</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src en">They ended their testimony by saying that they know they are not perfect, but that they are trying their best to change, and that everyone grows at their own pace.</p>
+    <p class="tgt ko">그 친구는 자신이 온전하지 않다는 것을 알지만 변화하기 위해 최선을 다하고 있으며, 사람은 저마다 자기만의 속도로 성장하는 것이라는 말로 간증을 마쳤습니다.</p>
+    <p class="zh">他在结束见证时说，他知道自己并不完全，但他正尽力去改变，而且每个人成长的步调各有不同。</p>
+    <p class="th">เขาปิดท้ายประจักษ์พยานด้วยการกล่าวว่า เขารู้ว่าตนเองไม่ได้ดีพร้อม แต่เขากำลังพยายามอย่างสุดความสามารถที่จะเปลี่ยนแปลง และทุกคนต่างเติบโตตามจังหวะของตนเอง</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">I felt terrible for having judged my friend, when I had no idea what efforts were going on behind the scenes. By the end of that reunion, I had learned the most from the very person I had expected the least from.</p>
+    <p class="tgt ko">저는 그 친구가 보이지 않는 곳에서 어떤 노력을 기울이고 있었는지 전혀 알지 못한 채 그 친구를 판단했던 것이 너무나 부끄러웠습니다. 그 모임이 끝날 무렵, 저는 가장 기대하지 않았던 바로 그 사람에게서 가장 많은 것을 배웠습니다.</p>
+    <p class="zh">我为自己论断了这位朋友而深感惭愧，因为我根本不知道他背后付出了多少努力。到那场聚会结束时，我从最意想不到的人身上，学到了最多。</p>
+    <p class="th">ผมรู้สึกแย่มากที่ได้ตัดสินเพื่อนของผม ทั้งที่ผมไม่รู้เลยว่าเบื้องหลังนั้นเขาพยายามมากเพียงใด เมื่อจบงานพบปะครั้งนั้น ผมกลับเรียนรู้ได้มากที่สุดจากคนที่ผมคาดหวังไว้น้อยที่สุด</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">Eternal Life is not just a box we check off on a to-do list. It is a state of progression, in which we willingly grow as we earn the privilege to live in the presence of Heavenly Father.</p>
+    <p class="tgt ko">영생은 단순히 할 일 목록에서 하나 지워 나가는 항목 같은 것이 아닙니다. 그것은 우리가 계속 나아가는 과정이며, 하나님 아버지의 면전에서 살 수 있는 특권을 얻어 가는 가운데 우리가 기꺼이 성장해 가는 것입니다.</p>
+    <p class="zh">永生不是待办清单上打个勾就算完成的事。它是一种不断进步的状态——我们甘心乐意地成长，从而配得住在天父面前的福分。</p>
+    <p class="th">ชีวิตนิรันดร์ไม่ใช่แค่ข้อหนึ่งในรายการสิ่งที่ต้องทำ ที่ทำเสร็จแล้วก็ขีดฆ่าทิ้งไป แต่เป็นสภาพของการก้าวหน้าอยู่เสมอ ที่เราเต็มใจเติบโตขึ้นในขณะที่เราได้รับพรอันประเสริฐที่จะได้อยู่ต่อพระพักตร์พระบิดาบนสวรรค์</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src en">But what I learned that day is that the desire to change looks different for everyone.</p>
+    <p class="tgt ko">하지만 그날 제가 배운 것은, 변화하고자 하는 마음은 사람마다 다르게 나타난다는 것이었습니다.</p>
+    <p class="zh">但那天我学到的是：想要改变的渴望，在每个人身上看起来都不一样。</p>
+    <p class="th">แต่สิ่งที่ผมเรียนรู้ในวันนั้นคือ ความปรารถนาที่จะเปลี่ยนแปลงนั้นแสดงออกแตกต่างกันไปในแต่ละคน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src en">To some people, coming to church and reading the scriptures every day is a big change. To others, simply keeping a prayer in their heart is a big change.</p>
+    <p class="tgt ko">어떤 사람에게는 교회에 나오고 매일 경전을 읽는 것이 큰 변화입니다. 또 어떤 사람에게는 그저 마음속에 기도를 품는 것이 큰 변화입니다.</p>
+    <p class="zh">对有些人来说，来教会、每天研读经文就是很大的改变；对另一些人来说，单单在心中常存祈祷，就是很大的改变。</p>
+    <p class="th">สำหรับบางคน การมาโบสถ์และอ่านพระคัมภีร์ทุกวันคือการเปลี่ยนแปลงครั้งใหญ่ สำหรับคนอื่น เพียงแค่การมีคำสวดอ้อนวอนอยู่ในใจก็เป็นการเปลี่ยนแปลงครั้งใหญ่แล้ว</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src en">This idea of change applies not only now, but in Eternal Life as well. We will need to keep changing for the better even in Eternal Life.</p>
+    <p class="tgt ko">이러한 변화의 개념은 지금뿐 아니라 영생에서도 적용됩니다. 우리는 영생에서도 더 나은 모습으로 계속 변화해 가야 할 것입니다.</p>
+    <p class="zh">这种改变的概念不仅适用于现在，也适用于永生。即使在永生中，我们仍需不断向着更好的方向改变。</p>
+    <p class="th">แนวคิดเรื่องการเปลี่ยนแปลงนี้ไม่เพียงใช้กับปัจจุบันเท่านั้น แต่ใช้กับชีวิตนิรันดร์ด้วย แม้ในชีวิตนิรันดร์ เราก็ยังต้องเปลี่ยนแปลงให้ดีขึ้นต่อไป</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src en">Eternal Life, in essence, is a broad goal; the real goal is to learn to willingly align our lives with Heavenly Father’s will.</p>
+    <p class="tgt ko">본질적으로 영생은 큰 틀의 목표이며, 진정한 목표는 우리의 삶을 하나님 아버지의 뜻에 기꺼이 맞추는 법을 배우는 것입니다.</p>
+    <p class="zh">本质上，永生是一个宏大的目标；真正的目标，是学会心甘情愿地让我们的生活与天父的旨意一致。</p>
+    <p class="th">โดยแก่นแท้แล้ว ชีวิตนิรันดร์เป็นเป้าหมายกว้าง ๆ เป้าหมายที่แท้จริงคือการเรียนรู้ที่จะปรับชีวิตของเราให้สอดคล้องกับพระประสงค์ของพระบิดาบนสวรรค์อย่างเต็มใจ</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src en">While change is the goal, one big obstacle for me personally is comparing myself to others. I feel this way when I listen to conference talks, to Church leaders, Apostles, and prophets, and especially when I hear the stories of Jesus. At times I feel deeply inadequate.</p>
+    <p class="tgt ko">변화가 목표이긴 하지만, 저에게 개인적으로 큰 걸림돌 하나는 저 자신을 다른 사람과 비교하는 것입니다. 저는 연차 대회 말씀이나 교회 지도자, 특히 사도와 선지자의 말씀을 들을 때, 그리고 예수님에 관한 이야기를 들을 때 그런 마음이 듭니다. 때로는 제 자신이 너무나 부족하게 느껴집니다.</p>
+    <p class="zh">虽然改变是目标，但对我个人而言，一大障碍是拿自己和别人比较。当我聆听总会大会演讲、教会领袖、使徒和先知的话，尤其是听到关于耶稣的事迹时，我就会有这种感觉。有时我觉得自己非常不足。</p>
+    <p class="th">แม้การเปลี่ยนแปลงจะเป็นเป้าหมาย แต่อุปสรรคใหญ่อย่างหนึ่งสำหรับผมเป็นการส่วนตัวคือการเปรียบเทียบตัวเองกับผู้อื่น ผมรู้สึกเช่นนี้เมื่อฟังคำปราศรัยในการประชุมใหญ่สามัญ ฟังผู้นำศาสนจักร อัครสาวก และศาสดาพยากรณ์ และโดยเฉพาะเมื่อได้ยินเรื่องราวของพระเยซู บางครั้งผมรู้สึกว่าตัวเองด้อยเหลือเกิน</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src en">I see all these righteous figures always being Christlike and keeping the commandments, while I so often find myself struggling to be “perfect.” Of course, only Jesus is perfect — but there are also many people who are wonderful role models.</p>
+    <p class="tgt ko">저는 이 모든 의로운 분들이 늘 그리스도를 닮은 모습으로 계명을 지키는 것을 보는데, 정작 저는 “온전”해지려고 자주 애쓰며 힘겨워합니다. 물론 온전하신 분은 예수님뿐이십니다. 하지만 훌륭한 본이 되는 사람들도 많이 있습니다.</p>
+    <p class="zh">我看见这些义人总是效法基督、遵守诫命，而我却常常苦苦追求「完全」。当然，唯有耶稣是完全的——但也有许多人是很好的榜样。</p>
+    <p class="th">ผมเห็นบุคคลผู้ชอบธรรมเหล่านี้เป็นเหมือนพระคริสต์และรักษาพระบัญญัติอยู่เสมอ ในขณะที่ผมกลับต้องพยายามอย่างหนักอยู่บ่อย ๆ ที่จะ “ดีพร้อม” แน่นอนว่ามีเพียงพระเยซูเท่านั้นที่ดีพร้อม—แต่ก็มีผู้คนมากมายที่เป็นแบบอย่างที่ดี</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src en">In the end, what I learned most comes from a well-known scripture, Matthew 7:1:</p>
+    <p class="tgt ko">결국 제가 가장 크게 배운 것은 잘 알려진 성구인 마태복음 7장 1절에 담겨 있습니다.</p>
+    <p class="zh">最终，我学到最深的一课，来自一段广为人知的经文，马太福音第七章第一节：</p>
+    <p class="th">ในที่สุด สิ่งที่ผมเรียนรู้มากที่สุดมาจากพระคัมภีร์ข้อที่รู้จักกันดี คือมัทธิวบทที่ ๗ ข้อ ๑</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">20</span>
+    <blockquote class="src en">Judge not, that ye be not judged.<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="tgt ko">비판을 받지 아니하려거든 비판하지 말라.<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="zh">你们不要论断人，免得你们被论断。<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="th">อย่าพิพากษา เพื่อพระเจ้าจะไม่ทรงพิพากษาท่านทั้งหลาย<cite>Matthew 7:1</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src en">We most often think of this as not judging others, but I believe it also applies to not judging ourselves.</p>
+    <p class="tgt ko">우리는 흔히 이 말씀을 다른 사람을 비판하지 말라는 뜻으로 생각하지만, 저는 이것이 자기 자신을 비판하지 않는 데에도 적용된다고 믿습니다.</p>
+    <p class="zh">我们通常认为这是指不要论断别人，但我相信这也适用于不要论断自己。</p>
+    <p class="th">เรามักคิดว่าข้อนี้หมายถึงการไม่ตัดสินผู้อื่น แต่ผมเชื่อว่ามันใช้ได้กับการไม่ตัดสินตัวเราเองด้วย</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src en">If you are earnestly trying to change and grow in the gospel, do not be too hard on yourself. You are doing your best, and the Lord loves effort.</p>
+    <p class="tgt ko">만일 여러분이 복음 안에서 진심으로 변화하고 성장하려고 애쓰고 있다면, 스스로를 너무 몰아세우지 마십시오. 여러분은 최선을 다하고 있으며, 주님께서는 그 노력을 사랑하십니다.</p>
+    <p class="zh">如果你正诚心地想在福音中改变、成长，就不要对自己太苛刻。你已经尽力了，而主珍视你的努力。</p>
+    <p class="th">หากท่านกำลังพยายามอย่างจริงใจที่จะเปลี่ยนแปลงและเติบโตในพระกิตติคุณ ขออย่าเข้มงวดกับตัวเองมากเกินไป ท่านกำลังทำสุดความสามารถแล้ว และพระเจ้าทรงรักความพยายามนั้น</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src en">I would like to share one last quote, from Elder Jeffrey R. Holland, in his October 2017 general conference talk titled “Be Ye Therefore Perfect—Eventually.”</p>
+    <p class="tgt ko">마지막으로 한 가지 말씀을 나누고자 합니다. 제프리 알 홀런드 장로님의 2017년 10월 연차 대회 말씀인 “그러므로 너희도 종국에는 온전하라”에서 인용한 것입니다.</p>
+    <p class="zh">最后，我想分享一段话，出自杰佛瑞·贺伦长老在2017年10月总会大会中题为「所以，你们〔最终〕要完全」的演讲。</p>
+    <p class="th">สุดท้ายนี้ ผมอยากแบ่งปันคำกล่าวหนึ่ง จากเอ็ลเดอร์เจฟฟรีย์ อาร์. ฮอลแลนด์ ในคำปราศรัยการประชุมใหญ่สามัญเดือนตุลาคม ปี 2017 ชื่อเรื่อง “เพราะฉะนั้นพวกท่านจงเป็นคนดีพร้อม—ในที่สุด”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src en">He begins with the scripture:</p>
+    <p class="tgt ko">그분은 이 성구로 말씀을 시작하십니다.</p>
+    <p class="zh">他以这段经文开始：</p>
+    <p class="th">ท่านเริ่มด้วยพระคัมภีร์ข้อนี้</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">25</span>
+    <blockquote class="src en">Be ye therefore perfect, even as your Father which is in heaven is perfect.<cite>Matthew 5:48</cite></blockquote>
+    <blockquote class="tgt ko">그러므로 하늘에 계신 너희 아버지의 온전하심과 같이 너희도 온전하라.<cite>Matthew 5:48</cite></blockquote>
+    <blockquote class="zh">所以，你们要完全，像你们的天父完全一样。<cite>Matthew 5:48</cite></blockquote>
+    <blockquote class="th">เพราะฉะนั้นพวกท่านจงเป็นคนดีพร้อม เหมือนอย่างที่พระบิดาของท่าน ผู้สถิตในสวรรค์ทรงดีพร้อม<cite>Matthew 5:48</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">26</span>
+    <p class="src en">Then he says:</p>
+    <p class="tgt ko">그런 다음 이렇게 말씀하십니다.</p>
+    <p class="zh">接着他说：</p>
+    <p class="th">จากนั้นท่านกล่าวว่า</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">27</span>
+    <blockquote class="src en">With that concluding imperative, we want to go back to bed and pull the covers over our head. Such celestial goals seem beyond our reach. Yet surely the Lord would never give us a commandment He knew we could not keep.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="tgt ko">이 결론적인 계명에 이르러서는 자리에 도로 누워 이불을 머리끝까지 뒤집어쓰고 싶어질 것입니다. 그같은 해의 왕국의 목표들은 결코 이루지 못할 일들로 보입니다. 그럼에도 분명한 것은, 주님께서 우리가 지키지 못할 것을 아시는 계명은 결코 주지 않으신다는 것입니다.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="zh">看到最后那条诫命，我们会想回到床上，蒙头大睡算了。这样的高荣目标似乎遥不可及，但主一定不会给我们一条祂明知我们做不到的诫命。<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="th">ด้วยพระบัญชาปิดท้ายข้อนั้น เราอยากจะกลับไปนอนคลุมโปง เป้าหมายซีเลสเชียลเช่นนั้นดูเหมือนไกลเกินเอื้อม แต่แน่นอนว่าพระเจ้าจะไม่ประทานพระบัญญัติที่พระองค์ทรงทราบว่าเราจะรักษาไม่ได้<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">28</span>
+    <p class="src en">And he concludes:</p>
+    <p class="tgt ko">그리고 이렇게 말씀을 맺으십니다.</p>
+    <p class="zh">最后他总结说：</p>
+    <p class="th">และท่านสรุปว่า</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">29</span>
+    <blockquote class="src en">Brothers and sisters, every one of us aspires to a more Christlike life than we often succeed in living. If we admit that honestly and are trying to improve, we are not hypocrites; we are human. May we refuse to let our own mortal follies, and the inevitable shortcomings of even the best men and women around us, make us cynical about the truths of the gospel, the truthfulness of the Church, our hope for our future, or the possibility of godliness. If we persevere, then somewhere in eternity our refinement will be finished and complete—which is the New Testament meaning of perfection.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="tgt ko">형제 자매 여러분, 우리는 모두 그리스도와 같은 삶을 열망하는데, 실제 삶에서 해내고 있는 것보다 더 많이 그렇게 살기를 갈망합니다. 우리가 그 점을 솔직하게 인정하고 더 나아지려고 노력한다면, 우리는 위선자가 아닙니다. 우리는 인간입니다. 우리 자신의 인간적인 어리석음 때문에, 또는 우리 주위의 가장 훌륭한 사람들마저도 불가피한 단점을 지녔다는 이유로, 복음 진리, 교회의 참됨, 미래에 대한 희망 혹은 하나님과 같이 될 수 있는 가능성에 대해 냉소적인 태도를 취하지 않기를 바랍니다. 우리가 굴하지 않고 꾸준히 노력한다면, 영원한 시간 어딘가에서 우리의 정화 과정은 끝나고 완성될 것입니다. 이것이 바로 신약전서에서 의미하는 온전함입니다.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="zh">弟兄姊妹们，我们过基督般生活的表现往往差强人意，但每个人都渴望做得更好。如果我们诚实地承认这一点，并尽力去改进，我们就不是伪君子，我们只是普通人。愿我们拒绝因为我们自己尘世的愚蠢行为，和周遭模范男女身上无可避免的缺点，而使得我们对于福音的真理、教会的真实性、我们未来的希望或成为像神一样的可能，产生愤世嫉俗的心态。如果我们坚持不懈，我们在永恒中的精进将会完成与完整，这也就是新约中所说的完全。<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="th">พี่น้องทั้งหลาย เราทุกคนปรารถนาจะมีชีวิตเหมือนพระคริสต์มากกว่าที่เรามักประสบความสำเร็จในการใช้ชีวิต หากเรายอมรับสิ่งนั้นอย่างจริงใจและพยายามปรับปรุง เราไม่ใช่คนหน้าซื่อใจคด เราเป็นมนุษย์ ขอให้เราปฏิเสธอย่ายอมให้ความเขลาเยี่ยงมนุษย์ของตัวเราเอง และความบกพร่องที่ไม่อาจหลีกเลี่ยงแม้ของคนที่ดีที่สุด ทำให้เราเหยียดหยามความจริงของพระกิตติคุณ ความเป็นจริงของศาสนจักร ความหวังสำหรับอนาคตของเรา หรือความเป็นไปได้ของความเป็นเหมือนพระผู้เป็นเจ้า หากเราบากบั่น เมื่อนั้นที่ใดสักแห่งในนิรันดร การขัดเกลาของเราจะเสร็จสิ้นและครบถ้วน—ซึ่งคือความหมายของคำว่าสมบูรณ์แบบซึ่งอยู่ในพันธสัญญาใหม่<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">30</span>
+    <p class="src en">In the end — yes, Eternal Life is the general goal we want to reach, but it is the process of change, and the aligning of our will with God’s, that will get us there.</p>
+    <p class="tgt ko">결국 그렇습니다. 영생은 우리가 이르고자 하는 큰 목표이지만, 우리를 그곳으로 데려다주는 것은 바로 변화의 과정이며, 우리의 뜻을 하나님의 뜻에 맞추어 가는 일입니다.</p>
+    <p class="zh">归根结底——是的，永生是我们想要达到的大目标，但真正带领我们到达那里的，是改变的过程，是使我们的意愿与神的旨意一致。</p>
+    <p class="th">ในที่สุด—ใช่ครับ ชีวิตนิรันดร์คือเป้าหมายโดยรวมที่เราอยากไปให้ถึง แต่สิ่งที่จะนำเราไปถึงที่นั่นคือกระบวนการของการเปลี่ยนแปลง และการปรับความประสงค์ของเราให้สอดคล้องกับพระประสงค์ของพระผู้เป็นเจ้า</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">31</span>
+    <p class="src en">I know that as we continue to keep the commandments, do our best, and learn the principle of change, we will earn the privilege to progress toward Eternal Life and to live with Heavenly Father once again.</p>
+    <p class="tgt ko">저는 우리가 계속해서 계명을 지키고 최선을 다하며 변화의 원리를 배워 나갈 때, 영생을 향해 나아가고 하나님 아버지와 다시 함께 살 수 있는 특권을 얻게 되리라는 것을 압니다.</p>
+    <p class="zh">我知道，当我们继续遵守诫命、尽己所能、并学习改变的原则时，我们必会配得朝永生进步、再次与天父同住的福分。</p>
+    <p class="th">ผมรู้ว่าเมื่อเรารักษาพระบัญญัติต่อไป ทำสุดความสามารถ และเรียนรู้หลักธรรมของการเปลี่ยนแปลง เราจะได้รับพรอันประเสริฐที่จะก้าวหน้าไปสู่ชีวิตนิรันดร์และได้อยู่กับพระบิดาบนสวรรค์อีกครั้ง</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">32</span>
+    <p class="src en">In the name of Jesus Christ, amen.</p>
+    <p class="tgt ko">예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="zh">奉耶稣基督的名，阿们。</p>
+    <p class="th">ในพระนามของพระเยซูคริสต์ เอเมน</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

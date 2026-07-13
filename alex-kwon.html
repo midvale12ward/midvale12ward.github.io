@@ -75,7 +75,8 @@ body {
    on talks that carry a `zh` / `th` field. */
 .zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
 .th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
-.pair .zh, .pair .th { margin: 0.5rem 0 0; color: var(--ink); }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
 .talk-h .zh {
   font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
   font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
@@ -84,7 +85,11 @@ body {
   font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
   font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
 }
-.pair.cite .zh, .pair.cite .th {
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: normal;
 }
@@ -102,7 +107,7 @@ header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline
 }
 .talk-head h1 .ko { font-weight: 500; }
 /* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
-.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th { display: block; }
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
 .talk-head .byline {
   font-family: "Fraunces", Georgia, serif;
   font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
@@ -181,8 +186,8 @@ html.show-en.show-ko .pair:not(.cite) {
 footer.colophon {
   margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
 }
-.colophon .en, .colophon .ko, .colophon .zh, .colophon .th { display: block; }
-.colophon .ko, .colophon .zh, .colophon .th { margin-top: 0.15rem; }
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
 .feedback-btn {
   display: inline-block; margin-bottom: 1rem; text-decoration: none;
   font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
@@ -272,6 +277,7 @@ html:not(.show-en) .en { display: none; }
 html:not(.show-ko) .ko { display: none; }
 html:not(.show-zh) .zh { display: none; }
 html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
 
 @media print { .langbar { display: none; } }
 </style>
@@ -279,7 +285,7 @@ html:not(.show-th) .th { display: none; }
 <body>
 <div class="wrap">
 <header class="talk-head">
-  <h1><span class="en">Eternal Life Is Not the Destination, but a Process of Change</span><span class="ko">영생은 목적지가 아니라 변화의 과정입니다</span><span class="zh">永生不是终点，而是改变的过程</span><span class="th">ชีวิตนิรันดร์ไม่ใช่จุดหมายปลายทาง แต่เป็นกระบวนการของการเปลี่ยนแปลง</span></h1>
+  <h1><span class="en">Eternal Life Is Not the Destination, but a Process of Change</span><span class="ko">영생은 목적지가 아니라 변화의 과정입니다</span><span class="zh">永生不是终点，而是改变的过程</span><span class="th">ชีวิตนิรันดร์ไม่ใช่จุดหมายปลายทาง แต่เป็นกระบวนการของการเปลี่ยนแปลง</span><span class="de">Ewiges Leben ist nicht das Ziel, sondern ein Prozess der Veränderung</span></h1>
   <p class="byline">Brother Alex Kwon · 알렉스 권 형제 &nbsp;·&nbsp; 12 July 2026</p>
   <div class="rule"></div>
 </header>
@@ -289,6 +295,7 @@ html:not(.show-th) .th { display: none; }
   <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
   <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
   <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
   <span class="sep" aria-hidden="true"></span>
   <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
     <span class="knob" aria-hidden="true">
@@ -310,6 +317,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">형제 자매 여러분, 안녕하십니까. 저는 알렉스 권 형제입니다. 오늘 이렇게 말씀을 전하고 제 소개도 하라는 부탁을 받았습니다.</p>
     <p class="zh">各位弟兄姊妹，早安。我叫权亚历克斯弟兄，今天受邀来讲话，也向大家做个自我介绍。</p>
     <p class="th">สวัสดีครับ พี่น้องทั้งหลาย ผมชื่อบราเดอร์อเล็กซ์ ควอน วันนี้ผมได้รับมอบหมายให้มาพูดและแนะนำตัวให้ทุกท่านได้รู้จักครับ</p>
+    <p class="de">Guten Morgen, liebe Brüder und Schwestern. Mein Name ist Bruder Alex Kwon, und ich bin gebeten worden, heute zu sprechen und mich vorzustellen.</p>
   </div>
 
   <div class="pair">
@@ -318,6 +326,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">저는 원래 펜실베이니아주 필라델피아 출신으로, 그곳에서 자랐습니다.</p>
     <p class="zh">我来自宾夕法尼亚州的费城，从小在那里长大。</p>
     <p class="th">เดิมทีผมเป็นคนเมืองฟิลาเดลเฟีย รัฐเพนซิลเวเนีย และเติบโตที่นั่น</p>
+    <p class="de">Ursprünglich komme ich aus Philadelphia, Pennsylvania, wo ich aufgewachsen bin.</p>
   </div>
 
   <div class="pair">
@@ -326,6 +335,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">저는 로스앤젤레스에서 선교사로 봉사했고, 유타밸리대학교에서 공부했으며, 지금은 사우스조던에 있는 로즈먼 치과대학에서 마지막 학년을 보내고 있습니다.</p>
     <p class="zh">我曾在洛杉矶传教，之后在犹他谷大学就读，如今在南乔登的罗斯曼牙医学院念最后一年。</p>
     <p class="th">ผมเคยรับใช้งานเผยแผ่ที่ลอสแอนเจลิส เรียนที่มหาวิทยาลัยยูทาห์แวลลีย์ และตอนนี้กำลังเรียนปีสุดท้ายในคณะทันตแพทยศาสตร์ที่วิทยาลัยโรสแมนในเซาท์จอร์แดน</p>
+    <p class="de">Ich erfüllte eine Mission in Los Angeles, studierte an der Utah Valley University und bin nun im letzten Jahr meines Zahnmedizinstudiums am Roseman College of Dental Medicine in South Jordan.</p>
   </div>
 
   <div class="pair">
@@ -334,6 +344,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">제 아내 박진경은 서울 신당 와드 출신으로, BYU에서 학부를 마쳤습니다. 저희는 결혼한 지 2년이 되었고, 이제 곧 딸아이가 태어날 예정입니다.</p>
     <p class="zh">我的妻子朴珍卿来自首尔新堂支会，在杨百翰大学完成了大学学业。我们结婚两年了，现在有个女儿快要出生了。</p>
     <p class="th">ภรรยาของผม พัคจินคยอง มาจากวอร์ดชินดังในกรุงโซล และเรียนระดับปริญญาตรีที่มหาวิทยาลัยบีวายยู เราแต่งงานกันได้สองปีแล้ว และตอนนี้กำลังจะมีลูกสาวด้วยกัน</p>
+    <p class="de">Meine Frau, Jinkyung Park, kommt aus der Gemeinde Seoul Shindang und absolvierte ihr Grundstudium an der BYU. Wir sind seit zwei Jahren verheiratet, und jetzt ist ein kleines Mädchen unterwegs.</p>
   </div>
 
   <div class="pair">
@@ -342,6 +353,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">오늘은 영생이 무엇인지에 대해 제 생각을 나누고자 합니다. 간단히 말씀드리면, 영생이란 다음 생에서 하나님 아버지의 면전에서 사는 것입니다. 이것은 영원히 살 수 있는 능력, 곧 불멸과는 매우 다릅니다.</p>
     <p class="zh">今天我想跟大家分享我对永生的一些想法。简单来说，永生就是在来生与天父同住。这跟「不死」很不一样——不死指的是永远活着的能力。</p>
     <p class="th">วันนี้ผมอยากแบ่งปันความคิดของผมว่าชีวิตนิรันดร์คืออะไร พูดง่าย ๆ ก็คือ ชีวิตนิรันดร์หมายถึงการได้อยู่ต่อพระพักตร์พระบิดาบนสวรรค์ในชีวิตหน้า ซึ่งแตกต่างอย่างมากจากความเป็นอมตะ อันหมายถึงความสามารถที่จะมีชีวิตอยู่ตลอดไป</p>
+    <p class="de">Heute möchte ich meine Gedanken darüber teilen, was das ewige Leben ist. Einfach gesagt bedeutet ewiges Leben, im nächsten Leben in der Gegenwart unseres himmlischen Vaters zu leben. Das unterscheidet sich sehr von der Unsterblichkeit, die die Fähigkeit ist, ewig zu leben.</p>
   </div>
 
   <div class="pair">
@@ -350,6 +362,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">이 두 가지는 모두 예수 그리스도의 속죄를 통해 우리에게 주어지는 은사입니다. 다만 뚜렷한 차이가 있다면, 불멸은 아무 조건 없이 주어지지만 영생은 이 생에서 우리가 기울이는 노력에 달려 있다는 점입니다.</p>
     <p class="zh">这两者都是藉着耶稣基督的赎罪赐给我们的恩赐。两者显著的差别在于：不死是无条件的，永生却取决于我们今生的努力。</p>
     <p class="th">ทั้งสองอย่างนี้เป็นของประทานที่ประทานแก่เราผ่านการชดใช้ของพระเยซูคริสต์ ข้อแตกต่างที่เห็นได้ชัดคือ ความเป็นอมตะนั้นไม่มีเงื่อนไข ส่วนชีวิตนิรันดร์ขึ้นอยู่กับความพยายามของเราในชีวิตนี้</p>
+    <p class="de">Beides sind Gaben, die uns durch das Sühnopfer Jesu Christi geschenkt werden. Der bemerkenswerte Unterschied besteht darin, dass die Unsterblichkeit an keine Bedingung geknüpft ist, während das ewige Leben von unseren Bemühungen in diesem Leben abhängt.</p>
   </div>
 
   <div class="pair">
@@ -358,6 +371,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">몇 년 전, 저는 펜실베이니아 시절 교회 친구들과 다시 만나는 모임에 참석했습니다. 그중 몇몇은 교회 밖에서도 오랫동안 알고 지낸 친구들이었습니다. 그런데 저는 그 친구들 가운데 특히 한 명이 교회의 표준과 계명에 어긋나는 일에 관여하고 있다는 것을 알고 있었습니다.</p>
     <p class="zh">几年前，我参加了一场聚会，和几位宾州教会的朋友重聚，其中有些人我在教会以外也认识多年了。我知道其中一位朋友曾做过一些违反教会标准和诫命的事。</p>
     <p class="th">เมื่อไม่กี่ปีก่อน ผมไปงานพบปะเพื่อน ๆ ที่โบสถ์จากรัฐเพนซิลเวเนีย บางคนผมรู้จักกันนอกโบสถ์มาหลายปีแล้ว ผมทราบว่าเพื่อนคนหนึ่งในกลุ่มนั้นเข้าไปเกี่ยวข้องกับสิ่งที่ขัดต่อมาตรฐานของศาสนจักรและพระบัญญัติ</p>
+    <p class="de">Vor einigen Jahren nahm ich an einem Treffen mit einigen Freunden aus der Kirche in Pennsylvania teil, von denen ich manche auch außerhalb der Kirche seit vielen Jahren kenne. Mir war bewusst, dass einer dieser Freunde im Besonderen in Dinge verwickelt war, die den Maßstäben der Kirche und den Geboten zuwiderlaufen.</p>
   </div>
 
   <div class="pair">
@@ -366,6 +380,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">마음 한구석으로는, 그런 삶을 택한 사람이 왜 여전히 교회에 나오고 교회 친구들과 연락을 이어 가는지 늘 궁금했습니다. 그런데 그 모임에서, 모임을 준비하신 우리의 예전 감독님이 갑자기 저희에게 간증을 나눠 달라고 하셨습니다.</p>
     <p class="zh">在我心底，我一直纳闷：如果这就是他选择的生活方式，那他为什么还来教会、还和教会朋友保持联系呢？但在这次聚会中，召集人——我们从前的主教——忽然请我们分享见证。</p>
     <p class="th">ลึก ๆ ในใจ ผมยังสงสัยอยู่ว่า ถ้านั่นคือวิถีชีวิตที่เขาเลือกแล้ว เหตุใดเขาจึงยังมาโบสถ์และติดต่อกับเพื่อน ๆ ที่โบสถ์อยู่ แต่ในงานนี้ ผู้จัดงาน—ซึ่งเป็นอดีตอธิการของเรา—จู่ ๆ ก็ขอให้เราแบ่งปันประจักษ์พยาน</p>
+    <p class="de">Im Hinterkopf fragte ich mich immer wieder, warum dieser Mensch noch in die Kirche kam und mit den Freunden aus der Kirche in Kontakt blieb, wenn er sich doch für diese Lebensweise entschieden hatte. Doch bei diesem Treffen bat der Organisator – unser früherer Bischof – auf einmal darum, unsere Zeugnisse zu hören.</p>
   </div>
 
   <div class="pair">
@@ -374,6 +389,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">그래서 저희는 돌아가며 간증을 전했습니다. 바로 그 친구의 차례가 되었을 때, 그 친구는 늘 계명을 지키려 애쓰며 결코 포기하지 않는다고 간증했습니다.</p>
     <p class="zh">于是我们轮流分享见证。轮到那位朋友时，他见证说，自己始终努力遵守诫命，从不放弃。</p>
     <p class="th">เราจึงผลัดกันแสดงประจักษ์พยาน พอถึงตาของเพื่อนคนนั้น เขาแสดงประจักษ์พยานว่าเขาพยายามรักษาพระบัญญัติเสมอและไม่เคยยอมแพ้</p>
+    <p class="de">Also gaben wir der Reihe nach Zeugnis. Als dieser Freund an der Reihe war, bezeugte er, dass er stets versuche, die Gebote zu halten, und niemals aufgebe.</p>
   </div>
 
   <div class="pair">
@@ -382,6 +398,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">그 친구는 자신이 온전하지 않다는 것을 알지만 변화하기 위해 최선을 다하고 있으며, 사람은 저마다 자기만의 속도로 성장하는 것이라는 말로 간증을 맺었습니다.</p>
     <p class="zh">他在结束见证时说，他知道自己并不完全，但他正尽力去改变，而且每个人成长的步调各有不同。</p>
     <p class="th">เขาปิดท้ายประจักษ์พยานว่า เขารู้ว่าตนเองไม่ได้ดีพร้อม แต่เขากำลังพยายามอย่างสุดความสามารถที่จะเปลี่ยนแปลง และทุกคนต่างเติบโตตามจังหวะของตนเอง</p>
+    <p class="de">Er beendete sein Zeugnis mit den Worten, er wisse, dass er nicht vollkommen sei, aber er gebe sein Bestes, um sich zu ändern, und jeder wachse in seinem eigenen Tempo.</p>
   </div>
 
   <div class="pair">
@@ -390,6 +407,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">저는 그 친구가 보이지 않는 곳에서 어떤 노력을 기울이고 있었는지 전혀 알지도 못한 채 그 친구를 판단했다는 것이 너무나 부끄러웠습니다. 그 모임이 끝날 무렵, 저는 제가 가장 기대하지 않았던 바로 그 사람에게서 가장 많은 것을 배웠습니다.</p>
     <p class="zh">我为自己论断了这位朋友而深感惭愧，因为我根本不知道他背后付出了多少努力。到那场聚会结束时，我从最意想不到的人身上，学到了最多。</p>
     <p class="th">ผมรู้สึกแย่มากที่ไปตัดสินเพื่อนของผม ทั้งที่ผมไม่รู้เลยว่าเบื้องหลังนั้นเขาพยายามมากเพียงใด พอจบงานพบปะครั้งนั้น ผมกลับเรียนรู้ได้มากที่สุดจากคนที่ผมคาดหวังไว้น้อยที่สุด</p>
+    <p class="de">Ich fühlte mich schrecklich, weil ich meinen Freund gerichtet hatte, obwohl ich keine Ahnung hatte, welche Bemühungen sich hinter den Kulissen abspielten. Als jenes Treffen zu Ende ging, hatte ich am meisten von genau dem Menschen gelernt, von dem ich am wenigsten erwartet hatte.</p>
   </div>
 
   <div class="pair">
@@ -398,6 +416,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">영생은 단순히 할 일 목록에서 하나씩 지워 나가는 항목 같은 것이 아닙니다. 영생은 우리가 끊임없이 나아가는 과정이며, 하나님 아버지의 면전에서 살 수 있는 특권을 얻어 가는 가운데 우리가 기꺼이 성장해 가는 것입니다.</p>
     <p class="zh">永生不是待办清单上打个勾就算完成的事。它是一种不断进步的状态——我们甘心乐意地成长，从而配得住在天父面前的福分。</p>
     <p class="th">ชีวิตนิรันดร์ไม่ใช่แค่ข้อหนึ่งในรายการสิ่งที่ต้องทำ ที่พอทำเสร็จก็ขีดฆ่าทิ้งไป แต่เป็นสภาพของการก้าวหน้า ที่เราเต็มใจเติบโตขึ้นในขณะที่เราได้รับพรอันประเสริฐที่จะได้อยู่ต่อพระพักตร์พระบิดาบนสวรรค์</p>
+    <p class="de">Ewiges Leben ist nicht einfach ein Häkchen, das wir auf einer To-do-Liste setzen. Es ist ein Zustand des Fortschreitens, in dem wir bereitwillig wachsen, während wir uns das Vorrecht verdienen, in der Gegenwart des himmlischen Vaters zu leben.</p>
   </div>
 
   <div class="pair">
@@ -406,6 +425,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">하지만 그날 제가 배운 것은, 변화하고자 하는 마음은 사람마다 다르게 나타난다는 것이었습니다.</p>
     <p class="zh">但那天我学到的是：想要改变的渴望，在每个人身上展现出来的样子都不尽相同。</p>
     <p class="th">แต่สิ่งที่ผมเรียนรู้ในวันนั้นคือ ความปรารถนาที่จะเปลี่ยนแปลงนั้นแสดงออกแตกต่างกันไปในแต่ละคน</p>
+    <p class="de">Doch was ich an jenem Tag lernte, ist, dass der Wunsch, sich zu ändern, bei jedem anders aussieht.</p>
   </div>
 
   <div class="pair">
@@ -414,6 +434,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">어떤 사람에게는 교회에 나오고 매일 경전을 읽는 것이 큰 변화입니다. 또 어떤 사람에게는 그저 마음속에 기도를 품는 것이 큰 변화입니다.</p>
     <p class="zh">对有些人来说，来教会、每天研读经文就是很大的改变；对另一些人来说，单单在心中常存祈祷，就是很大的改变。</p>
     <p class="th">สำหรับบางคน การมาโบสถ์และอ่านพระคัมภีร์ทุกวันคือการเปลี่ยนแปลงครั้งใหญ่ สำหรับคนอื่น เพียงแค่มีคำสวดอ้อนวอนอยู่ในใจก็เป็นการเปลี่ยนแปลงครั้งใหญ่แล้ว</p>
+    <p class="de">Für manche ist es eine große Veränderung, in die Kirche zu kommen und jeden Tag in den heiligen Schriften zu lesen. Für andere ist es schon eine große Veränderung, einfach ein Gebet im Herzen zu bewahren.</p>
   </div>
 
   <div class="pair">
@@ -422,6 +443,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">이러한 변화의 개념은 지금뿐 아니라 영생에서도 그대로 적용됩니다. 우리는 영생에서도 더 나은 모습으로 계속 변화해 가야 할 것입니다.</p>
     <p class="zh">改变这件事，不只适用于现在，也适用于永生。即使在永生中，我们仍需不断向着更好的方向改变。</p>
     <p class="th">แนวคิดเรื่องการเปลี่ยนแปลงนี้ไม่ได้ใช้กับปัจจุบันเท่านั้น แต่ใช้กับชีวิตนิรันดร์ด้วย แม้ในชีวิตนิรันดร์ เราก็ยังต้องเปลี่ยนแปลงให้ดีขึ้นต่อไป</p>
+    <p class="de">Dieser Gedanke der Veränderung gilt nicht nur jetzt, sondern auch im ewigen Leben. Wir werden uns selbst im ewigen Leben immer weiter zum Besseren verändern müssen.</p>
   </div>
 
   <div class="pair">
@@ -430,6 +452,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">본질적으로 영생은 큰 틀의 목표이며, 진정한 목표는 우리의 삶을 하나님 아버지의 뜻에 기꺼이 맞추는 법을 배우는 것입니다.</p>
     <p class="zh">本质上，永生是一个宏大的目标；真正的目标，是学会心甘情愿地让自己的生活与天父的旨意一致。</p>
     <p class="th">โดยแก่นแท้แล้ว ชีวิตนิรันดร์เป็นเป้าหมายกว้าง ๆ เป้าหมายที่แท้จริงคือการเรียนรู้ที่จะปรับชีวิตของเราให้สอดคล้องกับพระประสงค์ของพระบิดาบนสวรรค์อย่างเต็มใจ</p>
+    <p class="de">Im Wesentlichen ist das ewige Leben ein weit gestecktes Ziel; das eigentliche Ziel besteht darin, zu lernen, unser Leben bereitwillig mit dem Willen des himmlischen Vaters in Einklang zu bringen.</p>
   </div>
 
   <div class="pair">
@@ -438,6 +461,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">변화가 목표이기는 하지만, 개인적으로 제게 큰 걸림돌이 되는 것 하나는 저 자신을 다른 사람과 비교하는 일입니다. 저는 연차 대회 말씀을 듣거나 교회 지도자, 특히 사도와 선지자의 말씀을 들을 때, 그리고 예수님에 관한 이야기를 들을 때 그런 마음이 듭니다. 때로는 제 자신이 너무나 부족하게 느껴집니다.</p>
     <p class="zh">虽然改变是目标，但对我个人而言，一大障碍是拿自己和别人比较。当我聆听总会大会演讲、聆听教会领袖、使徒和先知的话，尤其是听到关于耶稣的事迹时，我就会有这种感觉。有时我觉得自己非常不足。</p>
     <p class="th">แม้การเปลี่ยนแปลงจะเป็นเป้าหมาย แต่อุปสรรคใหญ่อย่างหนึ่งสำหรับตัวผมเองคือการเปรียบเทียบตัวเองกับผู้อื่น ผมรู้สึกเช่นนี้เวลาฟังคำปราศรัยในการประชุมใหญ่สามัญ ฟังผู้นำศาสนจักร อัครสาวก และศาสดาพยากรณ์ และโดยเฉพาะเวลาได้ยินเรื่องราวของพระเยซู บางครั้งผมรู้สึกว่าตัวเองด้อยเหลือเกิน</p>
+    <p class="de">Auch wenn Veränderung das Ziel ist, ist ein großes Hindernis für mich persönlich, mich mit anderen zu vergleichen. So geht es mir, wenn ich Ansprachen der Generalkonferenz höre, wenn ich Führern der Kirche, Aposteln und Propheten zuhöre, und besonders, wenn ich die Geschichten von Jesus höre. Manchmal fühle ich mich zutiefst unzulänglich.</p>
   </div>
 
   <div class="pair">
@@ -446,6 +470,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">저는 이 모든 의로운 분들이 늘 그리스도를 닮은 모습으로 계명을 지키는 것을 보는데, 정작 저는 “온전”해지려 애쓰며 자주 힘겨워합니다. 물론 온전하신 분은 예수님뿐이십니다. 하지만 훌륭한 본이 되어 주는 분들도 많이 있습니다.</p>
     <p class="zh">我看见这些义人总是效法基督、遵守诫命，而我却常常苦苦追求「完全」。当然，唯有耶稣是完全的——但也有许多人是很好的榜样。</p>
     <p class="th">ผมเห็นบุคคลผู้ชอบธรรมเหล่านี้เป็นเหมือนพระคริสต์และรักษาพระบัญญัติอยู่เสมอ ในขณะที่ผมกลับต้องดิ้นรนอยู่บ่อย ๆ ที่จะ “ดีพร้อม” แน่นอนว่ามีเพียงพระเยซูเท่านั้นที่ดีพร้อม—แต่ก็มีผู้คนมากมายที่เป็นแบบอย่างที่ดี</p>
+    <p class="de">Ich sehe all diese rechtschaffenen Menschen, die stets christusähnlich sind und die Gebote halten, während ich mich so oft abmühe, „vollkommen“ zu sein. Natürlich ist nur Jesus vollkommen – aber es gibt auch viele Menschen, die wunderbare Vorbilder sind.</p>
   </div>
 
   <div class="pair">
@@ -454,6 +479,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">결국 제가 가장 크게 배운 것은 잘 알려진 성구인 마태복음 7장 1절에 담겨 있습니다.</p>
     <p class="zh">最终，我学到最深的一课，来自一段广为人知的经文，马太福音第七章第一节：</p>
     <p class="th">ในที่สุด สิ่งที่ผมเรียนรู้มากที่สุดมาจากพระคัมภีร์ข้อที่รู้จักกันดี คือมัทธิวบทที่ ๗ ข้อ ๑</p>
+    <p class="de">Letztlich stammt das, was ich am meisten gelernt habe, aus einer bekannten Schriftstelle, Matthäus 7:1:</p>
   </div>
 
   <div class="pair cite">
@@ -462,6 +488,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt ko">비판을 받지 아니하려거든 비판하지 말라.<cite>Matthew 7:1</cite></blockquote>
     <blockquote class="zh">你们不要论断人，免得你们被论断。<cite>Matthew 7:1</cite></blockquote>
     <blockquote class="th">อย่าพิพากษา เพื่อพระเจ้าจะไม่ทรงพิพากษาท่านทั้งหลาย<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="de">„Richtet nicht, damit ihr nicht auch gerichtet werdet!“<cite>Matthew 7:1</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -470,6 +497,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">우리는 흔히 이 말씀을 다른 사람을 비판하지 말라는 뜻으로 생각하지만, 저는 이 말씀이 자기 자신을 비판하지 않는 데에도 적용된다고 믿습니다.</p>
     <p class="zh">我们通常认为这是指不要论断别人，但我相信，这句话同样适用于不要论断自己。</p>
     <p class="th">เรามักคิดว่าข้อนี้หมายถึงการไม่ตัดสินผู้อื่น แต่ผมเชื่อว่าใช้ได้กับการไม่ตัดสินตัวเราเองด้วย</p>
+    <p class="de">Meistens verstehen wir das so, dass wir andere nicht richten sollen, doch ich glaube, es gilt auch dafür, uns selbst nicht zu richten.</p>
   </div>
 
   <div class="pair">
@@ -478,6 +506,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">만일 여러분이 복음 안에서 진심으로 변화하고 성장하려고 애쓰고 있다면, 스스로를 너무 몰아세우지 마십시오. 여러분은 최선을 다하고 있으며, 주님께서는 그 노력을 사랑하십니다.</p>
     <p class="zh">如果你正诚心地想在福音中改变、成长，就不要对自己太苛刻。你已经尽力了，而主珍视你的努力。</p>
     <p class="th">หากท่านกำลังพยายามอย่างจริงใจที่จะเปลี่ยนแปลงและเติบโตในพระกิตติคุณ ขออย่าเข้มงวดกับตัวเองมากเกินไป ท่านกำลังทำสุดความสามารถแล้ว และพระเจ้าทรงรักความพยายามนั้น</p>
+    <p class="de">Wenn ihr euch ernsthaft bemüht, euch zu ändern und im Evangelium zu wachsen, dann seid nicht zu streng mit euch selbst. Ihr gebt euer Bestes, und der Herr liebt die Bemühung.</p>
   </div>
 
   <div class="pair">
@@ -486,6 +515,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">마지막으로 한 가지 말씀을 더 나누고자 합니다. 제프리 알 홀런드 장로님이 2017년 10월 연차 대회에서 하신 “그러므로 너희도 종국에는 온전하라”라는 말씀에서 인용한 것입니다.</p>
     <p class="zh">最后，我想分享一段话，出自杰佛瑞·贺伦长老在2017年10月总会大会中题为「所以，你们〔最终〕要完全」的演讲。</p>
     <p class="th">สุดท้ายนี้ ผมอยากแบ่งปันคำกล่าวหนึ่ง จากเอ็ลเดอร์เจฟฟรีย์ อาร์. ฮอลแลนด์ ในคำปราศรัยการประชุมใหญ่สามัญเดือนตุลาคม ปี 2017 ชื่อเรื่อง “เพราะฉะนั้นพวกท่านจงเป็นคนดีพร้อม—ในที่สุด”</p>
+    <p class="de">Ich möchte noch ein letztes Zitat teilen, von Elder Jeffrey R. Holland, aus seiner Ansprache bei der Generalkonferenz im Oktober 2017 mit dem Titel „Ihr sollt also vollkommen sein“ – eines Tages.</p>
   </div>
 
   <div class="pair">
@@ -494,6 +524,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">장로님은 이 성구로 말씀을 시작하십니다.</p>
     <p class="zh">他以这段经文作为开头：</p>
     <p class="th">ท่านเริ่มด้วยพระคัมภีร์ข้อนี้</p>
+    <p class="de">Er beginnt mit der Schriftstelle:</p>
   </div>
 
   <div class="pair cite">
@@ -502,6 +533,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt ko">그러므로 하늘에 계신 너희 아버지의 온전하심과 같이 너희도 온전하라.<cite>Matthew 5:48</cite></blockquote>
     <blockquote class="zh">所以，你们要完全，像你们的天父完全一样。<cite>Matthew 5:48</cite></blockquote>
     <blockquote class="th">เพราะฉะนั้นพวกท่านจงเป็นคนดีพร้อม เหมือนอย่างที่พระบิดาของท่าน ผู้สถิตในสวรรค์ทรงดีพร้อม<cite>Matthew 5:48</cite></blockquote>
+    <blockquote class="de">„Darum sollt ihr vollkommen sein, wie euer himmlischer Vater vollkommen ist.“<cite>Matthew 5:48</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -510,6 +542,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">그런 다음 이렇게 말씀하십니다.</p>
     <p class="zh">接着他说：</p>
     <p class="th">จากนั้นท่านกล่าวว่า</p>
+    <p class="de">Dann sagt er:</p>
   </div>
 
   <div class="pair cite">
@@ -518,6 +551,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt ko">이 결론적인 계명에 이르러서는 자리에 도로 누워 이불을 머리끝까지 뒤집어쓰고 싶어질 것입니다. 그같은 해의 왕국의 목표들은 결코 이루지 못할 일들로 보입니다. 그럼에도 분명한 것은, 주님께서 우리가 지키지 못할 것을 아시는 계명은 결코 주지 않으신다는 것입니다.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
     <blockquote class="zh">看到最后那条诫命，我们会想回到床上，蒙头大睡算了。这样的高荣目标似乎遥不可及，但主一定不会给我们一条祂明知我们做不到的诫命。<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
     <blockquote class="th">ด้วยพระบัญชาปิดท้ายข้อนั้น เราอยากจะกลับไปนอนคลุมโปง เป้าหมายซีเลสเชียลเช่นนั้นดูเหมือนไกลเกินเอื้อม แต่แน่นอนว่าพระเจ้าจะไม่ประทานพระบัญญัติที่พระองค์ทรงทราบว่าเราจะรักษาไม่ได้<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="de">Nach dieser letzten Aufforderung wollen wir nur noch ins Bett und uns die Decke über den Kopf ziehen. Solche celestialen Ziele erscheinen uns unerreichbar. Doch ganz gewiss hat der Herr uns kein Gebot gegeben, von dem er wusste, dass wir es nicht halten können.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -526,6 +560,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">그리고 이렇게 말씀을 맺으십니다.</p>
     <p class="zh">最后他总结说：</p>
     <p class="th">และท่านสรุปว่า</p>
+    <p class="de">Und er schließt mit den Worten:</p>
   </div>
 
   <div class="pair cite">
@@ -534,6 +569,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt ko">형제 자매 여러분, 우리는 모두 그리스도와 같은 삶을 열망하는데, 실제 삶에서 해내고 있는 것보다 더 많이 그렇게 살기를 갈망합니다. 우리가 그 점을 솔직하게 인정하고 더 나아지려고 노력한다면, 우리는 위선자가 아닙니다. 우리는 인간입니다. 우리 자신의 인간적인 어리석음 때문에, 또는 우리 주위의 가장 훌륭한 사람들마저도 불가피한 단점을 지녔다는 이유로, 복음 진리, 교회의 참됨, 미래에 대한 희망 혹은 하나님과 같이 될 수 있는 가능성에 대해 냉소적인 태도를 취하지 않기를 바랍니다. 우리가 굴하지 않고 꾸준히 노력한다면, 영원한 시간 어딘가에서 우리의 정화 과정은 끝나고 완성될 것입니다. 이것이 바로 신약전서에서 의미하는 온전함입니다.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
     <blockquote class="zh">弟兄姊妹们，我们过基督般生活的表现往往差强人意，但每个人都渴望做得更好。如果我们诚实地承认这一点，并尽力去改进，我们就不是伪君子，我们只是普通人。愿我们拒绝因为我们自己尘世的愚蠢行为，和周遭模范男女身上无可避免的缺点，而使得我们对于福音的真理、教会的真实性、我们未来的希望或成为像神一样的可能，产生愤世嫉俗的心态。如果我们坚持不懈，我们在永恒中的精进将会完成与完整，这也就是新约中所说的完全。<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
     <blockquote class="th">พี่น้องทั้งหลาย เราทุกคนปรารถนาจะมีชีวิตเหมือนพระคริสต์มากกว่าที่เรามักประสบความสำเร็จในการใช้ชีวิต หากเรายอมรับสิ่งนั้นอย่างจริงใจและพยายามปรับปรุง เราไม่ใช่คนหน้าซื่อใจคด เราเป็นมนุษย์ ขอให้เราปฏิเสธอย่ายอมให้ความเขลาเยี่ยงมนุษย์ของตัวเราเอง และความบกพร่องที่ไม่อาจหลีกเลี่ยงแม้ของคนที่ดีที่สุด ทำให้เราเหยียดหยามความจริงของพระกิตติคุณ ความเป็นจริงของศาสนจักร ความหวังสำหรับอนาคตของเรา หรือความเป็นไปได้ของความเป็นเหมือนพระผู้เป็นเจ้า หากเราบากบั่น เมื่อนั้นที่ใดสักแห่งในนิรันดร การขัดเกลาของเราจะเสร็จสิ้นและครบถ้วน—ซึ่งคือความหมายของคำว่าสมบูรณ์แบบซึ่งอยู่ในพันธสัญญาใหม่<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="de">Brüder und Schwestern, jeder von uns strebt danach, ein christlicheres Leben zu führen, als er es oftmals zustande bringt. Wenn wir dies ehrlich eingestehen und uns Mühe geben, uns zu verbessern, sind wir nicht Scheinheilige, sondern Menschen. Lassen wir nicht zu, dass unsere eigenen Dummheiten hier auf Erden und die unvermeidlichen Fehler selbst der Besten in unserem Umfeld uns zu Zynikern machen, was die Wahrheiten des Evangeliums, die Wahrhaftigkeit der Kirche, unsere Hoffnung für unsere Zukunft oder die Möglichkeit angeht, wie Gott zu werden. Wenn wir uns beharrlich weiter bemühen, wird irgendwann in der Ewigkeit unsere Läuterung abgeschlossen und vervollständigt – und das ist im Neuen Testament mit Vollkommenheit gemeint.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -542,6 +578,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">결국 그렇습니다. 영생은 우리가 이르고자 하는 큰 목표이지만, 우리를 그곳에 이르게 하는 것은 바로 변화의 과정이며, 우리의 뜻을 하나님의 뜻에 맞추어 가는 일입니다.</p>
     <p class="zh">归根结底——是的，永生是我们想要达到的大目标，但真正带领我们到达那里的，是改变的过程，是使我们的意愿与神的旨意一致。</p>
     <p class="th">ในที่สุด—ใช่ครับ ชีวิตนิรันดร์คือเป้าหมายโดยรวมที่เราอยากไปให้ถึง แต่สิ่งที่จะนำเราไปถึงที่นั่นคือกระบวนการของการเปลี่ยนแปลง และการปรับความประสงค์ของเราให้สอดคล้องกับพระประสงค์ของพระผู้เป็นเจ้า</p>
+    <p class="de">Letztlich – ja, das ewige Leben ist das allgemeine Ziel, das wir erreichen wollen, aber es ist der Prozess der Veränderung und das Ausrichten unseres Willens auf den Willen Gottes, das uns dorthin bringt.</p>
   </div>
 
   <div class="pair">
@@ -550,6 +587,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">저는 우리가 계속해서 계명을 지키고 최선을 다하며 변화의 원리를 배워 나갈 때, 영생을 향해 나아가고 하나님 아버지와 다시 함께 살 수 있는 특권을 얻게 되리라는 것을 압니다.</p>
     <p class="zh">我知道，当我们继续遵守诫命、尽己所能、并学习改变的原则时，我们必会配得朝永生进步、再次与天父同住的福分。</p>
     <p class="th">ผมรู้ว่าเมื่อเรารักษาพระบัญญัติต่อไป ทำสุดความสามารถ และเรียนรู้หลักธรรมของการเปลี่ยนแปลง เราจะได้รับพรอันประเสริฐที่จะก้าวหน้าไปสู่ชีวิตนิรันดร์และได้อยู่กับพระบิดาบนสวรรค์อีกครั้ง</p>
+    <p class="de">Ich weiß: Wenn wir weiterhin die Gebote halten, unser Bestes geben und den Grundsatz der Veränderung lernen, werden wir uns das Vorrecht verdienen, dem ewigen Leben entgegen fortzuschreiten und wieder beim himmlischen Vater zu leben.</p>
   </div>
 
   <div class="pair">
@@ -558,6 +596,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt ko">예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
     <p class="zh">奉耶稣基督的名，阿们。</p>
     <p class="th">ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Im Namen Jesu Christi. Amen.</p>
   </div>
 </main>
 
@@ -570,7 +609,7 @@ html:not(.show-th) .th { display: none; }
 
 <footer class="colophon">
   <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
-  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span></p>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
 </footer>
 </div>
 <script>
@@ -582,7 +621,7 @@ html:not(.show-th) .th { display: none; }
   var btns = bar.querySelectorAll("button[data-lang]");
   var docEl = document.documentElement;
   // Feedback link label follows the checked languages.
-  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น" };
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
   var fbBtn = document.querySelector(".feedback-btn");
   // Reveal an extra-language checkbox only when this talk carries that content.
   var hasZh = !!document.querySelector("main .zh");
@@ -591,10 +630,13 @@ html:not(.show-th) .th { display: none; }
   var hasTh = !!document.querySelector("main .th");
   var thBtn = bar.querySelector('button[data-lang="th"]');
   if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
 
   // Each language is an independent checkbox; any combination may show. At least one
   // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
-  var LANGS = ["en", "ko", "zh", "th"];
+  var LANGS = ["en", "ko", "zh", "th", "de"];
   function apply(active) {
     LANGS.forEach(function (l) {
       var on = active.indexOf(l) !== -1;
@@ -614,7 +656,7 @@ html:not(.show-th) .th { display: none; }
   try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
   if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
   active = active.filter(function (l) {
-    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh);
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
   });
   if (!active.length) active = ["en", "ko"];
   apply(active);

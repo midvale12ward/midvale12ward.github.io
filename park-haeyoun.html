@@ -75,7 +75,8 @@ body {
    on talks that carry a `zh` / `th` field. */
 .zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
 .th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
-.pair .zh, .pair .th { margin: 0.5rem 0 0; color: var(--ink); }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
 .talk-h .zh {
   font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
   font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
@@ -84,7 +85,11 @@ body {
   font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
   font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
 }
-.pair.cite .zh, .pair.cite .th {
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: normal;
 }
@@ -102,7 +107,7 @@ header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline
 }
 .talk-head h1 .ko { font-weight: 500; }
 /* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
-.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th { display: block; }
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
 .talk-head .byline {
   font-family: "Fraunces", Georgia, serif;
   font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
@@ -181,8 +186,8 @@ html.show-en.show-ko .pair:not(.cite) {
 footer.colophon {
   margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
 }
-.colophon .en, .colophon .ko, .colophon .zh, .colophon .th { display: block; }
-.colophon .ko, .colophon .zh, .colophon .th { margin-top: 0.15rem; }
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
 .feedback-btn {
   display: inline-block; margin-bottom: 1rem; text-decoration: none;
   font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
@@ -272,6 +277,7 @@ html:not(.show-en) .en { display: none; }
 html:not(.show-ko) .ko { display: none; }
 html:not(.show-zh) .zh { display: none; }
 html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
 
 @media print { .langbar { display: none; } }
 </style>
@@ -279,7 +285,7 @@ html:not(.show-th) .th { display: none; }
 <body>
 <div class="wrap">
 <header class="talk-head">
-  <h1><span class="en">Eternal Life Is More Than a Destination</span><span class="ko">영생은 목적지가 아니라 변화의 과정입니다</span><span class="zh">永生不只是终点</span><span class="th">ชีวิตนิรันดร์เป็นมากกว่าจุดหมายปลายทาง</span></h1>
+  <h1><span class="en">Eternal Life Is More Than a Destination</span><span class="ko">영생은 목적지가 아니라 변화의 과정입니다</span><span class="zh">永生不只是终点</span><span class="th">ชีวิตนิรันดร์เป็นมากกว่าจุดหมายปลายทาง</span><span class="de">Ewiges Leben ist mehr als ein Ziel</span></h1>
   <p class="byline">Sister Park Haeyoun · 박혜연 자매 &nbsp;·&nbsp; 12 July 2026</p>
   <div class="rule"></div>
 </header>
@@ -289,6 +295,7 @@ html:not(.show-th) .th { display: none; }
   <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
   <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
   <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
   <span class="sep" aria-hidden="true"></span>
   <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
     <span class="knob" aria-hidden="true">
@@ -310,6 +317,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">My topic today is this: eternal life is not a destination, but a process of becoming.</p>
     <p class="zh">我今天要讲的主题是：「永生不是终点，而是转变的过程。」</p>
     <p class="th">หัวข้อของดิฉันวันนี้คือ “ชีวิตนิรันดร์ไม่ใช่จุดหมายปลายทาง แต่เป็นกระบวนการแห่งการเปลี่ยนแปลง”</p>
+    <p class="de">Mein Thema heute lautet: Das ewige Leben ist kein Ziel, sondern ein Prozess der Veränderung.</p>
   </div>
 
   <div class="pair">
@@ -318,6 +326,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Is eternal life only a blessing we receive after we die? How does it begin here, in this life? And what does it mean to grow to be like God?</p>
     <p class="zh">永生只是我们死后才得到的祝福吗？在今生，永生又是如何开始的呢？而逐渐变得像神，究竟又是什么意思呢？</p>
     <p class="th">ชีวิตนิรันดร์เป็นเพียงพรที่เราได้รับหลังจากตายไปแล้วเท่านั้นหรือ? ในชีวิตนี้ ชีวิตนิรันดร์เริ่มต้นขึ้นอย่างไร? และการเติบโตขึ้นจนเป็นเหมือนพระผู้เป็นเจ้าหมายความว่าอย่างไร?</p>
+    <p class="de">Ist das ewige Leben nur ein Segen, den wir nach dem Tod empfangen? Wie beginnt das ewige Leben schon jetzt, in diesem Leben? Und was bedeutet es, Gott ähnlicher zu werden?</p>
   </div>
 
   <div class="pair">
@@ -326,6 +335,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Let's turn to the scriptures together to understand what “eternal life” means.</p>
     <p class="zh">让我们一起从经文中，来认识「永生」的意义。</p>
     <p class="th">ให้เรามาศึกษาความหมายของ “ชีวิตนิรันดร์” จากพระคัมภีร์ด้วยกัน</p>
+    <p class="de">Lasst uns anhand der heiligen Schriften gemeinsam herausfinden, was „das ewige Leben“ bedeutet.</p>
   </div>
 
   <div class="pair cite">
@@ -334,6 +344,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">And this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent.<cite>John 17:1–3</cite></blockquote>
     <blockquote class="zh">认识你，独一的真神，并且认识你所差来的耶稣基督，这就是永生。<cite>John 17:1–3</cite></blockquote>
     <blockquote class="th">และนี่แหละคือชีวิตนิรันดร์ คือการที่พวกเขารู้จักพระองค์ ผู้ทรงเป็นพระเจ้าเที่ยงแท้องค์เดียว และรู้จักพระเยซูคริสต์ที่พระองค์ทรงใช้มา<cite>John 17:1–3</cite></blockquote>
+    <blockquote class="de">„Darin besteht aber das ewige Leben, dass sie dich, den allein wahren Gott, und den du gesandt hast, Jesus Christus, erkennen.“<cite>John 17:1–3</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -342,6 +353,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Eternal life is more than immortality. All of us, whether good or evil, will receive immortality, because every one of us will be resurrected.</p>
     <p class="zh">永生不只是不死而已。我们每一个人，无论善恶，都会获得不死，因为所有的人都要复活。</p>
     <p class="th">ชีวิตนิรันดร์เป็นมากกว่าความเป็นอมตะ เราทุกคนไม่ว่าดีหรือชั่วจะได้รับความเป็นอมตะ เพราะทุกคนจะฟื้นคืนชีวิต</p>
+    <p class="de">Das ewige Leben ist mehr als die Unsterblichkeit. Wir Menschen erlangen alle die Unsterblichkeit, ob wir gut oder böse sind, denn jeder von uns wird auferstehen.</p>
   </div>
 
   <div class="pair">
@@ -350,6 +362,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">But “eternal life” means the kind of life God Himself lives. It is life in the presence of the Father and the Son. And so it is a blessing given only to those who keep the Lord’s commandments and become worthy to return to His presence.</p>
     <p class="zh">然而，「永生」是指神所拥有的那种生命，是在父与子面前所享有的生活。因此，永生这项祝福，唯有那些遵守主的诫命、有资格回到祂面前的人，才能得到。</p>
     <p class="th">แต่ “ชีวิตนิรันดร์” หมายถึงชีวิตแบบที่พระผู้เป็นเจ้าทรงมี เป็นชีวิตที่ดำเนินอยู่ต่อพระพักตร์พระบิดาและพระบุตร ดังนั้นชีวิตนิรันดร์จึงเป็นพรที่ประทานให้เฉพาะผู้ที่รักษาพระบัญญัติของพระเจ้าและมีค่าควรจะกลับไปสู่ที่ประทับของพระองค์เท่านั้น</p>
+    <p class="de">Doch „das ewige Leben“ bedeutet die Art von Leben, die Gott selbst führt — ein Leben in der Gegenwart des Vaters und des Sohnes. Darum ist das ewige Leben ein Segen, den nur diejenigen empfangen können, die die Gebote des Herrn halten und würdig werden, in seine Gegenwart zurückzukehren.</p>
   </div>
 
   <div class="pair">
@@ -358,6 +371,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Eternal life is the hope and the destination of us all. But it is a reward. It is given only to those who keep the commandments worthily and faithfully all through this mortal life, who endure without murmuring, and who fulfill their own duty to the end.</p>
     <p class="zh">永生是我们所有人的盼望，也是我们的目的地；然而，这项奖赏只赐给一种人：在世上生活时配称、忠信地遵守诫命，毫无怨言地忍耐，坚守本分到底的人。</p>
     <p class="th">ชีวิตนิรันดร์เป็นความหวังและจุดหมายปลายทางของเราทุกคน แต่ก็เป็นรางวัลที่ประทานให้เฉพาะผู้ที่รักษาพระบัญญัติอย่างมีค่าควรและซื่อสัตย์ตลอดชีวิตในโลกนี้ อดทนโดยไม่พร่ำบ่น และทำหน้าที่ของตนจนถึงที่สุดเท่านั้น</p>
+    <p class="de">Das ewige Leben ist die Hoffnung und das Ziel von uns allen. Doch es ist ein Lohn, der nur denen zuteilwird, die während des irdischen Lebens würdig und treu die Gebote halten, ohne Murren ausharren und ihre Pflicht bis ans Ende erfüllen.</p>
   </div>
 
   <div class="pair cite">
@@ -366,6 +380,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">Because strait is the gate, and narrow is the way, which leadeth unto life, and few there be that find it.<cite>Matthew 7:14</cite></blockquote>
     <blockquote class="zh">引到永生那门是窄的，路是小的，找着的人也少。<cite>Matthew 7:14</cite></blockquote>
     <blockquote class="th">เพราะประตูที่แคบและทางที่ลำบากนั้นนำไปสู่ชีวิต และพวกที่หาพบก็มีน้อย<cite>Matthew 7:14</cite></blockquote>
+    <blockquote class="de">„Eng ist dagegen die Pforte und schmal der Weg, der ins Leben führt! Und nur wenige sind es, die ihn finden.“<cite>Matthew 7:14</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -374,6 +389,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">The scriptures, too, show us that only a very few will live worthily here on earth, return to the presence of God, and enjoy “eternal life.”</p>
     <p class="zh">我们从经文也可以看到，能够在世上过配称的生活、回到神面前、享有「永生」的人，为数极少。</p>
     <p class="th">จากพระคัมภีร์ เราเรียนรู้เช่นกันว่ามีคนเพียงไม่กี่คนที่จะดำเนินชีวิตอย่างมีค่าควรในโลกนี้ แล้วได้กลับไปสู่ที่ประทับของพระผู้เป็นเจ้าและได้รับพรแห่ง “ชีวิตนิรันดร์”</p>
+    <p class="de">Auch aus den heiligen Schriften erkennen wir, dass nur sehr wenige würdig auf dieser Erde leben, in die Gegenwart Gottes zurückkehren und „das ewige Leben“ genießen werden.</p>
   </div>
 
   <div class="pair">
@@ -382,6 +398,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">So eternal life is not only a blessing we receive after death. It is a blessing that depends on how we live right now, during this life on earth.</p>
     <p class="zh">这样看来，永生并不只是死后才得到的祝福，而是要看我们此刻在世上怎么生活，才能得到的祝福。</p>
     <p class="th">ดังนั้น ชีวิตนิรันดร์ไม่ใช่เพียงพรที่เราได้รับหลังความตายเท่านั้น แต่เป็นพรที่ขึ้นอยู่กับว่าเราดำเนินชีวิตอย่างไรในเวลานี้ ขณะที่เราอยู่ในโลกนี้</p>
+    <p class="de">Das ewige Leben ist also nicht nur ein Segen, den wir nach dem Tod empfangen, sondern ein Segen, der davon abhängt, wie wir jetzt, während unseres irdischen Lebens, leben.</p>
   </div>
 
   <div class="pair">
@@ -390,6 +407,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">When we keep the covenants we have made with the Lord and walk the covenant path, when we let go of what we need to let go of and change what we need to change, when we become changed and live the way the Lord desires, then we can obtain the blessing of eternal life.</p>
     <p class="zh">当我们遵守与主所立的圣约，走在圣约的道路上，舍弃该舍弃的，改变该改变的，成为焕然一新的人，照着主所愿的去生活，我们就能得到永生这项祝福。</p>
     <p class="th">เมื่อเรารักษาพันธสัญญาที่ทำไว้กับพระเจ้าและเดินบนทางแห่งพันธสัญญา ละทิ้งสิ่งที่ควรละทิ้ง เปลี่ยนสิ่งที่ควรเปลี่ยน และดำเนินชีวิตในฐานะผู้ที่เปลี่ยนแปลงแล้วตามที่พระเจ้าทรงประสงค์ เราก็จะได้รับพรแห่งชีวิตนิรันดร์</p>
+    <p class="de">Wenn wir die Bündnisse halten, die wir mit dem Herrn geschlossen haben, und auf dem Weg der Bündnisse gehen, wenn wir ablegen, was wir ablegen müssen, und ändern, was wir ändern müssen, und als verwandelte Menschen so leben, wie der Herr es wünscht, dann können wir den Segen des ewigen Lebens erlangen.</p>
   </div>
 
   <div class="pair">
@@ -398,6 +416,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Walking the covenant path is not easy. It is an invitation to seek, to act, and to endure to the end, all without murmuring.</p>
     <p class="zh">走在圣约的道路上并不容易。这是一个邀请，邀请我们毫无怨言地祈求、去行、并且忍耐到底。</p>
     <p class="th">การเดินบนทางแห่งพันธสัญญาไม่ใช่เรื่องง่าย นี่เป็นคำเชื้อเชิญให้ทูลขอโดยไม่พร่ำบ่น ให้ลงมือทำ และให้อดทนจนถึงที่สุด</p>
+    <p class="de">Auf dem Weg der Bündnisse zu gehen ist nicht leicht. Es ist eine Einladung, ohne Murren zu suchen, zu handeln und bis ans Ende auszuharren.</p>
   </div>
 
   <div class="pair">
@@ -406,6 +425,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">This is the same for every one of us, whether we have been members for many years or were baptized just yesterday. So many things test our faith and our spiritual strength.</p>
     <p class="zh">无论是多年的教友，还是昨天才受洗的教友，这对我们每个人都同样适用。考验我们信心和属灵力量的事物，实在太多了。</p>
     <p class="th">สิ่งนี้ใช้ได้กับเราทุกคนเหมือนกัน ไม่ว่าจะเป็นสมาชิกมาหลายปีแล้วหรือเพิ่งรับบัพติศมาเมื่อวานนี้ มีสิ่งต่าง ๆ มากมายเหลือเกินที่คอยทดสอบศรัทธาและความเข้มแข็งทางวิญญาณของเรา</p>
+    <p class="de">Das gilt für jeden von uns gleichermaßen — ob wir schon lange Mitglied sind oder erst gestern getauft wurden. Es gibt wahrhaftig sehr vieles, was unseren Glauben und unsere geistige Kraft auf die Probe stellt.</p>
   </div>
 
   <div class="pair">
@@ -414,6 +434,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">As Sister Freeman taught in the last general conference, our everyday life always holds both our “best days” and our “worst days.”</p>
     <p class="zh">正如上次总会大会中傅利曼姊妹所教导的，我们的日常生活里，「最好的日子」和「最糟的日子」总是同时存在。</p>
     <p class="th">ดังที่ซิสเตอร์ฟรีแมนได้กล่าวไว้ในการประชุมใหญ่สามัญครั้งที่แล้ว ชีวิตประจำวันของเรามีทั้ง “วันที่ดีที่สุด” และ “วันที่แย่ที่สุด” อยู่ด้วยกันเสมอ</p>
+    <p class="de">Wie Schwester Freeman in der letzten Generalkonferenz gelehrt hat, gibt es in unserem Alltag stets sowohl „die besten Tage“ als auch „die schlimmsten Tage“.</p>
   </div>
 
   <div class="pair">
@@ -422,6 +443,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Last fall we were blessed with the joy of our sixth grandchild. As we always do, we gladly stepped in to help.</p>
     <p class="zh">去年秋天，我们迎来了第六个孙儿，满心欢喜。我们也像往常一样，欢欢喜喜地去帮忙照顾。</p>
     <p class="th">เมื่อฤดูใบไม้ร่วงปีที่แล้ว เรามีความสุขที่ได้ต้อนรับหลานคนที่หก และเราก็ยินดีเข้าไปช่วยดูแลเหมือนที่เคยทำเสมอมา</p>
+    <p class="de">Letzten Herbst durften wir uns über die Geburt unseres sechsten Enkelkindes freuen. Wie immer sprangen wir gern ein und halfen mit.</p>
   </div>
 
   <div class="pair">
@@ -430,6 +452,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Yet it was more than I could manage, and I was unwell for several months. And my daughter, who was struggling both physically and emotionally, went through a painful time of her own.</p>
     <p class="zh">但我也因为体力不支，病了好几个月。那时我女儿身心都很煎熬，自己也经历了一段很难熬的日子。</p>
     <p class="th">แต่เราก็เหน็ดเหนื่อยจนล้มป่วยอยู่หลายเดือน อีกทั้งลูกสาวของดิฉันซึ่งกำลังเผชิญความยากลำบากทั้งทางร่างกายและจิตใจ ก็ต้องผ่านช่วงเวลาที่เจ็บปวดของเธอเองด้วย</p>
+    <p class="de">Doch es überstieg meine Kräfte, und ich war einige Monate lang krank. Auch meine Tochter, die körperlich und seelisch zu kämpfen hatte, durchlebte eine schwere Zeit.</p>
   </div>
 
   <div class="pair">
@@ -438,6 +461,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">All of this weighed heavily on our daily life. But we were able to recover quickly, and that was not the end. The joy was not the end, and the sorrow was not the end.</p>
     <p class="zh">这一切都为我们的日常带来沉重的影响，但我们很快就复原过来，而那并不是结束。喜乐不是结束，忧伤也不是结束。</p>
     <p class="th">ทั้งหมดนี้ส่งผลกระทบอย่างหนักต่อชีวิตประจำวันของเรา แต่เราก็ฟื้นตัวได้อย่างรวดเร็ว และนั่นก็ไม่ใช่จุดจบ ความชื่นชมยินดีไม่ใช่จุดจบ และความโศกเศร้าก็ไม่ใช่จุดจบเช่นกัน</p>
+    <p class="de">All das lastete schwer auf unserem Alltag, doch wir konnten uns rasch erholen, und das war nicht das Ende. Die Freude war nicht das Ende, und auch der Kummer war nicht das Ende.</p>
   </div>
 
   <div class="pair">
@@ -446,6 +470,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">We could clearly see and feel what the Lord was doing, and the part His angels played. In the end, we offered a prayer of gratitude to the Lord and felt peace in our hearts.</p>
     <p class="zh">我们能够清楚地看见、也感受到主所做的工，以及祂的天使所扮演的角色。到最后，我们向主献上感恩的祈祷，心里经历到那份平安。</p>
     <p class="th">เราเห็นและรู้สึกได้อย่างชัดเจนถึงสิ่งที่พระเจ้าทรงกระทำ และบทบาทของเหล่าทูตสวรรค์ของพระองค์ ในที่สุดเราก็ได้สวดอ้อนวอนขอบพระคุณพระเจ้า และได้สัมผัสถึงความสงบสุขในใจ</p>
+    <p class="de">Wir konnten deutlich sehen und spüren, was der Herr wirkte und welche Rolle seine Engel dabei spielten. Am Ende beteten wir voll Dankbarkeit zum Herrn und empfanden Frieden im Herzen.</p>
   </div>
 
   <div class="pair cite">
@@ -454,6 +479,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">And this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent.<cite>John 17:3</cite></blockquote>
     <blockquote class="zh">认识你，独一的真神，并且认识你所差来的耶稣基督，这就是永生。<cite>John 17:3</cite></blockquote>
     <blockquote class="th">และนี่แหละคือชีวิตนิรันดร์ คือการที่พวกเขารู้จักพระองค์ ผู้ทรงเป็นพระเจ้าเที่ยงแท้องค์เดียว และรู้จักพระเยซูคริสต์ที่พระองค์ทรงใช้มา<cite>John 17:3</cite></blockquote>
+    <blockquote class="de">„Darin besteht aber das ewige Leben, dass sie dich, den allein wahren Gott, und den du gesandt hast, Jesus Christus, erkennen.“<cite>John 17:3</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -462,6 +488,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">How, then, can we come to know the only true God and gain eternal life? What is the only way to receive it? It is to come unto Christ and follow Him.</p>
     <p class="zh">那么，我们要怎样才能认识独一的真神，并且得到永生呢？得到永生的唯一方法是什么呢？就是归向基督，跟随祂。</p>
     <p class="th">แล้วเราจะรู้จักพระผู้เป็นเจ้าเที่ยงแท้เพียงองค์เดียวและได้รับชีวิตนิรันดร์ได้อย่างไร? หนทางเดียวที่จะได้รับชีวิตนิรันดร์คืออะไร? นั่นคือการมาหาพระคริสต์และติดตามพระองค์</p>
+    <p class="de">Wie können wir dann den allein wahren Gott erkennen und das ewige Leben erlangen? Was ist der einzige Weg, es zu empfangen? Er besteht darin, zu Christus zu kommen und ihm nachzufolgen.</p>
   </div>
 
   <div class="pair">
@@ -470,6 +497,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">And what does it mean to “follow Him”? We are taught that it means to learn of Christ, to turn to the Lord and His restored gospel, to let go of what we need to let go of, and to bring about good change.</p>
     <p class="zh">那么，「跟随祂」又是什么意思呢？我们所受的教导是：这意味着认识基督，归向主和祂所复兴的福音，舍弃该舍弃的，并带来美好的转变。</p>
     <p class="th">แล้ว “การติดตามพระองค์” หมายความว่าอย่างไร? เราได้รับการสอนว่า นั่นหมายถึงการเรียนรู้เกี่ยวกับพระคริสต์ หันมาหาพระเจ้าและพระกิตติคุณที่พระองค์ทรงฟื้นฟู ละทิ้งสิ่งที่ควรละทิ้ง และก่อให้เกิดการเปลี่ยนแปลงที่ดี</p>
+    <p class="de">Was bedeutet es dann, „ihm nachzufolgen“? Es wurde gelehrt, dass es bedeutet, von Christus zu lernen, sich dem Herrn und seinem wiederhergestellten Evangelium zuzuwenden, abzulegen, was abzulegen ist, und eine gute Veränderung zu bewirken.</p>
   </div>
 
   <div class="pair">
@@ -478,6 +506,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Heavenly Father knew that during our mortal life we would make mistakes and do wrong. He knew we would need help to return to the heavenly home where He dwells. And so He sent Jesus Christ to help us.</p>
     <p class="zh">天父知道，我们在世上生活时会犯错、会犯罪，也知道我们若要回到祂所在的天家，就需要帮助。因此，祂差遣了耶稣基督来帮助我们。</p>
     <p class="th">พระบิดาบนสวรรค์ทรงทราบว่าเราจะทำผิดพลาดและทำบาปในระหว่างชีวิตในโลกนี้ และทรงทราบว่าเราจำเป็นต้องได้รับความช่วยเหลือเพื่อจะกลับไปยังบ้านบนสวรรค์ที่พระองค์ประทับอยู่ ดังนั้นพระองค์จึงทรงส่งพระเยซูคริสต์มาช่วยเรา</p>
+    <p class="de">Der himmlische Vater wusste, dass wir während unseres irdischen Lebens Fehler machen und Unrecht tun würden, und er wusste, dass wir Hilfe brauchen würden, um in die himmlische Heimat zurückzukehren, wo er wohnt. Darum sandte er Jesus Christus, der uns helfen sollte.</p>
   </div>
 
   <div class="pair">
@@ -486,6 +515,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">And so we have learned that when we partake of the sacrament on the Sabbath day, it is more important to remember the Lord than to remember the faults we have already been forgiven of.</p>
     <p class="zh">因此我们学到，在安息日领受圣餐时，记念主，比记住那些已蒙赦免的过犯更为重要。</p>
     <p class="th">ดังนั้นเราจึงได้เรียนรู้ว่า เมื่อเรารับส่วนศีลระลึกในวันสะบาโต การระลึกถึงพระเจ้าย่อมสำคัญกว่าการจดจำความผิดที่เราได้รับการอภัยไปแล้ว</p>
+    <p class="de">So haben wir gelernt, dass es, wenn wir am Sabbat das Abendmahl nehmen, wichtiger ist, an den Herrn zu denken als an die Verfehlungen, die uns bereits vergeben wurden.</p>
   </div>
 
   <div class="pair">
@@ -494,6 +524,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">I also hope that in the temple we will renew the covenants we have made with the Lord, and that at the heart of the covenant, we will repent and receive a new life.</p>
     <p class="zh">我也盼望，我们都能在圣殿里更新与主所立的圣约，从圣约的核心处悔改，获得新的生命。</p>
     <p class="th">ดิฉันยังหวังด้วยว่า เราจะต่อพันธสัญญาที่ทำไว้กับพระเจ้าในพระวิหารให้ใหม่ และที่ใจกลางของพันธสัญญานั้น เราจะกลับใจและได้รับชีวิตใหม่</p>
+    <p class="de">Ich hoffe auch, dass wir im Tempel die Bündnisse erneuern, die wir mit dem Herrn geschlossen haben, und dass wir im Herzen des Bundes umkehren und ein neues Leben empfangen.</p>
   </div>
 
   <div class="pair">
@@ -502,6 +533,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Personally, I believe that “murmuring” is, in part, a stumbling block to becoming like God and to gaining eternal life.</p>
     <p class="zh">就我个人来说，我觉得「怨言」是一块绊脚石，会在某种程度上阻碍我们变得像神，也阻碍我们得到永生。</p>
     <p class="th">โดยส่วนตัว ดิฉันคิดว่า “การพร่ำบ่น” เป็นอุปสรรคส่วนหนึ่งที่คอยขัดขวางไม่ให้เราเป็นเหมือนพระผู้เป็นเจ้าและได้รับชีวิตนิรันดร์</p>
+    <p class="de">Ich persönlich denke, dass „das Murren“ zum Teil ein Hindernis dafür ist, Gott ähnlicher zu werden und das ewige Leben zu erlangen.</p>
   </div>
 
   <div class="pair">
@@ -510,6 +542,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Though Nephi, Laman, and Lemuel all passed through the very same trials and afflictions, their attitudes were very different. First Nephi chapter 17, verse 2, shows us Nephi’s attitude.</p>
     <p class="zh">他们经历了同样众多的艰难和痛苦，可是尼腓的态度，却和拉曼、雷米尔截然不同。尼腓一书第十七章第二节，让我们看见尼腓的态度。</p>
     <p class="th">แม้พวกเขาจะผ่านความยากลำบากและความทุกข์ทรมานมากมายเช่นเดียวกัน แต่ทัศนคติของนีไฟกับของเลมันและเลมิวเอลนั้นแตกต่างกันมาก หนึ่งนีไฟบทที่ ๑๗ ข้อ ๒ แสดงให้เราเห็นทัศนคติของนีไฟ</p>
+    <p class="de">Obwohl Nephi, Laman und Lemuel dieselben zahllosen Schwierigkeiten und Leiden durchmachten, war ihre Einstellung sehr verschieden. In 1 Nephi 17:2 sehen wir Nephis Einstellung.</p>
   </div>
 
   <div class="pair cite">
@@ -518,6 +551,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">And so great were the blessings of the Lord upon us, that while we did live upon raw meat in the wilderness, our women did give plenty of suck for their children, and were strong, yea, even like unto the men; and they began to bear their journeyings without murmurings.<cite>1 Nephi 17:2</cite></blockquote>
     <blockquote class="zh">主赐我们的祝福多么大，虽然我们在旷野中以生肉为食，我们的妇女却有许多奶水给孩子，她们像男子一样强壮；她们开始毫无怨言地忍受旅途的艰辛。<cite>1 Nephi 17:2</cite></blockquote>
     <blockquote class="th">และพรของพระเจ้าที่ประทานให้เรานั้นยิ่งใหญ่นัก, คือขณะที่เราดำรงชีวิตอยู่ด้วยเนื้อดิบในแดนทุรกันดาร, ผู้หญิงของเรามีน้ำนมให้ลูก ๆ ของพวกนางมาก, และแข็งแรง, แท้จริงแล้ว, ประหนึ่งชาย; และพวกนางเริ่มอดทนต่อการเดินทางของพวกนางโดยปราศจากการพร่ำบ่น.<cite>1 Nephi 17:2</cite></blockquote>
+    <blockquote class="de">„Und so großen Segen schüttete der Herr über uns aus, dass unsere Frauen ihre Kinder reichlich säugen konnten und stark waren, ja, sogar wie die Männer, während wir in der Wildnis von rohem Fleisch lebten; und sie fingen an, ihre Reise ohne Murren zu ertragen.“<cite>1 Nephi 17:2</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -526,6 +560,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">First Nephi chapter 2, verse 12, shows us the attitude of Laman and Lemuel.</p>
     <p class="zh">尼腓一书第二章第十二节，让我们看见拉曼和雷米尔的态度。</p>
     <p class="th">หนึ่งนีไฟบทที่ ๒ ข้อ ๑๒ แสดงให้เราเห็นทัศนคติของเลมันและเลมิวเอล</p>
+    <p class="de">In 1 Nephi 2:12 sehen wir die Einstellung von Laman und Lemuel.</p>
   </div>
 
   <div class="pair cite">
@@ -534,6 +569,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">And thus Laman and Lemuel, being the eldest, did murmur against their father. And they did murmur because they knew not the dealings of that God who had created them.<cite>1 Nephi 2:12</cite></blockquote>
     <blockquote class="zh">最年长的拉曼和雷米尔这样抱怨他们的父亲。他们抱怨，因为他们不知道创造他们的神的作为。<cite>1 Nephi 2:12</cite></blockquote>
     <blockquote class="th">และดังนั้นเลมันกับเลมิวเอล, โดยที่เป็นพี่, พร่ำบ่นต่อต้านบิดาพวกเขา. และพวกเขาพร่ำบ่นเพราะพวกเขาหารู้ไม่ถึงการกระทำของพระผู้เป็นเจ้าองค์นั้นผู้ทรงสร้างพวกเขา.<cite>1 Nephi 2:12</cite></blockquote>
+    <blockquote class="de">„Und so murrten Laman und Lemuel, die die ältesten waren, gegen ihren Vater. Und sie murrten, weil sie das Walten jenes Gottes nicht erkannten, der sie erschaffen hatte.“<cite>1 Nephi 2:12</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -542,6 +578,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Let's also read First Nephi chapter 17, verse 20.</p>
     <p class="zh">我们也来看尼腓一书第十七章第二十节。</p>
     <p class="th">เราจะมาอ่านหนึ่งนีไฟบทที่ ๑๗ ข้อ ๒๐ ด้วยกันอีกข้อหนึ่ง</p>
+    <p class="de">Lasst uns auch 1 Nephi 17:20 gemeinsam lesen.</p>
   </div>
 
   <div class="pair cite">
@@ -550,6 +587,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">And thou art like unto our father, led away by the foolish imaginations of his heart; yea, he hath led us out of the land of Jerusalem, and we have wandered in the wilderness for these many years; and our women have toiled, being big with child; and they have borne children in the wilderness and suffered all things, save it were death; and it would have been better that they had died before they came out of Jerusalem than to have suffered these afflictions.<cite>1 Nephi 17:20</cite></blockquote>
     <blockquote class="zh">你就跟父亲一样，他已经被他心中愚蠢的幻想所蒙蔽；是的，他把我们带出耶路撒冷地，而我们在旷野中流浪了这么多年；我们的妇女怀着身孕辛苦工作，她们在旷野中生下孩子，受尽了苦难，只差没把命赔上；要是她们在出耶路撒冷之前就死掉，要比受这些折磨好。<cite>1 Nephi 17:20</cite></blockquote>
     <blockquote class="th">และเจ้าเป็นเหมือนบิดาเรา, ผู้ถูกจินตนาการอันโง่เขลาแห่งใจท่านชักนำไป; แท้จริงแล้ว, ท่านนำเราออกจากแผ่นดินแห่งเยรูซาเล็ม, และเราระหกระเหินในแดนทุรกันดารมาหลายปีนี้; และผู้หญิงของเราทำงานหนัก, โดยที่อุ้มท้อง; และพวกนางคลอดลูกในแดนทุรกันดารและทนทุกข์กับสิ่งทั้งปวง, นอกจากความตาย; และหากพวกนางตายก่อนที่พวกนางออกจากเยรูซาเล็มก็จะดีกว่าต้องมาทนความทุกข์ทรมานเหล่านี้.<cite>1 Nephi 17:20</cite></blockquote>
+    <blockquote class="de">„Und du bist wie unser Vater, verführt von den törichten Einbildungen seines Herzens; ja, er hat uns aus dem Land Jerusalem geführt, und wir sind all die vielen Jahre lang in der Wildnis gewandert; und unsere Frauen haben sich abgeplagt, während sie schwanger und schweren Leibes waren; und sie haben Kinder in der Wildnis geboren und alles erlitten außer den Tod; und es wäre besser für sie gewesen, vor dem Auszug aus Jerusalem zu sterben, als diese Bedrängnisse zu erleiden.“<cite>1 Nephi 17:20</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -558,6 +596,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">We can learn from these two. In the wilderness they went through the very same hardships, and yet their attitudes were different from each other.</p>
     <p class="zh">我们可以从这两种人身上学到功课。他们在旷野中经历了同样的苦难，态度却大不相同。</p>
     <p class="th">เราเรียนรู้ได้จากคนทั้งสองฝ่ายนี้ พวกเขาเผชิญความทุกข์ยากเดียวกันในแดนทุรกันดาร แต่ทัศนคติของพวกเขากลับแตกต่างกัน</p>
+    <p class="de">Wir können von diesen beiden lernen. In der Wildnis machten sie dieselben Leiden durch, und doch war ihre Einstellung voneinander verschieden.</p>
   </div>
 
   <div class="pair">
@@ -566,6 +605,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">If we live the gospel and understand the Lord’s plan without murmuring, won’t we then make good decisions with the right motives, and grow to become more like God?</p>
     <p class="zh">如果我们照着福音生活，毫无怨言地明白主的计划，我们岂不就会做出正确的决定、怀着正确的动机，逐渐变得更像神吗？</p>
     <p class="th">หากเราดำเนินชีวิตตามพระกิตติคุณและเข้าใจแผนของพระเจ้าโดยไม่พร่ำบ่น เราย่อมจะตัดสินใจได้ดีและมีแรงจูงใจที่ถูกต้อง และเติบโตขึ้นเป็นเหมือนพระผู้เป็นเจ้ามากขึ้นมิใช่หรือ?</p>
+    <p class="de">Wenn wir nach dem Evangelium leben und den Plan des Herrn ohne Murren verstehen, werden wir dann nicht gute Entscheidungen mit den richtigen Beweggründen treffen und uns so verwandeln, dass wir Gott ähnlicher werden?</p>
   </div>
 
   <div class="pair">
@@ -574,6 +614,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">We have been taught that when we murmur, we can lose the eternal perspective, or make decisions that are not in harmony with the will of God.</p>
     <p class="zh">我们学到，当我们发怨言时，可能会失去永恒的眼光，或做出与神的旨意不一致的决定。</p>
     <p class="th">เราได้รับการสอนว่า เมื่อเราพร่ำบ่น เราอาจสูญเสียมุมมองนิรันดร์ หรือตัดสินใจในสิ่งที่ไม่สอดคล้องกับพระประสงค์ของพระผู้เป็นเจ้า</p>
+    <p class="de">Wir haben gelernt, dass wir, wenn wir murren, die ewige Perspektive verlieren oder Entscheidungen treffen können, die nicht mit dem Willen Gottes im Einklang stehen.</p>
   </div>
 
   <div class="pair">
@@ -582,6 +623,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">This seems to hold true everywhere: at home, at school, out in the community and at work, at church, and in any gathering at all.</p>
     <p class="zh">无论是在家里、在学校、在社会和职场、在教会，还是在任何一个聚会当中，这一点似乎都同样适用。</p>
     <p class="th">ดูเหมือนว่าสิ่งนี้เป็นจริงในทุกที่ ไม่ว่าจะที่บ้าน ที่โรงเรียน ในสังคมและที่ทำงาน ที่โบสถ์ หรือในการรวมกลุ่มใด ๆ ก็ตาม</p>
+    <p class="de">Das scheint überall zuzutreffen: zu Hause, in der Schule, in der Gesellschaft und am Arbeitsplatz, in der Kirche und in jeder Art von Versammlung.</p>
   </div>
 
   <div class="pair">
@@ -590,6 +632,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">I have six grandchildren. My third grandson loves puzzles.</p>
     <p class="zh">我有六个孙儿。我的第三个孙子非常喜欢拼图。</p>
     <p class="th">ดิฉันมีหลานหกคน หลานชายคนที่สามของดิฉันชอบเล่นจิ๊กซอว์มาก</p>
+    <p class="de">Ich habe sechs Enkelkinder. Mein dritter Enkel liebt Puzzles über alles.</p>
   </div>
 
   <div class="pair">
@@ -598,6 +641,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">If I try to help him from the very start, he won’t even let me touch it. He doesn’t want my help. But when he has struggled on his own and the pieces won’t fit, he gets frustrated, looks over at me, and asks for help.</p>
     <p class="zh">如果我一开始就想帮他，他连碰都不让我碰，很不喜欢。可是等他自己努力了半天却拼不上时，就会一脸不耐烦地望着我，向我求助。</p>
     <p class="th">ถ้าดิฉันเข้าไปช่วยตั้งแต่แรก เขาจะไม่ยอมให้แตะด้วยซ้ำ เพราะเขาไม่ชอบ แต่พอเขาพยายามทำเองจนต่อไม่ติด เขาก็จะหงุดหงิด หันมามองดิฉัน แล้วขอความช่วยเหลือ</p>
+    <p class="de">Wenn ich ihm von Anfang an helfen will, lässt er mich nicht einmal daran rühren — er mag es nicht. Doch wenn er sich allein abgemüht hat und die Teile nicht zusammenpassen wollen, wird er ärgerlich, schaut zu mir herüber und bittet um Hilfe.</p>
   </div>
 
   <div class="pair">
@@ -606,6 +650,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">And when he sees the puzzle finally finished, he jumps for joy, as though he had done the whole thing all by himself.</p>
     <p class="zh">等到拼图拼好了，他就欢天喜地地又蹦又跳，仿佛整幅都是他自己独力完成的。</p>
     <p class="th">และเมื่อเขาเห็นจิ๊กซอว์ต่อเสร็จสมบูรณ์ เขาก็ดีใจจนกระโดดโลดเต้น ราวกับว่าเขาทำทั้งหมดนั้นได้ด้วยตัวเองคนเดียว</p>
+    <p class="de">Und wenn er das Puzzle schließlich fertig sieht, hüpft er vor Freude, als hätte er das Ganze ganz allein geschafft.</p>
   </div>
 
   <div class="pair">
@@ -614,6 +659,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Heavenly Father does the same with us. After we have done our very best with all that is within our power, He reaches out where we fall short and helps us in many ways. He does not step in to help from the very beginning.</p>
     <p class="zh">天父对我们也是这样。当我们已经尽了自己一切所能之后，祂才会在我们无法完成的地方伸出手来，用各种方法帮助我们。祂不会一开始就帮我们。</p>
     <p class="th">พระบิดาบนสวรรค์ก็ทรงกระทำกับเราเช่นนั้น เมื่อเราได้ทำสุดความสามารถเท่าที่เราจะทำได้แล้ว พระองค์จึงทรงยื่นพระหัตถ์มาช่วยเราในส่วนที่เราทำไม่ได้ด้วยวิธีต่าง ๆ พระองค์ไม่ทรงเข้ามาช่วยตั้งแต่แรก</p>
+    <p class="de">Genauso macht es der himmlische Vater mit uns. Nachdem wir mit all unseren Kräften unser Bestes getan haben, streckt er dort, wo wir nicht weiterkommen, seine Hand aus und hilft uns auf vielerlei Weise. Er hilft uns nicht von Anfang an.</p>
   </div>
 
   <div class="pair">
@@ -622,6 +668,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Our life is like fitting a puzzle together, one piece at a time. Without murmuring, we must endure to the end, keeping the finished picture in mind and trying to see the whole.</p>
     <p class="zh">我们的人生，就像一片一片地拼起拼图。我们必须毫无怨言地忍耐到底，心里想着完成后的样子，努力去看见整幅图画。</p>
     <p class="th">ชีวิตของเราเปรียบเสมือนการต่อจิ๊กซอว์ทีละชิ้น ๆ เราต้องอดทนจนถึงที่สุดโดยไม่พร่ำบ่น นึกถึงภาพเมื่อต่อเสร็จสมบูรณ์ และพยายามมองให้เห็นภาพทั้งหมด</p>
+    <p class="de">Unser Leben gleicht dem Zusammensetzen eines Puzzles, Stück für Stück. Ohne Murren müssen wir bis ans Ende ausharren, uns das fertige Bild vorstellen und uns bemühen, das Ganze zu sehen.</p>
   </div>
 
   <div class="pair">
@@ -630,6 +677,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">The Lord knows exactly where each piece of the puzzle fits within His plan.</p>
     <p class="zh">主确切地知道，每一片拼图在祂的计划里，该放在哪里，才恰好合适。</p>
     <p class="th">พระเจ้าทรงทราบอย่างแน่ชัดว่าจิ๊กซอว์แต่ละชิ้นควรอยู่ตรงไหนพอดีในแผนของพระองค์</p>
+    <p class="de">Der Herr weiß genau, wohin jedes einzelne Puzzleteil in seinem Plan gehört.</p>
   </div>
 
   <div class="pair">
@@ -638,6 +686,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">If I am faithful only to the commandments that are easy to keep, the puzzle will be full of gaps and never complete. But if I am faithful even to the commandments that are hard to keep, I will look at the beautiful, finished puzzle and feel a real sense of accomplishment.</p>
     <p class="zh">假如我只忠于那些容易遵守的诫命，拼图就会处处留空，永远拼不完。但假如我连难以遵守的诫命也忠心遵守，就会看着一幅精美完成的拼图，心里满是成就感。</p>
     <p class="th">หากดิฉันซื่อสัตย์เฉพาะต่อพระบัญญัติที่รักษาได้ง่าย จิ๊กซอว์ก็จะมีช่องว่างอยู่หลายจุดและไม่มีวันเสร็จสมบูรณ์ แต่หากดิฉันซื่อสัตย์แม้ต่อพระบัญญัติที่รักษาได้ยาก ดิฉันก็จะได้มองดูผลงานจิ๊กซอว์ที่สวยงามและเสร็จสมบูรณ์ และรู้สึกถึงความสำเร็จ</p>
+    <p class="de">Wäre ich nur den Geboten treu, die leicht zu halten sind, so bliebe das Puzzle hier und da lückenhaft und würde nie vollendet. Bin ich aber auch den Geboten treu, die schwer zu halten sind, dann werde ich das herrlich vollendete Puzzle betrachten und ein Gefühl der Erfüllung empfinden.</p>
   </div>
 
   <div class="pair">
@@ -646,6 +695,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">This is exactly what the Lord desires. It is how, piece by piece, we put together the puzzle that leads to eternal life. The Lord knows what He hopes each one of us will accomplish.</p>
     <p class="zh">这正是主所愿的，也就是把那通往永生的拼图，一片一片地拼起来。主知道，祂盼望我们每一个人成为什么样的人。</p>
     <p class="th">นี่แหละคือสิ่งที่พระเจ้าทรงประสงค์ และเป็นการต่อจิ๊กซอว์ที่นำไปสู่ชีวิตนิรันดร์ทีละชิ้น ๆ พระเจ้าทรงทราบว่าพระองค์ทรงปรารถนาให้เราแต่ละคนบรรลุสิ่งใด</p>
+    <p class="de">Genau das ist es, was der Herr wünscht: Stück für Stück das Puzzle zusammenzusetzen, das zum ewigen Leben führt. Der Herr weiß, was er sich von jedem Einzelnen von uns erhofft.</p>
   </div>
 
   <div class="pair">
@@ -654,6 +704,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Every year on the first of January, most homes make plans for the year, receive a blessing from a priesthood holder, share good wishes over a delicious bowl of tteokguk (rice-cake soup) and play games like yut.</p>
     <p class="zh">每年一月一日，家家户户通常都会订下一年的计划，请圣职持有人给予祝福，一边吃着美味的年糕汤，一边彼此道贺，还会玩掷柶之类的传统游戏。</p>
     <p class="th">ทุกปีในวันที่ ๑ มกราคม แต่ละบ้านมักจะวางแผนสำหรับปีนั้น รับพรจากผู้ดำรงฐานะปุโรหิต รับประทานต๊อกกุก—ซุปเค้กข้าวแสนอร่อย—พร้อมกับกล่าวคำอวยพรให้กัน และเล่นเกมอย่างเช่น “ยุด”</p>
+    <p class="de">Jedes Jahr am ersten Januar machen die meisten Familien Pläne für das Jahr, empfangen einen Segen von einem Priestertumsträger, essen eine köstliche Schüssel Tteokguk — eine Reiskuchensuppe —, wünschen einander Gutes und spielen Spiele wie Yut.</p>
   </div>
 
   <div class="pair">
@@ -662,6 +713,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">As I looked back over the past, I felt that I should reach out to someone I had hurt by a mistake of mine. And so I contacted that person. I wanted to meet, to ask forgiveness, and to talk together.</p>
     <p class="zh">我在回顾过去时，心里生起一个念头：我应该联络一位曾经因我的过失而受伤的人。于是我联络了对方，因为我很想跟他见个面、请求他的原谅，好好谈一谈。</p>
     <p class="th">ดิฉันเองก็เช่นกัน ขณะที่หวนคิดถึงเรื่องที่ผ่านมา ดิฉันรู้สึกว่าควรติดต่อไปหาคนที่ดิฉันเคยทำให้เจ็บปวดเพราะความผิดพลาดของดิฉันเอง ดิฉันจึงติดต่อไป เพราะอยากพบเขา ขอการให้อภัย และพูดคุยกัน</p>
+    <p class="de">Als ich auf Vergangenes zurückblickte, verspürte ich den Drang, jemanden zu kontaktieren, den ich durch einen Fehler von mir verletzt hatte, und so nahm ich Kontakt zu dieser Person auf. Denn ich wollte sie treffen, um Vergebung bitten und mit ihr reden.</p>
   </div>
 
   <div class="pair">
@@ -670,6 +722,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">But no reply came. And so I concluded that praying for that family was both the best I could do and the answer itself, and I laid the matter down with a peaceful heart.</p>
     <p class="zh">然而对方一直没有回音，于是我作出结论：为那个家庭祈祷，既是我所能做的最好的事，本身也就是答案。我便安心地把这件事放下了。</p>
     <p class="th">แต่ไม่มีคำตอบใด ๆ กลับมา ดิฉันจึงสรุปว่าการสวดอ้อนวอนเพื่อครอบครัวนั้นเป็นทั้งสิ่งที่ดีที่สุดที่ดิฉันทำได้และเป็นคำตอบในตัวมันเอง แล้วดิฉันก็วางเรื่องนี้ลงด้วยใจที่สงบ</p>
+    <p class="de">Doch es kam keine Antwort, und so kam ich zu dem Schluss, dass es das Beste und zugleich die Antwort selbst war, für diese Familie zu beten, und ich ließ die Sache mit ruhigem Herzen ruhen.</p>
   </div>
 
   <div class="pair">
@@ -678,6 +731,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">We have been taught that we have been given the power to bring about “good change.”</p>
     <p class="zh">我们所受的教导是：我们已经被赋予能力，去实现「美好的转变」。</p>
     <p class="th">เราได้รับการสอนว่า เราได้รับพลังที่จะทำให้เกิด “การเปลี่ยนแปลงที่ดี”</p>
+    <p class="de">Wir haben gelernt, dass uns die Kraft gegeben wurde, „eine gute Veränderung“ zu bewirken.</p>
   </div>
 
   <div class="pair">
@@ -686,6 +740,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">President Spencer W. Kimball taught:</p>
     <p class="zh">斯宾塞·甘会长曾这样说：</p>
     <p class="th">ประธานสเปนเซอร์ ดับเบิลยู. คิมบัลล์ ได้กล่าวไว้ดังนี้</p>
+    <p class="de">Präsident Spencer W. Kimball hat Folgendes gesagt:</p>
   </div>
 
   <div class="pair cite">
@@ -694,6 +749,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">If we looked at mortality as the whole of existence, then pain, sorrow, failure, and short life would be calamity.</blockquote>
     <blockquote class="zh">如果我们把现世生活看作生命的全部，那么痛苦、忧伤、失败和短暂的一生，就都是灾难了。</blockquote>
     <blockquote class="th">ถ้าเรามองว่าความเป็นมรรตัยคือภาพรวมทั้งหมดของการดำรงอยู่ เมื่อนั้น ความเจ็บปวด ความเศร้าโศก ความล้มเหลว และชีวิตอันสั้นคงจะเป็นความหายนะ</blockquote>
+    <blockquote class="de">„Wenn man das Erdenleben als unsere einzige Existenz ansieht, dann wären Schmerz, Trauer, Versagen und ein kurzes Leben wirklich ein Unglück.“</blockquote>
   </div>
 
   <div class="pair cite">
@@ -702,6 +758,7 @@ html:not(.show-th) .th { display: none; }
     <blockquote class="tgt en">But if we look upon life as an eternal thing stretching far into the premortal past and on into the eternal post-death future, then all happenings may be put in proper perspective.<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
     <blockquote class="zh">但如果我们把生命看作永恒的——从前生久远的过去，一直延伸到死后永恒的将来——那么所发生的一切，就都能放在正确的眼光中来看待了。<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
     <blockquote class="th">แต่ถ้าเรามองว่าชีวิตเป็นนิรันดร์ที่ย้อนไปไกลในอดีตก่อนมรรตัยสู่อนาคตนิรันดร์หลังความตาย เมื่อนั้นเหตุการณ์ทั้งหลายน่าจะอยู่ในมุมมองที่ถูกต้อง<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
+    <blockquote class="de">„Doch wenn man das Leben als etwas Ewiges betrachtet, das sich von der vorirdischen Vergangenheit bis in die ewige Zukunft nach dem Tod erstreckt, dann kann man alles, was uns im Leben begegnet, in die richtige Perspektive rücken.“<cite>Teachings of Presidents of the Church: Spencer W. Kimball, ch. 2</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -710,6 +767,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">When Michelangelo, the painter and sculptor, was carving a great block of marble, there was a boy who came by every day and shyly watched him work.</p>
     <p class="zh">身兼画家与雕刻家的米开朗基罗，在雕琢一块巨大的大理石时，有一个小男孩每天都来，怯生生地看着他工作。</p>
     <p class="th">เมื่อมิเกลันเจโล จิตรกรและประติมากร กำลังแกะสลักหินอ่อนก้อนใหญ่ มีเด็กชายคนหนึ่งมาทุกวันและเฝ้าดูเขาทำงานอย่างเหนียมอาย</p>
+    <p class="de">Als Michelangelo, der Maler und Bildhauer, einen großen Marmorblock bearbeitete, gab es einen Jungen, der jeden Tag kam und ihm schüchtern bei der Arbeit zusah.</p>
   </div>
 
   <div class="pair">
@@ -718,6 +776,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Slowly, that great block of marble became a work of art in the shape of David, the famous David from the story of David and Goliath.</p>
     <p class="zh">那一大块大理石渐渐变成一件艺术品，塑成了那位著名的大卫——就是「大卫与歌利亚」故事里的大卫。</p>
     <p class="th">หินอ่อนก้อนใหญ่นั้นค่อย ๆ กลายเป็นงานศิลปะในรูปของดาวิด—ดาวิดผู้โด่งดังจากเรื่องราวของดาวิดกับโกลิอัท</p>
+    <p class="de">Nach und nach wurde dieser große Marmorblock zu einem Kunstwerk in der Gestalt Davids — jenes berühmten David aus der Geschichte von David und Goliat.</p>
   </div>
 
   <div class="pair">
@@ -726,6 +785,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">The boy asked Michelangelo, “How did you know he was inside there?”</p>
     <p class="zh">那男孩问米开朗基罗：「您怎么知道他就在那里面呢？」</p>
     <p class="th">เด็กชายถามมิเกลันเจโลว่า “คุณรู้ได้อย่างไรว่าเขาอยู่ในนั้น?”</p>
+    <p class="de">Der Junge fragte Michelangelo: „Woher wussten Sie, dass er da drin ist?“</p>
   </div>
 
   <div class="pair">
@@ -734,6 +794,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">The sculptor’s view of that block of marble and the boy’s view of the same work were not the same. In just this way, the Lord’s thoughts are not our thoughts, and the way He sees is not the way we see.</p>
     <p class="zh">雕刻家看那块大理石的眼光，和旁观那工作的男孩的眼光，是不一样的。同样地，主的意念、祂看事情的眼光，也和我们不同。</p>
     <p class="th">มุมมองของประติมากรที่มีต่อหินอ่อนก้อนนั้น กับมุมมองของเด็กชายที่เฝ้าดูงานเดียวกัน ไม่เหมือนกัน เช่นเดียวกันนี้ ความคิดของพระเจ้าและวิธีที่พระองค์ทรงมองก็แตกต่างจากของเรา</p>
+    <p class="de">Die Sicht des Bildhauers auf diesen Marmorblock und die Sicht des Jungen, der der Arbeit zusah, waren nicht dieselben. Ebenso sind die Gedanken des Herrn und die Sicht, mit der er die Dinge betrachtet, anders als die unseren.</p>
   </div>
 
   <div class="pair">
@@ -742,6 +803,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">I am grateful to the Lord, who is full of love, who is just, and who is merciful.</p>
     <p class="zh">我感谢主，祂满有慈爱、公正又慈悲。</p>
     <p class="th">ดิฉันสำนึกในพระกรุณาธิคุณต่อพระเจ้า ผู้ทรงเปี่ยมด้วยความรัก ทรงยุติธรรม และทรงเมตตา</p>
+    <p class="de">Ich bin dem Herrn dankbar, der voller Liebe, gerecht und barmherzig ist.</p>
   </div>
 
   <div class="pair">
@@ -750,6 +812,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Because Heavenly Father loves His children so dearly, He still stands with His arms outstretched even when they do wrong and turn away from the truth. He strives in every way to bring them back.</p>
     <p class="zh">天父极其疼爱祂的儿女，即使他们犯错、背离真理，祂仍然张开双臂，用尽各种方法，努力让他们重新回来。</p>
     <p class="th">เพราะพระบิดาบนสวรรค์ทรงรักบุตรธิดาของพระองค์อย่างสุดซึ้ง แม้พวกเขาจะทำผิดและหันหลังให้ความจริง พระองค์ก็ยังทรงกางพระพาหุไว้ และทรงพยายามด้วยทุกวิถีทางที่จะนำพวกเขากลับมา</p>
+    <p class="de">Weil der himmlische Vater seine Kinder über alle Maßen liebt, hält er selbst dann, wenn sie Unrecht tun und sich von der Wahrheit abwenden, noch immer seine Arme ausgestreckt und müht sich auf jede erdenkliche Weise, sie zurückzuführen.</p>
   </div>
 
   <div class="pair">
@@ -758,6 +821,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">Our part, I believe, is this: to keep the commandments patiently and without murmuring, to strive here in mortality to live up to what we promised the Lord in our premortal life, and, piece by piece, to put together the puzzle that leads to eternal life.</p>
     <p class="zh">我认为，我们该做的，就是毫无怨言地忍耐、遵守诫命，努力在今生实践我们在前生对主所作的承诺，把那通往永生的拼图，一片一片地拼起来。</p>
     <p class="th">ดิฉันเชื่อว่าสิ่งที่เราต้องทำคือ รักษาพระบัญญัติด้วยความอดทนโดยไม่พร่ำบ่น พยายามทำตามสิ่งที่เราสัญญาไว้กับพระเจ้าในชีวิตก่อนมรรตัยให้เกิดขึ้นจริงในชีวิตบนโลกนี้ และต่อจิ๊กซอว์ที่นำไปสู่ชีวิตนิรันดร์ทีละชิ้น ๆ</p>
+    <p class="de">Unsere Aufgabe besteht meiner Meinung nach darin, geduldig und ohne Murren die Gebote zu halten, uns zu bemühen, in diesem irdischen Leben zu verwirklichen, was wir dem Herrn im vorirdischen Dasein versprochen haben, und Stück für Stück das Puzzle zusammenzusetzen, das zum ewigen Leben führt.</p>
   </div>
 
   <div class="pair">
@@ -766,6 +830,7 @@ html:not(.show-th) .th { display: none; }
     <p class="tgt en">I leave these humble words with you, in the name of Jesus Christ. Amen.</p>
     <p class="zh">我奉耶稣基督的名，将我这些浅薄的话语分享给大家。阿们。</p>
     <p class="th">ดิฉันขอมอบถ้อยคำอันบกพร่องของดิฉันนี้แก่ท่านทั้งหลาย ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Diese meine bescheidenen Worte überbringe ich euch im Namen Jesu Christi. Amen.</p>
   </div>
 </main>
 
@@ -780,7 +845,7 @@ html:not(.show-th) .th { display: none; }
 
 <footer class="colophon">
   <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
-  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span></p>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
 </footer>
 </div>
 <script>
@@ -792,7 +857,7 @@ html:not(.show-th) .th { display: none; }
   var btns = bar.querySelectorAll("button[data-lang]");
   var docEl = document.documentElement;
   // Feedback link label follows the checked languages.
-  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น" };
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
   var fbBtn = document.querySelector(".feedback-btn");
   // Reveal an extra-language checkbox only when this talk carries that content.
   var hasZh = !!document.querySelector("main .zh");
@@ -801,10 +866,13 @@ html:not(.show-th) .th { display: none; }
   var hasTh = !!document.querySelector("main .th");
   var thBtn = bar.querySelector('button[data-lang="th"]');
   if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
 
   // Each language is an independent checkbox; any combination may show. At least one
   // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
-  var LANGS = ["en", "ko", "zh", "th"];
+  var LANGS = ["en", "ko", "zh", "th", "de"];
   function apply(active) {
     LANGS.forEach(function (l) {
       var on = active.indexOf(l) !== -1;
@@ -824,7 +892,7 @@ html:not(.show-th) .th { display: none; }
   try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
   if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
   active = active.filter(function (l) {
-    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh);
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
   });
   if (!active.length) active = ["en", "ko"];
   apply(active);

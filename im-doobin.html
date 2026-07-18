@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Relationship Between the Sacrament and Eternal Life · 성찬과 영생의 관계</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">The Relationship Between the Sacrament and Eternal Life</span><span class="ko">성찬과 영생의 관계</span></h1>
+  <p class="byline">Brother Im Doobin · 임두빈 형제 &nbsp;·&nbsp; 2026-07-19</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair cite">
+    <span class="turn">1</span>
+    <blockquote class="src ko">오 하나님, 영원하신 아버지시여, 우리는 당신의 아들 예수 그리스도의 이름으로 당신에게 비옵나니, 이 떡을 취하는 모든 사람의 영혼을 위하여 이 떡을 축복하시며 성결하게 하시옵소서. 그리하여 저희가 당신 아들의 몸을 기억하여 먹게 하시옵고, 오 하나님, 영원하신 아버지시여, 또한 저희가 기꺼이 당신 아들의 이름을 받들며, 항상 그를 기억하고, 그가 저희에게 주신 계명을 지키고자 함을 당신에게 증거하게 하시오며, 그리하여 저희가 항상 그의 영과 함께 하도록 하시옵소서. 아멘.<cite>모로나이서 4:3 · Moroni 4:3</cite></blockquote>
+    <blockquote class="tgt en">O God, the Eternal Father, we ask thee in the name of thy Son, Jesus Christ, to bless and sanctify this bread to the souls of all those who partake of it; that they may eat in remembrance of the body of thy Son, and witness unto thee, O God, the Eternal Father, that they are willing to take upon them the name of thy Son, and always remember him, and keep his commandments which he hath given them, that they may always have his Spirit to be with them. Amen.<cite>모로나이서 4:3 · Moroni 4:3</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">침례를 받고 처음으로 아론 신권 집사 직분에 성임되었습니다. 성찬을 준비하거나 축복은 할 수 없었지만 성찬기를 최대한 경건하게 회원들에게 전달하려고 했습니다.</p>
+    <p class="tgt en">After I was baptized, I was first ordained to the office of deacon in the Aaronic Priesthood. I couldn't yet prepare or bless the sacrament, but I tried to pass the sacrament trays to the members as reverently as I possibly could.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">교사 직분에 성임된 후 성찬식이 시작되기 전에 빵과 물을 최대한 정결하게 준비했습니다.</p>
+    <p class="tgt en">After I was ordained a teacher, I would prepare the bread and water before sacrament meeting began, keeping them as clean and pure as I could.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">준비하기 전 무릎을 꿇고 기도로 시작하고, 성찬컵이 가지런히 놓이게 하고 물 높이도 일정하게 따르고, 성찬기 바닥에 젖은 종이를 깔아 성찬물을 취한 빈 컵이 떨어지는 소리를 최소화하기도 했습니다.</p>
+    <p class="tgt en">Before I began preparing, I would kneel and begin with a prayer. I would set the sacrament cups out neatly and pour the water to an even level in each one. I even lined the bottom of the trays with damp paper, so the sound of the empty cups dropping back in would be as quiet as possible.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">성찬식이 시작되기 전에 깨끗한 흰 천으로 덮인 성찬대로 회원들을 맞이합니다. 성찬식 후 성찬기를 깨끗이 세척하고 물 자국이 남지 않도록 잘 건조했습니다.</p>
+    <p class="tgt en">Before sacrament meeting begins, the members are welcomed by a sacrament table covered in a clean white cloth. After the meeting, I would wash the trays clean and dry them carefully so no water spots were left behind.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">지침서의 권고 내용은 아니지만 성찬의 의미를 높이고 겸손하게 봉사를 했습니다.</p>
+    <p class="tgt en">None of this was in the handbook. But I did it to deepen the meaning of the sacrament, and I served humbly.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">제사 직분에 성임된 후 성찬 축복을 지명받았을 때 실수하지 않으려고 성찬 축복문을 일주일 내내 외우고 연습했습니다.</p>
+    <p class="tgt en">After I was ordained a priest, I was assigned to bless the sacrament. I didn't want to make any mistakes, so I memorized and practiced the sacrament prayers all week long.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">지금은 외형적인 경건이 아닌 성찬 축복문에 담긴 내용에 집중하게 됩니다. 예수님의 성역의 마지막 순간에 제자들과의 만찬에서 유래된 성찬입니다.</p>
+    <p class="tgt en">These days, I find myself focusing not on outward reverence but on what the sacrament prayers say. The sacrament comes from the supper the Savior shared with His disciples in the final moments of His ministry.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">매주 성찬을 들면서 침례를 통해 맺은 주님과의 성약을 되돌아보는 시간입니다. 즉 경건한 생각과 강력한 영적 거듭남의 시간입니다.</p>
+    <p class="tgt en">Each week, the sacrament is a time to look back on the covenant we made with the Lord through baptism. It is a time of reverent thought, and a powerful time of spiritual rebirth.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">성찬을 취하는 이유는 예수님의 몸을 상징하는 떡을 취하는 모든 사람의 영혼을 위해 행해집니다.</p>
+    <p class="tgt en">We partake of the sacrament for a reason. It is done for the souls of all those who partake of the bread, which symbolizes the body of Jesus.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">첫번째로 예수 그리스도의 몸을 기억하게 합니다. 예수님의 사망과 3일 후 부활하신 대속으로 모든 이에게 주어지는 은사의 시작입니다.</p>
+    <p class="tgt en">First, it helps us remember the body of Jesus Christ. It marks the beginning of the gift given to everyone through the Atonement, through His death and His Resurrection three days later.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">두번째로 “우리가 기꺼이 예수 그리스도의 이름을 받들어” 그의 제자됨을 매주 확인하는 시간입니다.</p>
+    <p class="tgt en">Second, “that we are willing to take upon us the name of Jesus Christ.” It is a time to confirm each week that we are His disciples.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">인생의 목표인 영생으로 가는 길에 매주 매주 진로를 확인하고 주님에게 묻고 진로나 방법을 수정하기도 합니다. 필요하다면 신권 지도자와 접견은 아니지만 거듭나기 위해 회개를 요구하기도 합니다. 데이비드 에이 베드나 장로님 말씀을 인용하겠습니다.</p>
+    <p class="tgt en">Eternal life is the goal of this life. On that road, we check our course week after week. We take it to the Lord, and at times we adjust our direction or our approach. This isn't an interview with a priesthood leader, but when it's needed, it calls us to repent so that we can be born again. Let me share the words of Elder David A. Bednar.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">14</span>
+    <blockquote class="src ko">성찬 의식은 곧 진실하게 회개하여 영적으로 새롭게 되라는 거룩하고도 반복적인 권유입니다. 성찬을 취하는 행위 그 자체로는 죄 사함을 받지 못합니다.</blockquote>
+    <blockquote class="tgt en">The ordinance of the sacrament is a holy and repeated invitation to repent sincerely and to be renewed spiritually. The act of partaking of the sacrament, in and of itself, does not remit sins.</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">15</span>
+    <blockquote class="src ko">그러나 우리가 성심껏 준비하여 상한 마음과 통회하는 심령으로 이 거룩한 의식에 참여한다면, 우리는 주님의 영이 항상 우리와 함께할 것이라는 약속을 받습니다. 또한 성신의 성결하게 하는 권능을 변하지 않는 동반자로 삼아, 죄 사함을 항상 간직할 수 있습니다.<cite>데이비드 에이 베드나, 「항상 너희의 죄 사함을 간직하라」, 2016년 4월 · David A. Bednar, “Always Retain a Remission of Your Sins,” Apr. 2016</cite></blockquote>
+    <blockquote class="tgt en">But as we prepare conscientiously and participate in this holy ordinance with a broken heart and a contrite spirit, then the promise is that we may always have the Spirit of the Lord to be with us. And by the sanctifying power of the Holy Ghost as our constant companion, we can always retain a remission of our sins.<cite>데이비드 에이 베드나, 「항상 너희의 죄 사함을 간직하라」, 2016년 4월 · David A. Bednar, “Always Retain a Remission of Your Sins,” Apr. 2016</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">세번째로 “항상 그를 기억하고” 예수님의 대속과 희생을 기억합니다. 우리의 모든 생각과 느낌과 행동은 그분과 그분의 사명으로부터 영향을 받게 됩니다.</p>
+    <p class="tgt en">Third, “and always remember him.” We remember the Atonement and the sacrifice of Jesus. Our thoughts, our feelings, and our actions all are all influenced by Him and by His mission.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">지상 생활에서 영적인 것과 세속적인 것으로 나누어지지 않는다고 생각합니다. 만사는 영적입니다.</p>
+    <p class="tgt en">I believe that in this earthly life, things are not divided into the spiritual and the temporal. All things are spiritual.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">아침의 기도로 주님과 대화 후 하루를 시작하고 계획합니다. 스스로 할 수 있는 최선의 방법으로 생각을 하고 이를 주님에게 여쭈어 봅니다.</p>
+    <p class="tgt en">I start my day by talking with the Lord in morning prayer, and I plan it out. I think it through the best way I know how on my own, and then I take it to the Lord and ask Him about it.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src ko">하늘의 축복은 스스로를 돕는 자에게 내려옵니다. 내가 내린 결정이 주님 보시기에 합당한지, 행여 부족함을 알았다면 어떻게 더 훌륭한 결과를 생산할 수 있는지 성신을 통해 주님과 상의합니다.</p>
+    <p class="tgt en">The blessings of heaven come down to those who help themselves. Through the Holy Ghost, I counsel with the Lord about whether the decision I've made is acceptable in His sight. If I see that it falls short, I ask how I can bring about a better outcome.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">20</span>
+    <p class="src ko">“이런 경우 주님이라면 어떻게 행하거나 대처하셨을까?” 최선을 다해 실행하고 잠자리에 들기 전 주님과 대화를 통해 보고하고 평가를 합니다. 내일의 힘찬 출발을 향해 잠자리에 듭니다.</p>
+    <p class="tgt en">“In a situation like this, what would the Lord do? How would He handle it?” I do my very best to act on it. Before I sleep, I talk with the Lord to report back and give an account of my day. I go to bed ready for a strong start tomorrow.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src ko">네번째로 “저희에게 주신 계명을 지키고자 함을 증거하게” 계명은 우리를 지켜주는 의로운 방패입니다.</p>
+    <p class="tgt en">Fourth, we witness that we are willing to “keep his commandments which he hath given” us. The commandments are a righteous shield that protects us.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src ko">가장 큰 첫번째 계명은 주 하나님을 사랑하라입니다. 두번째 계명은 네 이웃을 네 몸과 같이 사랑하라입니다.</p>
+    <p class="tgt en">The first and great commandment is “Love the Lord thy God.” The second is “Love thy neighbour as thyself.”</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src ko">계명은 완수 끝에 존재하는 해의 왕국에 들어가기 위해 여러 계명이 계시되었지만 저는 개인적으로 두번째 계명을 좋아합니다.</p>
+    <p class="tgt en">Many commandments have been revealed to help us enter the celestial kingdom that waits for us when we have kept them. But personally, I love the second commandment.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src ko">아직은 변형되지 않은 육안이기에 하나님과 예수님을 볼 수는 없지만 네 주위의 이웃은 볼 수 있고 생각을 나누고 함께 육체를 움직입니다.<a class="flag" id="f1-ref" href="#f1">[1]</a></p>
+    <p class="tgt en">Our mortal eyes haven't yet been transformed, so we cannot see God and Jesus. But we can see the neighbors around us. We can share our thoughts with them, and we can move and act alongside them.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">25</span>
+    <p class="src ko">하늘의 부모님에게도 효도하지만 육체의 부모님에게 효도합니다. 성역이라는 이름으로 하나님의 자녀들의 필요사항을 돌보는 것을 좋아합니다.</p>
+    <p class="tgt en">I honor my Heavenly Parents, and my earthly parents as well. I love caring for the needs of God's children through ministering.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">26</span>
+    <p class="src ko">교훈에 교훈을 더하듯이 현세 주어진 계명을 더 잘 준수하기 위해 최선을 다하는 행동을 합니다.</p>
+    <p class="tgt en">Just as we grow line upon line, I do my best to get better and better at keeping the commandments given to us in this life.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">27</span>
+    <p class="src ko">결론입니다. 성찬 의식을 거듭하면서 우리는 주님의 영과 함께하는 인생을 살고, 영생이라는 목적지로 향합니다.</p>
+    <p class="tgt en">Now, to conclude. As we take part in the ordinance of the sacrament week after week, we live our lives with the Spirit of the Lord, and we make our way toward that destination called eternal life.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">28</span>
+    <p class="src ko">영의 인도를 받는 사람은 영생을 얻을 수 있는 지식과 신앙, 능력, 의로움을 갖게 될 것입니다. 아버지께로 돌아가는 길에 주님의 영이 늘 함께하여 해의 왕국에서 영생을 누리게 될 것입니다.</p>
+    <p class="tgt en">Those who are led by the Spirit will gain the knowledge, the faith, the power, and the righteousness they need to obtain eternal life. On the road back to the Father, the Spirit of the Lord will always be with them, and they will enjoy eternal life in the celestial kingdom.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">29</span>
+    <p class="src ko">마지막으로, 교훈에 교훈을 더하여 완전함을 추구하듯이 매주 성찬식에 참여하여 침례를 통해 맺은 성약 중 아직 무엇이 부족한지 알려고 노력하고, 이 사항을 개선하기 위해 무엇을 해야 하나, 개선 행동을 지속할 수 있는 방안은 무엇일까를 고민합니다.</p>
+    <p class="tgt en">Finally, just as we seek perfection line upon line, we take part in sacrament meeting each week. We try to see where we still come up short in the covenant we made through baptism. We ask what we need to do to improve, and how we can keep that improvement going.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">30</span>
+    <p class="src ko">필요하다면 겸손과 마음속에 회개의 영이 있어야 합니다. 이런 과정을 통해 우리가 해의 왕국에서 하나님과 예수 그리스도와 같이 거할 수준으로 거듭나게 이끌어 주는 특권입니다.</p>
+    <p class="tgt en">When it's needed, we must have humility and a spirit of repentance in our hearts. Through this process, we are led to be born again, to the point where we can dwell with God and Jesus Christ in the celestial kingdom. That is our privilege.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">31</span>
+    <p class="src ko">다음과 같은 질문으로 마무리하려 합니다. “주님, 제가 주님의 사업을 위해 무엇을 하오리까?” 복음의 참됨과 말일에 회복된 주님의 교회임을 간증드립니다. 예수 그리스도의 이름으로 전해 드립니다. 아멘.</p>
+    <p class="tgt en">I'd like to close with this question: “Lord, what shall I do for Thy work?” I bear my testimony that the gospel is true and that this is the Lord's Church, restored in the latter days. In the name of Jesus Christ, amen.</p>
+  </div>
+</main>
+
+<section class="notes">
+  <h2>Flagged for review</h2>
+  <ol>
+    <li id="f1"><a class="ref" href="#f1-ref">[1]</a> Speaker’s literal image: “move our bodies together” (함께 육체를 움직입니다). Both blind readers flagged it as unsayable aloud; rendered “move and act alongside them.” Matt may prefer the literal.</li>
+  </ol>
+</section>
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

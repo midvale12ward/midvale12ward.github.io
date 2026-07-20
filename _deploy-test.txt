@@ -1,0 +1,2 @@
+deploy-key connectivity test — inert marker, safe to delete.
+retry after base64 key fix.

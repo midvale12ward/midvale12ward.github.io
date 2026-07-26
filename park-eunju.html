@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Joy of Following Christ · 그리스도를 따르는 기쁨</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">The Joy of Following Christ</span><span class="ko">그리스도를 따르는 기쁨</span><span class="zh">跟随基督的喜乐</span><span class="th">ปีติในการติดตามพระคริสต์</span><span class="de">Die Freude, Christus nachzufolgen</span></h1>
+  <p class="byline">Sister Park Eunju · 박은주 자매 &nbsp;·&nbsp; 26 July 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">형제자매 여러분, 안녕하세요. 저는 박은주 자매입니다. 먼저 저희 가족을 간단히 소개하겠습니다. 제 남편은 이준석 형제이고, 저희는 자녀가 두 명 있는데 딸의 이름은 이예원, 21살이고 아들은 이서진, 17살입니다. 저희는 Herriman에 살고 있습니다. 저희 가족이 다시 한인 와드에 나오기 시작한 지 6개월 정도 되었는데, 따뜻하게 맞아 주시고 사랑으로 대해 주셔서 감사드립니다.</p>
+    <p class="tgt en">Hello, brothers and sisters. My name is Park Eunju. First, let me tell you a little about my family. My husband is Brother Lee Jun-seok. We have two children: our daughter Ye-won, who’s twenty-one, and our son Seo-jin, who’s seventeen. We live in Herriman. Our family started coming back to the Korean ward about six months ago. Thank you for welcoming us so warmly and showing us so much love.</p>
+    <p class="zh">各位弟兄姊妹，午安。我是 Park Eunju 姊妹。首先，请容我简单介绍一下我们家。我先生是李俊锡弟兄；我们有两个孩子，女儿 Ye-won 二十一岁，儿子 Seo-jin 十七岁。我们住在 Herriman。我们一家重新回到韩人支会聚会，到现在大约六个月了。感谢各位热情地欢迎我们，以爱心相待。</p>
+    <p class="th">สวัสดีค่ะ พี่น้องทั้งหลาย ดิฉันซิสเตอร์พัคอึนจู ก่อนอื่นดิฉันขอแนะนำครอบครัวสั้น ๆ สามีของดิฉันคือบราเดอร์อีจุนซอก เรามีลูกสองคน ลูกสาวชื่ออีเยวอน อายุยี่สิบเอ็ดปี และลูกชายชื่ออีซอจิน อายุสิบเจ็ดปี ครอบครัวของเราอาศัยอยู่ที่ Herriman ครอบครัวของเราเริ่มกลับมาร่วมประชุมที่วอร์ดเกาหลีอีกครั้งได้ประมาณหกเดือนแล้ว ขอขอบคุณทุกท่านที่ต้อนรับเราอย่างอบอุ่นและปฏิบัติต่อเราด้วยความรักเสมอมา</p>
+    <p class="de">Liebe Brüder und Schwestern! Ich bin Schwester Park Eunju. Zuerst möchte ich euch kurz meine Familie vorstellen. Mein Mann ist Bruder Lee Jun-seok, und wir haben zwei Kinder: Unsere Tochter heißt Lee Ye-won und ist 21 Jahre alt, unser Sohn heißt Lee Seo-jin und ist 17 Jahre alt. Wir wohnen in Herriman. Seit unsere Familie wieder in die koreanische Gemeinde kommt, sind etwa sechs Monate vergangen. Ich danke euch, dass ihr uns so herzlich aufgenommen habt und uns mit so viel Liebe begegnet seid.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">오늘 저는 그리스도를 따르는 기쁨이라는 주제로 말씀드리고자 합니다. 이 말씀을 준비하면서 제가 복음을 받아들이고 예수 그리스도를 따르며 살아온 시간을 되돌아 볼 수 있었습니다. 오늘은 다음 세 가지 질문을 함께 생각해 보면 좋겠습니다. 첫째, 복음은 왜 기쁜 소식일까요? 둘째, 순종은 왜 행복으로 이어질까요? 셋째, 그리스도의 은혜는 우리에게 어떻게 기쁨을 가져다줄까요?</p>
+    <p class="tgt en">Today I’d like to speak on the joy of following Christ. Preparing this talk gave me a chance to look back over the years since I accepted the gospel and began following Jesus Christ. I’d like us to think about three questions together. First, why is the gospel joyful news? Second, why does obedience lead to happiness? And third, how does the grace of Christ bring us joy?</p>
+    <p class="zh">今天，我想以「跟随基督的喜乐」为题来演讲。在准备这篇讲词的过程中，我得以回顾自己接受福音、跟随耶稣基督走过来的这段岁月。今天，我想邀请各位一同思考三个问题：第一，福音为什么是喜讯？第二，服从为什么会带来幸福？第三，基督的恩典如何为我们带来喜乐？</p>
+    <p class="th">วันนี้ดิฉันอยากพูดในหัวข้อ “ปีติในการติดตามพระคริสต์” ขณะเตรียมคำพูดนี้ ดิฉันได้มีโอกาสมองย้อนกลับไปถึงช่วงเวลาที่ดิฉันรับพระกิตติคุณและดำเนินชีวิตติดตามพระเยซูคริสต์เรื่อยมา วันนี้ดิฉันอยากให้เราคิดใคร่ครวญคำถามสามข้อต่อไปนี้ด้วยกัน ข้อแรก เหตุใดพระกิตติคุณจึงเป็นข่าวอันน่ายินดี? ข้อที่สอง เหตุใดการเชื่อฟังจึงนำไปสู่ความสุข? และข้อที่สาม พระคุณของพระคริสต์นำปีติมาสู่เราอย่างไร?</p>
+    <p class="de">Heute möchte ich über das Thema „Die Freude, Christus nachzufolgen“ sprechen. Während ich diese Ansprache vorbereitete, konnte ich auf die Zeit zurückblicken, in der ich das Evangelium angenommen habe und Jesus Christus nachgefolgt bin. Heute wollen wir gemeinsam über die folgenden drei Fragen nachdenken. Erstens: Warum ist das Evangelium eine frohe Botschaft? Zweitens: Warum führt Gehorsam zum Glück? Und drittens: Wie schenkt uns die Gnade Christi Freude?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">먼저 첫번째 질문입니다. 복음은 왜 기쁜 소식일까요? ‘복음’이라는 말은 ‘좋은 소식’ 또는 ‘기쁜 소식’이라는 뜻입니다. 우리가 말하는 복음은 예수 그리스도에 관한 기쁜 소식입니다. 예수 그리스도의 속죄 덕분에 우리는 죄를 용서받을 수 있을 뿐 아니라, 힘들 때에는 위로를 받고 넘어졌을 때에는 다시 일어설 힘을 얻을 수 있습니다. 또한 우리는 죽음 이후에도 부활하게 되며, 복음대로 살아간다면 하나님 아버지께 돌아가 영원히 함께 할 수 있는 축복을 받게 됩니다.</p>
+    <p class="tgt en">Let’s start with the first question: why is the gospel joyful news? The word “gospel” means “good news,” or “joyful news.” The gospel we’re talking about is the joyful news about Jesus Christ. Because of the Atonement of Jesus Christ, we can be forgiven of our sins. But that is not all. When life is hard, we can receive comfort, and when we fall, we can find the strength to get back up. We will also be resurrected after death, and if we live the gospel, we will be blessed to return to Heavenly Father and live with Him forever.</p>
+    <p class="zh">先谈第一个问题：福音为什么是喜讯？「福音」这个词的意思就是「好消息」，也就是「喜讯」。我们所说的福音，是关于耶稣基督的喜讯。因着耶稣基督的赎罪，我们不但能使罪得赦免，在艰难的时候也能得到安慰，跌倒的时候还能得到重新站起来的力量。此外，我们在死后都必复活；如果我们遵行福音而生活，就必蒙福归回天父那里，永远与祂同在。</p>
+    <p class="th">เริ่มที่คำถามข้อแรก เหตุใดพระกิตติคุณจึงเป็นข่าวอันน่ายินดี? คำว่า “พระกิตติคุณ” หมายถึง “ข่าวดี” หรือ “ข่าวอันน่ายินดี” พระกิตติคุณที่เราพูดถึงคือข่าวอันน่ายินดีเกี่ยวกับพระเยซูคริสต์ เพราะการชดใช้ของพระเยซูคริสต์ เราไม่เพียงได้รับการให้อภัยบาปเท่านั้น แต่ในยามยากลำบากเรายังได้รับการปลอบโยน และในยามที่เราล้มลง เราก็ได้รับพลังที่จะลุกขึ้นใหม่อีกครั้ง ยิ่งไปกว่านั้น เราจะฟื้นคืนชีวิตหลังความตาย และหากเราดำเนินชีวิตตามพระกิตติคุณ เราจะได้รับพรให้กลับไปหาพระบิดาบนสวรรค์และอยู่กับพระองค์ตลอดกาล</p>
+    <p class="de">Zunächst die erste Frage: Warum ist das Evangelium eine frohe Botschaft? Das Wort „Evangelium“ bedeutet „gute Nachricht“ oder „frohe Botschaft“. Das Evangelium, von dem wir sprechen, ist die frohe Botschaft von Jesus Christus. Dank des Sühnopfers Jesu Christi können uns nicht nur unsere Sünden vergeben werden; in schweren Zeiten können wir auch Trost empfangen, und wenn wir gefallen sind, erhalten wir die Kraft, wieder aufzustehen. Außerdem werden wir nach dem Tod auferstehen, und wenn wir nach dem Evangelium leben, empfangen wir den Segen, zum himmlischen Vater zurückzukehren und für immer bei ihm zu sein.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">그래서 저는 복음이 어떤 상황 속에서도 희망을 잃지 않게 해 주는 가장 기쁜 소식이라고 생각합니다.</p>
+    <p class="tgt en">That’s why I think the gospel is the most joyful news of all. No matter what we’re facing, it keeps us from losing hope.</p>
+    <p class="zh">所以我认为，福音能让我们无论身处什么样的处境都不失去希望，是最大的喜讯。</p>
+    <p class="th">ด้วยเหตุนี้ดิฉันจึงคิดว่าพระกิตติคุณคือข่าวอันน่ายินดีที่สุด ซึ่งช่วยให้เราไม่สูญเสียความหวังไม่ว่าจะอยู่ในสถานการณ์ใดก็ตาม</p>
+    <p class="de">Deshalb halte ich das Evangelium für die froheste Botschaft überhaupt: Ganz gleich, in welcher Lage wir uns befinden, es lässt uns die Hoffnung nicht verlieren.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">두 번째 질문은 “순종은 왜 행복으로 이어질까요?”입니다. 경전에는 순종을 통해 주님의 축복을 받고 행복을 누렸던 사람들의 이야기와, 반대로 불순종과 교만으로 인해 영적인 평안과 행복을 잃었던 사람들의 이야기가 많이 기록되어 있습니다. 우리는 그들의 경험을 통해 순종의 중요성을 배우고, 주님을 따르는 길이 우리에게 참된 기쁨과 평안을 가져다준다는 것을 배울 수 있습니다. 토마스 에스 몬슨 회장님께서는 다음과 같이 말씀하셨습니다.</p>
+    <p class="tgt en">The second question is, why does obedience lead to happiness? The scriptures tell of many people who received the Lord’s blessings and found happiness through obedience. The scriptures also tell of people who lost their spiritual peace and happiness through disobedience and pride. From their experiences, we can learn how important obedience is. We can learn that following the Lord is the path that leads us to true joy and peace. President Thomas S. Monson said:</p>
+    <p class="zh">第二个问题是：「服从为什么会带来幸福？」经文中记载了许多这样的故事：有些人因着服从而蒙受主的祝福、享有幸福；反过来，也有些人因着不服从与骄傲，失去了灵性上的平安与幸福。从他们的经历中，我们能学到服从的重要，也能学到跟随主的道路必为我们带来真正的喜乐与平安。多马·孟荪会长曾这样说：</p>
+    <p class="th">คำถามข้อที่สองคือ “เหตุใดการเชื่อฟังจึงนำไปสู่ความสุข?” ในพระคัมภีร์มีบันทึกเรื่องราวมากมายของผู้คนที่ได้รับพรจากพระเจ้าและมีความสุขผ่านการเชื่อฟัง และในทางตรงกันข้าม ก็มีเรื่องราวของผู้คนที่สูญเสียความสงบทางวิญญาณและความสุขไปเพราะการไม่เชื่อฟังและความจองหอง จากประสบการณ์ของพวกเขา เราเรียนรู้ได้ว่าการเชื่อฟังสำคัญเพียงใด และเรียนรู้ว่าเส้นทางแห่งการติดตามพระเจ้านำปีติและความสงบสุขที่แท้จริงมาสู่เรา ประธานโธมัส เอส. มอนสันกล่าวไว้ดังนี้</p>
+    <p class="de">Die zweite Frage lautet: „Warum führt Gehorsam zum Glück?“ In den heiligen Schriften sind viele Begebenheiten von Menschen aufgezeichnet, die durch Gehorsam die Segnungen des Herrn empfingen und Glück erfuhren, und ebenso von Menschen, die umgekehrt durch Ungehorsam und Stolz ihren geistigen Frieden und ihr Glück verloren. Aus ihren Erfahrungen können wir lernen, wie wichtig Gehorsam ist, und dass der Weg, dem Herrn nachzufolgen, uns wahre Freude und wahren Frieden bringt. Präsident Thomas S. Monson hat Folgendes gesagt:</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">6</span>
+    <blockquote class="src ko">“세상에 속한 사람들이 여러분보다 훨씬 더 재미있게 살아가는 듯 보일 때도 있고, 우리가 고수하는 행동 규범 때문에 생활에 제한을 받는다고 느낄 때도 있을 것입니다. 그러나 형제 자매 여러분, 저는 구주를 따르고 계명을 지킬 때 느끼는 영보다 인생에 더 큰 기쁨을 주고 영혼에 더 큰 평화를 주는 것은 없음을 선언합니다.”<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="tgt en">“It may appear to you at times that those out in the world are having much more fun than you are. Some of you may feel restricted by the code of conduct to which we in the Church adhere. My brothers and sisters, I declare to you, however, that there is nothing which can bring more joy into our lives or more peace to our souls than the Spirit which can come to us as we follow the Savior and keep the commandments.”<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="zh">「有时候你们可能会觉得，世人的生活比你们的生活有趣多了。还有些人可能觉得，我们在教会里遵守的行为准则让我们处处受到限制。然而，弟兄姊妹们，我要告诉各位，绝对没有任何事情会比跟随救主、遵守祂的诫命、有圣灵为伴更能让我们的生活充满喜乐，更能让我们的灵魂得到平安。」<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="th">“บางครั้งท่านอาจเห็นว่าคนที่ออกไปอยู่ในโลกมีความสนุกสนานยิ่งกว่าเรา บางท่านอาจรู้สึกถูกจำกัดให้อยู่กับมาตรฐานความประพฤติซึ่งเรายึดมั่นในศาสนจักร พี่น้องทั้งหลาย ข้าพเจ้าประกาศต่อท่านว่า ไม่มีสิ่งใด สามารถนำปีติมาสู่ชีวิตท่านหรือนำสันติสุขมาสู่จิตวิญญาณท่านได้มากกว่าพระวิญญาณซึ่งมาหาเราได้เมื่อเราติดตามพระผู้ช่วยให้รอดและรักษาพระบัญญัติ”<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="de">„Vielleicht erscheint es Ihnen manchmal so, dass die Menschen draußen in der Welt viel mehr Spaß haben als Sie. Einige von Ihnen fühlen sich vielleicht durch den Verhaltenskodex, an dem wir in der Kirche festhalten, eingeschränkt. Meine Brüder und Schwestern, ich sage Ihnen jedoch, dass es nichts gibt, was mehr Freude in Ihr Leben bringen und Ihrer Seele mehr Frieden schenken kann, als der Geist, der zu uns kommen kann, wenn wir dem Erlöser folgen und die Gebote halten.“<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">물론 순종이 항상 쉬운 것은 아닙니다. 때로는 내가 하고 싶은 것을 내려놓아야 할 때도 있습니다. 하지만 하나님을 믿고 순종하며 살아가다 보면, 시간이 지난 뒤 “정말 하나님 말씀이 맞았구나” 하고 깨닫게 되는 순간들이 찾아옵니다. 하나님께서는 우리가 그분을 신뢰할 때 언제나 가장 좋은 길로 인도해 주시기 때문입니다.</p>
+    <p class="tgt en">Of course, obedience isn’t always easy. Sometimes I have to set aside what I want to do. But as we keep trusting and obeying God, moments will come when we realize, “God’s word really was right.” That’s because when we trust God, He always guides us along the best path.</p>
+    <p class="zh">当然，服从并不总是容易的。有时候，我必须放下自己想做的事。但是，当我们信赖神、服从祂而生活，日子久了，总会有那样的时刻来到，让我们领悟：「原来神的话真的没有错。」因为我们信赖神的时候，祂必定会引导我们走最好的路。</p>
+    <p class="th">แน่นอนว่าการเชื่อฟังไม่ใช่เรื่องง่ายเสมอไป บางครั้งดิฉันเองก็ต้องละวางสิ่งที่ตนเองอยากทำ แต่เมื่อเราเชื่อในพระผู้เป็นเจ้าและดำเนินชีวิตด้วยการเชื่อฟังเรื่อยไป เมื่อเวลาผ่านไปก็จะมีช่วงเวลาที่เราตระหนักว่า “พระวจนะของพระผู้เป็นเจ้าถูกต้องจริง ๆ” เพราะเมื่อเราวางใจพระองค์ พระผู้เป็นเจ้าจะทรงนำเราไปในเส้นทางที่ดีที่สุดเสมอ</p>
+    <p class="de">Natürlich ist Gehorsam nicht immer leicht. Manchmal muss ich loslassen, was ich selbst gern tun würde. Doch wenn wir Gott vertrauen und gehorsam leben, kommen mit der Zeit Augenblicke, in denen wir erkennen: „Gottes Wort hatte wirklich recht.“ Denn wenn wir ihm vertrauen, führt Gott uns immer auf dem besten Weg.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">마지막으로 세 번째 질문입니다. 그리스도의 은혜는 우리에게 어떻게 기쁨을 가져다줄까요? 우리가 복음 안에서 기쁨을 느낄 수 있는 가장 큰 이유 가운데 하나는 바로 예수 그리스도의 은혜 때문입니다. 은혜는 우리가 완벽해서 받는 선물이 아닙니다. 우리가 부족하고 실수할 때에도 예수님께서는 여전히 우리를 사랑하시고 도와주십니다.</p>
+    <p class="tgt en">Finally, the third question: how does the grace of Christ bring us joy? The grace of Jesus Christ is one of the greatest reasons we can feel joy in the gospel. Grace is not a gift we receive for being perfect. Even when we fall short and make mistakes, the Savior still loves us and helps us.</p>
+    <p class="zh">最后是第三个问题：基督的恩典如何为我们带来喜乐？我们之所以能在福音中感受到喜乐，最大的原因之一，正是耶稣基督的恩典。恩典并不是因为我们完美才得到的礼物。即使我们有所不足、会犯错误，耶稣仍然爱我们，仍然帮助我们。</p>
+    <p class="th">สุดท้ายคือคำถามข้อที่สาม พระคุณของพระคริสต์นำปีติมาสู่เราอย่างไร? เหตุผลสำคัญที่สุดประการหนึ่งที่ทำให้เรารู้สึกถึงปีติในพระกิตติคุณได้ก็คือพระคุณของพระเยซูคริสต์ พระคุณไม่ใช่ของประทานที่เราได้รับเพราะเราดีพร้อม แม้ในยามที่เราบกพร่องและทำผิดพลาด พระเยซูก็ยังทรงรักเราและทรงช่วยเหลือเรา</p>
+    <p class="de">Und schließlich die dritte Frage: Wie schenkt uns die Gnade Christi Freude? Einer der größten Gründe dafür, dass wir im Evangelium Freude empfinden können, ist eben die Gnade Jesu Christi. Die Gnade ist keine Gabe, die wir empfangen, weil wir vollkommen wären. Auch wenn wir unzulänglich sind und Fehler machen, liebt Jesus uns nach wie vor und hilft uns.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">이와 관련하여 제 경험을 하나 나누고 싶습니다. 제가 다른 지역에 살았을 때, 한 자매님께서 저희 집을 방문하시면서 과일 한 봉지를 가져오셨습니다. 그 자매님은 어떤 자매님이 자매님 집을 방문오면서 과일을 갖다 주셨는데, 그 안에 썩은 과일이 들어 있었다며 차라리 안 가져오는 것이 나았을 것 같다고 속상한 마음을 이야기하셨습니다.</p>
+    <p class="tgt en">I’d like to share an experience of my own. When I lived in another area, a sister came to visit our home and brought a bag of fruit. She told me that another sister had visited her and brought fruit, and some of it was rotten. That upset her, and she said it might have been better if that sister hadn’t brought anything at all.</p>
+    <p class="zh">关于这一点，我想分享一个自己的经历。我住在另一个地区的时候，有一位姊妹来我家探访，带来了一袋水果。她告诉我，先前有另一位姊妹到她家探访，也送了水果，可是那袋里有坏掉的；她心里很难过，说那位姊妹倒不如什么都不带来还好些。</p>
+    <p class="th">ในเรื่องนี้ ดิฉันอยากแบ่งปันประสบการณ์หนึ่งของดิฉัน สมัยที่ดิฉันอาศัยอยู่ที่อื่น มีซิสเตอร์ท่านหนึ่งมาเยี่ยมบ้านของเราพร้อมนำผลไม้มาฝากถุงหนึ่ง ซิสเตอร์ท่านนั้นเล่าด้วยความไม่สบายใจว่า มีซิสเตอร์อีกท่านหนึ่งเคยมาเยี่ยมบ้านของเธอและนำผลไม้มาฝาก แต่ในถุงนั้นมีผลไม้เน่าปนอยู่ เธอบอกว่าไม่นำมาเสียเลยเสียยังจะดีกว่า</p>
+    <p class="de">Dazu möchte ich eine Erfahrung von mir erzählen. Als ich in einer anderen Gegend wohnte, besuchte uns eine Schwester und brachte eine Tüte Obst mit. Sie erzählte mir betrübt, eine andere Schwester habe sie besucht und ihr Obst mitgebracht, doch darin sei faules Obst gewesen; da wäre es ihr lieber gewesen, jene hätte gar nichts mitgebracht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">자매님이 집으로 돌아가신 후 자매님께서 주신 과일봉지를 열었는데 그 안에 썩은 과일 하나가 들어 있었습니다. 처음에는 조금 당황스러웠습니다. 다른 사람이 썩은 과일을 줘서 속상하다고 하셨는데 왜 나에게 똑같이 썩은 과일을 주셨을까 하는 생각이 들었습니다.</p>
+    <p class="tgt en">After she went home, I opened the bag of fruit she had brought, and inside was one rotten piece. At first I was a little taken aback. I thought, “She was upset when the other sister gave her rotten fruit. Why would she give me the very same rotten fruit?”</p>
+    <p class="zh">那位姊妹回家以后，我打开她送来的那袋水果，里面竟有一个是坏的。起初我有点错愕，心里不免想着：她才说别人送她坏掉的水果让她难过，怎么又同样送了我一个坏掉的呢？</p>
+    <p class="th">หลังจากซิสเตอร์ท่านนั้นกลับบ้านไปแล้ว ดิฉันเปิดถุงผลไม้ที่เธอนำมาให้ ปรากฏว่าข้างในมีผลไม้เน่าอยู่หนึ่งผล ตอนแรกดิฉันรู้สึกงุนงงเล็กน้อย ดิฉันคิดว่า เธอเพิ่งบอกว่าไม่สบายใจที่มีคนให้ผลไม้เน่ากับเธอ แล้วเหตุใดจึงมาให้ผลไม้เน่าแบบเดียวกันแก่ดิฉัน</p>
+    <p class="de">Nachdem die Schwester nach Hause gegangen war, öffnete ich die Tüte Obst, die sie mir gegeben hatte, und darin lag eine faule Frucht. Im ersten Moment war ich etwas irritiert. Ich dachte: „Sie war doch betrübt, weil ihr jemand faules Obst gegeben hatte — warum gibt sie nun ausgerechnet mir dasselbe faule Obst?“</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">하지만 시간이 얼마 지나지 않아 그 일을 다시 떠올려 보니 제 마음에 한 가지 교훈이 남았습니다. 나도 모르는 사이에, 의도하지 않았더라도 다른 사람에게 상처를 주거나 실수할 수 있겠구나.</p>
+    <p class="tgt en">But not long after, as I thought back on it, one lesson stayed with me. I could hurt someone or make a mistake too, without even realizing it, and without ever meaning to.</p>
+    <p class="zh">但没过多久，当我再想起这件事时，心里留下了一个教训：原来我自己也可能在不知不觉之间，即使并非有意，也会伤害别人、犯下错误。</p>
+    <p class="th">แต่ไม่นานหลังจากนั้น เมื่อดิฉันนึกทบทวนเรื่องนี้อีกครั้ง ก็มีบทเรียนหนึ่งประทับอยู่ในใจดิฉัน นั่นคือ ตัวดิฉันเองก็อาจทำร้ายจิตใจผู้อื่นหรือทำผิดพลาดได้เช่นกัน โดยที่ไม่รู้ตัวและไม่ได้ตั้งใจ</p>
+    <p class="de">Doch als ich kurze Zeit später wieder daran dachte, blieb eine Lehre in meinem Herzen zurück: Auch ich kann, ohne es zu merken und ohne es zu wollen, einen anderen verletzen oder einen Fehler machen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">우리는 다른 사람의 실수는 쉽게 보면서도 자신의 실수는 잘 보지 못할 때가 있는 것 같습니다. 그 자매님도 일부러 그러신 것은 절대 아니었을 것입니다. 아마 모르고 넣으셨을 수도 있고, 바쁘셔서 미처 확인하지 못하셨을 수도 있습니다.</p>
+    <p class="tgt en">I think sometimes we see other people’s mistakes so easily, but have a hard time seeing our own. And I’m sure it was the same for that sister. She never put the rotten fruit in on purpose. Maybe she put it in without noticing, or maybe she was busy and didn’t have a chance to check.</p>
+    <p class="zh">我想，我们有时候很容易看见别人的过失，却不容易看见自己的过失。那位姊妹也绝不是故意的。也许她并不知情就放了进去，也许是太忙了，来不及一一查看。</p>
+    <p class="th">ดิฉันคิดว่าบางครั้งเรามองเห็นความผิดพลาดของผู้อื่นได้ง่าย แต่กลับมองไม่ค่อยเห็นความผิดพลาดของตนเอง ซิสเตอร์ท่านนั้นก็เช่นกัน เธอย่อมไม่ได้ตั้งใจทำเช่นนั้นอย่างแน่นอน บางทีเธออาจใส่ลงไปโดยไม่รู้ หรืออาจยุ่งจนไม่ทันได้ตรวจดู</p>
+    <p class="de">Mir scheint, wir sehen die Fehler anderer leicht, unsere eigenen aber oft nur schwer. Ganz sicher hat auch jene Schwester das nicht mit Absicht getan. Vielleicht hat sie die Frucht hineingelegt, ohne es zu bemerken, oder sie war in Eile und konnte nicht mehr nachsehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">그 경험을 통해 저는 다른 사람의 행동을 쉽게 판단하지 말아야겠다고 생각했습니다. 또한 제 자신의 말과 행동도 더 돌아보게 되었습니다.</p>
+    <p class="tgt en">After that experience, I decided not to be quick to judge what others do. It also made me look more carefully at my own words and actions.</p>
+    <p class="zh">藉着那次经历，我告诉自己不要轻易论断别人的行为。同时，我也更常省察自己的言语和行为。</p>
+    <p class="th">จากประสบการณ์นั้น ดิฉันตั้งใจว่าจะไม่ด่วนตัดสินการกระทำของผู้อื่นโดยง่าย และยังทำให้ดิฉันหันกลับมาพิจารณาคำพูดและการกระทำของตนเองมากขึ้นด้วย</p>
+    <p class="de">Durch diese Erfahrung habe ich mir vorgenommen, nicht vorschnell über das Verhalten anderer zu urteilen. Außerdem achte ich seitdem mehr darauf, meine eigenen Worte und Taten zu überdenken.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src ko">우리는 모두 부족하고 실수하는 사람들입니다. 주님께서는 언제나 우리를 사랑하시며, 우리가 회개하면 우리의 죄를 용서해 주십니다. 그분의 은혜를 통해 받는 죄 사함과 평안, 그리고 구원의 축복을 생각할 때, 우리는 다른 사람을 판단하기보다 이해하고 용서하며, 우리 자신도 더욱 겸손히 주님의 도움을 구해야 한다고 생각합니다.</p>
+    <p class="tgt en">We all fall short and make mistakes. The Lord always loves us, and when we repent, He forgives our sins. Through His grace we receive the remission of sins, peace, and the blessings of salvation. When I think about that, I feel we should understand and forgive others rather than judge them. And we ourselves should seek the Lord’s help more humbly.</p>
+    <p class="zh">我们都是有所不足、会犯错误的人。主始终爱我们；我们悔改的时候，祂就赦免我们的罪。每当我想到藉着祂的恩典所得到的罪的赦免、平安，以及救恩的祝福，我就觉得我们应当理解、宽恕别人，而不是论断他们；也应当更谦卑地寻求主的帮助。</p>
+    <p class="th">เราทุกคนล้วนเป็นคนที่บกพร่องและทำผิดพลาด พระเจ้าทรงรักเราเสมอ และเมื่อเรากลับใจ พระองค์ก็ทรงให้อภัยบาปของเรา เมื่อดิฉันคิดถึงการปลดบาป ความสงบสุข และพรแห่งความรอดซึ่งเราได้รับผ่านพระคุณของพระองค์ ดิฉันคิดว่าเราควรเข้าใจและให้อภัยผู้อื่นแทนที่จะตัดสินพวกเขา และตัวเราเองก็ควรแสวงหาความช่วยเหลือจากพระเจ้าด้วยความอ่อนน้อมถ่อมตนยิ่งขึ้น</p>
+    <p class="de">Wir alle sind unzulänglich und machen Fehler. Der Herr liebt uns immer, und wenn wir umkehren, vergibt er uns unsere Sünden. Wenn ich an die Vergebung der Sünden, den Frieden und den Segen der Errettung denke, die wir durch seine Gnade empfangen, dann meine ich: Wir sollten andere lieber verstehen und ihnen vergeben, statt über sie zu urteilen, und wir selbst sollten noch demütiger um die Hilfe des Herrn bitten.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src ko">몰몬경에서 자신의 연약함을 걱정하던 모로나이에게 주님께서는 이렇게 말씀하셨습니다. 이더서 12장 27절입니다.</p>
+    <p class="tgt en">In the Book of Mormon, the Lord spoke these words to Moroni, who was worried about his own weakness. This is Ether chapter 12, verse 27:</p>
+    <p class="zh">在摩尔门经中，主对忧心自己软弱的摩罗乃这样说。这是以帖书第十二章第二十七节：</p>
+    <p class="th">ในพระคัมภีร์มอรมอน พระเจ้าตรัสกับโมโรไนผู้กังวลเรื่องความอ่อนแอของตนเองไว้ดังนี้ อีเธอร์บทที่ ๑๒ ข้อ ๒๗</p>
+    <p class="de">Im Buch Mormon sprach der Herr diese Worte zu Moroni, der sich wegen seiner eigenen Schwäche sorgte. Ether 12:27:</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">16</span>
+    <blockquote class="src ko">또 만일 사람들이 내게로 오면 내가 그들에게 그들의 연약함을 보일 것이라. 내가 사람들에게 연약함을 주는 것은 그들로 겸손하게 하려 함이요, 내 은혜가 내 앞에 스스로 겸손하여진 모든 자에게는 족하니, 이는 만일 그들이 내 앞에 스스로 겸손하여 나를 믿는 신앙을 가지면, 내가 그들을 위하여 연약한 것들을 강하게 되게 할 것임이니라.<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="tgt en">And if men come unto me I will show unto them their weakness. I give unto men weakness that they may be humble; and my grace is sufficient for all men that humble themselves before me; for if they humble themselves before me, and have faith in me, then will I make weak things become strong unto them.<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="zh">如果世人到我这里来，我必让他们看见自己的弱点。我赋予世人弱点，使他们得以谦卑；我给所有在我面前谦抑自己的人的恩典是充分的；因为如果他们在我面前谦抑自己，并对我有信心，我必为他们使软弱的东西变成坚强。<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="th">และหากมนุษย์มาหาเรา เราจะแสดงให้พวกเขาเห็นความอ่อนแอของพวกเขา. เราให้ความอ่อนแอแก่มนุษย์เพื่อพวกเขาจะนอบน้อม; และพระคุณของเราเพียงพอสำหรับคนทั้งปวงที่นอบน้อมถ่อมตนต่อหน้าเรา; เพราะหากพวกเขานอบน้อมถ่อมตนต่อหน้าเรา, และมีศรัทธาในเรา, เมื่อนั้นเราจะทำให้สิ่งที่อ่อนแอกลับเข้มแข็งสำหรับพวกเขา.<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="de">„Und wenn Menschen zu mir kommen, so zeige ich ihnen ihre Schwäche. Ich gebe den Menschen Schwäche, damit sie demütig seien; und meine Gnade ist ausreichend für alle Menschen, die sich vor mir demütigen; denn wenn sie sich vor mir demütigen und Glauben an mich haben, dann werde ich Schwaches für sie stark werden lassen.“<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">저는 예수 그리스도께서 살아 계시며 지금도 우리를 사랑하신다는 것을 알고 있습니다. 또한 그분의 복음 안에서 참된 기쁨과 희망을 찾을 수 있음을 간증드립니다. 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="tgt en">I know that Jesus Christ lives and that He loves us today. And I testify that in His gospel we can find true joy and hope. In the name of Jesus Christ, amen.</p>
+    <p class="zh">我知道耶稣基督活着，也知道祂此时此刻仍然爱着我们。我并且见证，在祂的福音中，我们能找到真正的喜乐与希望。我奉耶稣基督的名说这些话。阿们。</p>
+    <p class="th">ดิฉันรู้ว่าพระเยซูคริสต์ทรงพระชนม์อยู่ และทรงรักเราแม้ในขณะนี้ ดิฉันเป็นพยานว่าเราสามารถพบปีติและความหวังที่แท้จริงได้ในพระกิตติคุณของพระองค์ ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Ich weiß, dass Jesus Christus lebt und dass er uns auch jetzt liebt. Und ich gebe Zeugnis, dass wir in seinem Evangelium wahre Freude und wahre Hoffnung finden können. Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

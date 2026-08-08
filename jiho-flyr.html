@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noticing the Grace I Was Given · 제가 받은 은혜 알아차리기</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Noticing the Grace I Was Given</span><span class="ko">제가 받은 은혜 알아차리기</span><span class="zh">留意我所得到的恩典</span><span class="th">การสังเกตเห็นพระคุณที่ผมได้รับ</span><span class="de">Die Gnade bemerken, die ich bekommen habe</span></h1>
+  <p class="byline">Jiho Flyr · 지호 플라이어 &nbsp;·&nbsp; 9 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">Good afternoon, brothers and sisters. I am Ian Jiho Flyr. I am an upcoming junior, and I moved from Cincinnati, Ohio. We now have a house in Murray that I live in with my family. I was told the topic for today was about my personal experience with moving and noticing grace that I was given.</p>
+    <p class="tgt ko">형제 자매 여러분, 안녕하세요. 저는 이안 지호 플라이어입니다. 이번에 고등학교 2학년에 올라갑니다. 오하이오주 신시내티에서 이사 왔습니다. 지금은 머레이에 있는 집에서 가족과 함께 살고 있습니다. 오늘 주제는 이사에 대한 저의 개인적인 경험과, 제가 받은 은혜를 알아차리는 것이라고 들었습니다.</p>
+    <p class="zh">弟兄姊妹，午安。我是 Ian Jiho Flyr。我即将升上高中十一年级，是从俄亥俄州的辛辛那提搬来的。我们现在在默里有一栋房子，我和家人住在那里。别人告诉我，今天要讲的题目是我搬家的亲身经历，还有留意我所得到的恩典。</p>
+    <p class="th">สวัสดีตอนบ่ายครับ พี่น้องทั้งหลาย ผมชื่อเอียน จีโฮ ฟลายเออร์ ผมกำลังจะขึ้นเกรด 11 ของโรงเรียนมัธยมปลาย และย้ายมาจากเมืองซินซินแนติ รัฐโอไฮโอ ตอนนี้ครอบครัวเรามีบ้านอยู่ที่เมืองเมอร์เรย์ ซึ่งผมอาศัยอยู่กับครอบครัว ผมได้รับแจ้งว่าหัวข้อสำหรับวันนี้คือประสบการณ์ส่วนตัวของผมเรื่องการย้ายบ้าน และการสังเกตเห็นพระคุณที่ผมได้รับ</p>
+    <p class="de">Guten Tag, liebe Brüder und Schwestern. Ich heiße Ian Jiho Flyr. Ich komme bald in die elfte Klasse der Highschool, und ich bin aus Cincinnati in Ohio hergezogen. Wir haben jetzt ein Haus in Murray, in dem ich mit meiner Familie wohne. Man hat mir gesagt, ich soll heute darüber sprechen, wie ich den Umzug erlebt habe und wo ich dabei die Gnade bemerkt habe, die ich bekommen habe.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src en">Easy prompt, except moving was exhausting, laborious, and miserable.</p>
+    <p class="tgt ko">쉬운 주제입니다. 이사가 지치고 고되고 비참한 일이었다는 것만 빼면요.</p>
+    <p class="zh">题目很简单，只不过搬家这件事累人、费力，而且很痛苦。</p>
+    <p class="th">หัวข้อก็ง่ายดี เว้นแต่ว่าการย้ายบ้านนั้นทั้งเหนื่อย ทั้งตรากตรำ และทรมาน</p>
+    <p class="de">Einfaches Thema, nur war der Umzug anstrengend, mühsam und miserabel.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">Our family did the entirety of emptying our house, filling shipping containers, and driving ourselves to Utah. This was extra difficult because it was really a double move. My Apa had been living here for a year, so we also had to empty out the condo where he was staying. It’s also not like we were well settled in Cincinnati. We moved from one part to another around two or three years ago. So it’s felt like we’ve been moving continuously since then. Aside from the physical labor of emptying our house, we have had to deal with the exhaustion of doing that sort of thing for a long while.</p>
+    <p class="tgt ko">집에서 짐을 다 빼는 것도, 이삿짐 컨테이너에 싣는 것도, 유타까지 직접 운전해 오는 것도, 전부 저희 가족이 했습니다. 이번 이사가 특히 힘들었던 건, 사실 두 번 이사한 거나 마찬가지였기 때문입니다. 아빠는 이미 여기서 일 년째 살고 계셔서, 지내시던 아파트도 저희가 비워야 했습니다. 그렇다고 저희가 신시내티에 잘 정착해 있던 것도 아닙니다. 이삼 년 전쯤에도 한 동네에서 다른 동네로 이사를 했습니다. 그래서 그때부터 지금까지 계속 이사만 하고 있는 느낌입니다. 집 비우는 일이 고된 건 고된 거고, 그런 일을 오랫동안 하다 보니 쌓인 피로도 감당해야 했습니다.</p>
+    <p class="zh">清空整栋房子、把东西装进搬家货柜、自己开车到犹他州，这些全部都是我们一家人自己完成的。这次特别辛苦，因为其实等于搬了两次家。爸爸已经在这里住了一年，所以我们还得把他住的那间公寓也清空。而且我们在辛辛那提本来也算不上安顿好了。大约两三年前，我们才从城里的一区搬到另一区，所以感觉从那时候起，我们就一直在搬家。除了清空房子的体力劳动之外，我们还得应付长期做这种事累积下来的疲惫。</p>
+    <p class="th">ครอบครัวเราลงมือทำเองทั้งหมด ทั้งขนของออกจากบ้าน บรรจุของลงตู้คอนเทนเนอร์สำหรับขนย้ายบ้าน และขับรถกันเองมาถึงยูทาห์ เรื่องนี้ยากเป็นพิเศษเพราะจริงๆ แล้วมันเป็นการย้ายบ้านสองต่อ พ่อของผมมาอยู่ที่นี่ก่อนแล้วหนึ่งปี เราจึงต้องขนของออกจากคอนโดที่พ่อพักอยู่ด้วย แล้วก็ไม่ใช่ว่าเราลงหลักปักฐานที่ซินซินแนติมั่นคงดีแล้วเสียด้วย เราเพิ่งย้ายจากย่านหนึ่งไปอีกย่านหนึ่งเมื่อสักสองสามปีก่อน มันเลยรู้สึกเหมือนเราย้ายบ้านกันมาอย่างต่อเนื่องตั้งแต่ตอนนั้น นอกจากงานใช้แรงกายในการขนของออกจากบ้านแล้ว เรายังต้องรับมือกับความเหนื่อยล้าจากการทำอะไรแบบนี้มาเป็นเวลานานอีกด้วย</p>
+    <p class="de">Unsere Familie hat alles selbst gemacht: das Haus ausgeräumt, die Umzugscontainer beladen, und dann sind wir selbst nach Utah gefahren. Das war noch schwerer, weil es eigentlich ein doppelter Umzug war. Mein Papa hatte schon ein Jahr lang hier gelebt. Also mussten wir auch noch die Wohnung ausräumen, in der er gewohnt hat. Wir waren in Cincinnati sowieso nicht richtig angekommen. Vor etwa zwei oder drei Jahren sind wir dort schon von einem Stadtteil in einen anderen gezogen. Seitdem fühlt es sich an, als würden wir ununterbrochen umziehen. Es war nicht nur die körperliche Arbeit, das Haus auszuräumen. Dazu kam, dass wir so etwas schon eine ganze Weile machen und erschöpft sind.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">Another difficulty was driving. Our family drove back and forth from Utah over four times. On our very first trip out here, I actually slept in the back of our pickup truck for three nights. I have my learner’s permit, so I helped by driving over parts of Iowa, Nebraska, and Wyoming when I could, but it was tough.</p>
+    <p class="tgt ko">또 하나 힘들었던 것은 운전이었습니다. 저희 가족은 유타까지 네 번 넘게 왕복 운전을 했습니다. 처음 여기 올 때는 정말로 3일 밤을 픽업트럭 짐칸에서 잤습니다. 저는 연습 면허가 있어서, 아이오와, 네브래스카, 와이오밍을 지날 때는 틈틈이 운전을 하며 도왔습니다. 그래도 힘들었습니다.</p>
+    <p class="zh">另一个难处是开车。我们全家往返犹他州开了四趟以上。第一次开来这里的时候，我还在我们小货车的后车斗睡了三个晚上。我有学习驾照，所以在爱荷华州、内布拉斯加州和怀俄明州的一些路段，只要有机会我就帮忙开，不过还是很辛苦。</p>
+    <p class="th">อีกความยากหนึ่งคือการขับรถ ครอบครัวเราขับรถไปกลับยูทาห์กว่าสี่รอบ ในเที่ยวแรกสุดที่มาที่นี่ ผมถึงขั้นได้นอนท้ายรถกระบะของเราอยู่สามคืน ผมมีใบขับขี่ประเภทฝึกหัด ก็เลยช่วยขับผ่านบางช่วงของรัฐไอโอวา เนแบรสกา และไวโอมิงเท่าที่ทำได้ แต่ก็หนักเอาการ</p>
+    <p class="de">Schwierig war auch das Fahren. Unsere Familie ist mehr als viermal nach Utah und wieder zurück gefahren. Auf der allerersten Fahrt hierher habe ich drei Nächte hinten in unserem Pickup geschlafen. Ich habe erst eine vorläufige Fahrerlaubnis, also habe ich mitgeholfen und bin Strecken in Iowa, Nebraska und Wyoming gefahren, wenn es ging. Aber es war hart.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">There was actually one night on the road that stands out to me. We were driving through Iowa late at night, and it started pouring rain. It was pitch black, hard to see the road, and I was pretty relaxed behind the wheel. Eventually, my dad had me pull over so he could take over, and he drove us through the storm in the middle of the night until we finally made it to a hotel.</p>
+    <p class="tgt ko">사실 그 길 위에서 유난히 기억에 남는 밤이 하루 있습니다. 늦은 밤에 아이오와를 지나던 중에 비가 쏟아지기 시작했습니다. 사방은 칠흑같이 어둡고 길도 잘 보이지 않았는데, 저는 운전대를 잡은 채 꽤 느긋했습니다. 결국 아빠가 차를 세우라고 하시더니 운전을 넘겨받으셨고, 한밤중에 그 폭풍우를 뚫고 운전하셔서 저희는 마침내 호텔에 도착했습니다.</p>
+    <p class="zh">路上其实有一个晚上让我印象特别深。那天深夜我们正开车穿过爱荷华州，忽然下起倾盆大雨。外面一片漆黑，路很难看清楚，而我开车的时候倒是很轻松。后来爸爸叫我把车停到路边，换他来开，他就这样在半夜里开车穿过那场暴雨，直到我们终于到了一家旅馆。</p>
+    <p class="th">จริงๆ แล้วมีอยู่คืนหนึ่งระหว่างเดินทางที่ผมจำได้ขึ้นใจ เรากำลังขับผ่านรัฐไอโอวาตอนดึก แล้วฝนก็เริ่มเทลงมาอย่างหนัก ข้างนอกมืดสนิท มองถนนแทบไม่เห็น ส่วนผมก็รู้สึกสบายๆ อยู่หลังพวงมาลัย สุดท้ายพ่อให้ผมจอดรถข้างทางเพื่อสลับมาขับแทน แล้วพ่อก็ขับพาเราฝ่าพายุกลางดึกจนในที่สุดเราก็มาถึงโรงแรม</p>
+    <p class="de">An eine Nacht unterwegs erinnere ich mich besonders. Wir sind spät nachts durch Iowa gefahren, und dann hat es angefangen, in Strömen zu regnen. Es war stockdunkel, die Straße war kaum zu sehen, und ich war ziemlich entspannt am Steuer. Irgendwann hat mein Papa mich rechts ranfahren lassen, damit er übernehmen konnte. Er ist mitten in der Nacht durch den Sturm gefahren, bis wir endlich ein Hotel erreicht haben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">I don’t know what the lesson in that is, because I felt perfectly fine driving through the rain. But it was very late at night, and the trucks were all slowing down.</p>
+    <p class="tgt ko">거기에 무슨 교훈이 있는지는 잘 모르겠습니다. 저는 빗속에서 운전하는 것이 아무렇지도 않았기 때문입니다. 다만 밤이 아주 깊었고, 트럭들은 다들 속도를 줄이고 있었습니다.</p>
+    <p class="zh">我不知道这件事的教训是什么，因为我在雨里开车觉得完全没问题。但那时候已经是深夜了，而且卡车都慢了下来。</p>
+    <p class="th">ผมไม่รู้ว่าบทเรียนของเรื่องนี้คืออะไร เพราะผมรู้สึกปกติดีทุกอย่างตอนขับฝ่าฝน แต่ตอนนั้นก็ดึกมากแล้ว และรถบรรทุกทุกคันต่างก็ชะลอความเร็วลง</p>
+    <p class="de">Ich weiß nicht, was die Lehre daraus ist, denn mir ging es beim Fahren durch den Regen völlig gut. Aber es war sehr spät in der Nacht, und die Lastwagen sind alle langsamer geworden.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">During those endless hours on the road, I spent a lot of time listening to music. I listened to a lot of Metal and Hardcore Punk, as well as some Jazz and Rap. Let me tell you, it’s such a privilege to be able to listen to whatever albums I want at any time while on the road. I am so grateful that I could listen to Fugazi and The Roots when I needed to. But music can only alleviate some of the struggle.</p>
+    <p class="tgt ko">차에서 보낸 그 끝없는 시간 동안 저는 음악을 많이 들었습니다. 메탈과 하드코어 펑크를 많이 들었고, 재즈와 랩도 조금 들었습니다. 길에서 언제든 듣고 싶은 앨범을 들을 수 있다는 건 진짜 복입니다. 필요할 때 '푸가지'나 '더 루츠' 같은 밴드를 들을 수 있어서 정말 감사했습니다. 하지만 음악은 그 고생을 어느 정도 덜어 줄 수 있을 뿐입니다.</p>
+    <p class="zh">在路上那些没完没了的时间里，我花了很多时间听音乐。我听了很多金属乐和硬核朋克，也听了一些爵士乐和饶舌。我跟你们说，能在路上随时想听哪张专辑就听哪张，实在是一大福气。我很感激在我需要的时候，可以听 Fugazi 和 The Roots。不过音乐只能减轻一部分的辛苦。</p>
+    <p class="th">ระหว่างชั่วโมงอันไม่รู้จบบนท้องถนน ผมใช้เวลาส่วนใหญ่ไปกับการฟังเพลง ผมฟังเมทัลกับฮาร์ดคอร์พังก์เยอะมาก รวมทั้งแจ๊สกับแร็ปอยู่บ้าง บอกเลยครับว่าการได้ฟังอัลบั้มไหนก็ได้ที่อยากฟัง เวลาไหนก็ได้ระหว่างเดินทาง เป็นอภิสิทธิ์จริงๆ ผมรู้สึกขอบคุณมากที่ได้ฟัง Fugazi กับ The Roots ในยามที่ต้องการ แต่เสียงเพลงก็ช่วยบรรเทาความลำบากได้เพียงบางส่วนเท่านั้น</p>
+    <p class="de">In diesen endlosen Stunden unterwegs habe ich viel Musik gehört. Vor allem Metal und Hardcore Punk, dazu etwas Jazz und Rap. Ich sage Ihnen: Es ist wirklich ein Privileg, unterwegs jederzeit genau die Alben hören zu können, die man hören will. Ich bin sehr dankbar, dass ich Fugazi und The Roots hören konnte, wenn ich es gebraucht habe. Aber Musik macht nur einen Teil davon leichter.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">Moving here means dealing with a massive culture shift, and I’m still adjusting to life in Utah. It’s not something that happens overnight. So I struggled to think about where grace fits into all of this, I really did. There was no big dramatic sign, nothing like that. What I had, was the comfort and support of my parents and sister. We pulled it together when we needed to.</p>
+    <p class="tgt ko">여기로 이사 온다는 건 완전히 다른 문화를 겪는 일이고, 저는 아직도 유타 생활에 적응하는 중입니다. 하루아침에 되는 일이 아닙니다. 그래서 이 모든 일 어디에 은혜가 들어 있는지 생각해 내느라 애를 먹었습니다. 진짜로요. 크고 극적인 신호 같은 건 전혀 없었습니다. 제게 있었던 건 위로해 주고 힘이 되어 준 부모님과 여동생이었습니다. 필요할 때는 다들 힘을 모았습니다.</p>
+    <p class="zh">搬到这里表示要面对很大的文化差异，我到现在还在适应犹他州的生活。这种事不是一夜之间就会好的。所以我很难想出恩典在这一切里面到底在哪里，真的很难。没有什么惊人的大征兆，完全没有那种事。我有的，是父母和妹妹的安慰和支持。需要的时候，我们就一起撑过去了。</p>
+    <p class="th">การย้ายมาที่นี่หมายถึงการรับมือกับความเปลี่ยนแปลงทางวัฒนธรรมครั้งใหญ่ และผมก็ยังปรับตัวกับชีวิตในยูทาห์อยู่ มันไม่ใช่สิ่งที่จะเกิดขึ้นได้ในชั่วข้ามคืน ผมเลยต้องคิดหนักว่าพระคุณเข้ามาอยู่ตรงไหนของเรื่องทั้งหมดนี้ คิดหนักจริงๆ ครับ ไม่มีหมายสำคัญอันยิ่งใหญ่น่าตื่นเต้นอะไร ไม่มีอะไรแบบนั้นเลย สิ่งที่ผมมีคือความอบอุ่นใจและการช่วยเหลือเกื้อกูลจากพ่อแม่และน้องสาว พอถึงคราวจำเป็น เราก็รวมใจกันจนผ่านมาได้</p>
+    <p class="de">Hierherzuziehen heißt, mit einer völlig anderen Kultur zurechtzukommen, und ich gewöhne mich immer noch an das Leben in Utah. So etwas geht nicht über Nacht. Deshalb habe ich mich schwergetan zu erkennen, wo in all dem die Gnade steckt. Wirklich schwergetan. Es gab kein großes, dramatisches Zeichen, nichts in der Art. Was ich hatte, war der Trost und die Unterstützung meiner Eltern und meiner Schwester. Wenn es nötig war, haben wir es gemeinsam hinbekommen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src en">The only real saving grace were the wonderful outdoors. Wyoming is a beautiful state that we drove through several times. In Utah, we were able to go out to Antelope Island. We got stuck on the road because a huge herd of bison was crossing right in front of our car. I have never seen so many large, powerful animals at such close proximity, it was absolutely breathtaking.</p>
+    <p class="tgt ko">그나마 유일하게 은혜라고 할 만한 것은 멋진 자연이었습니다. 와이오밍은 저희가 여러 번 운전해서 지나갔는데, 참 아름다운 곳이었습니다. 유타에서는 앤털로프 아일랜드라는 섬에 나가 볼 수 있었습니다. 거대한 들소 떼가 저희 차 바로 앞을 가로질러 가는 바람에 길에서 꼼짝없이 서 있기도 했습니다. 크고 힘센 동물들을 그렇게 가까이에서 많이 본 건 처음이었고, 진짜 숨이 멎는 줄 알았습니다.</p>
+    <p class="zh">唯一真正称得上恩典的，是那些美好的户外风景。怀俄明州是个很美的州，我们开车经过好几次。在犹他州，我们去了羚羊岛。我们的车被堵在路上，因为有一大群野牛正好从我们车子前面穿过去。我从来没有在这么近的距离看过这么多又大又有力的动物，真的很震撼。</p>
+    <p class="th">พระคุณเดียวที่ช่วยไว้ได้จริงๆ คือธรรมชาติกลางแจ้งอันแสนวิเศษ ไวโอมิงเป็นรัฐที่สวยงามซึ่งเราขับรถผ่านหลายรอบ ส่วนที่ยูทาห์ เราได้ออกไปที่เกาะแอนทีโลป (Antelope Island) รถเราติดอยู่บนถนนเพราะฝูงไบซันขนาดมหึมากำลังเดินข้ามอยู่ตรงหน้ารถพอดี ผมไม่เคยเห็นสัตว์ตัวใหญ่ทรงพลังจำนวนมากขนาดนั้นในระยะใกล้ขนาดนี้มาก่อน มันน่าตื่นตะลึงจริงๆ</p>
+    <p class="de">Die einzige wirkliche Gnade war die wunderbare Natur draußen. Wyoming ist ein schöner Staat, durch den wir mehrmals gefahren sind. In Utah konnten wir nach Antelope Island hinausfahren. Wir sind auf der Straße stecken geblieben, weil eine riesige Herde Bisons direkt vor unserem Auto vorbeigezogen ist. So viele große, kräftige Tiere habe ich noch nie aus so kurzer Entfernung gesehen. Es war einfach atemberaubend.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src en">On Friday we went up into the Wasatch mountains, and sitting by the cold water in the canyon was one of the first times I actually felt relaxed after months of stress. I was able to soak in the beauty of the trees, sky, mountains, and natural landscapes. So much calm is found outdoors and away from the busyness of the valley in my eyes.</p>
+    <p class="tgt ko">금요일에는 워새치산맥에 올라갔습니다. 협곡의 차가운 물가에 앉아 있는데, 몇 달 동안 스트레스를 받고 나서 거의 처음으로 정말 긴장이 풀렸습니다. 나무와 하늘과 산과 자연 풍경의 아름다움을 흠뻑 누릴 수 있었습니다. 북적거리는 솔트레이크 밸리에서 벗어나 자연으로 나가면, 참 많은 평온을 찾을 수 있습니다. 제 눈에는요.</p>
+    <p class="zh">星期五我们上了瓦萨奇山脉，坐在峡谷里冰凉的水边，是我在几个月的压力之后，第一次真正觉得放松的时刻之一。我可以好好感受树木、天空、山和自然景色的美。在我看来，户外、远离这片谷地的忙碌，能找到很多平静。</p>
+    <p class="th">เมื่อวันศุกร์เราขึ้นไปบนเทือกเขาวอซัทช์ และการได้นั่งริมน้ำเย็นๆ ในแคนยอนเป็นครั้งแรกๆ ที่ผมรู้สึกผ่อนคลายจริงๆ หลังจากเครียดมาหลายเดือน ผมได้ดื่มด่ำกับความงามของต้นไม้ ท้องฟ้า ภูเขา และภูมิทัศน์ทางธรรมชาติ ในมุมมองของผม ความสงบมากมายหาพบได้กลางแจ้ง ห่างออกไปจากความวุ่นวายในหุบเขา</p>
+    <p class="de">Am Freitag sind wir hinauf in die Wasatch Mountains gefahren. Am kalten Wasser in der Schlucht zu sitzen, war einer der ersten Momente nach Monaten voller Stress, in dem ich wirklich entspannt war. Ich konnte die schönen Bäume, den Himmel, die Berge und die Landschaft in mich aufnehmen. Draußen, weg von der Hektik im Tal, findet man viel Ruhe, finde ich.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">What I know for sure is moving is hard, and adjusting to a new place takes time. I still have more struggles to come, but I’m grateful that my family made it through all this safely, and that we found moments of calm in the middle of a really stressful transition. And I want to encourage everyone to go out and search for the peace that life offers.</p>
+    <p class="tgt ko">제가 확실히 아는 것은, 이사는 힘들고 새로운 곳에 적응하는 데는 시간이 걸린다는 사실입니다. 앞으로도 힘든 일이야 더 있겠지만, 저희 가족이 이 모든 일을 무사히 지나온 게 감사하고, 정말 스트레스가 컸던 변화 한가운데서도 평온한 순간들을 찾을 수 있었던 게 감사합니다. 그리고 저는 여러분 모두가 나가서 삶이 주는 평안을 찾아보셨으면 좋겠습니다.</p>
+    <p class="zh">我可以确定的是，搬家很辛苦，适应一个新地方需要时间。以后我还会碰到更多难处，但我很感激我们一家人平安地熬过了这一切，也感激我们在这段压力很大的过渡期里，找到了一些平静的时刻。我也想鼓励大家走出去，寻找生活所给的平安。</p>
+    <p class="th">สิ่งที่ผมรู้แน่ๆ คือการย้ายบ้านเป็นเรื่องยาก และการปรับตัวเข้ากับที่ใหม่ก็ต้องใช้เวลา ผมยังมีเรื่องยากๆ รออยู่อีก แต่ผมรู้สึกขอบคุณที่ครอบครัวของเราผ่านเรื่องทั้งหมดนี้มาได้อย่างปลอดภัย และที่เราได้พบช่วงเวลาแห่งความสงบท่ามกลางการเปลี่ยนผ่านที่ตึงเครียดเอามากๆ และผมอยากชวนให้ทุกคนออกไปแสวงหาสันติสุขที่ชีวิตมีให้</p>
+    <p class="de">Sicher weiß ich: Umziehen ist hart, und sich an einen neuen Ort zu gewöhnen, dauert. Es kommen noch mehr Schwierigkeiten auf mich zu. Aber ich bin dankbar, dass meine Familie das alles heil überstanden hat und dass wir mitten in dieser stressigen Zeit ruhige Momente gefunden haben. Und ich möchte Sie alle ermutigen, hinauszugehen und nach dem Frieden zu suchen, den das Leben bietet.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">I bear my testimony that we are all able to find peace in this world through Jesus Christ, and that it’s easily available to everyone. I say this in the name of Jesus Christ, amen.</p>
+    <p class="tgt ko">저는 우리 모두가 예수 그리스도를 통해 이 세상에서 평안을 찾을 수 있으며, 그 평안이 누구에게나 쉽게 주어져 있음을 간증합니다. 예수 그리스도의 이름으로 간증드립니다, 아멘.</p>
+    <p class="zh">我见证，我们每一个人都能藉着耶稣基督在这个世上找到平安，而且这平安是每一个人都很容易得到的。我谨奉耶稣基督的名，阿们。</p>
+    <p class="th">ผมขอแสดงประจักษ์พยานว่าเราทุกคนสามารถพบสันติสุขในโลกนี้ได้โดยผ่านพระเยซูคริสต์ และสันติสุขนั้นมีพร้อมให้ทุกคนเข้าถึงได้โดยง่าย ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Ich gebe Zeugnis, dass wir alle in dieser Welt durch Jesus Christus Frieden finden können und dass dieser Frieden für jeden leicht zu erreichen ist. Das bezeuge ich im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

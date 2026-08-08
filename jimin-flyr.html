@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>God’s Grace on This Journey · 이 여정 가운데 하나님의 은혜</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">God’s Grace on This Journey</span><span class="ko">이 여정 가운데 하나님의 은혜</span><span class="zh">这段旅程中神的恩典</span><span class="th">พระคุณของพระผู้เป็นเจ้าในการเดินทางครั้งนี้</span><span class="de">Gottes Gnade auf diesem Weg</span></h1>
+  <p class="byline">Jimin Flyr · 지민 플라이어 &nbsp;·&nbsp; 9 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">Hi. For those of you who don’t know me, my name is Leah Flyr, but you can call me Jimin. I was asked to give a talk about how moving to another state has been difficult, and how God’s grace has been helping me on this journey.</p>
+    <p class="tgt ko">안녕하세요. 저를 모르시는 분들을 위해 말씀드리면, 제 이름은 리아 플라이어인데 지민이라고 불러 주셔도 됩니다. 저는 다른 주로 이사 오는 것이 얼마나 힘들었는지에 대해 말씀을 전해 달라는 부탁을 받았습니다. 그리고 이 여정에서 하나님의 은혜가 어떻게 저를 도와주고 있는지도 함께 말씀드리려고 합니다.</p>
+    <p class="zh">大家好。还不认识我的人，我叫 Leah Flyr，不过你们可以叫我 Jimin。我受邀来讲一讲，搬到另一个州对我来说有多难，以及神的恩典怎样在这段旅程中帮助我。</p>
+    <p class="th">สวัสดีค่ะ สำหรับท่านที่ยังไม่รู้จักดิฉัน ดิฉันชื่อลีอา ฟลายเออร์ แต่จะเรียกดิฉันว่าจีมินก็ได้ ดิฉันได้รับมอบหมายให้พูดในหัวข้อว่าการย้ายไปอยู่อีกรัฐหนึ่งยากลำบากอย่างไร และพระคุณของพระผู้เป็นเจ้าช่วยดิฉันในการเดินทางครั้งนี้อย่างไร</p>
+    <p class="de">Hallo. Für alle, die mich noch nicht kennen: Ich heiße Leah Flyr, aber Sie können mich Jimin nennen. Ich wurde gebeten, eine Ansprache darüber zu halten, wie schwer der Umzug in einen anderen Bundesstaat war und wie Gottes Gnade mir auf diesem Weg geholfen hat.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src en">While we were packing and putting boxes into a moving container, we faced a lot of problems. One problem was that we had a lot of stuff and we had to pack it all, and so we kept pushing back the day we were going to leave for Utah. It was really difficult packing all of our stuff, because we didn’t really have movers, so we had to pack it and put it in ourselves.</p>
+    <p class="tgt ko">짐을 싸서 이삿짐 컨테이너에 싣는 동안 문제를 많이 겪었습니다. 우선 짐이 워낙 많아서 그걸 다 싸야 했고, 그러다 보니 유타로 떠나기로 한 날짜를 계속 미루게 되었습니다. 이삿짐센터를 따로 부르지 않아서 저희 손으로 전부 챙겨 실어야 했는데, 그게 정말 힘들었습니다.</p>
+    <p class="zh">我们一边打包、一边把箱子搬进搬家货柜的时候，遇到了很多问题。其中一个问题是我们的东西很多，全部都得打包，所以我们一再把出发去犹他州的日子往后延。要把所有东西都打包起来真的很不容易，因为我们其实没有请搬家工人，只能自己打包、自己搬进去。</p>
+    <p class="th">ระหว่างที่เราเก็บของใส่กล่องและขนกล่องขึ้นตู้คอนเทนเนอร์สำหรับขนย้ายบ้าน เราเจอปัญหาหลายอย่าง ปัญหาหนึ่งคือเรามีข้าวของเยอะมากและต้องเก็บให้หมดทุกชิ้น เราจึงเลื่อนวันออกเดินทางไปยูทาห์ออกไปเรื่อยๆ การเก็บข้าวของทั้งหมดนั้นยากจริงๆ เพราะเราไม่ได้จ้างบริษัทขนย้าย จึงต้องเก็บของและขนขึ้นตู้กันเอง</p>
+    <p class="de">Als wir gepackt und die Kartons in den Umzugscontainer geladen haben, hatten wir eine Menge Probleme. Ein Problem war, dass wir ganz schön viel Zeug hatten und alles einpacken mussten, und deshalb haben wir den Tag, an dem wir nach Utah losfahren wollten, immer wieder verschoben. Es war wirklich schwierig, unsere ganzen Sachen einzupacken, weil wir keine richtige Umzugsfirma hatten. Wir mussten alles selbst packen und selbst einladen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">At our old church ward, though, we had a lot of people help us move and give us boxes that we could use. They were really kind to help us, and I felt so blessed to know them. And my aunt was really kind to let us stay at her place while we were about to leave.</p>
+    <p class="tgt ko">그래도 예전 와드에서는 많은 분들이 이사를 도와주시고, 쓸 수 있는 상자도 가져다주셨습니다. 정말 친절하게 도와주신 분들이었고, 그분들을 알게 된 것이 큰 축복이라고 느꼈습니다. 그리고 떠나기 직전에는 친척 아주머니께서 친절하게도 저희를 댁에 머물게 해 주셨습니다.</p>
+    <p class="zh">不过在我们原来的支会里，有很多人来帮我们搬家，还给我们可以用的箱子。他们那么好心地帮助我们，能认识他们，我觉得自己很蒙福。我阿姨也很好心，在我们快要出发的那段时间，让我们住在她家。</p>
+    <p class="th">แต่ที่วอร์ดเดิมของเรา มีหลายคนมาช่วยเราขนย้ายและให้กล่องที่เราใช้ได้ พวกเขาใจดีมากที่มาช่วย และดิฉันรู้สึกได้รับพรเหลือเกินที่ได้รู้จักพวกเขา ส่วนคุณป้าของดิฉันก็ใจดีมากที่ให้เราพักที่บ้านของท่านในช่วงที่เรากำลังจะออกเดินทาง</p>
+    <p class="de">In unserer alten Gemeinde haben uns aber viele Leute beim Umzug geholfen und uns Kartons gegeben, die wir gebrauchen konnten. Es war wirklich lieb von ihnen, uns zu helfen, und ich habe mich sehr gesegnet gefühlt, sie zu kennen. Und meine Tante war so lieb, uns kurz vor der Abfahrt bei sich wohnen zu lassen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">But I felt really sad that I wouldn’t see my best friend in that ward, probably for a really long time. She was probably one of the most supportive best friends I had, but we still talk on messages a lot, and she is the person who I felt most blessed to know.</p>
+    <p class="tgt ko">하지만 그 와드에 있는 가장 친한 친구를 어쩌면 아주 오랫동안 만나지 못할 거라는 생각에 정말 슬펐습니다. 그 친구는 저를 가장 많이 응원해 준 단짝 중 한 명이었습니다. 그래도 메시지로는 지금도 이야기를 많이 나누고 있고, 그 친구를 알게 된 것이 제게는 가장 큰 축복입니다.</p>
+    <p class="zh">但我心里也很难过，因为那个支会里的好朋友，我大概很久很久都见不到了。她大概是我所有好朋友当中，最支持我的一个。我们现在还是常常互传讯息，在我认识的人当中，能认识她让我觉得最蒙福。</p>
+    <p class="th">แต่ดิฉันเศร้ามากที่จะไม่ได้เจอเพื่อนสนิทของดิฉันในวอร์ดนั้น และคงอีกนานมากกว่าจะได้เจอกัน เธอน่าจะเป็นเพื่อนสนิทที่คอยสนับสนุนดิฉันมากที่สุดคนหนึ่งเท่าที่เคยมีมา ทุกวันนี้เรายังคุยกันทางข้อความอยู่บ่อยๆ และเธอคือคนที่ดิฉันรู้สึกได้รับพรมากที่สุดที่ได้รู้จัก</p>
+    <p class="de">Aber ich war wirklich traurig, dass ich meine beste Freundin aus dieser Gemeinde wahrscheinlich sehr lange nicht sehen würde. Von allen meinen besten Freundinnen hat sie mir wohl am meisten beigestanden. Wir schreiben uns immer noch oft Nachrichten, und ich fühle mich am meisten gesegnet, dass ich sie kenne.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">While we were driving to Utah we had two cars, and that made things really difficult. But on that drive there were some things I saw. Like in Iowa, in the rest areas, in the restrooms, the walls of the stalls weren’t very tall.</p>
+    <p class="tgt ko">유타까지 운전해 오는 동안 차 두 대로 움직였는데, 그것 때문에 정말 힘들었습니다. 그런데 오는 길에 눈에 띈 것들이 몇 가지 있었습니다. 예를 들어 아이오와에서는, 고속도로 휴게소 화장실 칸막이가 그리 높지 않았습니다.</p>
+    <p class="zh">我们开车去犹他州的时候，我们家开了两辆车，这让事情变得很麻烦。不过一路上我也看到了一些东西。像是在爱荷华州，公路休息站的洗手间里，厕所隔间的墙不太高。</p>
+    <p class="th">ตอนขับรถไปยูทาห์ เรามีรถสองคัน ซึ่งทำให้อะไรๆ ยากขึ้นมาก แต่ระหว่างทางก็มีบางอย่างที่ดิฉันได้เห็น อย่างเช่นที่รัฐไอโอวา ตามจุดพักรถริมทางหลวง ผนังกั้นระหว่างห้องน้ำแต่ละห้องไม่ค่อยสูงนัก</p>
+    <p class="de">Auf der Fahrt nach Utah hatten wir zwei Autos, und das hat alles ziemlich schwierig gemacht. Aber unterwegs habe ich ein paar Sachen gesehen. Zum Beispiel in Iowa, auf den Raststätten, auf den Toiletten: Die Wände zwischen den Kabinen waren nicht sehr hoch.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">Which I thought was funny, because someone can basically look over the stall and have a full blown conversation with you while you’re using the bathroom.</p>
+    <p class="tgt ko">저는 그게 참 웃겼습니다. 볼일을 보고 있는데 누가 칸막이 너머로 고개를 쓱 내밀고 한참 수다를 떨어도 이상하지 않을 정도였으니까요.</p>
+    <p class="zh">我觉得这很好笑，因为别人几乎可以从隔间上面探头过来，在你使用洗手间的时候，跟你聊起天来，而且还聊得很起劲。</p>
+    <p class="th">ซึ่งดิฉันคิดว่าตลกดี เพราะใครสักคนแทบจะชะโงกหน้าข้ามผนังกั้นมาคุยกับเรายาวๆ ได้เลยทั้งที่เรายังใช้ห้องน้ำอยู่</p>
+    <p class="de">Das fand ich lustig, weil einem jemand quasi über die Wand schauen und sich in aller Ruhe mit einem unterhalten kann, während man auf der Toilette sitzt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">But when we finally got to Utah, I prayed to God and thanked him that we were able to get here. And my dad told me that God had sent us to Utah for a reason. I think he was right.</p>
+    <p class="tgt ko">하지만 마침내 유타에 도착했을 때, 저는 하나님께 기도하면서 여기까지 오게 해 주신 것에 감사드렸습니다. 그리고 아빠는 하나님께서 어떤 이유가 있어서 저희를 유타로 보내신 거라고 말씀해 주셨습니다. 저는 아빠 말씀이 맞다고 생각합니다.</p>
+    <p class="zh">但是当我们终于到了犹他州，我向神祈祷，感谢祂让我们能够到这里来。爸爸告诉我，神让我们搬来犹他州是有原因的。我想他说得对。</p>
+    <p class="th">แต่เมื่อเรามาถึงยูทาห์ในที่สุด ดิฉันสวดอ้อนวอนขอบพระทัยพระผู้เป็นเจ้าที่เราเดินทางมาถึงที่นี่ได้ และคุณพ่อบอกดิฉันว่าพระผู้เป็นเจ้าทรงส่งเรามายูทาห์ด้วยเหตุผลบางอย่าง ดิฉันคิดว่าท่านพูดถูก</p>
+    <p class="de">Als wir dann endlich in Utah angekommen sind, habe ich zu Gott gebetet und ihm dafür gedankt, dass wir es hierher geschafft haben. Und mein Papa hat mir gesagt, dass Gott uns aus einem bestimmten Grund nach Utah geschickt hat. Ich glaube, er hatte recht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">Because my mom seems to be happier here, because she has more friends here she can relate to more, in the Korean ward. And my dad also seems happier, because while we were in Ohio he was in Utah for his job, and we didn’t get to see him a lot. I think my brother is also happier, because he gets to talk to our dad a lot, and hang out with him, and do fun stuff.</p>
+    <p class="tgt ko">왜냐하면 엄마가 여기 와서 더 행복해 보이시기 때문입니다. 한인 와드에서 마음이 잘 통하는 친구분들이 더 많이 생기셨거든요. 아빠도 더 행복해 보이십니다. 오하이오에 살 때는 직장 일로 유타에 가 계셔서 자주 뵙지 못했습니다. 오빠도 더 행복해진 것 같습니다. 이제 아빠와 이야기도 많이 하고, 같이 어울리면서 재미있는 것도 할 수 있게 되었으니까요.</p>
+    <p class="zh">妈妈在这里好像比较快乐，因为在这个韩语支会里，她有更多谈得来的朋友。爸爸好像也比较快乐，因为我们还住在俄亥俄州的时候，他因为工作待在犹他州，我们很少见得到他。我想哥哥也比较快乐，因为他可以常常跟爸爸说话，跟爸爸一起出去、一起做好玩的事。</p>
+    <p class="th">คุณแม่ดูมีความสุขขึ้นที่นี่ เพราะท่านมีเพื่อนที่เข้าใจกันได้มากขึ้นในวอร์ดภาษาเกาหลี ส่วนคุณพ่อก็ดูมีความสุขขึ้นเช่นกัน เพราะตอนที่เราอยู่โอไฮโอ ท่านต้องไปทำงานอยู่ที่ยูทาห์ เราจึงไม่ค่อยได้เจอท่าน ดิฉันคิดว่าพี่ชายก็มีความสุขขึ้นด้วย เพราะได้คุยกับคุณพ่อบ่อยๆ ได้ใช้เวลาด้วยกัน และได้ทำอะไรสนุกๆ ด้วยกัน</p>
+    <p class="de">Meine Mama scheint hier glücklicher zu sein, weil sie hier in der koreanischen Gemeinde mehr Freundinnen hat, mit denen sie mehr gemeinsam hat. Und mein Papa scheint auch glücklicher zu sein, denn als wir noch in Ohio waren, war er wegen seiner Arbeit in Utah, und wir haben ihn nicht oft gesehen. Ich glaube, mein Bruder ist auch glücklicher, weil er jetzt viel mit unserem Papa reden kann, Zeit mit ihm verbringt und schöne Sachen mit ihm unternimmt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src en">I’m also happier, because I get to go to a new school that I think I’ll actually enjoy a lot, and meet people who I can relate to. And because everyone in this ward is so nice, and I feel accepted in Young Women, because everyone is so supportive of each other.</p>
+    <p class="tgt ko">저도 더 행복합니다. 새로 가게 된 학교는 정말 재미있게 다닐 수 있을 것 같고, 마음이 통하는 사람들도 만날 수 있으니까요. 그리고 이 와드는 모든 분들이 정말 친절하십니다. 청녀에서도 모두가 서로를 응원해 주어서 환영받는 기분입니다.</p>
+    <p class="zh">我自己也比较快乐，因为我可以上一所新学校，我想我在那里会过得很开心，也会认识一些谈得来的人。还有，因为这个支会里的每一个人都很好，我在女青年里觉得自己被接纳，因为大家都很支持彼此。</p>
+    <p class="th">ดิฉันเองก็มีความสุขขึ้นเหมือนกัน เพราะจะได้เข้าโรงเรียนใหม่ที่คิดว่าน่าจะชอบมากจริงๆ และได้พบเพื่อนๆ ที่เข้าใจกัน อีกอย่างคือทุกคนในวอร์ดนี้ใจดีมาก และดิฉันรู้สึกเป็นที่ยอมรับในเยาวชนหญิง เพราะทุกคนต่างคอยสนับสนุนกันและกัน</p>
+    <p class="de">Ich bin auch glücklicher, weil ich auf eine neue Schule gehen darf, die mir, glaube ich, wirklich gut gefallen wird, und weil ich dort Leute kennenlerne, mit denen ich viel gemeinsam habe. Und weil alle in dieser Gemeinde so nett sind und ich mich bei den Jungen Damen angenommen fühle, weil sich dort alle gegenseitig unterstützen.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">10</span>
+    <p class="lead src en">A verse I feel is connected to this is in 1 Nephi 1:20.</p>
+    <blockquote class="src en">And when the Jews heard these things they were angry with him; yea, even as with the prophets of old, whom they had cast out, and stoned, and slain; and they also sought his life, that they might take it away. But behold, I, Nephi, will show unto you that the tender mercies of the Lord are over all those whom he hath chosen, because of their faith, to make them mighty even unto the power of deliverance.<cite>1 Nephi 1:20</cite></blockquote>
+    <p class="lead tgt ko">지금까지 말씀드린 것과 통한다고 느끼는 성구가 하나 있는데, 니파이전서 1장 20절입니다.</p>
+    <blockquote class="tgt ko">이에 유대인들은 이러한 것을 듣고 그에게 화를 내었나니, 참으로 그들이 내어 쫓고 돌로 치며 살해한 옛 선지자들에게 그러하였던 것같이 화를 내었으며, 또한 그들은 그의 생명을 찾아 빼앗으려 하였느니라. 그러나 보라, 나 니파이는 주의 친절하신 자비가 그 신앙으로 말미암아, 그가 택하신 자 모두의 위에 있어 그들을 능하게 하여, 참으로 구원의 능력에 이르게 하였음을 너희에게 보여 주리라.<cite>1 Nephi 1:20</cite></blockquote>
+    <p class="lead zh">我觉得有一节经文和这件事有关，就是尼腓一书1：20。</p>
+    <blockquote class="zh">犹太人听了这些事，就恼怒他，是的，正如对昔日的众先知发怒一样，他们曾驱逐先知，又用石头砸和杀害先知；他们也图谋他的性命，想置他于死地。但是，看啊，我，尼腓，要让你们知道，主温柔的慈悲遍及那些因信心而蒙祂拣选的人，使他们强而有力，甚至有获救的力量。<cite>1 Nephi 1:20</cite></blockquote>
+    <p class="lead th">ข้อพระคัมภีร์ข้อหนึ่งที่ดิฉันรู้สึกว่าเชื่อมโยงกับเรื่องนี้อยู่ใน 1 นีไฟ 1:20</p>
+    <blockquote class="th">และเมื่อชาวยิวได้ยินเรื่องเหล่านี้พวกเขาโกรธท่าน; แท้จริงแล้ว, แม้เหมือนกับศาสดาพยากรณ์ในสมัยโบราณ, ผู้ที่พวกเขาขับไล่, และขว้างปาด้วยหิน, และสังหาร; และพวกเขาหมายมั่นจะเอาชีวิตท่านด้วย, เพื่อพวกเขาจะเอาชีวิตนั้นไปเสีย. แต่ดูเถิด, ข้าพเจ้า, นีไฟ, จะแสดงต่อท่านว่าพระเมตตาอันละเอียดอ่อนของพระเจ้ามีอยู่เหนือคนทั้งปวงที่พระองค์ทรงเลือกไว้, เพราะศรัทธาของพวกเขา, เพื่อทำให้พวกเขาแข็งแกร่งแม้จนถึงพลังแห่งการปลดปล่อย.<cite>1 Nephi 1:20</cite></blockquote>
+    <p class="lead de">Ein Vers, der für mich damit zu tun hat, steht in 1 Nephi 1:20.</p>
+    <blockquote class="de">Und als die Juden das hörten, wurden sie zornig auf ihn, ja, so wie auf die Propheten vor alters, die sie ausgestoßen und gesteinigt und getötet hatten; und sie trachteten danach, auch ihm das Leben zu nehmen. Aber siehe, ich, Nephi, werde euch zeigen, dass die liebevolle, große Barmherzigkeit des Herrn über all denen waltet, die er ihres Glaubens wegen erwählt hat, um sie mächtig zu machen, ja, zur Kraft der Befreiung.<cite>1 Nephi 1:20</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">The reason why I feel this verse is connected to this is because it shows the tender mercies God has given us throughout our journey. This is how I feel God’s been helping us along this journey: by giving us people in the church wards who help and support us.</p>
+    <p class="tgt ko">이 여정 내내 하나님께서는 저희에게 친절하신 자비를 베풀어 주셨습니다. 이 성구는 그 자비를 잘 보여 줍니다. 그래서 저는 이 성구가 저희 이야기와 통한다고 느낍니다. 하나님께서는 저희가 가는 와드마다 돕고 힘이 되어 주는 분들을 주셨습니다. 저는 하나님께서 바로 그렇게 이 여정에서 저희를 도와주고 계시다고 느낍니다.</p>
+    <p class="zh">我觉得这节经文和这件事有关，是因为它让人看见，在我们这一路上，神赐给我们的温柔的慈悲。我觉得神就是这样在这段旅程中帮助我们的：祂在教会的支会里，赐给我们愿意帮助我们、支持我们的人。</p>
+    <p class="th">เหตุผลที่ดิฉันรู้สึกว่าข้อนี้เชื่อมโยงกับเรื่องนี้ก็เพราะข้อนี้แสดงให้เห็นพระเมตตาอันละเอียดอ่อนที่พระผู้เป็นเจ้าประทานแก่เราตลอดการเดินทาง ดิฉันรู้สึกว่านี่คือวิธีที่พระผู้เป็นเจ้าทรงช่วยเราตลอดการเดินทางครั้งนี้ คือทรงประทานผู้คนในวอร์ดต่างๆ ของศาสนจักรที่คอยช่วยเหลือและสนับสนุนเรา</p>
+    <p class="de">Dieser Vers hat für mich deshalb damit zu tun, weil er zeigt, welche liebevolle, große Barmherzigkeit Gott uns auf unserem ganzen Weg geschenkt hat. So hilft uns Gott, glaube ich, auf diesem Weg: Er schenkt uns Menschen in den Gemeinden, die uns helfen und uns beistehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">In the name of Jesus Christ, amen.</p>
+    <p class="tgt ko">예수 그리스도의 이름으로 말씀드립니다, 아멘.</p>
+    <p class="zh">奉耶稣基督的名，阿们。</p>
+    <p class="th">ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Becoming a Grandfather Has Taught Me About God’s Grace · 할아버지가 되면서 하나님의 은혜에 대해 배운 것</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">What Becoming a Grandfather Has Taught Me About God’s Grace</span><span class="ko">할아버지가 되면서 하나님의 은혜에 대해 배운 것</span><span class="zh">成为爷爷后，我对神的恩典学到的事</span><span class="th">สิ่งที่ผมเรียนรู้เกี่ยวกับพระคุณของพระผู้เป็นเจ้าเมื่อได้เป็นปู่</span><span class="de">Was ich als Großvater über Gottes Gnade gelernt habe</span></h1>
+  <p class="byline">Brother Daniel Jung · 정 형제 &nbsp;·&nbsp; 9 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">사랑하는 형제자매 여러분, 안녕하세요. Brother Wagner가 저에게 &quot;What becoming a grandfather has taught me about God's grace.&quot; 라는 주제로 말씀해 달라고 지난 주에 연락이 왔습니다. 제가 고등평의원이 되기 전에는 말씀부탁만 받으면, “아 나중에” “아 다음에” 라고 말 했었는데, 이제는 말씀 부탁을 받으면 OK! 라고 대답을 합니다.</p>
+    <p class="tgt en">Dear brothers and sisters, hello. Last week Brother Wagner contacted me and asked me to speak on the topic &quot;What becoming a grandfather has taught me about God's grace.&quot; Before I became a member of the stake high council, whenever I was asked to speak, I would say, &quot;Oh, later,&quot; or &quot;Oh, next time.&quot; Now when I am asked to speak, I answer, &quot;OK!&quot;</p>
+    <p class="zh">亲爱的弟兄姊妹，大家好。上个星期 Wagner 弟兄跟我联络，请我以「成为爷爷后，我对神的恩典学到的事」这个题目来讲话。我成为高级咨议以前，只要有人请我讲话，我都会说「啊，以后吧」「啊，下次吧」，可是现在有人请我讲话，我就回答：OK！</p>
+    <p class="th">สวัสดีครับ พี่น้องที่รักทั้งหลาย เมื่อสัปดาห์ที่แล้วบราเดอร์แวกเนอร์ติดต่อมาขอให้ผมพูดในหัวข้อ &quot;สิ่งที่การเป็นปู่สอนผมเกี่ยวกับพระคุณของพระผู้เป็นเจ้า&quot; ก่อนที่ผมจะเป็นสมาชิกสภาสูงสเตค พอมีใครมาขอให้พูด ผมจะตอบว่า &quot;เอาไว้ทีหลัง&quot; &quot;เอาไว้คราวหน้า&quot; แต่เดี๋ยวนี้พอได้รับคำขอให้พูด ผมตอบว่า &quot;โอเค!&quot; ครับ</p>
+    <p class="de">Liebe Brüder und Schwestern, guten Tag. Bruder Wagner hat sich letzte Woche bei mir gemeldet und mich gebeten, über das Thema „Was ich als Großvater über Gottes Gnade gelernt habe“ zu sprechen. Bevor ich Mitglied des Hoherats wurde, habe ich jedes Mal, wenn man mich um eine Ansprache gebeten hat, gesagt: „Ach, später.“ „Ach, das nächste Mal.“ Jetzt antworte ich: OK!</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">사람이 부름을 만드는 경우도 있지만 부름이 사람을 만드는 경우도 있는 것 같습니다.</p>
+    <p class="tgt en">Sometimes the person makes the calling. But sometimes the calling makes the person.</p>
+    <p class="zh">有时候是人造就召唤，不过我想，有时候也是召唤造就人。</p>
+    <p class="th">ดูเหมือนว่าบางครั้งคนเราก็สร้างการเรียก แต่บางครั้งการเรียกก็สร้างคนเรา</p>
+    <p class="de">Manchmal macht der Mensch die Berufung. Aber manchmal macht auch die Berufung den Menschen. So scheint es mir.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">몇 달 전, 저에게는 크고 특별한 축복이 하나 있었습니다. 바로 저의 첫 손자가 태어난 것입니다. 처음 손자를 품에 안았을 때의 감정을 아직도 잊을 수 없습니다. 정말 작고 연약한 생명이 제 품에 안겨 있는데, 그 순간 이상한 생각이 들었습니다. '이 아이는 아직 아무것도 한 것이 없는데, 나는 왜 이렇게 사랑할까?'</p>
+    <p class="tgt en">A few months ago, I received a very special blessing. My first grandson was born. I still cannot forget what I felt the first time I held him in my arms. I was holding such a small, fragile life, and in that moment an unexpected thought came to me: &quot;This child has not done anything yet. Why do I love him so much?&quot;</p>
+    <p class="zh">几个月前，我得到一个很大、很特别的祝福。就是我的第一个孙子出生了。第一次把孙子抱在怀里时的那种感觉，我到现在还忘不了。一个那么小、那么柔弱的生命就在我怀里，那一刻我心里冒出一个奇怪的念头：「这孩子还什么都没做过，我为什么会这么爱他呢？」</p>
+    <p class="th">เมื่อไม่กี่เดือนก่อน ผมได้รับพรที่ยิ่งใหญ่และพิเศษอย่างหนึ่ง นั่นคือหลานชายคนแรกของผมเกิดมา ผมยังลืมความรู้สึกตอนที่ได้อุ้มหลานไว้ในอ้อมแขนครั้งแรกไม่ได้เลย ชีวิตเล็กๆ ที่บอบบางเหลือเกินนอนอยู่ในอ้อมแขนของผม และในวินาทีนั้นก็มีความคิดแปลกๆ ผุดขึ้นมาว่า &quot;เด็กคนนี้ยังไม่ได้ทำอะไรเลยสักอย่าง แล้วทำไมเราถึงรักเขาได้ขนาดนี้&quot;</p>
+    <p class="de">Vor ein paar Monaten habe ich einen großen, besonderen Segen erlebt. Mein erster Enkel ist geboren. Das Gefühl, als ich ihn zum ersten Mal im Arm gehalten habe, kann ich bis heute nicht vergessen. Da lag ein ganz kleines, schwaches Leben in meinen Armen. In diesem Augenblick ist mir ein seltsamer Gedanke gekommen: „Dieses Kind hat noch nichts getan. Warum liebe ich es dann so sehr?“</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">아직 말을 하지도 못하고, 걸을 수도 없고, 아무런 성취도 없습니다. 오히려 부모의 잠을 빼앗고, 계속 돌봐주어야 하는 존재입니다. 그런데도 그 아이를 바라보면 그냥 웃음이 납니다. 그냥 사랑스럽습니다.</p>
+    <p class="tgt en">He cannot speak yet. He cannot walk. He has accomplished nothing. Instead, he keeps his parents from sleeping, and he needs constant care. And yet when I look at him, I cannot help smiling. He is just lovable.</p>
+    <p class="zh">他还不会说话，也不会走路，没有任何成就。反而还让父母睡不了觉，需要人不停地照顾。可是只要看着那孩子，我就是会笑出来。就是觉得他可爱。</p>
+    <p class="th">หลานยังพูดไม่ได้ ยังเดินไม่ได้ ยังไม่มีความสำเร็จอะไรเลย มีแต่ทำให้พ่อแม่อดหลับอดนอน และต้องมีคนคอยดูแลอยู่ตลอด แต่ถึงอย่างนั้น พอมองเด็กคนนี้ ผมก็ยิ้มออกมาเอง เขาน่ารักของเขาอย่างนั้นเอง</p>
+    <p class="de">Er kann noch nicht sprechen, er kann noch nicht laufen, er hat noch nichts geleistet. Im Gegenteil: Er raubt seinen Eltern den Schlaf. Man muss sich ständig um ihn kümmern. Und trotzdem: Wenn ich ihn ansehe, muss ich einfach lächeln. Er ist einfach zum Liebhaben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">왜일까요? 잘해서가 아닙니다. 무언가를 이루었기 때문도 아닙니다. 그 아이가 우리 가족이기 때문입니다.</p>
+    <p class="tgt en">Why? Not because he does well. Not because he has accomplished anything. Because that child is our family.</p>
+    <p class="zh">为什么呢？不是因为他做得好。也不是因为他成就了什么。是因为那孩子是我们的家人。</p>
+    <p class="th">ทำไมหรือครับ ไม่ใช่เพราะเขาทำได้ดี ไม่ใช่เพราะเขาทำอะไรสำเร็จ เพราะเด็กคนนี้เป็นครอบครัวของเรา</p>
+    <p class="de">Warum? Nicht weil er etwas gut macht. Nicht weil er etwas erreicht hat. Weil er zu unserer Familie gehört.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">그 순간 저는 하나님 아버지께서 우리를 바라보시는 마음도 이와 비슷하지 않을까 하는 생각이 들었습니다. 우리는 가끔 하나님의 사랑을 받아내기 위해 애쓰며 살아갑니다. 기도를 더 잘해야 할 것 같고, 봉사를 더 많이 해야 할 것 같고, 실수를 줄여야 하나님께서 더 사랑해 주실 것 같다고 생각합니다.</p>
+    <p class="tgt en">In that moment I wondered: could this be how Heavenly Father feels when He looks at us? Sometimes we go through life trying hard to earn God's love. We feel we should pray better. We feel we should serve more. We feel that if we made fewer mistakes, God would love us more.</p>
+    <p class="zh">那一刻我心里想，天父看着我们的心情，会不会也和这很相似呢。我们有时候会很努力地想挣得神的爱。总觉得祈祷要做得更好，服务要做得更多，要少犯一点错，神才会更爱我们。</p>
+    <p class="th">ในวินาทีนั้นผมคิดขึ้นมาว่า พระทัยของพระบิดาบนสวรรค์เมื่อทรงมองดูเรา ก็คงคล้ายอย่างนี้ไม่ใช่หรือ บางครั้งเราใช้ชีวิตโดยพยายามดิ้นรนเพื่อให้ได้รับความรักของพระผู้เป็นเจ้า เราคิดว่าน่าจะต้องสวดอ้อนวอนให้ดีกว่านี้ น่าจะต้องรับใช้ให้มากกว่านี้ น่าจะต้องผิดพลาดให้น้อยลง พระผู้เป็นเจ้าจึงจะทรงรักเรามากขึ้น</p>
+    <p class="de">In diesem Augenblick habe ich gedacht: Vielleicht empfindet der himmlische Vater ganz ähnlich, wenn er uns ansieht. Manchmal strengen wir uns sehr an, um Gottes Liebe zu bekommen. Wir denken: Wir müssten besser beten. Wir müssten mehr dienen. Wir müssten weniger Fehler machen, dann würde Gott uns mehr lieben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">하지만 손자를 바라보며 깨달았습니다. 저는 손자에게 &quot;걸으면 사랑해 줄게.&quot; &quot;학교에서 1등 하면 사랑해 줄게.&quot; &quot;훌륭한 사람이 되면 사랑해 줄게.&quot; 라고 생각하지 않습니다. 이미 사랑합니다. 그 아이가 제 가족이기 때문입니다.</p>
+    <p class="tgt en">But as I looked at my grandson, I realized something. I do not think, &quot;If you walk, I will love you.&quot; I do not think, &quot;If you are first in your class, I will love you.&quot; I do not think, &quot;If you become a fine person, I will love you.&quot; I already love him. Because that child is my family.</p>
+    <p class="zh">但是看着孙子，我明白了一件事。我不会对孙子想：「你会走路了，我就爱你。」「你在学校考第一名，我就爱你。」「你成为一个了不起的人，我就爱你。」我已经爱他了。因为那孩子是我的家人。</p>
+    <p class="th">แต่พอมองดูหลาน ผมก็ตระหนักได้ ผมไม่เคยคิดกับหลานว่า &quot;ถ้าเดินได้ ปู่จะรักนะ&quot; &quot;ถ้าสอบได้ที่หนึ่งที่โรงเรียน ปู่จะรักนะ&quot; &quot;ถ้าโตขึ้นเป็นคนเก่งคนดี ปู่จะรักนะ&quot; ผมรักเขาอยู่แล้ว เพราะเด็กคนนี้เป็นครอบครัวของผม</p>
+    <p class="de">Aber als ich meinen Enkel angeschaut habe, ist mir etwas klar geworden. Ich denke bei ihm nicht: „Wenn du läufst, dann habe ich dich lieb.“ „Wenn du in der Schule der Beste bist, dann habe ich dich lieb.“ „Wenn du ein anständiger Mensch wirst, dann habe ich dich lieb.“ Ich habe ihn schon jetzt lieb. Weil er zu meiner Familie gehört.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">우리도 마찬가지입니다. 우리가 하나님의 자녀이기 때문에 하나님께서는 이미 우리를 사랑하고 계십니다. 그것이 은혜라고 저는 생각합니다.</p>
+    <p class="tgt en">It is the same with us. Because we are children of God, God already loves us. I think that is grace.</p>
+    <p class="zh">我们也是一样。因为我们是神的儿女，神已经在爱我们了。我想，那就是恩典。</p>
+    <p class="th">เราก็เช่นเดียวกัน เพราะเราเป็นบุตรของพระผู้เป็นเจ้า พระผู้เป็นเจ้าจึงทรงรักเราอยู่แล้ว ผมคิดว่านั่นคือพระคุณ</p>
+    <p class="de">Bei uns ist es genauso. Weil wir Kinder Gottes sind, liebt Gott uns schon jetzt. Ich glaube, das ist Gnade.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">그러면서 문득 이런 생각도 들었습니다. 우리 와드에는 오랫동안 아이를 갖기 위해 정말 많은 노력을 하신 부부가 있습니다. 시험관 시술까지 여러 번 시도했지만 결국 아이를 갖지 못하셨습니다. 예전에 그 자매님께서 제게 이런 말씀을 하셨습니다. &quot;나이가 들어 죽음을 생각하면 공포가 와요.&quot; 그 말씀을 듣고 제 마음이 참 아팠습니다. 저는 자녀도 있고 손자도 있습니다. 그러니 그분의 마음을 완전히 이해한다고 말할 수는 없습니다.</p>
+    <p class="tgt en">And then another thought came to me. In our ward there is a couple who tried very hard for a long time to have a child. They went through IVF several times, but in the end they could not have a child. Some time ago, this sister said to me, &quot;I am getting older, and when I think about death, I am filled with dread.&quot; When I heard that, my heart truly ached. Because I have children and a grandson myself, I cannot say that I fully understand how she feels.</p>
+    <p class="zh">想着想着，我心里也忽然浮现另一个念头。我们支会里有一对夫妇，为了生孩子，长年付出了非常多的努力。他们甚至做了好几次试管婴儿，最后还是没能有孩子。以前那位姊妹曾经对我说过这样的话：「年纪大了，一想到死亡，就会感到恐惧。」听了那句话，我心里真的很难过。我有儿女，也有孙子。所以我不能说我完全明白她的心情。</p>
+    <p class="th">พอคิดอย่างนั้น ก็มีอีกความคิดหนึ่งผุดขึ้นมา ในวอร์ดของเรามีสามีภรรยาคู่หนึ่งที่พยายามอย่างมากมาเป็นเวลานานเพื่อจะมีลูก ทั้งสองท่านพยายามถึงขั้นทำเด็กหลอดแก้วหลายครั้ง แต่ในที่สุดก็ไม่สามารถมีลูกได้ เมื่อก่อนซิสเตอร์ท่านนั้นเคยพูดกับผมว่า &quot;พออายุมากขึ้น เวลาคิดถึงความตาย ความหวาดกลัวก็เข้ามาค่ะ&quot; ผมฟังแล้วเจ็บปวดใจจริงๆ ผมมีทั้งลูก มีทั้งหลาน ผมจึงไม่อาจพูดได้ว่าเข้าใจความรู้สึกของท่านได้ทั้งหมด</p>
+    <p class="de">Dabei ist mir plötzlich noch ein Gedanke gekommen. In unserer Gemeinde gibt es ein Ehepaar, das sich lange Zeit sehr bemüht hat, ein Kind zu bekommen. Sie haben es sogar mehrmals mit künstlicher Befruchtung versucht, aber am Ende haben sie kein Kind bekommen. Diese Schwester hat mir vor einiger Zeit gesagt: „Wenn ich älter werde und an den Tod denke, überkommt mich die Angst.“ Als ich das gehört habe, hat mir das sehr wehgetan. Ich habe Kinder, und ich habe einen Enkel. Deshalb kann ich nicht sagen, dass ich ihre Gefühle ganz verstehe.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">하지만 손자를 통해 제가 배운 것이 하나 있습니다. 하나님의 은혜는 손자가 있는 사람에게만 주어지는 것이 아니고, 자녀가 있는 사람에게만 주어지는 것도 아닙니다.</p>
+    <p class="tgt en">But my grandson has taught me one thing. God's grace is not reserved for those who have grandchildren. It is not reserved for those who have children.</p>
+    <p class="zh">但是透过孙子，我学到了一件事。神的恩典不是只给有孙子的人，也不是只给有儿女的人。</p>
+    <p class="th">แต่มีสิ่งหนึ่งที่ผมได้เรียนรู้ผ่านหลานของผม พระคุณของพระผู้เป็นเจ้าไม่ได้ประทานให้เฉพาะคนที่มีหลานเท่านั้น และไม่ได้ประทานให้เฉพาะคนที่มีลูกเท่านั้นเช่นกัน</p>
+    <p class="de">Aber durch meinen Enkel habe ich eines gelernt. Gottes Gnade wird nicht nur denen gegeben, die einen Enkel haben. Und sie wird auch nicht nur denen gegeben, die Kinder haben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">우리는 흔히 가족의 숫자로 축복을 생각할 때가 있습니다. 하지만 하나님께서는 우리의 축복을 그렇게 계산하지 않으십니다. 어떤 분은 자녀를 통해 하나님의 사랑을 배우고, 어떤 분은 병을 통해, 어떤 분은 외로움을 통해, 어떤 분은 봉사를 통해 하나님의 사랑을 배우십니다. 사람마다 길은 다르지만, 하나님의 은혜는 누구에게나 똑같이 임합니다.</p>
+    <p class="tgt en">We often think of blessings by the number of family members we have. But God does not count our blessings that way. Some learn God's love through their children, some through illness, some through loneliness, and some through service. The path is different for each person, but God's grace comes to everyone the same.</p>
+    <p class="zh">我们常常会用家人的人数来衡量祝福。但是神并不是那样计算我们的祝福的。有人透过儿女学到神的爱，有人透过疾病，有人透过孤单，有人透过服务，学到神的爱。每个人的路都不一样，但是神的恩典临到每一个人都是一样的。</p>
+    <p class="th">เรามักคิดถึงพรเป็นจำนวนสมาชิกในครอบครัวอยู่บ่อยๆ แต่พระผู้เป็นเจ้าไม่ทรงคำนวณพรของเราแบบนั้น บางท่านเรียนรู้ความรักของพระผู้เป็นเจ้าผ่านลูก บางท่านผ่านความเจ็บป่วย บางท่านผ่านความเหงา บางท่านก็เรียนรู้ความรักของพระผู้เป็นเจ้าผ่านการรับใช้ เส้นทางของแต่ละคนต่างกัน แต่พระคุณของพระผู้เป็นเจ้ามาถึงทุกคนเท่ากัน</p>
+    <p class="de">Manchmal messen wir den Segen an der Zahl der Familienmitglieder. Aber so rechnet Gott unseren Segen nicht. Der eine lernt Gottes Liebe durch seine Kinder kennen, ein anderer durch Krankheit, ein anderer durch Einsamkeit, ein anderer durch das Dienen. Die Wege sind bei jedem anders. Aber Gottes Gnade kommt zu jedem gleich.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">그리고 이 생에서 이루어지지 않은 모든 의로운 소망은, 주님의 시간 안에서 반드시 완전하게 이루어질 것이라는 약속을 우리는 믿습니다. 그 약속이 있기 때문에 우리는 희망을 가질 수 있습니다.</p>
+    <p class="tgt en">And we believe in this promise: every righteous desire that is not fulfilled in this life will be fulfilled, surely and completely, in the Lord's time. Because of that promise, we can have hope.</p>
+    <p class="zh">我们相信这样一个应许：今生没有实现的一切正义的愿望，在主的时间里必定会完全实现。因为有这个应许，我们才能够怀有希望。</p>
+    <p class="th">และเราเชื่อในคำสัญญาที่ว่า ความปรารถนาอันชอบธรรมทั้งหมดที่ไม่ได้เป็นจริงในชีวิตนี้ จะเป็นจริงอย่างสมบูรณ์แน่นอนในเวลาของพระเจ้า เพราะมีคำสัญญานั้น เราจึงมีความหวังได้</p>
+    <p class="de">Und wir glauben an eine Verheißung: Jeder rechtschaffene Wunsch, der in diesem Leben nicht in Erfüllung geht, wird in der Zeit des Herrn ganz sicher vollkommen erfüllt. Weil es diese Verheißung gibt, können wir Hoffnung haben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">손자를 보면서 또 하나 배운 것이 있습니다. 아기는 하루에도 수없이 넘어집니다. 먹다가 흘리고, 울고, 실수합니다. 하지만 부모는 &quot;왜 또 그랬니?&quot; 라고 하지 않습니다. 다시 안아 줍니다. 다시 먹여 줍니다. 다시 일으켜 세워 줍니다.</p>
+    <p class="tgt en">Watching my grandson has taught me something else. A baby falls down countless times a day. He spills his food, he cries, he makes mistakes. But his parents do not say, &quot;Why did you do that again?&quot; Again they hold him. Again they feed him. Again they set him back on his feet.</p>
+    <p class="zh">看着孙子，我还学到另一件事。婴儿一天里不知道要跌倒多少次。吃东西会洒出来，会哭，会出错。但是父母不会说：「你怎么又这样？」他们会再抱他。会再喂他。会再把他扶起来。</p>
+    <p class="th">มีอีกสิ่งหนึ่งที่ผมได้เรียนรู้จากการมองดูหลาน ทารกล้มวันหนึ่งนับครั้งไม่ถ้วน กินก็หก ร้องไห้ ทำผิดพลาด แต่พ่อแม่ไม่พูดว่า &quot;ทำไมถึงทำอีกแล้ว&quot; พ่อแม่อุ้มขึ้นมาอีกครั้ง ป้อนอาหารให้อีกครั้ง พยุงให้ลุกขึ้นยืนอีกครั้ง</p>
+    <p class="de">Von meinem Enkel habe ich noch etwas gelernt. Ein Baby fällt am Tag unzählige Male hin. Es kleckert beim Essen, es weint, es macht Fehler. Aber die Eltern sagen nicht: „Warum machst du das schon wieder?“ Wieder nehmen sie es in den Arm. Wieder füttern sie es. Wieder richten sie es auf.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src ko">불완전한 부모도 이렇게 인내하는데, 완전하신 하나님 아버지는 우리를 얼마나 더 오래 참아 주실까요? 우리는 같은 실수를 반복할 때가 있습니다. 그럴 때마다 &quot;하나님께서도 이제는 나를 포기하셨겠지.&quot; 라고 생각하기 쉽습니다. 하지만 하나님은 우리가 아직 배우고 있는 자녀라는 것을 누구보다 잘 아십니다. 그래서 우리를 포기하지 않으십니다.</p>
+    <p class="tgt en">If even imperfect parents are this patient, how much more patient must our perfect Heavenly Father be with us? There are times when we repeat the same mistakes. At those times it is easy to think, &quot;By now even God must have given up on me.&quot; But God knows better than anyone that we are children who are still learning. So He does not give up on us.</p>
+    <p class="zh">不完全的父母都这样忍耐，那么完全的天父，又会对我们忍耐多久呢？我们有时候会一再犯同样的错。每当那种时候，我们很容易想：「神现在大概也已经放弃我了吧。」但是神比谁都清楚，我们还是正在学习的孩子。所以祂不会放弃我们。</p>
+    <p class="th">ขนาดพ่อแม่ที่ไม่ดีพร้อมยังอดทนได้ถึงเพียงนี้ พระบิดาบนสวรรค์ผู้ทรงดีพร้อมจะทรงอดทนต่อเรานานกว่านั้นสักเพียงใด บางครั้งเราทำผิดซ้ำแล้วซ้ำเดิม ทุกครั้งที่เป็นอย่างนั้น เราก็มักจะคิดไปว่า &quot;ป่านนี้พระผู้เป็นเจ้าก็คงทรงยอมแพ้ในตัวฉันแล้ว&quot; แต่พระผู้เป็นเจ้าทรงทราบดียิ่งกว่าใครว่าเราเป็นบุตรที่ยังเรียนรู้อยู่ พระองค์จึงไม่ทรงยอมแพ้ในตัวเรา</p>
+    <p class="de">Wenn schon unvollkommene Eltern so viel Geduld haben – wie viel länger hat dann der vollkommene himmlische Vater Geduld mit uns? Manchmal machen wir denselben Fehler immer wieder. Jedes Mal kommt uns dann leicht der Gedanke: „Jetzt hat Gott mich wohl aufgegeben.“ Aber Gott weiß besser als jeder andere, dass wir Kinder sind, die noch lernen. Darum gibt er uns nicht auf.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src ko">최근 교회의 모임도 많이 달라졌습니다. 예전보다 성찬식 이후의 모임 시간이 짧아졌습니다. 장로정원회도, 상호부조회도, 주일학교도, 더 간결해졌습니다. 예전에 어느 총관리 역원의 말씀이 기억납니다. 정확한 표현은 아니지만 이런 뜻이었습니다. &quot;이제는 교회에 와서 무엇을 배우느냐보다, 교회에 와서 무엇을 나누느냐가 더 중요해지는 시대입니다.&quot; 저는 그 말씀이 참 마음에 남았습니다.</p>
+    <p class="tgt en">Church meetings have changed a great deal recently. The meetings after sacrament meeting are shorter than they used to be. Elders quorum, Relief Society, and Sunday School have all become simpler. I remember something a General Authority once said. These were not his exact words, but this was the sense of it: &quot;Today, what is becoming more important is not what we learn when we come to church, but what we share when we come to church.&quot; Those words truly stayed with me.</p>
+    <p class="zh">最近教会的聚会也有很多改变。圣餐聚会之后的聚会时间，比以前短了。长老定额组也好，慈助会也好，主日学也好，都变得更简短了。我想起以前一位总会持有权柄人员说过的话。不是原本的用词，但意思是这样的：「现在这个时代，比起来教会学到什么，来教会分享什么变得更重要了。」这句话真的留在我心里。</p>
+    <p class="th">ช่วงหลังมานี้การประชุมของศาสนจักรก็เปลี่ยนไปมาก เวลาประชุมหลังการประชุมศีลระลึกสั้นลงกว่าเมื่อก่อน ทั้งโควรัมเอ็ลเดอร์ ทั้งสมาคมสงเคราะห์ ทั้งโรงเรียนวันอาทิตย์ ต่างก็กระชับขึ้น ผมจำคำพูดของเจ้าหน้าที่ชั้นผู้ใหญ่ท่านหนึ่งเมื่อนานมาแล้วได้ ไม่ใช่ถ้อยคำตรงตามนั้นเป๊ะ แต่ความหมายเป็นทำนองนี้ครับ &quot;ยุคนี้กำลังเป็นยุคที่สิ่งสำคัญไม่ใช่ว่ามาโบสถ์แล้วเราได้เรียนรู้อะไร แต่คือมาโบสถ์แล้วเราได้แบ่งปันอะไร&quot; คำพูดนั้นยังคงติดอยู่ในใจผม</p>
+    <p class="de">In letzter Zeit haben sich auch die Versammlungen in der Kirche stark verändert. Nach der Abendmahlsversammlung dauern die Versammlungen kürzer als früher. Auch das Ältestenkollegium, auch die Frauenhilfsvereinigung, auch die Sonntagsschule: Alles ist knapper geworden. Ich erinnere mich an etwas, das vor einiger Zeit eine Generalautorität gesagt hat. Es sind nicht die genauen Worte, aber sinngemäß war es das: „Heute leben wir in einer Zeit, in der es weniger darauf ankommt, was wir lernen, wenn wir in die Kirche kommen, als darauf, was wir miteinander teilen, wenn wir in die Kirche kommen.“ Diese Worte sind mir sehr im Herzen geblieben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">생각해 보면, 할아버지가 되어서 제가 깨달은 것도 새로운 교리가 아니었습니다. 새로운 지식도 아니었습니다. 조금 더 하나님의 사랑을 느꼈고, 그 사랑을 여러분과 함께 나누고 싶었습니다. 어쩌면 우리가 교회에 오는 이유도 바로 이것이 아닐까요? 서로가 경험한 하나님의 은혜를 나누고, 누군가는 위로를 받고, 누군가는 희망을 얻고, 누군가는 다시 일어설 힘을 얻는 것입니다.</p>
+    <p class="tgt en">When I think about it, what I came to understand by becoming a grandfather was not new doctrine. It was not new knowledge. I felt God's love a little more, and I wanted to share that love with you. Could this also be why we come to church? To share the grace of God that each of us has experienced, so that someone receives comfort, someone finds hope, and someone finds the strength to stand up again.</p>
+    <p class="zh">想一想，我成为爷爷以后所明白的，也不是什么新的教义。也不是什么新的知识。我多感受到了一点神的爱，也想把那份爱和大家一起分享。也许我们来教会的理由，也正是这个吧？彼此分享自己所经历的神的恩典，有人因此得到安慰，有人得到希望，有人得到重新站起来的力量。</p>
+    <p class="th">ลองคิดดูแล้ว สิ่งที่ผมตระหนักได้จากการเป็นปู่ก็ไม่ใช่หลักคำสอนใหม่ ไม่ใช่ความรู้ใหม่ ผมเพียงรู้สึกถึงความรักของพระผู้เป็นเจ้ามากขึ้นอีกนิด และอยากแบ่งปันความรักนั้นร่วมกับทุกท่าน บางทีนี่อาจเป็นเหตุผลที่เรามาโบสถ์ด้วยก็ได้ไม่ใช่หรือครับ คือการแบ่งปันพระคุณของพระผู้เป็นเจ้าที่แต่ละคนได้ประสบมา แล้วบางคนก็ได้รับการปลอบโยน บางคนได้รับความหวัง บางคนได้รับพลังที่จะลุกขึ้นอีกครั้ง</p>
+    <p class="de">Wenn ich darüber nachdenke: Was ich als Großvater verstanden habe, war auch keine neue Lehre. Es war auch kein neues Wissen. Ich habe Gottes Liebe ein wenig mehr gespürt, und ich wollte diese Liebe mit Ihnen teilen. Ist das vielleicht auch der Grund, warum wir in die Kirche kommen? Wir teilen miteinander die Gnade Gottes, die wir erlebt haben: Der eine wird getröstet, ein anderer bekommt Hoffnung, ein anderer bekommt die Kraft, wieder aufzustehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">저는 앞으로도 손자를 보면서 많은 것을 배우게 될 것 같습니다. 하지만 지금까지 배운 가장 큰 교훈은 이것입니다. 하나님께서는 우리가 잘해서 사랑하시는 것이 아니라, 하나님의 자녀이기 때문에 사랑하신다는 것입니다.</p>
+    <p class="tgt en">I think I will keep learning many things from my grandson. But the greatest lesson so far is this: God loves us, not because we do well, but because we are children of God.</p>
+    <p class="zh">我想以后看着孙子，我还会学到很多。但是到目前为止，我学到的最大的一课是这个：神爱我们，不是因为我们做得好，而是因为我们是神的儿女。</p>
+    <p class="th">ต่อจากนี้ผมคงจะได้เรียนรู้อีกหลายอย่างจากการมองดูหลาน แต่บทเรียนที่ยิ่งใหญ่ที่สุดที่ผมได้เรียนรู้มาจนถึงตอนนี้คือสิ่งนี้ครับ พระผู้เป็นเจ้าไม่ได้ทรงรักเราเพราะเราทำดี แต่ทรงรักเราเพราะเราเป็นบุตรของพระผู้เป็นเจ้า</p>
+    <p class="de">Ich werde von meinem Enkel wohl auch weiterhin viel lernen. Aber das Wichtigste, was ich bis jetzt gelernt habe, ist das: Gott liebt uns nicht, weil wir etwas gut machen. Er liebt uns, weil wir Kinder Gottes sind.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">그리고 그 사랑은 자녀가 있는 사람에게도, 없는 사람에게도, 기쁨 가운데 있는 사람에게도, 슬픔 가운데 있는 사람에게도, 똑같이 주어집니다.</p>
+    <p class="tgt en">And to those who have children and to those who do not, to those in joy and to those in sorrow, that love is given equally.</p>
+    <p class="zh">而且那份爱，对有儿女的人，对没有儿女的人，对在喜乐中的人，对在悲伤中的人，都同样地赐给他们。</p>
+    <p class="th">และความรักนั้นประทานให้ทั้งคนที่มีลูก ทั้งคนที่ไม่มีลูก ทั้งคนที่อยู่ในความชื่นชมยินดี ทั้งคนที่อยู่ในความโศกเศร้า เท่ากันทุกคน</p>
+    <p class="de">Und diese Liebe wird allen gleich gegeben: denen, die Kinder haben, und denen, die keine haben; denen, die in Freude leben, und denen, die in Trauer leben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src ko">저는 예수 그리스도의 은혜가 모든 사람에게 충분하다는 것을 믿습니다. 그리고 그 은혜가 우리 각자의 삶 속에서 서로 다른 모습으로 나타나지만, 결국 모두를 하나님께로 인도한다는 것을 믿습니다.</p>
+    <p class="tgt en">I believe that the grace of Jesus Christ is sufficient for every person. And although grace appears in different ways in each of our lives, I believe that in the end it leads us all to God.</p>
+    <p class="zh">我相信，耶稣基督的恩典对每一个人都是足够的。我也相信，那恩典在我们每个人的生活中，会以不同的样子显现出来，但最后都会引导每一个人归向神。</p>
+    <p class="th">ผมเชื่อว่าพระคุณของพระเยซูคริสต์เพียงพอสำหรับทุกคน และผมเชื่อว่าแม้พระคุณนั้นจะปรากฏในชีวิตของเราแต่ละคนในรูปแบบที่ต่างกัน แต่ในที่สุดพระคุณนั้นจะนำทุกคนไปสู่พระผู้เป็นเจ้า</p>
+    <p class="de">Ich glaube, dass die Gnade Jesu Christi für alle Menschen ausreicht. Und ich glaube: Diese Gnade zeigt sich im Leben von jedem von uns anders, aber am Ende führt sie uns alle zu Gott.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">20</span>
+    <p class="src ko">오늘 이 자리에 계신 모든 분들이 하나님의 사랑을 느끼시고, 또한 그 사랑을 다른 사람에게 나누는 한 주가 되시기를 바랍니다. 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="tgt en">I hope that in the week ahead, all of you here today will feel God's love, and share that love with others. In the name of Jesus Christ, amen.</p>
+    <p class="zh">愿今天在座的每一位都感受到神的爱，也愿这一个星期，大家能把那份爱分享给别人。奉耶稣基督的名，阿们。</p>
+    <p class="th">ผมหวังว่าทุกท่านที่อยู่ ณ ที่นี้ในวันนี้จะได้รู้สึกถึงความรักของพระผู้เป็นเจ้า และขอให้สัปดาห์นี้เป็นสัปดาห์ที่ท่านได้แบ่งปันความรักนั้นแก่ผู้อื่นด้วย ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Ich wünsche Ihnen allen, die heute hier sind, eine Woche, in der Sie Gottes Liebe spüren und diese Liebe mit anderen teilen. Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

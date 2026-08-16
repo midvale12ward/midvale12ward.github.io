@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eternal Life Is for Those Who Want It · 영생은 그것을 원하는 사람들의 것입니다</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Eternal Life Is for Those Who Want It</span><span class="ko">영생은 그것을 원하는 사람들의 것입니다</span><span class="zh">永生属于想要永生的人</span><span class="th">ชีวิตนิรันดร์มีไว้สำหรับผู้ที่ต้องการ</span><span class="de">Das ewige Leben ist für die, die es wollen</span></h1>
+  <p class="byline">Brother Matt Wagner · 매트 와그너 형제 &nbsp;·&nbsp; 16 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair cite">
+    <span class="turn">1</span>
+    <p class="lead src en">Our theme this year is Eternal Life. We’ve talked a lot about becoming more like Jesus and the grace of God. Sometimes when I talk about being saved by grace, people quote Nephi, saying</p>
+    <blockquote class="src en">we know that it is by grace that we are saved, after all we can do.<cite>2 Nephi 25:23</cite></blockquote>
+    <p class="lead tgt ko">올해 우리의 주제는 영생입니다. 우리는 예수님을 더 닮아 가는 것과 하나님의 은혜에 대해 많이 이야기해 왔습니다. 제가 은혜로 구원받는 것에 대해 이야기할 때면, 사람들이 이따금 니파이의 이 말씀을 인용합니다.</p>
+    <blockquote class="tgt ko">이는 우리가 할 수 있는 모든 것 후에 우리가 구원받는 것이 은혜에 의한 것임을 우리가 앎이라.<cite>2 Nephi 25:23</cite></blockquote>
+    <p class="lead zh">我们今年的主题是永生。我们谈了很多关于变得更像耶稣，以及神的恩典。有时候我谈到借着恩典得救，会有人引用尼腓的话说：</p>
+    <blockquote class="zh">我们知道，在我们尽力而为后，才能借着恩典得救。<cite>2 Nephi 25:23</cite></blockquote>
+    <p class="lead th">หัวข้อของเราในปีนี้คือชีวิตนิรันดร์ เราได้พูดกันมากเรื่องการเป็นเหมือนพระเยซูมากขึ้นและพระคุณของพระผู้เป็นเจ้า บางครั้งเมื่อข้าพเจ้าพูดถึงการได้รับการช่วยให้รอดโดยพระคุณ ผู้คนจะยกคำพูดของนีไฟที่ว่า</p>
+    <blockquote class="th">เรารู้ว่าโดยพระคุณนั่นเองที่เราได้รับการช่วยให้รอด, หลังจากเราทำทุกสิ่งจนสุดความสามารถแล้ว.<cite>2 Nephi 25:23</cite></blockquote>
+    <p class="lead de">Unser Thema in diesem Jahr ist das ewige Leben. Wir haben viel darüber gesprochen, Jesus ähnlicher zu werden, und über die Gnade Gottes. Manchmal, wenn ich davon spreche, dass wir durch Gnade errettet werden, zitieren Leute Nephi und sagen:</p>
+    <blockquote class="de">wir wissen, dass wir durch Gnade errettet werden, nach allem, was wir tun können.<cite>2 Nephi 25:23</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">2</span>
+    <p class="lead src en">Many people think we do most of the work, and Jesus makes up the difference. This idea badly overstates our contribution compared to Jesus’s contribution. I love this quote from Elder Holland:</p>
+    <blockquote class="src en">Jesus said, “Without me ye can do nothing.” I testify that that is God’s truth. Christ is everything to us, and we are to “abide” in Him permanently, unyieldingly, steadfastly, forever. For the fruit of the gospel to blossom and bless our lives, we must be firmly attached to Him, the Savior of us all, and to this, His Church, which bears His holy name. He is the vine that is our true source of strength and the only source of eternal life.<cite>Jeffrey R. Holland, &quot;Abide in Me,&quot; April 2004</cite></blockquote>
+    <p class="lead tgt ko">많은 사람들은 우리가 일의 대부분을 하고, 예수님께서 부족한 부분을 채워 주신다고 생각합니다. 이런 생각은 예수님의 몫에 비해 우리의 몫을 지나치게 부풀리는 것입니다. 저는 홀런드 장로님의 이 말씀을 참 좋아합니다.</p>
+    <blockquote class="tgt ko">예수님은 이렇게 말씀하셨습니다. “나를 떠나서는 너희가 아무 것도 할 수 없음이라” 우리는 그분의 말씀을 믿습니다. 우리는 그분 안에 영원히, 단단히, 굳건히, 영원토록, “거하게” 될 것입니다. 복음의 열매가 우리 생활을 꽃피우고 축복하기 위해 우리는 우리 모두의 구세주, 주 예수 그리스도와 그분의 거룩한 이름을 지닌 그분의 교회에 단단히 묶여 있어야 합니다. 그분만이 우리 힘의 참 근원이며 또 영생의 유일한 근원인 포도나무이기 때문에 우리는 견디게 될 뿐만 아니라 또한 그분의 재림 시에 널리 퍼져 결코 우리를 실망시키지 않을 이 거룩한 대업에서 승리를 거둘 것입니다.<cite>Jeffrey R. Holland, &quot;Abide in Me,&quot; April 2004</cite></blockquote>
+    <p class="lead zh">许多人以为大部分的工作是我们做的，不足的部分由耶稣补足。和耶稣的贡献相比，这种想法严重夸大了我们的贡献。我很喜欢贺伦长老说的这段话：</p>
+    <blockquote class="zh">耶稣说：「离了我，你们就不能做什么。」我见证这是神的真理。基督是我们的一切；我们要永久地、毫不动摇地、坚定不移地「常在」祂里面，直到永远。为了使福音的果子在我们的生活中开花结果、赐我们祝福，我们必须紧紧依附于祂，我们众人的救主，也紧紧依附于这个承载着祂圣名的教会。祂就是那葡萄树，是我们力量的真正泉源，也是永生的唯一泉源。<cite>Jeffrey R. Holland, &quot;Abide in Me,&quot; April 2004</cite></blockquote>
+    <p class="lead th">หลายคนคิดว่าเราทำงานส่วนใหญ่ และพระเยซูทรงเติมส่วนที่ยังขาด ความคิดนี้ประเมินส่วนของเราสูงเกินจริงอย่างมากเมื่อเทียบกับส่วนของพระเยซู ข้าพเจ้าชอบคำกล่าวนี้ของเอ็ลเดอร์ฮอลแลนด์:</p>
+    <blockquote class="th">พระเยซูตรัสว่า &quot;ถ้าแยกจากเราแล้วพวกท่านจะทำสิ่งใดไม่ได้เลย&quot; ข้าพเจ้าเป็นพยานว่านั่นคือความจริงของพระผู้เป็นเจ้า พระคริสต์ทรงเป็นทุกสิ่งสำหรับเรา และเราต้อง &quot;ติดสนิท&quot; อยู่ในพระองค์อย่างถาวร อย่างไม่ยอมลดละ อย่างแน่วแน่ ตลอดกาล เพื่อให้ผลแห่งพระกิตติคุณเบ่งบานและเป็นพรแก่ชีวิตเรา เราต้องยึดแน่นอยู่กับพระองค์ พระผู้ช่วยให้รอดของเราทุกคน และกับศาสนจักรแห่งนี้ของพระองค์ ซึ่งมีพระนามอันศักดิ์สิทธิ์ของพระองค์เป็นชื่อ พระองค์ทรงเป็นเถาองุ่นซึ่งเป็นแหล่งที่แท้จริงแห่งพลังของเรา และเป็นแหล่งเดียวแห่งชีวิตนิรันดร์<cite>Jeffrey R. Holland, &quot;Abide in Me,&quot; April 2004</cite></blockquote>
+    <p class="lead de">Viele denken, dass wir den größten Teil der Arbeit tun und Jesus den Rest ausgleicht. Diese Vorstellung übertreibt unseren Beitrag im Vergleich zum Beitrag Jesu gewaltig. Mir gefällt dieses Zitat von Elder Holland sehr gut:</p>
+    <blockquote class="de">Jesus hat gesagt: „Getrennt von mir könnt ihr nichts vollbringen.“ Ich bezeuge, dass dies Gottes Wahrheit ist. Christus ist alles für uns und wir müssen beständig „in ihm bleiben“, unnachgiebig, standhaft und für immer. Damit die Früchte des Evangeliums gedeihen und uns Segen bringen, müssen wir treu an ihm, der unser aller Erretter ist, festhalten und an dieser, nämlich seiner Kirche, die seinen heiligen Namen trägt. Er ist der Weinstock, ist also unsere wahre Kraftquelle und die einzige Quelle ewigen Lebens.<cite>Jeffrey R. Holland, &quot;Abide in Me,&quot; April 2004</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">Without Jesus, even “all we can do” would not be possible.</p>
+    <p class="tgt ko">예수님이 안 계시다면, “우리가 할 수 있는 모든 것”조차도 불가능할 것입니다.</p>
+    <p class="zh">没有耶稣，连「我们尽力而为」都不可能做到。</p>
+    <p class="th">หากปราศจากพระเยซูแล้ว แม้แต่ &quot;ทุกสิ่งจนสุดความสามารถ&quot; ของเราก็จะเป็นไปไม่ได้</p>
+    <p class="de">Ohne Jesus wäre nicht einmal „alles, was wir tun können“ möglich.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">4</span>
+    <p class="lead src en">Interestingly, 200 years ago, when Joseph Smith translated 2 Nephi, “saved by grace, after all we can do” meant something more like, “even after all we can do, we’re saved by grace.” This makes me think of a statement in Alma 24:</p>
+    <blockquote class="src en">it was all we could do to repent sufficiently before God that he would take away our stain.<cite>Alma 24:11</cite></blockquote>
+    <p class="lead tgt ko">흥미롭게도, 200년 전 조셉 스미스가 니파이후서를 번역할 당시의 영어에서 “우리가 할 수 있는 모든 것 후에 은혜로 구원받는다”는 말은 “우리가 할 수 있는 모든 것에도 불구하고 우리는 은혜로 구원받는다”는 뜻에 더 가까웠습니다. 여기서 저는 앨마서 24장에 나오는 한 말씀이 생각납니다.</p>
+    <blockquote class="tgt ko">이는 우리가 할 수 있었던 일이 하나님 앞에 충분히 회개하여 그로 우리의 오점을 제하시게 하는 것이 전부였음인즉<cite>Alma 24:11</cite></blockquote>
+    <p class="lead zh">有意思的是，两百年前约瑟·斯密翻译尼腓二书的时候，「在我们尽力而为后，才能借着恩典得救」这句英文的意思，其实更接近「即使在我们尽力而为之后，我们仍是借着恩典得救」。这让我想起阿尔玛书第24章里的一句话：</p>
+    <blockquote class="zh">我们所能做的就是在神前充分悔改，让祂除去我们的污点。<cite>Alma 24:11</cite></blockquote>
+    <p class="lead th">น่าสนใจว่า เมื่อ 200 ปีก่อน ตอนที่โจเซฟ สมิธแปล 2 นีไฟ วลีภาษาอังกฤษที่ว่า &quot;ได้รับการช่วยให้รอดโดยพระคุณ หลังจากเราทำทุกสิ่งจนสุดความสามารถแล้ว&quot; มีความหมายในทำนองว่า &quot;แม้หลังจากเราทำทุกสิ่งจนสุดความสามารถแล้ว เราก็ยังได้รับการช่วยให้รอดโดยพระคุณ&quot; ข้อความนี้ทำให้ข้าพเจ้านึกถึงถ้อยคำหนึ่งใน แอลมา 24:</p>
+    <blockquote class="th">นั่นคือทั้งหมดที่เราทำได้เพื่อกลับใจอย่างเพียงพอต่อพระพักตร์พระผู้เป็นเจ้าเพื่อพระองค์จะทรงขจัดรอยเปื้อนของเราไป<cite>Alma 24:11</cite></blockquote>
+    <p class="lead de">Interessanterweise bedeutete „durch Gnade errettet, nach allem, was wir tun können“ vor 200 Jahren im Englischen, als Joseph Smith 2 Nephi übersetzte, eher so etwas wie: „Selbst nach allem, was wir tun können, werden wir durch Gnade errettet.“ Das erinnert mich an eine Aussage in Alma 24:</p>
+    <blockquote class="de">das war alles, was wir tun konnten, um vor Gott genügend umzukehren, dass er unseren Makel wegnimmt.<cite>Alma 24:11</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">5</span>
+    <p class="lead src en">King Benjamin raised the bar, saying,</p>
+    <blockquote class="src en">if ye should serve him with all your whole souls yet ye would be unprofitable servants.<cite>Mosiah 2:21</cite></blockquote>
+    <p class="lead tgt ko">베냐민 왕은 한 걸음 더 나아가 이렇게 말했습니다.</p>
+    <blockquote class="tgt ko">설혹 너희가 너희 온 영혼을 다해 그를 섬긴다 할지라도 너희는 오히려 무익한 종일 것이니라.<cite>Mosiah 2:21</cite></blockquote>
+    <p class="lead zh">便雅悯王把标准提得更高，他说：</p>
+    <blockquote class="zh">即使你们全心全意事奉祂，你们仍是无用的仆人。<cite>Mosiah 2:21</cite></blockquote>
+    <p class="lead th">กษัตริย์เบ็นจามินยกมาตรฐานให้สูงขึ้นอีก โดยกล่าวว่า</p>
+    <blockquote class="th">หากท่านจะรับใช้พระองค์ด้วยจิตวิญญาณทั้งดวงของท่านแล้วท่านก็จะยังเป็นผู้รับใช้ที่ไม่สมค่า.<cite>Mosiah 2:21</cite></blockquote>
+    <p class="lead de">König Benjamin legte die Messlatte höher und sagte:</p>
+    <blockquote class="de">wenn ihr ihm mit all eurer ganzen Seele dientet, wärt ihr dennoch unnütze Diener.<cite>Mosiah 2:21</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">6</span>
+    <p class="lead src en">Even Nephi later clarified our dependence on Jesus, saying,</p>
+    <blockquote class="src en">ye have not come thus far save it were by the word of Christ with unshaken faith in him, relying wholly upon the merits of him who is mighty to save.<cite>2 Nephi 31:19</cite></blockquote>
+    <p class="lead tgt ko">니파이 자신도 나중에 우리가 예수님께 의지하고 있음을 분명히 밝히며 이렇게 말했습니다.</p>
+    <blockquote class="tgt ko">이는 너희가 구원하기에 능하신 자의 공덕에 온전히 의지하며, 그를 믿는 흔들리지 않는 신앙으로 그리스도의 말씀에 의지하지 아니하고서는 거기까지 이르지 못한 것임이니라.<cite>2 Nephi 31:19</cite></blockquote>
+    <p class="lead zh">尼腓后来也阐明了我们对耶稣的依赖，他说：</p>
+    <blockquote class="zh">你们还没有到这程度，除非你们已根据基督的话，以对祂不可动摇的信心，完全依赖那位有拯救大能者的功劳。<cite>2 Nephi 31:19</cite></blockquote>
+    <p class="lead th">แม้แต่นีไฟเองก็ยังชี้แจงในเวลาต่อมาถึงการที่เราต้องพึ่งพาพระเยซู โดยกล่าวว่า</p>
+    <blockquote class="th">ท่านมาถึงตรงนี้ไม่ได้นอกจากเป็นไปโดยพระวจนะของพระคริสต์พร้อมด้วยศรัทธาอันไม่สั่นคลอนในพระองค์, โดยวางใจอย่างเต็มที่ในคุณงามความดีของพระองค์ผู้ทรงอานุภาพที่จะช่วยให้รอด.<cite>2 Nephi 31:19</cite></blockquote>
+    <p class="lead de">Sogar Nephi machte später deutlich, wie sehr wir auf Jesus angewiesen sind, und sagte:</p>
+    <blockquote class="de">ihr seid nur durch das Wort von Christus, mit unerschütterlichem Glauben an ihn so weit gekommen und habt euch ganz auf die Verdienste dessen verlassen, der mächtig ist zu erretten.<cite>2 Nephi 31:19</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">Of course, we can’t just do nothing and expect to be saved. That would be like riding a bicycle without pedaling. But even if you pedal as hard as you can, you didn’t invent the bicycle. You didn’t pave the road. You didn’t create gravity, or inertia, or your own ability to balance. That’s all grace.</p>
+    <p class="tgt ko">물론 우리가 아무것도 하지 않으면서 구원받기를 기대할 수는 없습니다. 그것은 페달을 밟지 않고 자전거를 타는 것과 같습니다. 하지만 아무리 힘껏 페달을 밟는다 해도, 자전거를 발명한 것은 여러분이 아닙니다. 길을 포장한 것도 여러분이 아닙니다. 중력도, 관성도, 균형을 잡는 여러분 자신의 능력도 여러분이 만든 것이 아닙니다. 그 모든 것이 은혜입니다.</p>
+    <p class="zh">当然，我们不能什么都不做，却期望得救。那就像骑自行车却不踩踏板。可是，即使你拼尽全力地踩，自行车不是你发明的。路不是你铺的。地心引力不是你造的，惯性不是你造的，你自己保持平衡的能力也不是你造的。这一切都是恩典。</p>
+    <p class="th">แน่นอนว่าเราจะอยู่เฉยๆ โดยไม่ทำอะไรเลยแล้วหวังว่าจะรอดไม่ได้ นั่นก็เหมือนการขี่จักรยานโดยไม่ถีบ แต่ถึงแม้ท่านจะถีบจนสุดแรง ท่านก็ไม่ได้เป็นผู้ประดิษฐ์จักรยาน ท่านไม่ได้ลาดถนน ท่านไม่ได้สร้างแรงโน้มถ่วง หรือความเฉื่อย หรือแม้แต่ความสามารถในการทรงตัวของท่านเอง ทั้งหมดนั้นคือพระคุณ</p>
+    <p class="de">Natürlich können wir nicht einfach nichts tun und erwarten, errettet zu werden. Das wäre so, als würde man Fahrrad fahren, ohne zu treten. Aber selbst wenn Sie so kräftig in die Pedale treten, wie Sie können, haben Sie das Fahrrad nicht erfunden. Sie haben die Straße nicht gepflastert. Sie haben weder die Schwerkraft geschaffen noch die Trägheit noch Ihre eigene Fähigkeit, das Gleichgewicht zu halten. Das alles ist Gnade.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">8</span>
+    <p class="lead src en">Doing our best doesn’t qualify us. That’s Jesus’s role. What it does is to demonstrate, for us and for the Lord, our will. And that’s the key to salvation: Alma said,</p>
+    <blockquote class="src en">I know that he allotteth unto men, yea, decreeth unto them decrees which are unalterable, according to their wills, whether they be unto salvation or unto destruction.<cite>Alma 29:4</cite></blockquote>
+    <p class="lead tgt ko">최선을 다하는 것이 우리에게 자격을 주지는 않습니다. 자격을 주시는 것은 예수님의 역할입니다. 최선을 다하는 것은 우리의 뜻을 우리 자신에게 보여 주고, 주님께 보여 드리는 일입니다. 그리고 바로 그것이 구원의 열쇠입니다. 앨마는 이렇게 말했습니다.</p>
+    <blockquote class="tgt ko">그는 사람들에게 배정하시되, 그들의 뜻이 구원에 이르는 것이든지 아니면 멸망에 이르는 것이든지, 그들의 뜻에 따라, 참으로 변경하지 못할 법령을 그들에게 반포하심을 내가 아노라.<cite>Alma 29:4</cite></blockquote>
+    <p class="lead zh">我们尽力而为，并不能使我们取得资格；那是耶稣的角色。尽力而为所成就的，是向我们自己、也向主，显明我们的意愿。而这正是救恩的关键。阿尔玛说：</p>
+    <blockquote class="zh">我知道，祂以不变的命令来命令世人，祂会按照他们的意愿赐给他们救恩或毁灭。<cite>Alma 29:4</cite></blockquote>
+    <p class="lead th">การทำให้ดีที่สุดของเราไม่ได้ทำให้เรามีคุณสมบัติคู่ควร นั่นเป็นบทบาทของพระเยซู สิ่งที่การทำให้ดีที่สุดทำคือแสดงให้ประจักษ์ ทั้งแก่ตัวเราเองและแด่พระเจ้า ถึงความประสงค์ของเรา และนั่นคือกุญแจสู่ความรอด แอลมากล่าวว่า</p>
+    <blockquote class="th">ข้าพเจ้ารู้ว่าพระองค์ทรงมอบให้มนุษย์, แท้จริงแล้ว, ทรงประกาศิตแก่พวกเขาในคำประกาศิตที่เปลี่ยนแปลงไม่ได้, ตามความประสงค์ของพวกเขา, ไม่ว่าจะเป็นไปเพื่อความรอดหรือเพื่อความพินาศ.<cite>Alma 29:4</cite></blockquote>
+    <p class="lead de">Unser Bestes zu geben qualifiziert uns nicht. Das ist die Aufgabe Jesu. Was es tut, ist, uns und dem Herrn unseren Willen zu zeigen. Und das ist der Schlüssel zur Errettung. Alma sagte:</p>
+    <blockquote class="de">ich weiß, er teilt den Menschen zu, ja, beschließt für sie mit unabänderlichen Beschlüssen gemäß ihrem Willen, sei es zur Errettung oder zur Vernichtung.<cite>Alma 29:4</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">9</span>
+    <p class="lead src en">And in Doctrine and Covenants section 137, the Lord said this about the Celestial Kingdom:</p>
+    <blockquote class="src en">all that shall die henceforth without a knowledge of it, who would have received it with all their hearts, shall be heirs of that kingdom; For I, the Lord, will judge all men according to their works, according to the desire of their hearts.<cite>Doctrine and Covenants 137:8-9</cite></blockquote>
+    <p class="lead tgt ko">그리고 교리와 성약 137편에서, 주님은 해의 왕국에 대하여 이렇게 말씀하셨습니다.</p>
+    <blockquote class="tgt ko">이제부터 이 복음을 알지 못하고 죽게 될 자로서 온 마음을 다하여 그것을 받아들였을 자들은 모두 그 왕국의 상속자가 되리니, 이는 나 주가 모든 사람을 그들의 행위에 따라, 그들 마음의 소원에 따라 심판할 것임이니라.<cite>Doctrine and Covenants 137:8-9</cite></blockquote>
+    <p class="lead zh">在教义和圣约第137篇里，主对高荣国度说了这样的话：</p>
+    <blockquote class="zh">所有今后没有认识福音就死去的人，若他们有可能就会全心接受福音的，也必成为那国度的继承人；因为我，主，会按全人类的行为，按他们心中的渴望，审判他们。<cite>Doctrine and Covenants 137:8-9</cite></blockquote>
+    <p class="lead th">และในหลักคำสอนและพันธสัญญา ภาค 137 พระเจ้าตรัสดังนี้เกี่ยวกับอาณาจักรซีเลสเชียล:</p>
+    <blockquote class="th">คนทั้งปวงที่จะตายนับจากนี้ไปโดยปราศจากความรู้ถึงสิ่งนี้เช่นเดียวกัน, ผู้ที่จะรับไว้ด้วยสุดใจของพวกเขา, จะเป็นทายาทของอาณาจักรนั้น; เพราะเรา, พระเจ้า, จะพิพากษามนุษย์ทั้งปวงตามงานของพวกเขา, ตามความปรารถนาของใจพวกเขา.<cite>Doctrine and Covenants 137:8-9</cite></blockquote>
+    <p class="lead de">Und in Lehre und Bündnisse, Abschnitt 137, sagte der Herr dies über das celestiale Reich:</p>
+    <blockquote class="de">alle, die von nun an sterben, ohne davon zu wissen, die es aber von ganzem Herzen angenommen hätten, werden Erben dieses Reiches sein; denn ich, der Herr, werde alle Menschen gemäß ihren Werken richten, gemäß den Wünschen ihres Herzens.<cite>Doctrine and Covenants 137:8-9</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">10</span>
+    <p class="lead src en">What’s actually being judged is not our merit, but our desire to pursue Him and to know Him. Jesus Himself said,</p>
+    <blockquote class="src en">this is life eternal, that they might know thee the only true God, and Jesus Christ, whom thou hast sent.<cite>John 17:3</cite></blockquote>
+    <p class="lead tgt ko">실제로 심판받는 것은 우리의 공덕이 아니라, 그분을 찾고자 하며 그분을 알고자 하는 우리의 소원입니다. 예수님께서 친히 이렇게 말씀하셨습니다.</p>
+    <blockquote class="tgt ko">영생은 곧 유일하신 참 하나님과 그가 보내신 자 예수 그리스도를 아는 것이니이다<cite>John 17:3</cite></blockquote>
+    <p class="lead zh">真正受审判的，不是我们的功劳，而是我们追求祂、认识祂的渴望。耶稣自己说过：</p>
+    <blockquote class="zh">认识你，独一的真神，并且认识你所差来的耶稣基督，这就是永生。<cite>John 17:3</cite></blockquote>
+    <p class="lead th">แท้จริงแล้ว สิ่งที่ได้รับการพิพากษาไม่ใช่คุณงามความดีของเรา แต่เป็นความปรารถนาของเราที่จะแสวงหาพระองค์และรู้จักพระองค์ พระเยซูเองตรัสว่า</p>
+    <blockquote class="th">นี่แหละคือชีวิตนิรันดร์ คือการที่พวกเขารู้จักพระองค์ ผู้ทรงเป็นพระเจ้าเที่ยงแท้องค์เดียว และรู้จักพระเยซูคริสต์ที่พระองค์ทรงใช้มา<cite>John 17:3</cite></blockquote>
+    <p class="lead de">Was tatsächlich beurteilt wird, ist nicht unser Verdienst, sondern unser Wunsch, nach ihm zu streben und ihn kennenzulernen. Jesus selbst hat gesagt:</p>
+    <blockquote class="de">Darin besteht aber das ewige Leben, dass sie dich, den allein wahren Gott, und den du gesandt hast, Jesus Christus, erkennen.<cite>John 17:3</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">So to gain eternal life, the recipe is something like this: 1. Want it more than anything else.
+2. Do our best to follow Jesus.
+3. Receive grace to become more like Him and to know Him better.</p>
+    <p class="tgt ko">그러므로 영생을 얻는 비결은 대략 이렇습니다.
+첫째, 다른 무엇보다도 영생을 원하는 것입니다.
+둘째, 예수님을 따르기 위해 최선을 다하는 것입니다.
+셋째, 그분을 더욱 닮아 가고 그분을 더 잘 알도록 은혜를 받는 것입니다.</p>
+    <p class="zh">所以，要获得永生，方法大概是这样的：1. 比其他任何事物都更想要永生。
+2. 尽我们所能跟从耶稣。
+3. 接受恩典，好变得更像祂，也更认识祂。</p>
+    <p class="th">ดังนั้น เพื่อจะได้รับชีวิตนิรันดร์ สูตรก็เป็นประมาณนี้: 1. ต้องการชีวิตนิรันดร์ยิ่งกว่าสิ่งอื่นใด
+2. ทำให้ดีที่สุดของเราเพื่อติดตามพระเยซู
+3. รับพระคุณเพื่อเป็นเหมือนพระองค์มากขึ้นและรู้จักพระองค์ดีขึ้น</p>
+    <p class="de">Um das ewige Leben zu erlangen, sieht das Rezept also ungefähr so aus: 1. Es mehr wollen als alles andere.
+2. Unser Bestes tun, um Jesus nachzufolgen.
+3. Gnade empfangen, um ihm ähnlicher zu werden und ihn besser kennenzulernen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">How can we measure our desire? In His abundant grace, He has given us many ways. For example: 1. The law of tithing lets us know whether we want Him more than money.
+2. The law of chastity lets us know whether we want Him more than physical pleasure.
+3. The law of the fast lets us know whether we want Him more than a meal or two.
+4. The law of the Sabbath lets us know whether we want him more than worldly pursuits.
+5. The Word of Wisdom lets us know whether we want him more than things we consume.</p>
+    <p class="tgt ko">우리의 소원을 어떻게 가늠할 수 있을까요? 그분은 풍성한 은혜로 우리에게 여러 가지 방법을 주셨습니다. 예를 들어 보겠습니다.
+첫째, 십일조의 법은 우리가 돈보다 그분을 더 원하는지 알게 해 줍니다.
+둘째, 순결의 법은 우리가 육체적인 쾌락보다 그분을 더 원하는지 알게 해 줍니다.
+셋째, 금식의 법은 우리가 한두 끼 식사보다 그분을 더 원하는지 알게 해 줍니다.
+넷째, 안식일의 법은 우리가 세상의 일보다 그분을 더 원하는지 알게 해 줍니다.
+다섯째, 지혜의 말씀은 우리가 섭취하는 것들보다 그분을 더 원하는지 알게 해 줍니다.</p>
+    <p class="zh">我们要怎么衡量自己的渴望呢？祂以丰盛的恩典，给了我们许多方法。例如：1. 什一奉献律法让我们知道，我们想要祂是否胜过想要金钱。
+2. 贞洁律法让我们知道，我们想要祂是否胜过想要肉体的欢愉。
+3. 禁食律法让我们知道，我们想要祂是否胜过想要一两顿饭。
+4. 安息日律法让我们知道，我们想要祂是否胜过想要世俗的追求。
+5. 智慧语让我们知道，我们想要祂是否胜过想要我们所摄取的东西。</p>
+    <p class="th">เราจะวัดความปรารถนาของเราได้อย่างไร? ด้วยพระคุณอันอุดมของพระองค์ พระองค์ประทานหนทางไว้ให้เราหลายทาง ตัวอย่างเช่น: 1. กฎส่วนสิบช่วยให้เรารู้ว่าเราต้องการพระองค์มากกว่าเงินหรือไม่
+2. กฎแห่งความบริสุทธิ์ทางเพศช่วยให้เรารู้ว่าเราต้องการพระองค์มากกว่าความสุขทางกายหรือไม่
+3. กฎแห่งการอดอาหารช่วยให้เรารู้ว่าเราต้องการพระองค์มากกว่าอาหารสักมื้อสองมื้อหรือไม่
+4. กฎวันสะบาโตช่วยให้เรารู้ว่าเราต้องการพระองค์มากกว่าการแสวงหาทางโลกหรือไม่
+5. พระคำแห่งปัญญาช่วยให้เรารู้ว่าเราต้องการพระองค์มากกว่าสิ่งที่เราบริโภคหรือไม่</p>
+    <p class="de">Wie können wir unseren Wunsch messen? In seiner überreichen Gnade hat er uns viele Möglichkeiten gegeben. Zum Beispiel: 1. Das Gesetz des Zehnten lässt uns erkennen, ob wir ihn mehr wollen als Geld.
+2. Das Gesetz der Keuschheit lässt uns erkennen, ob wir ihn mehr wollen als körperliches Vergnügen.
+3. Das Gesetz des Fastens lässt uns erkennen, ob wir ihn mehr wollen als eine Mahlzeit oder zwei.
+4. Das Gesetz des Sabbats lässt uns erkennen, ob wir ihn mehr wollen als weltliche Bestrebungen.
+5. Das Wort der Weisheit lässt uns erkennen, ob wir ihn mehr wollen als das, was wir zu uns nehmen.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">13</span>
+    <p class="lead src en">These aren’t rules to control us. These are windows into our hearts.</p>
+    <blockquote class="src en">For where your treasure is, there will your heart be also.<cite>Matthew 6:21</cite></blockquote>
+    <p class="lead tgt ko">이것들은 우리를 통제하기 위한 규칙이 아닙니다. 이것들은 우리 마음을 들여다보는 창문입니다.</p>
+    <blockquote class="tgt ko">네 보물 있는 그 곳에는 네 마음도 있느니라<cite>Matthew 6:21</cite></blockquote>
+    <p class="lead zh">这些不是用来控制我们的规则。这些是通往我们内心的窗户。</p>
+    <blockquote class="zh">因为你的财宝在哪里，你的心也在那里。<cite>Matthew 6:21</cite></blockquote>
+    <p class="lead th">สิ่งเหล่านี้ไม่ใช่กฎที่มีไว้ควบคุมเรา สิ่งเหล่านี้คือหน้าต่างที่เปิดให้เห็นถึงใจของเรา</p>
+    <blockquote class="th">เพราะว่าทรัพย์สมบัติของท่านอยู่ที่ไหน ใจของท่านก็อยู่ที่นั่นด้วย<cite>Matthew 6:21</cite></blockquote>
+    <p class="lead de">Das sind keine Regeln, die uns kontrollieren sollen. Das sind Fenster in unser Herz.</p>
+    <blockquote class="de">Denn wo dein Schatz ist, da wird auch dein Herz sein.<cite>Matthew 6:21</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src en">So the commandments are a manifestation of God’s grace. The greatest of them might be the law of consecration, where we dedicate ourselves, our time, talents, and material resources completely to building up God’s kingdom. Many of us have covenanted with God to live this law. How can we tell if we really want it? Well, the commandments I just mentioned are a good start.</p>
+    <p class="tgt ko">그러므로 계명은 하나님의 은혜가 나타난 것입니다. 그중 가장 큰 계명은 아마도 헌납의 법일 것입니다. 헌납의 법을 통해 우리는 우리 자신과 시간과 재능과 물질을 하나님의 왕국을 세우는 일에 온전히 바칩니다. 우리 중 많은 사람이 이 법대로 살겠다고 하나님과 성약을 맺었습니다. 우리가 영생을 정말로 원하는지 어떻게 알 수 있을까요? 방금 말씀드린 계명들이 좋은 출발점입니다.</p>
+    <p class="zh">所以，诫命是神的恩典的一种彰显。其中最大的，或许是献纳律法，我们借此把自己，把我们的时间、才能和财物，完全奉献出来建立神的国度。我们许多人已经和神立约，要遵行这条律法。我们要怎么分辨自己是不是真的想要呢？我刚才提到的那些诫命，就是很好的起点。</p>
+    <p class="th">ดังนั้นพระบัญญัติจึงเป็นการสำแดงถึงพระคุณของพระผู้เป็นเจ้า พระบัญญัติที่ยิ่งใหญ่ที่สุดอาจเป็นกฎแห่งการอุทิศถวาย ซึ่งเราอุทิศตนเอง เวลา พรสวรรค์ และทรัพยากรทางวัตถุของเราทั้งหมดเพื่อเสริมสร้างอาณาจักรของพระผู้เป็นเจ้า พวกเราหลายคนได้ทำพันธสัญญากับพระผู้เป็นเจ้าว่าจะดำเนินชีวิตตามกฎนี้ เราจะรู้ได้อย่างไรว่าเราต้องการสิ่งนี้อย่างแท้จริง? ก็พระบัญญัติที่ข้าพเจ้าเพิ่งกล่าวถึงนั้นเป็นจุดเริ่มต้นที่ดี</p>
+    <p class="de">Die Gebote sind also ein Ausdruck der Gnade Gottes. Das größte von ihnen ist vielleicht das Gesetz der Weihung, bei dem wir uns selbst, unsere Zeit, unsere Talente und unsere materiellen Mittel ganz dem Aufbau des Reiches Gottes weihen. Viele von uns haben mit Gott den Bund geschlossen, nach diesem Gesetz zu leben. Woran können wir erkennen, ob wir es wirklich wollen? Nun, die Gebote, die ich gerade genannt habe, sind ein guter Anfang.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src en">Helping those in need is another indicator. I see many members helping others financially, emotionally, physically, and spiritually. This gives me great joy and hope.</p>
+    <p class="tgt ko">어려움에 처한 사람들을 돕는 것도 하나의 지표입니다. 저는 많은 회원들이 재정적으로, 정서적으로, 육체적으로, 또 영적으로 다른 사람들을 돕는 모습을 봅니다. 그 모습은 저에게 큰 기쁨과 희망을 줍니다.</p>
+    <p class="zh">帮助有需要的人，是另一个指标。我看到许多成员在经济上、情感上、身体上和灵性上帮助别人。这带给我极大的喜乐和希望。</p>
+    <p class="th">การช่วยเหลือคนขัดสนเป็นอีกเครื่องบ่งชี้หนึ่ง ข้าพเจ้าเห็นสมาชิกหลายคนช่วยเหลือผู้อื่นทั้งทางการเงิน ทางอารมณ์ ทางร่างกาย และทางวิญญาณ สิ่งนี้ให้ปีติและความหวังอย่างยิ่งแก่ข้าพเจ้า</p>
+    <p class="de">Den Bedürftigen zu helfen ist ein weiterer Anhaltspunkt. Ich sehe viele Mitglieder, die anderen finanziell, emotional, körperlich und geistig helfen. Das gibt mir große Freude und Hoffnung.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src en">How about this: the prophets and apostles lead the true Church of Jesus Christ by revelation. They’re preparing us for Jesus’s return. In the past 10 years, they have revealed big changes. Ministering. Home-centered church. The redefined role of the bishopric. And the new second-hour schedule starting next month. Do we embrace these changes with gratitude and joy as we seek to bring about the Kingdom of God? Or do we prefer the old, familiar way church used to be?</p>
+    <p class="tgt ko">또 이런 것은 어떻습니까? 선지자와 사도들은 계시를 통해 예수 그리스도의 참된 교회를 인도하십니다. 그분들은 예수님의 재림에 대비해 우리를 준비시키고 계십니다. 지난 10년 동안 그분들은 큰 변화들을 계시하셨습니다. 성역을 베푸는 일. 가정이 중심이 된 교회. 새롭게 정의된 감독단의 역할. 그리고 다음 달부터 시작되는 새로운 두 번째 모임 일정. 우리는 하나님의 왕국을 이루기 위해 힘쓰는 가운데, 이 변화들을 감사와 기쁨으로 받아들이고 있습니까? 아니면 예전의 익숙했던 교회 모습을 더 좋아합니까?</p>
+    <p class="zh">再想想这个：先知和使徒借着启示领导耶稣基督的真实教会。他们正在为耶稣的再来预备我们。过去十年间，他们启示了一些重大的改变。施助。以家庭为中心、由教会从旁辅助。重新界定的主教团角色。还有下个月开始的新的第二小时聚会时间。当我们努力促使神的国度来临时，我们是否带着感恩和喜乐来接受这些改变？还是我们比较喜欢教会以前那种旧有而熟悉的样子？</p>
+    <p class="th">แล้วข้อนี้ล่ะ: ศาสดาพยากรณ์และอัครสาวกนำศาสนจักรที่แท้จริงของพระเยซูคริสต์โดยการเปิดเผย ท่านเหล่านั้นกำลังเตรียมเราให้พร้อมสำหรับการเสด็จกลับมาของพระเยซู ในช่วง 10 ปีที่ผ่านมา ท่านได้เปิดเผยการเปลี่ยนแปลงครั้งใหญ่หลายเรื่อง การปฏิบัติศาสนกิจ ศาสนจักรที่มีบ้านเป็นศูนย์กลาง บทบาทของฝ่ายอธิการที่กำหนดขึ้นใหม่ และตารางการประชุมชั่วโมงที่สองแบบใหม่ซึ่งจะเริ่มในเดือนหน้า เราน้อมรับการเปลี่ยนแปลงเหล่านี้ด้วยความสำนึกคุณและปีติ ขณะที่เราพยายามทำให้อาณาจักรของพระผู้เป็นเจ้าบังเกิดขึ้นหรือไม่? หรือเราชอบแบบเก่าที่คุ้นเคยอย่างที่โบสถ์เคยเป็นมามากกว่า?</p>
+    <p class="de">Wie wäre es damit: Die Propheten und Apostel führen die wahre Kirche Jesu Christi durch Offenbarung. Sie bereiten uns auf die Wiederkunft Jesu vor. In den letzten zehn Jahren haben sie große Veränderungen offenbart. Die Betreuungsarbeit. Eine auf das Zuhause ausgerichtete Kirche. Die neu definierte Rolle der Bischofschaft. Und der neue Ablauf der zweiten Stunde, der nächsten Monat beginnt. Nehmen wir diese Veränderungen mit Dankbarkeit und Freude an, während wir danach streben, das Reich Gottes herbeizuführen? Oder ist uns die alte, vertraute Art lieber, wie die Kirche früher war?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src en">In other words, “What do we want?”</p>
+    <p class="tgt ko">다시 말하면, “우리는 무엇을 원하는가?” 하는 것입니다.</p>
+    <p class="zh">换句话说：「我们想要的是什么？」</p>
+    <p class="th">กล่าวอีกนัยหนึ่งคือ &quot;เราต้องการอะไร?&quot;</p>
+    <p class="de">Mit anderen Worten: „Was wollen wir?“</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">18</span>
+    <p class="lead src en">I’ll leave you with a few scriptures that I think point the way to Eternal Life:</p>
+    <blockquote class="src en">And ye shall offer for a sacrifice unto me a broken heart and a contrite spirit.<cite>3 Nephi 9:20</cite></blockquote>
+    <p class="lead tgt ko">제가 생각하기에 영생으로 가는 길을 가리켜 주는 성구 몇 가지를 여러분께 남겨 드리겠습니다.</p>
+    <blockquote class="tgt ko">이에 너희는 상한 마음과 통회하는 심령을 내게 희생으로 드릴지니<cite>3 Nephi 9:20</cite></blockquote>
+    <p class="lead zh">最后，我要留给各位几处我认为指出永生之路的经文：</p>
+    <blockquote class="zh">你们应献上破碎的心和痛悔的灵作为给我的祭品。<cite>3 Nephi 9:20</cite></blockquote>
+    <p class="lead th">ข้าพเจ้าขอฝากพระคัมภีร์สองสามข้อไว้กับท่าน ซึ่งข้าพเจ้าคิดว่าชี้ทางไปสู่ชีวิตนิรันดร์:</p>
+    <blockquote class="th">และเจ้าจะถวายใจที่ชอกช้ำและวิญญาณที่สำนึกผิดแก่เราเป็นเครื่องพลีบูชา.<cite>3 Nephi 9:20</cite></blockquote>
+    <p class="lead de">Zum Schluss möchte ich Ihnen einige Schriftstellen mitgeben, die meiner Meinung nach den Weg zum ewigen Leben weisen:</p>
+    <blockquote class="de">Und ihr sollt mir als Opfer ein reuiges Herz und einen zerknirschten Geist darbringen.<cite>3 Nephi 9:20</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">19</span>
+    <blockquote class="src en">Behold, the Lord requireth the heart and a willing mind.<cite>Doctrine and Covenants 64:34</cite></blockquote>
+    <blockquote class="tgt ko">보라, 주는 진심과 기꺼이 하고자 하는 마음을 요구하나니<cite>Doctrine and Covenants 64:34</cite></blockquote>
+    <blockquote class="zh">看啊，主要人的心和甘愿的意念。<cite>Doctrine and Covenants 64:34</cite></blockquote>
+    <blockquote class="th">ดูเถิด, พระเจ้าทรงเรียกร้องใจและความคิดที่เต็มใจ.<cite>Doctrine and Covenants 64:34</cite></blockquote>
+    <blockquote class="de">Siehe, der Herr fordert das Herz und einen willigen Sinn.<cite>Doctrine and Covenants 64:34</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">20</span>
+    <blockquote class="src en">Jesus said unto him, Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind. This is the first and great commandment. And the second is like unto it, Thou shalt love thy neighbour as thyself.<cite>Matthew 22:37-39</cite></blockquote>
+    <blockquote class="tgt ko">예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니 이것이 크고 첫째 되는 계명이요 둘째도 그와 같으니 네 이웃을 네 자신 같이 사랑하라 하셨으니<cite>Matthew 22:37-39</cite></blockquote>
+    <blockquote class="zh">耶稣对他说：你要尽心、尽性、尽意爱主你的神。这是诫命中的第一，且是最大的。其次也相仿，就是要爱人如己。<cite>Matthew 22:37-39</cite></blockquote>
+    <blockquote class="th">พระเยซูทรงตอบเขาว่า ‘จงรักองค์พระผู้เป็นเจ้าของท่านด้วยสุดใจของท่านด้วยสุดจิตของท่าน’ และด้วยสุดความคิดของท่าน นั่นแหละเป็นพระบัญญัติข้อสำคัญอันดับแรก ข้อที่สองก็เหมือนกัน คือ ‘จงรักเพื่อนบ้านเหมือนรักตนเอง’<cite>Matthew 22:37-39</cite></blockquote>
+    <blockquote class="de">Er antwortete ihm: „Du sollst den Herrn, deinen Gott, lieben mit deinem ganzen Herzen, mit deiner ganzen Seele und mit deinem ganzen Denken. Dies ist das wichtigste Gebot, das obenan steht. Ein zweites aber kommt ihm gleich: ‚Du sollst deinen Nächsten lieben wie dich selbst!‘“<cite>Matthew 22:37-39</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">21</span>
+    <blockquote class="src en">Judge not, that ye be not judged.<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="tgt ko">비판을 받지 아니하려거든 비판하지 말라<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="zh">你们不要论断人，免得你们被论断。<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="th">อย่าพิพากษา เพื่อพระเจ้าจะไม่ทรงพิพากษาท่านทั้งหลาย<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="de">„Richtet nicht, damit ihr nicht auch gerichtet werdet!“<cite>Matthew 7:1</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src en">I testify that Eternal Life is for those who want it. In the name of Jesus Christ, Amen.</p>
+    <p class="tgt ko">저는 영생이 그것을 원하는 사람들의 것임을 간증합니다. 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="zh">我见证，永生属于想要永生的人。奉耶稣基督的名，阿们。</p>
+    <p class="th">ข้าพเจ้าเป็นพยานว่าชีวิตนิรันดร์มีไว้สำหรับผู้ที่ต้องการ ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Ich bezeuge, dass das ewige Leben für die ist, die es wollen. Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

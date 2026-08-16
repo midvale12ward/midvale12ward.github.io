@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Grace of God I Have Come to Know Through My Life as a Mom · 엄마로서의 삶을 통해 알게 된 하나님의 은혜</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite .src, .pair.cite .tgt {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">The Grace of God I Have Come to Know Through My Life as a Mom</span><span class="ko">엄마로서의 삶을 통해 알게 된 하나님의 은혜</span><span class="zh">从身为母亲的生活中，我所认识的神的恩典</span><span class="th">พระคุณของพระผู้เป็นเจ้าที่ได้รู้จักผ่านชีวิตการเป็นแม่</span><span class="de">Die Gnade Gottes, die ich durch mein Leben als Mutter kennengelernt habe</span></h1>
+  <p class="byline">Sister JeongSook Lee · 이정숙 자매 &nbsp;·&nbsp; 16 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">안녕하세요? 이정숙 자매입니다. 제가 오늘 드릴 말씀의 주제는 “엄마로서의 삶을 통해 알게 된 하나님의 은혜”입니다. 먼저 이렇게 말씀드릴 기회를 주셔서 감사드립니다.</p>
+    <p class="tgt en">Hello, I’m Sister JeongSook Lee. The subject of my talk today is “The Grace of God I Have Come to Know Through My Life as a Mom.” First of all, thank you for giving me this opportunity to speak to you.</p>
+    <p class="zh">大家好，我是 JeongSook Lee 姊妹。我今天要讲的题目是「从身为母亲的生活中，我所认识的神的恩典」。首先，感谢各位给我这个讲话的机会。</p>
+    <p class="th">สวัสดีค่ะ ดิฉันซิสเตอร์อีจองซุก หัวข้อที่ดิฉันจะพูดในวันนี้คือ “พระคุณของพระผู้เป็นเจ้าที่ได้รู้จักผ่านชีวิตการเป็นแม่” ก่อนอื่นดิฉันขอขอบคุณสำหรับโอกาสที่ได้มาพูดในครั้งนี้</p>
+    <p class="de">Guten Tag. Ich bin Schwester JeongSook Lee. Das Thema meiner Ansprache ist heute „Die Gnade Gottes, die ich durch mein Leben als Mutter kennengelernt habe“. Zuerst möchte ich mich für die Gelegenheit bedanken, heute hier sprechen zu dürfen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">말씀을 시작하기 전에 제 소개를 간단히 드려야 할 것 같습니다. 저는 30여 년 전인 1995년, 한국 인천 스테이크 주안 와드에서 침례를 받았습니다. 그리고 2000년, 미국에 살고 있던 지금의 남편을 만나 결혼하면서 미국으로 오게 되었습니다. 캘리포니아에서 두 아이를 낳았고, 남편이 공부를 더 하기 위해 뉴욕으로 이주하게 되었습니다. 잠시 머물 거라 생각했던 뉴욕에서 16년을 살았고, 5년 전 이곳 유타로 이사 오게 되었습니다.</p>
+    <p class="tgt en">Before I begin, I think I should introduce myself briefly. I was baptized a little over thirty years ago, in 1995, in the Juan Ward, Incheon Korea Stake. Then in 2000 I met the man who is now my husband. He was living in the United States, and when we married, I came to America. I gave birth to two children in California, and then we moved to New York so my husband could continue his studies. We thought New York would be a short stay, but we lived there sixteen years, and five years ago we moved here to Utah.</p>
+    <p class="zh">在开始讲话之前，我想我应该先简单介绍一下自己。三十多年前，也就是1995年，我在韩国仁川支联会朱安支会受洗。2000年，我认识了当时住在美国的先生，结婚以后就来到了美国。我在加州生了两个孩子，后来先生为了继续深造，我们搬到了纽约。原本以为只是暂时待一阵子的纽约，我们住了十六年，五年前搬到了这里犹他。</p>
+    <p class="th">ก่อนจะเริ่ม ดิฉันคงต้องแนะนำตัวเองสักเล็กน้อย ดิฉันรับบัพติศมาเมื่อ 30 กว่าปีที่แล้ว ในปี 1995 ที่วอร์ดจูอัน สเตคอินชอน ประเทศเกาหลี จากนั้นในปี 2000 ดิฉันได้พบและแต่งงานกับผู้ที่เป็นสามีของดิฉันในปัจจุบัน ซึ่งขณะนั้นอาศัยอยู่ในสหรัฐ ดิฉันจึงได้มาอยู่ที่อเมริกา ดิฉันให้กำเนิดลูกสองคนที่แคลิฟอร์เนีย แล้วครอบครัวก็ย้ายไปนิวยอร์กเพื่อที่สามีจะได้ศึกษาต่อ เราอาศัยอยู่ในนิวยอร์กซึ่งเคยคิดว่าจะอยู่เพียงชั่วคราวนานถึง 16 ปี และเมื่อ 5 ปีที่แล้วก็ได้ย้ายมาที่ยูทาห์แห่งนี้</p>
+    <p class="de">Bevor ich beginne, sollte ich mich wohl kurz vorstellen. Vor gut 30 Jahren, im Jahr 1995, wurde ich in der Gemeinde Juan im Pfahl Incheon in Korea getauft. Im Jahr 2000 lernte ich dann meinen jetzigen Mann kennen, der in den Vereinigten Staaten lebte; wir heirateten, und so kam ich nach Amerika. In Kalifornien brachte ich zwei Kinder zur Welt, und weil mein Mann weiterstudieren wollte, zogen wir nach New York. In New York, wo wir eigentlich nur kurz bleiben wollten, lebten wir 16 Jahre lang, und vor fünf Jahren zogen wir hierher nach Utah.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">저는 처음 선교사님들의 이름표에서 보았던 “가정은 지상의 천국”이라는 문구를 참 좋아했습니다. 그리고 교회 형제와 결혼하여 복음 안에서 가정을 이루고, 복음의 충만함 속에서 자녀들을 양육하며 행복한 가정을 이루고 싶다는 소망이 컸었습니다.</p>
+    <p class="tgt en">I truly loved the phrase I first saw on the missionaries’ name tags: “Home is heaven on earth.” And I had a great hope of marrying a brother in the Church, building a family in the gospel, raising my children in the fulness of the gospel, and making a happy home.</p>
+    <p class="zh">我很喜欢当初第一次在传教士的名牌上看到的「家庭是人间天堂」这句话。我心里也有一个很大的愿望：与教会的一位弟兄结婚，在福音中建立家庭，在福音的丰盛中养育儿女，拥有一个幸福的家庭。</p>
+    <p class="th">ดิฉันชอบข้อความที่ว่า “บ้านคือสวรรค์บนดิน” ซึ่งเห็นครั้งแรกบนป้ายชื่อของผู้สอนศาสนามาก และดิฉันมีความปรารถนาอย่างยิ่งที่จะแต่งงานกับชายที่เป็นสมาชิกศาสนจักร สร้างครอบครัวในพระกิตติคุณ เลี้ยงดูลูกๆ ท่ามกลางความสมบูรณ์ของพระกิตติคุณ และมีครอบครัวที่เปี่ยมด้วยความสุข</p>
+    <p class="de">Den Spruch „Die Familie ist der Himmel auf Erden“, den ich zum ersten Mal auf den Namensschildern der Missionare sah, mochte ich sehr. Und ich hatte den großen Wunsch, einen Bruder aus der Kirche zu heiraten, im Evangelium eine Familie zu gründen, meine Kinder in der Fülle des Evangeliums großzuziehen und so eine glückliche Familie aufzubauen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">지금까지 살아오면서 저에게 가장 큰 기쁨을 주면서도, 동시에 가장 큰 어려움을 경험하게 한 단어는 ’어머니’입니다. 오늘은 제가 어머니로서 주님의 도움이 가장 절실했던 순간에, 주님께서 어떻게 저를 살피시고 도와주셨는지 두 가지 경험을 나누고 싶습니다.</p>
+    <p class="tgt en">In my life so far, the word that has given me the greatest joy, and at the same time the greatest hardship, is “mother.” Today I’d like to share two experiences of how the Lord watched over me and helped me in the moments when I needed His help most desperately as a mother.</p>
+    <p class="zh">在我至今的人生里，带给我最大喜乐、同时也让我经历最大艰难的一个词，就是「母亲」。今天我想分享两个经历，是我身为母亲最迫切需要主的帮助时，主怎样看顾我、帮助我。</p>
+    <p class="th">ตลอดชีวิตที่ผ่านมา คำที่ให้ความปีติยิ่งใหญ่ที่สุดแก่ดิฉัน และในขณะเดียวกันก็ทำให้ดิฉันพบกับความยากลำบากที่สุดด้วย คือคำว่า ‘แม่’ วันนี้ดิฉันอยากแบ่งปันประสบการณ์สองเรื่อง ว่าในช่วงเวลาที่ดิฉันในฐานะแม่ต้องการความช่วยเหลือจากพระเจ้ามากที่สุด พระองค์ทรงดูแลและทรงช่วยเหลือดิฉันอย่างไร</p>
+    <p class="de">Das Wort, das mir in meinem bisherigen Leben die größte Freude gebracht und mich zugleich die größten Schwierigkeiten hat erleben lassen, ist „Mutter“. Heute möchte ich zwei Erfahrungen mit Ihnen teilen: wie der Herr in den Augenblicken, in denen ich als Mutter seine Hilfe am dringendsten brauchte, sich um mich gekümmert und mir geholfen hat.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">신앙생활을 하면서 얻은 크고 작은 간증과 기적들은 참 많습니다. 하지만 제가 가장 신비롭게 생각하면서도 큰 위안을 받은 주님의 방법 중 하나는, 주님께서 우리에게 천사를 보내주신다는 것입니다. 때로는 하늘의 천사를 직접 보내주시기도 하지만, 많은 경우 주님께서는 우리 곁에 있는 천사같은 충실한 자녀들을 보내셔서 서로가 서로를 돕게 하십니다.</p>
+    <p class="tgt en">I’ve received so many testimonies and miracles, great and small, in my life of faith. But one of the Lord’s ways that I find most mysterious, and that has brought me great comfort, is this: He sends us angels. Sometimes He sends heavenly angels directly. But in many cases, the Lord sends faithful children of God who are like angels, the ones right beside us, and He has us help one another.</p>
+    <p class="zh">在信仰生活中得到的大大小小的见证和奇迹真的很多。不过，其中一个我觉得最奇妙、也最得安慰的主的方式，就是主会差遣天使到我们身边。有时候祂直接差遣天上的天使，但更多时候，主是差遣我们身边那些像天使一样忠信的儿女，让我们彼此帮助。</p>
+    <p class="th">ตลอดชีวิตแห่งศรัทธา ดิฉันได้รับประจักษ์พยานและปาฏิหาริย์ทั้งเล็กและใหญ่มากมาย แต่วิธีหนึ่งของพระเจ้าที่ดิฉันเห็นว่าน่าอัศจรรย์ที่สุดและได้รับการปลอบโยนอย่างมาก คือการที่พระองค์ทรงส่งเทพมาให้เรา บางครั้งพระองค์ทรงส่งเทพจากสวรรค์มาโดยตรง แต่หลายครั้งพระองค์ทรงส่งบุตรธิดาที่ซื่อสัตย์ผู้เป็นดุจเทพซึ่งอยู่ข้างๆ เรามา เพื่อให้เราต่างช่วยเหลือซึ่งกันและกัน</p>
+    <p class="de">Im Laufe meines Glaubenslebens habe ich sehr viele große und kleine Zeugnisse und Wunder erhalten. Aber eine der Weisen des Herrn, die ich am geheimnisvollsten finde und aus der ich zugleich großen Trost geschöpft habe, ist die, dass der Herr uns Engel sendet. Manchmal sendet er unmittelbar Engel aus dem Himmel, doch in vielen Fällen sendet er uns seine treuen Kinder, die wie Engel an unserer Seite sind, damit wir einander helfen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">첫 아이를 임신했을 때였습니다. 의사로부터 이 아이가 다운증후군을 가지고 태어날 것이라는 이야기를 들었습니다.</p>
+    <p class="tgt en">It happened when I was pregnant with our first child. The doctor told me that this baby would be born with Down syndrome.</p>
+    <p class="zh">那是我怀第一个孩子的时候。我从医生那里听到，这个孩子生下来会带有唐氏综合征。</p>
+    <p class="th">ตอนนั้นเป็นช่วงที่ดิฉันตั้งครรภ์ลูกคนแรก ดิฉันได้รับฟังจากแพทย์ว่าลูกคนนี้จะเกิดมาพร้อมกับดาวน์ซินโดรม</p>
+    <p class="de">Es war zu der Zeit, als ich mit meinem ersten Kind schwanger war. Von meinem Arzt hörte ich, dass dieses Kind mit Downsyndrom zur Welt kommen würde.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">그 소식을 들은 바로 그 주에, 저는 두 자매님의 방문을 받았습니다. 한 분은 연세가 있으신 자매님이셨는데, 제가 그 와드에서 여러 면으로 가장 아름답다고 생각하고 존경하던 분이었습니다. 또 한 분은 갓 결혼한 젊은 자매님이었는데, 당시 또래의 다른 자매들에게서는 보기 힘들게 꽤 속이 깊고 특별한 배려심을 가진 분이었습니다.</p>
+    <p class="tgt en">Two sisters came to visit me the very week I heard that news. One was an older sister. In many ways I thought she was the most beautiful person in that ward, and I deeply respected her. The other was a young, newly married sister. She was quite deep, and she had a special thoughtfulness that was hard to find in other sisters her age back then.</p>
+    <p class="zh">就在听到这个消息的那个星期，有两位姊妹来看我。一位是年长的姊妹，在那个支会里，我一直觉得她在许多方面都是最美的，也很敬重她。另一位是刚结婚不久的年轻姊妹，她心思很深，又有一份特别的体贴，那是当时同年龄的其他姊妹身上很难看到的。</p>
+    <p class="th">ในสัปดาห์เดียวกันนั้นเองที่ได้ทราบข่าว มีซิสเตอร์สองท่านมาเยี่ยมดิฉัน ท่านหนึ่งเป็นซิสเตอร์ผู้สูงวัย ซึ่งดิฉันเห็นว่าเป็นคนที่งดงามที่สุดในหลายๆ ด้านในวอร์ดนั้น และเป็นผู้ที่ดิฉันเคารพนับถือ อีกท่านหนึ่งเป็นซิสเตอร์สาวที่เพิ่งแต่งงาน ผู้มีความคิดลึกซึ้งและมีความเอาใจใส่ผู้อื่นเป็นพิเศษ อย่างที่หาได้ยากในบรรดาซิสเตอร์วัยเดียวกันในเวลานั้น</p>
+    <p class="de">In genau der Woche, in der ich diese Nachricht erhielt, bekam ich Besuch von zwei Schwestern. Die eine war eine ältere Schwester, die ich in jener Gemeinde in vielerlei Hinsicht für die schönste hielt und sehr achtete. Die andere war eine junge Schwester, die gerade erst geheiratet hatte und die – was man bei anderen Schwestern ihres Alters damals selten fand – sehr reif und einfühlsam war und eine besondere Rücksichtnahme zeigte.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">그분들은 태어날 아이에 대한 소식을 듣고는 자신들의 이야기를 제게 나누어 주셨습니다. 연로하신 자매님은 여섯 자녀 가운데 한 자녀를 암으로 먼저 떠나보내야 했던 이야기를 해주셨고, 젊은 자매님은 중증 장애를 가지고 태어나 평생 단 한 번도 스스로 앉아보지 못한 채 열여섯 살에 세상을 떠난 여동생에 대한 이야기를 들려주었습니다.</p>
+    <p class="tgt en">When they heard the news about the baby on the way, they shared their own stories with me. The older sister told me how she had to let one of her six children go on ahead of her. It was cancer. The young sister told me about her own younger sister, who was born with a severe disability. She never once in her whole life sat up on her own, and she passed away at sixteen.</p>
+    <p class="zh">她们听到我这个孩子的消息以后，就把自己的故事分享给我。那位年长的姊妹告诉我，她六个孩子当中，有一个因为癌症先离开了她；那位年轻的姊妹告诉我，她的妹妹生下来就有重度残疾，一辈子连一次都不曾自己坐起来过，十六岁就离开了人世。</p>
+    <p class="th">เมื่อท่านทั้งสองได้ยินข่าวเรื่องลูกที่กำลังจะเกิดมา ท่านก็แบ่งปันเรื่องราวของตนเองให้ดิฉันฟัง ซิสเตอร์ผู้สูงวัยเล่าว่าท่านต้องปล่อยให้ลูกคนหนึ่งในบรรดาลูกหกคนจากไปก่อนด้วยโรคมะเร็ง ส่วนซิสเตอร์ที่ยังสาวเล่าถึงน้องสาวของเธอ ผู้เกิดมาพร้อมความพิการขั้นรุนแรง ไม่เคยแม้แต่ครั้งเดียวที่จะนั่งได้ด้วยตนเองตลอดชีวิต และจากโลกนี้ไปเมื่ออายุสิบหกปี</p>
+    <p class="de">Als sie von der Nachricht über das Kind hörten, das zur Welt kommen sollte, erzählten sie mir ihre eigene Geschichte. Die ältere Schwester erzählte mir davon, wie ihr eines ihrer sechs Kinder durch Krebs hatte vorausgehen müssen. Die junge Schwester erzählte mir von ihrer jüngeren Schwester, die mit einer schweren Behinderung zur Welt gekommen war, sich ihr Leben lang kein einziges Mal allein aufsetzen konnte und mit sechzehn Jahren starb.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">그분들은 저희 가족이 그곳을 떠나게 될 때까지 마치 자신의 일처럼 저희를 염려해주고 주희를 사랑해주었습니다</p>
+    <p class="tgt en">Until our family left that place, those sisters cared for us as though our troubles were their own, and they loved Juhee</p>
+    <p class="zh">直到我们全家离开那里，她们一直像自己的事一样为我们挂心，也一直疼爱 Juhee</p>
+    <p class="th">จนถึงวันที่ครอบครัวของเราย้ายจากที่นั่น ท่านทั้งสองห่วงใยพวกเราราวกับเป็นเรื่องของท่านเอง และรัก Juhee</p>
+    <p class="de">Bis unsere Familie von dort wegzog, sorgten sich die beiden um uns, als wäre es ihre eigene Sache, und liebten Juhee</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">저는 그분들을 통해 많은 것을 배웠습니다. 훌륭하고 충실한 교회 회원이라고 해서 시련이 비껴가는 것은 아니라는 것, 그리고 시련이 찾아온다고 해서 반드시 그 삶이 불행해지는 것도 아니라는 것이었습니다. 오히려 어려움과 도전에 직면했던 충실한 성도들이 그 시간을 어떻게 견디어 냈는지, 그리고 그 경험이 훗날 그분들을 얼마나 깊고 아름다운 사람으로 성장시켰는지를 보면서 저는 겸손해질 수 있었습니다.</p>
+    <p class="tgt en">I learned many things through them. Being a wonderful, faithful member of the Church doesn’t mean that trials will pass you by. And when trials do come, it doesn’t mean life has to become unhappy. Instead, as I saw how the faithful Saints who had faced hardships and challenges endured those times, and how those experiences later made them into such deep and beautiful people, I was humbled.</p>
+    <p class="zh">我从她们身上学到了很多。就算是很好、很忠信的教会成员，试炼也不会因此绕过他；而试炼来到，也不一定就会让那个人的人生变得不幸。反而，看到那些面对困难与挑战的忠信圣徒是怎样熬过那段时间的，也看到那段经历后来让她们成长为多么深厚、多么美好的人，我因此变得谦卑。</p>
+    <p class="th">ดิฉันได้เรียนรู้หลายสิ่งผ่านท่านทั้งสอง ได้เรียนรู้ว่าการเป็นสมาชิกศาสนจักรที่ดีเยี่ยมและซื่อสัตย์ ไม่ได้ทำให้การทดลองผ่านเลยเราไป และการที่การทดลองมาถึง ก็ไม่ได้หมายความว่าชีวิตนั้นจะต้องไร้ความสุขเสมอไป ตรงกันข้าม เมื่อได้เห็นว่าวิสุทธิชนที่ซื่อสัตย์ผู้เผชิญความยากลำบากและการท้าทาย อดทนผ่านช่วงเวลาเหล่านั้นมาอย่างไร และประสบการณ์เหล่านั้นทำให้ท่านเติบโตเป็นคนที่ลึกซึ้งและงดงามเพียงใดในเวลาต่อมา ดิฉันก็ถ่อมตนลงได้</p>
+    <p class="de">Durch sie habe ich vieles gelernt: dass die Prüfungen nicht an einem vorübergehen, nur weil man ein vorbildliches und treues Mitglied der Kirche ist, und dass ein Leben nicht zwangsläufig unglücklich wird, nur weil Prüfungen kommen. Im Gegenteil: Als ich sah, wie treue Heilige, die vor Schwierigkeiten und Herausforderungen standen, jene Zeit durchgestanden haben und wie sehr diese Erfahrung sie später zu tiefen und schönen Menschen hat wachsen lassen, konnte ich demütig werden.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">그리고 최근 2년정도 저는 제 삶에 ”어머니’로서 또 한번의 큰 영적인 어려움에 직면했었습니다. 저희 가족은 바쁘고 교회 회원도 많지 않았던 뉴욕 생활을 뒤로하고, 특별히 자녀들이 복음이 충만한 환경에서 살기를 바라는 마음으로 유타로 이사왔습니다. 그러나 남편의 일이 1년 정도면 유타에서 자리 잡을 것이라 생각했지만, 2년 동안 유타와 뉴욕을 오간 끝에 결국 뉴욕에서 계속 일하기로 결정하게 되어 가족이 떨어져 지내게 되었습니다.</p>
+    <p class="tgt en">Then, over the last two years or so, I faced another great spiritual difficulty in my life as a “mother.” Our family left behind our busy life in New York, where there weren’t many members of the Church, and moved to Utah, hoping especially that our children could live in an environment full of the gospel. We thought my husband’s work would be settled in Utah within a year or so. But after two years of going back and forth between Utah and New York, he finally decided to keep working in New York, and our family ended up living apart.</p>
+    <p class="zh">最近这两年左右，我在自己的生活中，又一次以「母亲」的身分面对了灵性上很大的难处。我们全家离开了忙碌、教会成员也不多的纽约生活，特别是希望孩子们能在福音丰盛的环境里生活，就搬到了犹他。可是，本来以为先生的工作大概一年左右就能在犹他安顿下来，两年之间在犹他和纽约之间来来回回，最后决定还是继续在纽约工作，我们一家人就分开住了。</p>
+    <p class="th">และในช่วงประมาณ 2 ปีที่ผ่านมา ดิฉันได้เผชิญกับความยากลำบากทางวิญญาณครั้งใหญ่อีกครั้งหนึ่งในชีวิต ในฐานะ ‘แม่’ ครอบครัวของเราทิ้งชีวิตในนิวยอร์กที่แสนวุ่นวายและมีสมาชิกศาสนจักรไม่มากนักไว้เบื้องหลัง และย้ายมาที่ยูทาห์ ด้วยความหวังเป็นพิเศษว่าลูกๆ จะได้ใช้ชีวิตในสภาพแวดล้อมที่เปี่ยมด้วยพระกิตติคุณ แต่แม้เราคิดว่างานของสามีจะลงตัวที่ยูทาห์ภายในเวลาประมาณ 1 ปี หลังจากเดินทางไปมาระหว่างยูทาห์กับนิวยอร์กอยู่ 2 ปี ในที่สุดเขาก็ตัดสินใจทำงานต่อที่นิวยอร์ก ครอบครัวจึงต้องแยกกันอยู่</p>
+    <p class="de">Und in den letzten etwa zwei Jahren stand ich in meinem Leben als „Mutter“ noch einmal vor einer großen geistigen Schwierigkeit. Unsere Familie ließ das Leben in New York hinter sich, das hektisch war und wo es nicht viele Mitglieder der Kirche gab, und zog nach Utah – vor allem in dem Wunsch, dass unsere Kinder in einer Umgebung leben, die vom Evangelium erfüllt ist. Doch obwohl wir dachten, die Arbeit meines Mannes würde sich in etwa einem Jahr in Utah einrichten lassen, pendelte er zwei Jahre lang zwischen Utah und New York und entschied sich schließlich, weiter in New York zu arbeiten, sodass unsere Familie getrennt leben musste.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">BYU에 입학했던 딸은 학교가 자신과 맞지 않는다며 다른 학교로 옮겼고 비활동이 되었습니다.  큰 아이에겐 돌봐야하는 건강상의 문제들이 있었고 , 아들은 갑자기 시작된 우울증으로 고등학교를 쉬게 되었습니다.</p>
+    <p class="tgt en">Our daughter had started at BYU, but she said the school wasn’t right for her. She transferred to another school and became less active. Our oldest child had health problems that needed looking after, and our son ended up taking time off from high school because of depression that came on suddenly.</p>
+    <p class="zh">进了 BYU 的女儿说学校跟自己不合，就转到别的学校，也变得较不活跃了。大孩子有需要照顾的健康问题，儿子则因为突然开始的忧郁症，高中休学了。</p>
+    <p class="th">ลูกสาวที่เข้าเรียนที่ BYU บอกว่าโรงเรียนไม่เหมาะกับตัวเธอ จึงย้ายไปเรียนที่อื่นและกลายเป็นผู้ที่แข็งขันน้อยลง ลูกคนโตมีปัญหาสุขภาพที่ต้องดูแล ส่วนลูกชายต้องพักจากโรงเรียนมัธยมปลายเพราะโรคซึมเศร้าที่เกิดขึ้นอย่างกะทันหัน</p>
+    <p class="de">Meine Tochter, die an der BYU angefangen hatte, sagte, die Universität passe nicht zu ihr, wechselte an eine andere Hochschule und wurde weniger aktiv. Mein ältestes Kind hatte gesundheitliche Probleme, um die man sich kümmern musste, und mein Sohn musste wegen einer plötzlich einsetzenden Depression die Highschool unterbrechen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">그 과정에서 저는 많이 지쳤고, 제가 그동안 그렇게 열심히 추구해 왔던 ‘복음 안에서의 행복한 가족’이라는 것이 과연 무엇이었는가 ‘ 라는  질문을 스스로에게 하게 되었습니다. ’내가 무엇을 잘못한 것일까‘, 엄마로서 많이 부족했던 자신을 탓해보기도 하면서 우리의 삶이 소망했던 바와 다른 방향으로 가는 듯해 여러 질문들이 생겼습니다.</p>
+    <p class="tgt en">Through all of this I grew very weary. I began asking myself what it really was, this “happy family in the gospel” I’d pursued so earnestly all those years. “What did I do wrong?” At times I blamed myself for falling so short as a mom, and many questions arose in me as our life seemed to be heading in a direction different from what we’d hoped.</p>
+    <p class="zh">在这个过程中，我非常疲惫，也开始问自己：我这些年来那么努力追求的「在福音中幸福的家庭」，究竟是什么呢？「是我哪里做错了吗」，我也责怪过身为母亲有许多不足的自己，看着我们的生活好像正走向和我所盼望的不一样的方向，心里生出了许多疑问。</p>
+    <p class="th">ในระหว่างนั้นดิฉันเหนื่อยล้าอย่างมาก และเริ่มถามตัวเองว่า ‘ครอบครัวที่มีความสุขในพระกิตติคุณ’ ที่ดิฉันมุ่งมั่นแสวงหามาตลอดนั้น แท้จริงแล้วคืออะไรกันแน่ ‘ดิฉันทำอะไรผิดไปหรือ’ ดิฉันลองโทษตัวเองที่บกพร่องมากมายในฐานะแม่ และเมื่อชีวิตของเราดูเหมือนกำลังไปในทิศทางที่ต่างจากที่เคยหวังไว้ คำถามมากมายก็เกิดขึ้น</p>
+    <p class="de">In alldem war ich sehr erschöpft, und ich stellte mir selbst die Frage, was das eigentlich gewesen war, diese „glückliche Familie im Evangelium“, der ich all die Jahre so eifrig nachgestrebt hatte. „Was habe ich falsch gemacht?“ – So gab ich auch mir selbst die Schuld, weil ich als Mutter in vielem unzulänglich gewesen war, und weil unser Leben in eine andere Richtung zu gehen schien als die, die ich mir erhofft hatte, kamen viele Fragen in mir auf.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src ko">기도할 힘조차 잃었다고 느끼던 어느 날, 한 교회 자매님에게서 함께 식사하자는 연락을 받았습니다. 제가 보기에 그 자매님은 언제나 밝고 유쾌하고 친절해서, 마치 세상의 큰 어려움은 한 번도 겪어보지 않았을 것 같은 분이었습니다.</p>
+    <p class="tgt en">One day, when I felt I’d lost even the strength to pray, a sister in the Church reached out and asked me to have a meal with her. In my eyes, that sister was always so bright and cheerful and kind that she seemed like someone who’d never once gone through any great hardship in this world.</p>
+    <p class="zh">在我觉得连祈祷的力气都失去了的某一天，我接到教会一位姊妹的联络，约我一起吃饭。在我看来，那位姊妹总是开朗、愉快又亲切，好像从来没有经历过世上什么大的难处。</p>
+    <p class="th">วันหนึ่งที่ดิฉันรู้สึกว่าแม้แต่กำลังที่จะสวดอ้อนวอนก็หมดไปแล้ว ซิสเตอร์ท่านหนึ่งในศาสนจักรได้ติดต่อมาชวนดิฉันไปรับประทานอาหารด้วยกัน ในสายตาของดิฉัน ซิสเตอร์ท่านนั้นสดใส ร่าเริง และมีเมตตาอยู่เสมอ จนดูราวกับเป็นคนที่ไม่เคยพบความยากลำบากใหญ่หลวงใดๆ ของโลกนี้เลยสักครั้ง</p>
+    <p class="de">An einem Tag, an dem ich das Gefühl hatte, sogar die Kraft zum Beten verloren zu haben, meldete sich eine Schwester aus der Kirche bei mir und lud mich zum Essen ein. Für mich war diese Schwester immer heiter, fröhlich und freundlich – so, als hätte sie noch nie eine der großen Schwierigkeiten dieser Welt erlebt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src ko">그런데 그날 자매님은 제가 묻지도 않았는데 스스로 자신의 삶에 대해 이야기해 주셨습니다. 암으로 투병하던 중, 형제님의 외도로 결혼생활이 깨어졌고, 그 과정에서 자녀들도 큰 상처를 받았으며, 선교사업이후 성전결혼을 했던 아들은 아내의 외도라는 아픔을 겪고 결국 교회를 떠났다고 했습니다. 다른 자녀의 삶 역시 자매님이 바라던 모습대로 흘러가지만은 않았습니다.</p>
+    <p class="tgt en">But that day, without my even asking, she told me about her own life. She said that while she was fighting cancer, her marriage came apart because of her husband’s infidelity. Her children, too, were deeply hurt in the process. Her son had married in the temple after his mission. He went through the pain of his wife’s infidelity, and in the end he left the Church. Her other children’s lives hadn’t gone entirely the way she’d hoped, either.</p>
+    <p class="zh">可是那天，我并没有问，姊妹自己就跟我说起了她的生活。她说，在与癌症搏斗的期间，因为丈夫的外遇，婚姻破裂了，在那个过程中孩子们也受了很大的伤；传教归来后在圣殿结婚的儿子，经历了妻子外遇的痛苦，最后离开了教会。另一个孩子的生活，也不全是照着姊妹所盼望的样子走。</p>
+    <p class="th">แต่ในวันนั้น ทั้งที่ดิฉันไม่ได้ถาม ซิสเตอร์ท่านนั้นก็เล่าเรื่องชีวิตของเธอให้ฟังด้วยตัวเธอเอง เธอเล่าว่าระหว่างที่ต่อสู้กับโรคมะเร็ง ชีวิตแต่งงานก็แตกสลายลงเพราะการนอกใจของสามี ลูกๆ ก็ได้รับความเจ็บช้ำอย่างมากในระหว่างนั้น และลูกชายที่แต่งงานในพระวิหารหลังจากรับใช้งานเผยแผ่ ก็ประสบความเจ็บปวดจากการนอกใจของภรรยา และในที่สุดก็ออกจากศาสนจักรไป ชีวิตของลูกคนอื่นๆ ก็เช่นกัน ไม่ได้ดำเนินไปตามที่ซิสเตอร์ท่านนั้นหวังไว้เสมอไป</p>
+    <p class="de">An jenem Tag aber erzählte mir diese Schwester von sich aus von ihrem Leben, ohne dass ich gefragt hätte. Während sie gegen den Krebs kämpfte, sagte sie, sei ihre Ehe an der Untreue ihres Mannes zerbrochen, und auch ihre Kinder seien dabei tief verletzt worden; ihr Sohn, der nach seiner Mission im Tempel geheiratet hatte, habe den Schmerz der Untreue seiner Frau erlebt und schließlich die Kirche verlassen. Auch das Leben eines weiteren Kindes verlief nicht nur so, wie diese Schwester es sich gewünscht hatte.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">그 모든 일을 겪으면서 신앙이 흔들린 적은 없으셨냐는 저의 질문에 자매님은  단 한번도 없었다며…. 안타까워는 하셨지만, 그럼에도 불구하고 남편에 대한 고마운 부분에 감사를 표하셨고, 자녀들이 선택한 삶을 존중하셨습니다. 자매님은 주님과 함께해 온 자신의 삶에 얼마나 감사하고 있는지, 또한 자신의 삶이 얼마나 빛나고 충만했는지 간증해주셨습니다.</p>
+    <p class="tgt en">I asked her whether her faith had ever been shaken as she went through all of that. She said never. Not a single time…. These things did pain her, but even so, she expressed gratitude for the things she appreciated in her husband, and she respected the lives her children had chosen. She bore testimony of how grateful she was for the life she’d lived with the Lord, and how radiant and full it had been.</p>
+    <p class="zh">我问她，经历这一切，信心有没有动摇过，姊妹说一次也没有……她虽然感到惋惜，但即使如此，她还是对丈夫值得感谢的地方表达了感谢，也尊重孩子们所选择的生活。姊妹向我见证，她多么感谢自己与主同行的这一生，她的生命又是多么明亮、多么丰盛。</p>
+    <p class="th">เมื่อดิฉันถามว่าตลอดเหตุการณ์ทั้งหมดนั้น ศรัทธาของเธอเคยสั่นคลอนบ้างไหม ซิสเตอร์ท่านนั้นตอบว่าไม่เคยเลยแม้แต่ครั้งเดียว…. เธอรู้สึกเสียใจอยู่ แต่ถึงอย่างนั้นเธอก็ยังแสดงความขอบคุณในส่วนที่ดีของสามี และเคารพชีวิตที่ลูกๆ เลือกเอง เธอเป็นพยานว่าเธอสำนึกคุณเพียงใดต่อชีวิตที่ได้ดำเนินมากับพระเจ้า และชีวิตของเธอเปล่งประกายและเปี่ยมสมบูรณ์เพียงใด</p>
+    <p class="de">Auf meine Frage, ob ihr Glaube bei alldem nie ins Wanken geraten sei, sagte die Schwester, nicht ein einziges Mal…. Es tat ihr zwar leid, aber trotz allem brachte sie zum Ausdruck, wofür sie ihrem Mann dankbar war, und sie achtete das Leben, das ihre Kinder gewählt hatten. Die Schwester gab Zeugnis davon, wie dankbar sie für ihr Leben mit dem Herrn ist und wie hell und erfüllt ihr Leben gewesen ist.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">그 자매님은 그날의 만남이 제 삶이 실패한 것처럼 느껴졌을 때, 주님이 제게 주신 제 마음 속 질문에 대한 답이었다는 것을 전혀 모르셨을 것입니다.</p>
+    <p class="tgt en">When my life felt like it had failed, our meeting that day was the answer the Lord gave to the questions in my heart. I’m sure that sister never knew.</p>
+    <p class="zh">那位姊妹一定完全不知道，在我觉得自己的人生好像失败了的时候，那天的见面就是主赐给我的、对我心中那些疑问的回答。</p>
+    <p class="th">ซิสเตอร์ท่านนั้นคงไม่รู้เลยว่า การพบกันในวันนั้นคือคำตอบที่พระเจ้าประทานแก่คำถามในใจของดิฉัน ในเวลาที่ดิฉันรู้สึกราวกับว่าชีวิตของตนล้มเหลว</p>
+    <p class="de">Diese Schwester hat sicher überhaupt nicht geahnt, dass unsere Begegnung an jenem Tag – zu einer Zeit, in der sich mein Leben wie ein Fehlschlag anfühlte – die Antwort war, die der Herr mir auf die Frage in meinem Herzen gab.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">주님은 제게 이미 주어진 축복들을 다시 세어보라고, 조금만 더 힘을 내라고 말씀하시는 것 같았습니다. 제가 왜 더 잘하지 못했느냐고 꾸짖으신 것이 아니라, 지쳐 있던 저를 그 자매님을 통해 따뜻하게 안아주시는 것 같았습니다.</p>
+    <p class="tgt en">It seemed the Lord was telling me to count my blessings again, the ones I’d already been given, and to find just a little more strength. He wasn’t rebuking me or asking why I hadn’t done better. Instead, it felt as though He was warmly embracing me, weary as I was, through that sister.</p>
+    <p class="zh">我觉得主好像在对我说：把已经赐给你的祝福再数一数，再多加一点力气。祂不是在责备我为什么没有做得更好，而是好像透过那位姊妹，温暖地拥抱了疲惫的我。</p>
+    <p class="th">ราวกับว่าพระเจ้ากำลังตรัสกับดิฉันให้กลับไปนับพรที่ได้รับแล้วอีกครั้ง และให้มีกำลังขึ้นอีกสักหน่อย พระองค์ไม่ได้ทรงตำหนิว่าทำไมดิฉันจึงทำได้ไม่ดีกว่านี้ แต่ราวกับว่าพระองค์ทรงโอบกอดดิฉันผู้เหนื่อยล้าไว้อย่างอบอุ่นผ่านซิสเตอร์ท่านนั้น</p>
+    <p class="de">Es war, als würde der Herr mir sagen, ich solle die Segnungen, die mir bereits geschenkt worden sind, noch einmal zählen und noch ein wenig durchhalten. Es war nicht so, dass er mich getadelt hätte, warum ich es nicht besser gemacht habe, sondern es war, als nähme er mich, die ich so erschöpft war, durch diese Schwester warm in den Arm.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src ko">하나님의 은혜는 우리의 삶에서 시련을 없애주시는 것만을 의미하지 않습니다. 때로는 우리가 원치 않던 길을 걸어가야 할 때, 그 길을 혼자 걷지 않도록 누군가를 보내주시고, 쓰러질 때 다시 일어설 힘을 주시며, 우리가 미처 보지 못했던 축복을 볼 수 있도록 눈을 열어주시는 것, 그것은 주님의 큰 은혜입니다.</p>
+    <p class="tgt en">There is more to God’s grace than taking trials out of our lives. Sometimes we have to walk a road we didn’t want. At those times, He sends someone so that we don’t walk it alone. He gives us strength to stand up again when we fall. And He opens our eyes to see the blessings we hadn’t yet seen. That is the Lord’s great grace.</p>
+    <p class="zh">神的恩典并不只是指祂把试炼从我们的生活中拿走。有时候，当我们必须走上自己并不想走的路，祂差遣一个人来，让我们不必独自走那条路；当我们跌倒时，祂给我们再站起来的力量；祂开我们的眼睛，让我们看见自己一直没有看见的祝福，这就是主极大的恩典。</p>
+    <p class="th">พระคุณของพระผู้เป็นเจ้าไม่ได้หมายถึงเพียงการขจัดการทดลองออกไปจากชีวิตของเราเท่านั้น บางครั้งเมื่อเราต้องเดินบนเส้นทางที่เราไม่ได้ปรารถนา พระองค์ทรงส่งใครบางคนมาเพื่อไม่ให้เราเดินบนเส้นทางนั้นเพียงลำพัง ประทานกำลังให้ลุกขึ้นอีกครั้งเมื่อเราล้มลง และทรงเปิดตาของเราให้มองเห็นพรที่เรายังไม่ทันได้เห็น สิ่งนี้คือพระคุณอันยิ่งใหญ่ของพระเจ้า</p>
+    <p class="de">Die Gnade Gottes bedeutet nicht nur, dass er die Prüfungen aus unserem Leben nimmt. Wenn wir manchmal einen Weg gehen müssen, den wir nicht gewollt haben, sendet er uns jemanden, damit wir diesen Weg nicht allein gehen; wenn wir fallen, gibt er uns die Kraft, wieder aufzustehen; und er öffnet uns die Augen, damit wir Segnungen sehen können, die wir bis dahin nicht bemerkt hatten – das ist die große Gnade des Herrn.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">20</span>
+    <p class="src ko">제가 처음 교회에 들어왔을 때 좋아했던 “가정은 지상의 천국”이라는 말을 지금도 좋아합니다. 하지만 제가 젊었을 때 생각했던 ‘지상의 천국’과 지금 제가 생각하는 ‘지상의 천국’은 조금 다른 것 같습니다.</p>
+    <p class="tgt en">I still love the words I loved when I first came into the Church: “Home is heaven on earth.” But the “heaven on earth” I thought of when I was young and the “heaven on earth” I think of now seem a little different.</p>
+    <p class="zh">我刚进教会时喜欢的那句「家庭是人间天堂」，我现在仍然喜欢。不过，我年轻时所想的「人间天堂」，和现在我所想的「人间天堂」，好像有一点不一样。</p>
+    <p class="th">คำว่า “บ้านคือสวรรค์บนดิน” ที่ดิฉันชอบเมื่อแรกเข้ามาในศาสนจักร ดิฉันก็ยังชอบอยู่จนถึงทุกวันนี้ แต่ ‘สวรรค์บนดิน’ ที่ดิฉันคิดเมื่อครั้งยังสาว กับ ‘สวรรค์บนดิน’ ที่ดิฉันคิดในตอนนี้ ดูเหมือนจะต่างกันอยู่บ้าง</p>
+    <p class="de">Die Worte „Die Familie ist der Himmel auf Erden“, die ich mochte, als ich in die Kirche kam, mag ich auch heute noch. Aber der „Himmel auf Erden“, den ich mir vorstellte, als ich jung war, und der „Himmel auf Erden“, den ich mir heute vorstelle, sind wohl ein wenig verschieden.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src ko">어떤 어려움도 없고 모든 가족이 내가 바라는 모습대로 살아가는 가정이 천국이라기보다, 어려움 중에 서로 사랑하고 이해하려고 노력하고, 기다려 주고, 그 가운데 주님의 손길을 발견할 수 있는 곳이 어쩌면 지상의 천국이 아닐까 생각합니다.</p>
+    <p class="tgt en">I’ve come to think that heaven on earth may not be a home where there is no hardship at all and where every member of the family lives just the way I hope. Perhaps, instead, it is a place where we try to love and understand one another in the midst of hardship, where we wait for one another, and where, in all of it, we can find the hand of the Lord.</p>
+    <p class="zh">与其说没有任何困难、每一个家人都照着我所盼望的样子生活的家庭才是天堂，我想，或许在困难当中彼此相爱、努力去理解对方、愿意等待，并且能在其中发现主的手的地方，才是人间天堂吧。</p>
+    <p class="th">แทนที่บ้านซึ่งไม่มีความยากลำบากใดๆ และทุกคนในครอบครัวใช้ชีวิตตามแบบที่ดิฉันหวังจะเป็นสวรรค์ ดิฉันคิดว่าบางที สถานที่ซึ่งเราพยายามรักและเข้าใจกัน รอคอยกัน ท่ามกลางความยากลำบาก และสามารถพบพระหัตถ์ของพระเจ้าในท่ามกลางสิ่งเหล่านั้น อาจจะเป็นสวรรค์บนดินก็ได้</p>
+    <p class="de">Nicht so sehr eine Familie, in der es keinerlei Schwierigkeiten gibt und in der alle so leben, wie ich es mir wünsche, sondern ein Ort, an dem wir uns mitten in den Schwierigkeiten bemühen, einander zu lieben und zu verstehen, aufeinander zu warten und darin die Hand des Herrn zu entdecken – das ist vielleicht der Himmel auf Erden, denke ich.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src ko">앞으로도 어머니로서의  삶이 제가 계획한 대로만 흘러가지는 않을 것입니다. 하지만 이제는 모든 것을 이해하지 못하더라도, 주님께서 저와 제 자녀들을 알고 계시며 우리가 걷는 길을 함께 걸어가신다는 것에 힘을 얻습니다.</p>
+    <p class="tgt en">In the years ahead, my life as a mother won’t always go the way I’ve planned, either. But now, even if I don’t understand everything, I find strength in knowing that the Lord knows me and my children, and that He walks with us on the road we’re walking.</p>
+    <p class="zh">今后身为母亲的生活，也不会全都照着我所计划的走。但是现在，即使不能明白每一件事，主认识我和我的孩子们，也与我们同走我们所走的路，这让我得到力量。</p>
+    <p class="th">ต่อจากนี้ไป ชีวิตการเป็นแม่ของดิฉันก็คงไม่ได้ดำเนินไปตามที่ดิฉันวางแผนไว้ทุกอย่าง แต่ตอนนี้ แม้จะไม่เข้าใจทุกสิ่ง ดิฉันก็ได้รับกำลังจากการที่รู้ว่าพระเจ้าทรงรู้จักดิฉันและลูกๆ ของดิฉัน และทรงดำเนินไปด้วยกันบนเส้นทางที่เราเดินอยู่</p>
+    <p class="de">Auch in Zukunft wird mein Leben als Mutter nicht nur so verlaufen, wie ich es geplant habe. Aber jetzt schöpfe ich Kraft daraus, dass der Herr mich und meine Kinder kennt und den Weg, den wir gehen, mit uns geht – auch wenn ich nicht alles verstehe.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">23</span>
+    <p class="lead src ko">제가  신앙생활을 하면서 늘 위안을 받았던 경전 구절을 함께 나누며 제  말씀을 마치고자 합니다.</p>
+    <blockquote class="src ko">“사람이 마음으로 자기의 길을 계획할지라도 그의 걸음을 인도하시는 이는 여호와시니라.”<cite>잠언 16:9 · Proverbs 16:9</cite></blockquote>
+    <p class="lead tgt en">I’d like to close my remarks by sharing a verse of scripture that has always brought me comfort in my life of faith.</p>
+    <blockquote class="tgt en">A man’s heart deviseth his way: but the Lord directeth his steps.<cite>잠언 16:9 · Proverbs 16:9</cite></blockquote>
+    <p class="lead zh">最后，我想分享一节在我的信仰生活中一直给我安慰的经文，作为我讲话的结束。</p>
+    <blockquote class="zh">人心筹算自己的道路；惟耶和华指引他的脚步。<cite>잠언 16:9 · Proverbs 16:9</cite></blockquote>
+    <p class="lead th">ดิฉันขอจบการพูดในวันนี้ด้วยการแบ่งปันข้อพระคัมภีร์ข้อหนึ่ง ซึ่งให้การปลอบโยนแก่ดิฉันเสมอมาตลอดชีวิตแห่งศรัทธา</p>
+    <blockquote class="th">ใจของมนุษย์กะแผนงานทางของเขา แต่พระยาห์เวห์ทรงนำย่างเท้าของเขา<cite>잠언 16:9 · Proverbs 16:9</cite></blockquote>
+    <p class="lead de">Ich möchte meine Ansprache damit schließen, dass ich eine Schriftstelle mit Ihnen teile, die mir in meinem Glaubensleben immer Trost gegeben hat.</p>
+    <blockquote class="de">Des Menschen Herz erdenkt sich seinen Weg, der HErr aber lenkt seine Schritte.<cite>잠언 16:9 · Proverbs 16:9</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src ko">이 모든 것을 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="tgt en">I say these things in the name of Jesus Christ, amen.</p>
+    <p class="zh">我这样说，奉耶稣基督的名，阿们。</p>
+    <p class="th">ดิฉันกล่าวสิ่งทั้งหมดนี้ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Dies alles sage ich im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

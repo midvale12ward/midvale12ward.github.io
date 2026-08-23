@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I Have Experienced God’s Grace as a Young Man Finding My Way in Life · 인생의 길을 찾아가는 청년으로서 제가 경험한 하나님의 은혜</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite blockquote {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">How I Have Experienced God’s Grace as a Young Man Finding My Way in Life</span><span class="ko">인생의 길을 찾아가는 청년으로서 제가 경험한 하나님의 은혜</span><span class="zh">身为一个正在寻找人生方向的年轻人，我所经历的神的恩典</span><span class="th">พระคุณของพระผู้เป็นเจ้าที่ผมประสบในฐานะชายหนุ่มคนหนึ่งที่กำลังหาทางของตัวเองในชีวิต</span><span class="de">Wie ich als junger Mann auf der Suche nach meinem Weg die Gnade Gottes erfahren habe</span></h1>
+  <p class="byline">Brother Shawn Spencer &nbsp;·&nbsp; 24 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">안녕하세요 brothers and sisters. My name is Shawn Spencer. I’m a second year college student at the University of Utah. I served my mission in the Korea Seoul South Mission, starting in Daejeon, then Bundang, Pyeongtaek, Osan, Heungdeok, Iksan, Namwon, and finally Jecheon.</p>
+    <p class="tgt ko">안녕하세요, 형제 자매 여러분. 제 이름은 숀 스펜서입니다. 저는 유타 대학교 2학년 학생입니다. 한국 서울 남 선교부에서 봉사했는데, 대전에서 시작해서 분당, 평택, 오산, 흥덕, 익산, 남원, 마지막은 제천이었습니다.</p>
+    <p class="zh">안녕하세요，弟兄姊妹们。我叫肖恩·斯宾塞。我在犹他大学念大二。我之前在韩国首尔南传道部传教，一开始在大田，然后是盆唐、平泽、乌山、兴德、益山、南原，最后是堤川。</p>
+    <p class="th">안녕하세요 พี่น้องทั้งหลายครับ ผมชื่อชอน สเปนเซอร์ เป็นนักศึกษาปีสองที่มหาวิทยาลัยยูทาห์ ผมรับใช้เป็นผู้สอนศาสนาในคณะเผยแผ่เกาหลีโซลใต้ เริ่มต้นที่แทจ็อน จากนั้นก็บุนดัง พย็องแท็ก โอซัน ฮึงด็อก อิกซัน นัมว็อน และสุดท้ายที่เชช็อน</p>
+    <p class="de">안녕하세요, Brüder und Schwestern. Ich heiße Shawn Spencer. Ich studiere im zweiten Jahr an der University of Utah. Meine Mission habe ich in der Korea-Mission Seoul Süd erfüllt, zuerst in Daejeon, dann in Bundang, Pyeongtaek, Osan, Heungdeok, Iksan, Namwon und zuletzt in Jecheon.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src en">This might seem obvious, but if anyone is wondering, I loved my time there. The missionary work itself was slow moving and not very fun, but studying the Korean language, playing basketball or soccer on the weekends, and working on a farm in Namwon made my time worth it. I like to get to know people better but paradoxically I’m a little shy, so feel free to reach out to me if you’d like.</p>
+    <p class="tgt ko">당연한 얘기처럼 들릴지 모르지만, 혹시 궁금해하시는 분이 있다면, 저는 그곳에서 보낸 시간이 정말 좋았습니다. 선교 사업 자체는 더디고 그렇게 재미있지는 않았습니다. 하지만 한국어를 공부하고, 주말이면 농구나 축구를 하고, 남원에 있는 농장에서 일한 덕분에 그 시간은 충분히 가치가 있었습니다. 저는 사람들과 더 가까워지는 것을 좋아하지만, 역설적이게도 수줍음이 좀 많습니다. 그러니 원하시면 언제든 편하게 말을 걸어 주세요.</p>
+    <p class="zh">这个可能不用我说，不过如果有人好奇的话，我很喜欢在那里的日子。传道的工作本身进展很慢，也不太好玩，但是学韩语、周末打篮球或踢足球、还有在南原的农场干活，让那段时间很值得。我喜欢多认识一些人，但矛盾的是，我又有点害羞，所以如果你想的话，可以随时来找我。</p>
+    <p class="th">เรื่องนี้อาจจะรู้กันอยู่แล้ว แต่เผื่อมีใครสงสัย ผมรักช่วงเวลาที่นั่นมากครับ ตัวงานเผยแผ่ศาสนาเองเป็นไปอย่างช้าๆ และไม่ค่อยสนุกเท่าไร แต่การเรียนภาษาเกาหลี การเล่นบาสเกตบอลหรือฟุตบอลในวันหยุดสุดสัปดาห์ และการทำงานในไร่นาที่นัมว็อน ทำให้เวลาของผมที่นั่นคุ้มค่า ผมชอบทำความรู้จักผู้คนให้มากขึ้น แต่ก็ย้อนแย้งอยู่หน่อยตรงที่ผมค่อนข้างขี้อาย เพราะฉะนั้นถ้าใครอยากทักทายผมก็เชิญได้เลยนะครับ</p>
+    <p class="de">Das ist vielleicht offensichtlich, aber falls sich das jemand fragt: Ich habe die Zeit dort geliebt. Die Missionsarbeit selbst kam nur langsam voran und machte nicht besonders viel Spaß, aber Koreanisch lernen, am Wochenende Basketball oder Fußball spielen und in Namwon auf einem Bauernhof arbeiten – das hat die Zeit für mich wertvoll gemacht. Ich lerne Menschen gern näher kennen, aber paradoxerweise bin ich ein bisschen schüchtern. Sprechen Sie mich also ruhig an, wenn Sie mögen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">This week the bishopric asked me to give a talk on how I see God’s grace in my life as a young man. The first thing that comes to mind for me is the scripture that states: It is by grace that we are saved. Meaning that the pathway to heaven is not by our own skills but simply because our heavenly father wants us to go to heaven. It’s what God wants.</p>
+    <p class="tgt ko">이번 주에 감독단에서 저에게, 청년으로서 제 삶에서 하나님의 은혜를 어떻게 보는지 이야기해 달라고 부탁하셨습니다. 제일 먼저 떠오르는 것은, 우리가 구원받는 것은 은혜로 된다는 성구입니다. 그러니까 천국으로 가는 길은 우리 자신의 능력으로 되는 것이 아니라는 뜻입니다. 그저 하나님 아버지께서 우리가 천국에 가기를 원하시기 때문입니다. 그것이 하나님께서 원하시는 것입니다.</p>
+    <p class="zh">这个星期主教团请我发表一篇讲词，谈谈我这个年轻人怎么在自己的生活里看到神的恩典。我最先想到的是经文里说的：我们是因恩典而得救的。意思是，我们能回到天父面前，不是靠我们自己的本事，而只是因为我们的天父希望我们回到祂身边。这就是神想要的。</p>
+    <p class="th">สัปดาห์นี้ฝ่ายอธิการขอให้ผมพูดว่า ในฐานะชายหนุ่มคนหนึ่ง ผมเห็นพระคุณของพระผู้เป็นเจ้าในชีวิตของผมอย่างไร สิ่งแรกที่ผมนึกถึงคือข้อพระคัมภีร์ที่กล่าวว่า โดยพระคุณเราจึงได้รับการช่วยให้รอด หมายความว่าเราไปสวรรค์ได้ไม่ใช่เพราะความสามารถของเราเอง แต่เป็นเพียงเพราะพระบิดาบนสวรรค์ของเราทรงต้องการให้เราไปสวรรค์ นั่นคือสิ่งที่พระผู้เป็นเจ้าทรงต้องการ</p>
+    <p class="de">Diese Woche hat mich die Bischofschaft gebeten, eine Ansprache darüber zu halten, wie ich als junger Mann die Gnade Gottes in meinem Leben sehe. Als Erstes fällt mir die Schriftstelle ein, in der steht: Durch Gnade sind wir errettet. Das heißt: In den Himmel kommen wir nicht durch unsere eigenen Fähigkeiten, sondern einfach deshalb, weil unser himmlischer Vater will, dass wir in den Himmel kommen. Gott will es so.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">The greatest example of grace was the savior’s atonement, in which Jesus Christ suffered all of our afflictions in order to pay the gap in our imperfections, ultimately allowing us to return to the celestial Kingdom.</p>
+    <p class="tgt ko">은혜의 가장 위대한 예는 구주의 속죄였습니다. 예수 그리스도께서는 우리 불완전함의 틈을 메우시기 위해 우리의 모든 고난을 겪으셨고, 궁극적으로 우리가 해의 왕국으로 돌아갈 수 있게 해 주셨습니다.</p>
+    <p class="zh">恩典最大的例子就是救主的赎罪，耶稣基督承受了我们所有的苦难，来填补我们不完美留下的差距，最后让我们能够回到高荣国度。</p>
+    <p class="th">ตัวอย่างที่ยิ่งใหญ่ที่สุดของพระคุณคือการชดใช้ของพระผู้ช่วยให้รอด ซึ่งพระเยซูคริสต์ทรงทนรับความทุกข์ทั้งปวงของเราเพื่อเติมเต็มช่องว่างจากความไม่ดีพร้อมของเรา และในที่สุดก็เปิดทางให้เรากลับไปสู่อาณาจักรซีเลสเชียลได้</p>
+    <p class="de">Das größte Beispiel für Gnade war das Sühnopfer des Erretters: Jesus Christus hat all unsere Leiden auf sich genommen, um auszugleichen, was uns in unserer Unvollkommenheit fehlt, und hat uns damit am Ende die Rückkehr ins celestiale Reich ermöglicht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">In life we all have troubles and being religious is no reason to escape feeling down. Knowing God is gracious is supposed to help each of us feel lighter and more capable of freely giving love to others. If we understand that God loves us it is easier to let go of shame or guilt. Kind of the big idea is to feel a little bit good. Good enough to be kind, and good enough to have hope.</p>
+    <p class="tgt ko">살다 보면 우리 모두에게 어려움이 있습니다. 신앙이 있다고 해서 우울한 기분을 피할 수 있는 것은 아닙니다. 하나님께서 은혜로우시다는 것을 알면, 우리 각자의 마음이 더 가벼워지고, 다른 사람에게 더 자유롭게 사랑을 줄 수 있게 됩니다. 하나님께서 우리를 사랑하신다는 것을 이해하면, 부끄러움이나 죄책감을 내려놓기가 더 쉬워집니다. 말하자면, 핵심은 기분이 조금이라도 좋아지는 것입니다. 친절할 수 있을 만큼, 그리고 희망을 가질 수 있을 만큼요.</p>
+    <p class="zh">在生活里我们都有难处，有信仰也不代表就不会心情低落。知道神有恩典，应该会让我们每个人心里轻松一点，也更能自在地把爱给别人。如果我们明白神爱我们，就比较容易放下羞愧或内疚。大概最主要的意思就是，让自己感觉好一点点。好到可以对人好，也好到可以有希望。</p>
+    <p class="th">ในชีวิตนี้เราทุกคนมีปัญหา และการเป็นคนมีศาสนาก็ไม่ใช่เหตุผลที่เราจะหนีพ้นความรู้สึกหดหู่ได้ การรู้ว่าพระผู้เป็นเจ้าทรงเปี่ยมด้วยพระคุณนั้นควรช่วยให้เราแต่ละคนรู้สึกเบาขึ้น และสามารถมอบความรักให้ผู้อื่นได้อย่างเต็มใจมากขึ้น ถ้าเราเข้าใจว่าพระผู้เป็นเจ้าทรงรักเรา การปล่อยวางความอับอายหรือความรู้สึกผิดก็จะง่ายขึ้น ใจความใหญ่ๆ ก็ประมาณว่า ให้เรารู้สึกดีขึ้นสักหน่อย ดีพอที่จะมีเมตตา และดีพอที่จะมีความหวัง</p>
+    <p class="de">Im Leben haben wir alle unsere Probleme, und gläubig zu sein heißt nicht, dass man nie niedergeschlagen ist. Zu wissen, dass Gott gnädig ist, soll jedem von uns das Herz leichter machen, sodass wir anderen freier unsere Liebe schenken können. Wenn wir begreifen, dass Gott uns liebt, können wir Scham oder Schuldgefühle leichter loslassen. Im Grunde geht es wohl darum, sich so ein bisschen gut zu fühlen. Gut genug, um freundlich zu sein, und gut genug, um Hoffnung zu haben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">We can find peace and hope and love by watching people help each other, by reading a heartfelt scripture, or enjoying nature on a peaceful spring morning. Whatever it may be that makes you happy is a manifestation of God’s grace.</p>
+    <p class="tgt ko">우리는 사람들이 서로 돕는 모습을 보면서, 마음에 와닿는 성구를 읽으면서, 또는 평화로운 봄날 아침에 자연을 즐기면서 평안과 희망과 사랑을 찾을 수 있습니다. 그것이 무엇이든, 여러분을 행복하게 하는 것은 하나님의 은혜가 나타난 것입니다.</p>
+    <p class="zh">看到别人互相帮助，读一节让人感动的经文，或者在春天一个安静的早上享受大自然，我们都能找到平安、希望和爱。不管是什么让你觉得开心，那都是神恩典的一种表现。</p>
+    <p class="th">เราพบสันติสุข ความหวัง และความรักได้จากการดูผู้คนช่วยเหลือกัน จากการอ่านข้อพระคัมภีร์ที่กินใจ หรือจากการชื่นชมธรรมชาติในเช้าฤดูใบไม้ผลิที่เงียบสงบ ไม่ว่าอะไรก็ตามที่ทำให้ท่านมีความสุข สิ่งนั้นคือการแสดงให้เห็นถึงพระคุณของพระผู้เป็นเจ้า</p>
+    <p class="de">Frieden, Hoffnung und Liebe finden wir, wenn wir sehen, wie Menschen einander helfen, wenn wir eine Schriftstelle lesen, die einem zu Herzen geht, oder wenn wir an einem stillen Frühlingsmorgen die Natur genießen. Was immer Sie glücklich macht, ist ein Ausdruck der Gnade Gottes.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">But there are times when knowing this is not enough to feel better. There were days or weeks when I felt like the most hated, forgotten, and dumbest person on earth. I prayed for help to make friends, but gave up when someone stared at me with fear in their eyes. When I was yelled at to mind my own business, or just downright ignored. I tried calling and texting old friends and new people I met in class, but nobody ever responded. I prayed to score well on a big exam, only to be left disappointed in myself.</p>
+    <p class="tgt ko">하지만 이것을 알아도 기분이 나아지지 않을 때가 있습니다. 제가 이 세상에서 가장 미움받고, 가장 잊혀지고, 가장 어리석은 사람처럼 느껴지는 날들이 있었습니다. 며칠씩, 때로는 몇 주씩 그랬습니다. 친구를 사귈 수 있게 도와 달라고 기도했지만, 누군가 겁먹은 눈으로 저를 쳐다봤을 때 포기했습니다. 남 일에 신경 쓰지 말라는 소리를 들었을 때, 아니면 그냥 완전히 무시당했을 때도요. 옛 친구들에게도, 수업에서 새로 만난 사람들에게도 전화하고 문자를 보내 봤지만, 아무에게서도 답이 없었습니다. 중요한 시험을 잘 보게 해 달라고 기도했지만, 결국 저 자신에 대한 실망만 남았습니다.</p>
+    <p class="zh">但是有时候，知道这些还不够让人好过一点。有些日子，甚至好几个星期，我都觉得自己是世界上最讨人厌、最被人遗忘、最笨的人。我祈求神帮助我交到朋友，可是有人用害怕的眼神盯着我看，我就放弃了。有人对我大吼，叫我少管闲事，或者干脆完全不理我。我试着给老朋友和课堂上新认识的人打电话、发信息，可是从来没有人回。我祈祷一场大考能考好，结果只是对自己感到失望。</p>
+    <p class="th">แต่ก็มีบางครั้งที่การรู้เรื่องนี้ไม่พอที่จะทำให้รู้สึกดีขึ้น มีบางวันหรือบางสัปดาห์ที่ผมรู้สึกเหมือนเป็นคนที่ถูกเกลียดที่สุด ถูกลืมที่สุด และโง่ที่สุดในโลก ผมสวดอ้อนวอนขอความช่วยเหลือให้หาเพื่อนได้ แต่ก็ถอดใจเมื่อมีคนจ้องมองผมด้วยแววตาหวาดกลัว เมื่อถูกตะคอกใส่ว่าอย่ามายุ่งเรื่องของคนอื่น หรือไม่ก็ถูกเมินใส่ไปเลย ผมลองโทรหาและส่งข้อความหาเพื่อนเก่าๆ และคนใหม่ๆ ที่เจอในชั้นเรียน แต่ไม่เคยมีใครตอบกลับมา ผมสวดอ้อนวอนขอให้ทำข้อสอบครั้งใหญ่ได้ดี แต่กลับต้องผิดหวังในตัวเอง</p>
+    <p class="de">Aber es gibt Zeiten, da reicht dieses Wissen nicht aus, damit es einem besser geht. Es gab Tage oder Wochen, in denen ich mir vorkam wie der Mensch, den alle hassen, den alle vergessen haben, und dazu der Dümmste der Welt. Ich betete um Hilfe dabei, Freunde zu finden, hörte aber damit auf, als mich jemand mit Angst in den Augen anstarrte. Als man mich anschrie, das gehe mich nichts an, oder mich einfach links liegen ließ. Ich versuchte, alte Freunde und neue Leute aus meinen Kursen anzurufen und ihnen zu schreiben, aber es hat nie jemand geantwortet. Ich betete darum, in einer wichtigen Prüfung gut abzuschneiden, und war hinterher doch nur von mir selbst enttäuscht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">At night I felt horrible when I knelt to pray. My prayers do no good and I can’t do anything right. Is God even listening?</p>
+    <p class="tgt ko">밤에 무릎을 꿇고 기도할 때면 기분이 끔찍했습니다. 내 기도는 아무 소용이 없고, 나는 제대로 하는 게 하나도 없다. 하나님이 듣고 계시기는 한 걸까?</p>
+    <p class="zh">晚上我跪下来祈祷的时候，心里很难受。我的祈祷没有用，我什么事都做不好。神到底有没有在听？</p>
+    <p class="th">ตอนกลางคืน ผมรู้สึกแย่เหลือเกินเวลาคุกเข่าสวดอ้อนวอน คำสวดอ้อนวอนของผมไม่ช่วยอะไรเลย และผมทำอะไรก็ไม่ถูกสักอย่าง พระผู้เป็นเจ้าทรงฟังอยู่จริงๆ หรือเปล่า</p>
+    <p class="de">Abends, wenn ich mich zum Beten hinkniete, fühlte ich mich schrecklich. Meine Gebete bringen nichts, und ich bekomme nichts richtig hin. Hört Gott überhaupt zu?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src en">I tried even the most basic things like watching the sun rise and set. Maybe that would make me feel better. It didn’t. Even on the most beautiful nights when the sky turns bright red, sitting with the wind at my back, watching the marvels of the sky, I only felt lonely. Like this view is a waste of light if I had nobody to share it with. Since no one was there, it was a waste of time.</p>
+    <p class="tgt ko">해가 뜨고 지는 모습을 바라보는 것 같은, 가장 기본적인 것들도 해 봤습니다. 그러면 기분이 나아질까 해서요. 나아지지 않았습니다. 하늘이 새빨갛게 물드는 가장 아름다운 밤에도, 바람을 등지고 앉아 하늘의 경이로움을 바라보면서도, 저는 외롭기만 했습니다. 함께 나눌 사람이 없으면 이 풍경도 빛의 낭비인 것만 같았습니다. 아무도 없었으니, 시간 낭비였습니다.</p>
+    <p class="zh">我连最基本的事都试了，像是看日出和日落。也许那样会让我好过一点。并没有。就算在最美的那些夜晚，天空变成鲜红色，风从背后吹来，我坐着看天上那些奇妙的景象，我还是只觉得孤单。好像这片景色如果没有人可以一起看，那就是浪费了这些光。既然没有人在，那就是浪费时间。</p>
+    <p class="th">ผมลองแม้แต่สิ่งพื้นฐานที่สุด อย่างการดูพระอาทิตย์ขึ้นและตก เผื่อว่านั่นจะทำให้ผมรู้สึกดีขึ้น แต่ก็เปล่า แม้ในคืนที่งดงามที่สุด ตอนที่ท้องฟ้าเปลี่ยนเป็นสีแดงเจิดจ้า นั่งให้ลมพัดอยู่ข้างหลัง มองดูความน่าอัศจรรย์บนท้องฟ้า ผมก็รู้สึกแค่เหงา เหมือนกับว่าวิวนี้เป็นแสงที่สูญเปล่า ถ้าผมไม่มีใครให้ชมมันด้วยกัน ในเมื่อไม่มีใครอยู่ตรงนั้น มันก็เป็นการเสียเวลา</p>
+    <p class="de">Ich probierte sogar die einfachsten Dinge aus, zum Beispiel mir den Sonnenaufgang und den Sonnenuntergang anzuschauen. Vielleicht würde ich mich dann besser fühlen. Es half nicht. Selbst an den schönsten Abenden, wenn der Himmel leuchtend rot wurde und ich dasaß, den Wind im Rücken, und die Wunder am Himmel anschaute, fühlte ich mich nur einsam. Als wäre dieser Anblick verschwendetes Licht, wenn ich niemanden hätte, mit dem ich ihn teilen könnte. Weil niemand da war, war es verschwendete Zeit.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src en">How am I supposed to know that God loves me individually just because the sun rises in the morning? What does it even mean that somebody I never met died on a cross for me? God couldn’t change the world for just me.</p>
+    <p class="tgt ko">아침에 해가 뜬다는 이유만으로, 하나님께서 저 개인을 사랑하신다는 것을 제가 어떻게 알 수 있단 말입니까? 한 번도 만난 적 없는 누군가가 저를 위해 십자가에서 죽었다는 것이 도대체 무슨 의미입니까? 하나님께서 저 하나를 위해 세상을 바꿔 주실 리가 없었습니다.</p>
+    <p class="zh">就因为太阳早上会升起来，我就该知道神爱我这个人吗？一个我从来没见过的人为我死在十字架上，这到底是什么意思？神不可能只为了我一个人改变这个世界。</p>
+    <p class="th">แค่เพราะพระอาทิตย์ขึ้นในตอนเช้า ผมจะรู้ได้อย่างไรว่าพระผู้เป็นเจ้าทรงรักผมเป็นการส่วนตัว แล้วการที่ใครบางคนที่ผมไม่เคยพบตายบนกางเขนเพื่อผม มันหมายความว่าอะไรกันแน่ พระผู้เป็นเจ้าคงทรงเปลี่ยนโลกเพื่อผมเพียงคนเดียวไม่ได้หรอก</p>
+    <p class="de">Woher soll ich wissen, dass Gott mich persönlich liebt, nur weil morgens die Sonne aufgeht? Was soll es überhaupt heißen, dass jemand, den ich nie getroffen habe, für mich am Kreuz gestorben ist? Gott würde die Welt doch nicht allein für mich verändern.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">On the other hand, I like to sit and wonder. I used to sit at a creek near my house and watch the ducks, the geese, the frogs. I liked to watch them go their merry way. Some frogs are so tiny, so cute. How do their tiny muscles get them anywhere at all? Look at the way green algae grows on round rocks. The biology is fascinating.</p>
+    <p class="tgt ko">한편으로 저는 가만히 앉아 이런저런 생각을 하는 것을 좋아합니다. 예전에는 집 근처 개울가에 앉아서 오리와 거위와 개구리들을 바라보곤 했습니다. 저마다 신나게 제 갈 길을 가는 모습을 보는 것이 좋았습니다. 어떤 개구리들은 정말 작고, 정말 귀엽습니다. 그 조그만 근육으로 대체 어떻게 돌아다니는 걸까요? 둥근 돌 위에 초록 물이끼가 자라는 모습을 한번 보세요. 생물이란 참 신기합니다.</p>
+    <p class="zh">不过话说回来，我喜欢坐着想事情。我以前常常坐在我家附近的小溪边，看鸭子、看大雁、看青蛙。我喜欢看它们自顾自地走来走去。有些青蛙好小，好可爱。它们的肌肉那么小，到底怎么能带它们到处跑呢？你看绿藻是怎么长在圆圆的石头上的。生物学真的很有意思。</p>
+    <p class="th">แต่อีกด้านหนึ่ง ผมชอบนั่งคิดไปเรื่อยๆ ผมเคยไปนั่งที่ลำธารใกล้บ้านแล้วดูพวกเป็ด ห่าน และกบ ผมชอบดูพวกมันใช้ชีวิตไปตามทางของมันอย่างเบิกบาน กบบางตัวก็ตัวจิ๋วมาก น่ารักมาก กล้ามเนื้อเล็กจิ๋วแค่นั้นพาพวกมันไปไหนมาไหนได้ยังไงกันนะ ลองดูตะไคร่น้ำสีเขียวที่ขึ้นอยู่บนก้อนหินกลมๆ สิ ชีววิทยานี่น่าทึ่งจริงๆ</p>
+    <p class="de">Andererseits sitze ich gern da und staune. Früher saß ich oft an einem Bach bei uns in der Nähe und schaute den Enten zu, den Gänsen, den Fröschen. Ich schaute ihnen gern zu, wie sie seelenruhig ihrer Wege gingen. Manche Frösche sind so winzig, so süß. Wie kommen sie mit diesen winzigen Muskeln überhaupt irgendwohin? Man muss sich nur mal anschauen, wie grüne Algen auf runden Steinen wachsen. Die Biologie ist faszinierend.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">I like to lay on the grass, feel the weight of gravity, like I can feel the whole planet underneath me. To imagine tumbling in outer space, with numberless planets and stars and galaxies. I like those simple, natural things that allow me to think freely.</p>
+    <p class="tgt ko">저는 잔디밭에 누워 중력의 무게를 느끼는 것을 좋아합니다. 마치 지구라는 행성 전체가 제 밑에 있는 게 느껴지는 것처럼요. 셀 수 없이 많은 행성과 별과 은하 사이에서, 우주 공간을 빙글빙글 떠도는 상상을 하는 것도요. 저는 그렇게 자유롭게 생각할 수 있게 해 주는, 자연 속의 단순한 것들이 좋습니다.</p>
+    <p class="zh">我喜欢躺在草地上，感受重力，好像可以感觉到整个星球就在我身体下面。想象自己在外太空里翻滚，周围有数不清的行星、恒星和星系。我喜欢这些简单的、自然的东西，它们让我可以自由地想事情。</p>
+    <p class="th">ผมชอบนอนลงบนสนามหญ้า รู้สึกถึงแรงโน้มถ่วง เหมือนผมสัมผัสได้ถึงโลกทั้งใบที่อยู่ใต้ตัวผม ชอบจินตนาการว่ากำลังลอยคว้างอยู่ในห้วงอวกาศ ท่ามกลางดาวเคราะห์ ดวงดาว และกาแล็กซีมากมายนับไม่ถ้วน ผมชอบสิ่งเรียบง่ายตามธรรมชาติแบบนี้ที่ทำให้ผมได้คิดอย่างอิสระ</p>
+    <p class="de">Ich liege gern im Gras und spüre die Schwerkraft, als könnte ich den ganzen Planeten unter mir fühlen. Und mir vorstellen, wie ich durchs Weltall trudle, zwischen unzähligen Planeten und Sternen und Galaxien. Ich mag diese einfachen, natürlichen Dinge, bei denen ich frei denken kann.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src en">Sometimes I get caught up wondering if I’m doing the right thing or if I’m feeling the whispering of the holy spirit but all it does is make me nervous. I don’t really understand God’s grace, and asking about it is only disheartening to me.</p>
+    <p class="tgt ko">가끔은 제가 옳은 일을 하고 있는 건지, 지금 느끼는 것이 성신의 속삭임인지 고민에 빠질 때가 있습니다. 하지만 그래 봐야 불안해지기만 합니다. 저는 하나님의 은혜를 정말 잘 모르겠습니다. 그리고 그것에 대해 물어보면 낙심만 하게 됩니다.</p>
+    <p class="zh">有时候我会一直纠结，想我做的事情对不对，或者我感觉到的是不是圣灵的低语，可是这样只会让我紧张。我其实不太懂神的恩典，去问这些问题只会让我灰心。</p>
+    <p class="th">บางครั้งผมก็มัวแต่สงสัยว่าผมกำลังทำสิ่งที่ถูกต้องอยู่หรือเปล่า หรือสิ่งที่ผมรู้สึกคือเสียงกระซิบของพระวิญญาณบริสุทธิ์หรือเปล่า แต่มันก็มีแต่ทำให้ผมกังวล ผมไม่ได้เข้าใจพระคุณของพระผู้เป็นเจ้าจริงๆ หรอก และการตั้งคำถามเรื่องนี้ก็มีแต่ทำให้ผมท้อใจ</p>
+    <p class="de">Manchmal komme ich ins Grübeln, ob ich das Richtige tue oder ob ich gerade das Flüstern des Heiligen Geistes spüre – und das macht mich am Ende bloß nervös. Ich verstehe die Gnade Gottes nicht wirklich, und wenn ich danach frage, macht mich das nur mutlos.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src en">I have a notebook I keep at home where I write down most of my worries. When I write, I end up reminding myself of those peaceful natural things. Sometimes, the unfair things in life seem a little smaller. Sometimes I am reminded of the joys I’ve shared and will share with my family and friends. I think that is God’s grace at play; The things that relieve your anxieties and bring hope.</p>
+    <p class="tgt ko">저는 집에 공책을 하나 두고, 걱정거리 대부분을 거기에 적습니다. 쓰다 보면 결국 자연 속의 그 평화로운 것들을 다시 떠올리게 됩니다. 가끔은 인생의 불공평한 일들이 조금 작아 보입니다. 가끔은 가족과 친구들과 함께 나눴던 기쁨, 그리고 앞으로 나눌 기쁨이 떠오릅니다. 저는 그것이 하나님의 은혜가 역사하는 것이라고 생각합니다. 여러분의 불안을 덜어 주고 희망을 가져다주는 것들 말입니다.</p>
+    <p class="zh">我家里有一本笔记本，我把大部分的烦恼都写在里面。我写的时候，写着写着就会想起那些平静的、自然的东西。有时候，生活里那些不公平的事看起来就小了一点。有时候我会想起我和家人朋友一起有过的快乐，还有以后会有的快乐。我想，那就是神的恩典在起作用——那些减轻你的焦虑、带给你希望的东西。</p>
+    <p class="th">ผมมีสมุดบันทึกเล่มหนึ่งเก็บไว้ที่บ้าน ไว้เขียนความกังวลส่วนใหญ่ของผมลงไป เวลาเขียน ผมก็มักจะเตือนตัวเองให้นึกถึงสิ่งสงบๆ ตามธรรมชาติเหล่านั้น บางครั้งเรื่องไม่ยุติธรรมต่างๆ ในชีวิตก็ดูเล็กลงนิดหนึ่ง บางครั้งผมก็นึกขึ้นได้ถึงความสุขที่ผมเคยมีและจะได้มีร่วมกับครอบครัวและเพื่อนๆ ผมคิดว่านั่นแหละคือพระคุณของพระผู้เป็นเจ้าที่กำลังทำงานอยู่—สิ่งที่ช่วยคลายความกังวลของท่านและนำความหวังมาให้</p>
+    <p class="de">Zu Hause habe ich ein Notizbuch, in das ich die meisten meiner Sorgen schreibe. Beim Schreiben lande ich am Ende immer wieder bei diesen friedlichen, natürlichen Dingen. Manchmal wirken die ungerechten Dinge im Leben dann ein bisschen kleiner. Manchmal fällt mir wieder ein, wie viel Freude ich mit meiner Familie und meinen Freunden geteilt habe und noch teilen werde. Ich glaube, da ist die Gnade Gottes am Werk: die Dinge, die Ihnen die Sorgen nehmen und Hoffnung geben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src en">To conclude, without God’s grace we wouldn’t be here, in this meeting house today. To feel God’s grace I find it best to think of nature, and put my worries aside just for a moment. I think we can all feel God’s grace if we find the right way to open our hearts to it.</p>
+    <p class="tgt ko">끝으로, 하나님의 은혜가 없었다면 우리는 오늘 이 예배당에 있지 못했을 것입니다. 하나님의 은혜를 느끼는 데는, 자연을 생각하면서 잠시만이라도 걱정을 내려놓는 것이 제일 좋은 것 같습니다. 마음을 여는 올바른 방법을 찾는다면, 우리 모두 하나님의 은혜를 느낄 수 있다고 생각합니다.</p>
+    <p class="zh">最后，如果没有神的恩典，我们今天不会在这里，不会在这间聚会所里。要感受到神的恩典，我发现最好的方法是想一想大自然，把烦恼先放在一边，就一会儿也好。我想，只要我们找到对的方法，敞开自己的心，我们都可以感受到神的恩典。</p>
+    <p class="th">สุดท้ายนี้ ถ้าไม่มีพระคุณของพระผู้เป็นเจ้า เราคงไม่ได้มาอยู่ที่นี่ ในอาคารประชุมแห่งนี้ในวันนี้ สำหรับผม วิธีที่ดีที่สุดที่จะรู้สึกถึงพระคุณของพระผู้เป็นเจ้าคือการนึกถึงธรรมชาติ และวางความกังวลของผมไว้ข้างๆ สักครู่หนึ่ง ผมคิดว่าเราทุกคนสามารถรู้สึกถึงพระคุณของพระผู้เป็นเจ้าได้ ถ้าเราพบวิธีที่ถูกต้องที่จะเปิดใจรับพระคุณนั้น</p>
+    <p class="de">Zum Schluss: Ohne die Gnade Gottes wären wir heute nicht hier, in diesem Gemeindehaus. Wenn ich die Gnade Gottes spüren will, denke ich am besten an die Natur und lege meine Sorgen für einen Moment beiseite. Ich glaube, wir alle können die Gnade Gottes spüren, wenn wir den richtigen Weg finden, unser Herz dafür zu öffnen.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">16</span>
+    <p class="lead src en">So I’ll close with some encouraging words of the prophet Russell M. Nelson,</p>
+    <blockquote class="src en">the joy we feel has little to do with the circumstances of our lives and everything to do with the focus of our lives<cite>Russell M. Nelson, “Joy and Spiritual Survival,” October 2016</cite></blockquote>
+    <p class="lead tgt ko">그래서 선지자 러셀 엠 넬슨 회장님의 격려의 말씀으로 마치겠습니다.</p>
+    <blockquote class="tgt ko">우리는 우리가 놓인 환경과는 관계없이 어디에 초점을 두는가에 따라서 기쁨을 느낄 수 있습니다<cite>Russell M. Nelson, “Joy and Spiritual Survival,” October 2016</cite></blockquote>
+    <p class="lead zh">所以，我想用先知罗素·纳尔逊会长的一段鼓励人的话来结束：</p>
+    <blockquote class="zh">我们感受到的喜乐，并不在于生活的环境，而在于我们生活的重心<cite>Russell M. Nelson, “Joy and Spiritual Survival,” October 2016</cite></blockquote>
+    <p class="lead th">ดังนั้นผมจะขอปิดท้ายด้วยถ้อยคำให้กำลังใจของศาสดาพยากรณ์ ประธานรัสเซลล์ เอ็ม. เนลสัน ที่ว่า</p>
+    <blockquote class="th">ปีติที่เรารู้สึกแทบไม่เกี่ยวกับสภาพการณ์ในชีวิตและทุกอย่างที่เราทำกับศูนย์กลางชีวิตเรา<cite>Russell M. Nelson, “Joy and Spiritual Survival,” October 2016</cite></blockquote>
+    <p class="lead de">Ich schließe also mit ein paar ermutigenden Worten des Propheten Russell M. Nelson:</p>
+    <blockquote class="de">die Freude, die wir empfinden, hat wenig mit unseren Lebensumständen und vielmehr damit zu tun, worauf wir im Leben den Blick richten<cite>Russell M. Nelson, “Joy and Spiritual Survival,” October 2016</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src en">In the name of Jesus Christ, amen.</p>
+    <p class="tgt ko">예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="zh">奉耶稣基督的名，阿们。</p>
+    <p class="th">ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

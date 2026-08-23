@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Being Born Again Happens · 거듭남은 어떻게 일어나는가</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite blockquote {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">How Being Born Again Happens</span><span class="ko">거듭남은 어떻게 일어나는가</span><span class="zh">重生是怎么发生的</span><span class="th">การเกิดใหม่เกิดขึ้นได้อย่างไร</span><span class="de">Wie wird man von neuem geboren?</span></h1>
+  <p class="byline">오예평 형제 · Brother Yepyeong Oh &nbsp;·&nbsp; 23 August 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">지난 간증에서도 말씀드렸는데, 얼마 전 저는 베냐민 왕의 백성들이 어떻게 거듭났는지, 그리고 제 자신의 경험을 통해 거듭남이 무엇인지 생각해 보게 되었습니다. 그런데 그 경험을 돌아보면서 한 가지 질문이 생겼습니다. 거듭남은 정확히 어떻게 일어나는 것일까? 그래서 저는 몰몬경에 나오는 거듭남의 사례들을 살펴보았습니다. 여러 이야기를 함께 살펴보면서 그 안에는 공통된 흐름이 있다는 것을 발견할 수 있었습니다.</p>
+    <p class="tgt en">I mentioned this in my last testimony as well. Not long ago, I found myself thinking about how King Benjamin's people were born again, and about what being born again has meant in my own experience. As I looked back on that experience, a question came to me. How exactly does being born again happen? So I went to the Book of Mormon and studied its accounts of being born again. As I read those stories side by side, I found that they share a common pattern.</p>
+    <p class="zh">我上次作见证的时候也说过，前一阵子我想过便雅悯王的人民是怎么重生的，也通过自己的经历想过，重生到底是什么。可是回顾那段经历的时候，我心里出现了一个问题。重生到底是怎么发生的呢？于是我去看摩尔门经里重生的例子。把这几个故事放在一起看，我发现里面有一个共同的过程。</p>
+    <p class="th">ดังที่ผมเคยกล่าวไว้ในประจักษ์พยานครั้งก่อน เมื่อไม่นานมานี้ผมได้ใคร่ครวญว่าผู้คนของกษัตริย์เบ็นจามินเกิดใหม่ได้อย่างไร และได้ใคร่ครวญผ่านประสบการณ์ของตัวผมเองว่าการเกิดใหม่คืออะไร แต่เมื่อมองย้อนกลับไปที่ประสบการณ์นั้น ผมก็เกิดคำถามขึ้นข้อหนึ่ง การเกิดใหม่เกิดขึ้นได้อย่างไรกันแน่ ผมจึงศึกษาตัวอย่างของการเกิดใหม่ที่มีอยู่ในพระคัมภีร์มอรมอน และเมื่อพิจารณาเรื่องราวหลายเรื่องไปด้วยกัน ผมก็พบว่าในเรื่องเหล่านั้นมีแบบแผนร่วมกันอยู่</p>
+    <p class="de">Ich habe schon in meinem letzten Zeugnis davon gesprochen: Vor einiger Zeit habe ich darüber nachgedacht, wie das Volk König Benjamins von neuem geboren wurde und was es nach meiner eigenen Erfahrung bedeutet, von neuem geboren zu werden. Beim Zurückblicken kam mir dann eine Frage. Wie genau geschieht das eigentlich? Also habe ich mir im Buch Mormon die Menschen angesehen, die von neuem geboren wurden. Und als ich die Geschichten nebeneinanderlegte, entdeckte ich einen gemeinsamen Ablauf.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">자신의 부족함을 깨닫고, 그리스도의 속죄를 이해하고, 자신의 힘이 아니라 그리스도께 의지하며, 결국 성신을 통해 마음이 변화되는 것입니다. 오늘 그것을 몇 가지 사례를 통해 살펴보고 싶습니다.</p>
+    <p class="tgt en">We recognize how much we lack. We come to understand the Atonement of Christ. We lean on Christ, not on our own strength. And in the end, through the Holy Ghost, our hearts are changed. Today I would like to look at that pattern through a few of these stories.</p>
+    <p class="zh">认清自己的不足，明白基督的赎罪，不靠自己的力量而依靠基督，最后借着圣灵，心得到改变。今天我想用几个例子来看这个过程。</p>
+    <p class="th">นั่นคือ การตระหนักถึงความบกพร่องของตนเอง เข้าใจการชดใช้ของพระคริสต์ พึ่งพาพระคริสต์แทนที่จะพึ่งกำลังของตนเอง และในที่สุดใจก็เปลี่ยนแปลงโดยผ่านพระวิญญาณบริสุทธิ์ วันนี้ผมอยากพิจารณาเรื่องนี้ผ่านตัวอย่างสักสองสามเรื่อง</p>
+    <p class="de">Man erkennt die eigene Unzulänglichkeit. Man versteht das Sühnopfer Christi. Man verlässt sich nicht auf die eigene Kraft, sondern auf Christus. Und am Ende verändert der Heilige Geist das Herz. Das möchte ich heute an einigen Beispielen zeigen.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">1. 베냐민 왕의 백성</p>
+    <p class="tgt en">1. King Benjamin's People</p>
+    <p class="zh">1. 便雅悯王的人民</p>
+    <p class="th">1. ผู้คนของกษัตริย์เบ็นจามิน</p>
+    <p class="de">1. Das Volk König Benjamins</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">먼저 베냐민 왕의 백성입니다. 베냐민 왕은 백성들에게 예수 그리스도와 하나님의 구원의 계획을 가르쳤습니다. 그들은 베냐민 왕의 입을 통해 하나님의 말씀을 들으면서 자신들의 실제 상태와 하나님의 뜻 사이에 큰 차이가 있다는 것을 깨닫게 됩니다. 그리고 하나님의 능력과 자신들의 연약함을 깨닫게 됩니다. 그 결과 그들은 두려워하며 땅에 엎드렸습니다. 그런데 중요한 것은 그들이 단순히 두려움에 빠진 것이 아니라는 것입니다.</p>
+    <p class="tgt en">First, the people of King Benjamin. King Benjamin taught his people about Jesus Christ and about God's plan of salvation. As they listened to the word of God from his mouth, they saw a great gap between their actual condition and the will of God. They saw the power of God, and they saw their own weakness. And so they fell to the earth, afraid. But here is the important thing. They did not simply collapse into fear.</p>
+    <p class="zh">先说便雅悯王的人民。便雅悯王教导人民认识耶稣基督，也教导他们神的救恩计划。他们从便雅悯王口中听见神的话，就明白自己实际的样子和神的旨意之间有很大的差距。他们也认清神的大能，认清自己的软弱。结果他们心里害怕，倒在地上。不过，重要的是，他们并不是只陷在害怕里面。</p>
+    <p class="th">เริ่มด้วยผู้คนของกษัตริย์เบ็นจามิน กษัตริย์เบ็นจามินสอนผู้คนเรื่องพระเยซูคริสต์และแผนแห่งความรอดของพระผู้เป็นเจ้า ขณะที่ฟังพระวจนะของพระผู้เป็นเจ้าผ่านปากของกษัตริย์เบ็นจามิน พวกเขาก็ตระหนักว่าระหว่างสภาพที่แท้จริงของตนกับพระประสงค์ของพระผู้เป็นเจ้ามีความแตกต่างอย่างใหญ่หลวง และตระหนักถึงเดชานุภาพของพระผู้เป็นเจ้ากับความอ่อนแอของตนเอง ผลก็คือพวกเขาเกิดความกลัวและล้มลงสู่พื้นดิน แต่สิ่งสำคัญคือ พวกเขาไม่ได้เพียงจมอยู่ในความกลัวเท่านั้น</p>
+    <p class="de">Zuerst das Volk König Benjamins. König Benjamin lehrte sein Volk von Jesus Christus und von Gottes Plan der Errettung. Sie hörten aus seinem Mund das Wort Gottes, und dabei erkannten sie, wie weit ihr wirklicher Zustand vom Willen Gottes entfernt war. Sie erkannten die Macht Gottes und ihre eigene Schwäche. Daraufhin fürchteten sie sich und fielen zu Boden. Wichtig ist aber: Sie waren nicht einfach von Angst überwältigt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">그들은 베냐민 왕에게서 들었던 예수 그리스도의 속죄를 기억하며 하나님께 자비를 구했습니다. 그리고 모사이야서 5장 2절에서 그들은 성신의 역사로 인해 자신들의 마음에 “큰 변화”가 일어났다고 말합니다. 그 결과 “더 이상 악을 행하고자 하는 의향이 없고, 계속해서 선을 행하고자” 하게 되었다고 말합니다. 여기서 거듭남의 중요한 모습을 볼 수 있습니다. 자신의 부족함을 깨닫고, 그리스도의 속죄를 바라보며, 그분을 믿는 신앙으로 의지할 때 죄 사함과 마음의 변화가 일어나는 것입니다.</p>
+    <p class="tgt en">They remembered the Atonement of Jesus Christ, which they had heard King Benjamin teach, and they pleaded with God for mercy. And in Mosiah 5:2, they say that through the workings of the Holy Ghost, a “mighty change” had taken place in their hearts. As a result, they say, they had “no more disposition to do evil, but to do good continually.” Here we see something essential about being born again. We recognize our own lack. We look to the Atonement of Christ. And as we rely on Him in faith, remission of sins comes, and the heart is changed.</p>
+    <p class="zh">他们想起从便雅悯王那里听到的耶稣基督的赎罪，就向神祈求怜悯。在摩赛亚书5:2，他们说，因为圣灵的作为，他们心里起了「巨大的变化」。他们说，结果自己「不再想作恶，只想不断行善」。从这里可以看见重生很重要的一面。一个人认清自己的不足，仰望基督的赎罪，用对祂的信心去依靠祂，罪的赦免和内心的改变就发生了。</p>
+    <p class="th">พวกเขาระลึกถึงการชดใช้ของพระเยซูคริสต์ที่เคยได้ยินจากกษัตริย์เบ็นจามิน และทูลขอพระเมตตาจากพระผู้เป็นเจ้า และในโมไซยาห์ 5:2 พวกเขากล่าวว่าพระวิญญาณบริสุทธิ์ทรงกระทำให้เกิด “การเปลี่ยนแปลงอันลึกล้ำ” ขึ้นในใจของพวกเขา ผลก็คือ พวกเขากล่าวว่าตน “ไม่มีใจที่จะทำความชั่วอีก, แต่จะทำความดีโดยตลอด” ตรงนี้เราเห็นภาพสำคัญของการเกิดใหม่ เมื่อเราตระหนักถึงความบกพร่องของตนเอง มองไปที่การชดใช้ของพระคริสต์ และพึ่งพาพระองค์ด้วยศรัทธาในพระองค์ การปลดบาปและการเปลี่ยนแปลงในใจก็เกิดขึ้น</p>
+    <p class="de">Sie erinnerten sich an das Sühnopfer Jesu Christi, von dem König Benjamin gesprochen hatte, und baten Gott um Erbarmen. In Mosia 5:2 sagen sie dann, der Heilige Geist habe in ihrem Herzen „eine mächtige Wandlung“ bewirkt. Und sie sagen, dass sie seitdem „keine Neigung mehr haben, Böses zu tun, sondern ständig Gutes zu tun“. Hier sehen wir etwas Wichtiges daran, wie jemand von neuem geboren wird. Man erkennt die eigene Unzulänglichkeit. Man blickt auf das Sühnopfer Christi und verlässt sich im Glauben auf ihn. Dann kommen die Vergebung der Sünden und die Wandlung des Herzens.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">2. 앨마 이세</p>
+    <p class="tgt en">2. Alma the Younger</p>
+    <p class="zh">2. 小阿尔玛</p>
+    <p class="th">2. แอลมาผู้บุตร</p>
+    <p class="de">2. Alma der Jüngere</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">이 변화가 얼마나 극적으로 일어날 수 있는지를 보여주는 사례가 앨마 이세입니다. 앨마는 젊었을 때 하나님의 교회를 무너뜨리려고 했습니다. 그러던 중 천사가 나타났고, 앨마는 자신이 하나님께 반역하고 있었다는 것을 깨닫게 됩니다. 그는 자신의 죄를 생각하면서 극심한 고통을 경험합니다. 하나님의 면전으로 나아가는 것조차 두려워했습니다. 그런데 중요한 순간에 앨마는 자신의 아버지가 예수 그리스도와 그분의 속죄에 대해 가르쳤던 것을 기억합니다.</p>
+    <p class="tgt en">Alma the Younger shows just how dramatic this change can be. As a young man, Alma is trying to destroy the church of God. Then an angel appears to him. Alma realizes that he has been rebelling against God. As he thinks about his sins, he suffers terrible anguish. The very thought of coming into God's presence fills him with fear. But at the crucial moment, Alma remembers his father's teachings about Jesus Christ and His Atonement.</p>
+    <p class="zh">小阿尔玛这个例子让我们看到，这样的改变可以来得多么剧烈。阿尔玛年轻的时候想要破坏神的教会。后来有一位天使显现，阿尔玛才明白自己一直在背叛神。他一想到自己的罪，就经历极大的痛苦。他连到神面前去都害怕。可是，就在那个重要的时刻，阿尔玛想起父亲曾经教过他耶稣基督和祂的赎罪。</p>
+    <p class="th">ตัวอย่างที่แสดงให้เห็นว่าการเปลี่ยนแปลงนี้เกิดขึ้นได้อย่างน่าทึ่งเพียงใดคือแอลมาผู้บุตร ในวัยหนุ่ม แอลมาพยายามทำลายศาสนจักรของพระผู้เป็นเจ้า แล้ววันหนึ่งเทพองค์หนึ่งก็มาปรากฏ และแอลมาตระหนักว่าตนกำลังกบฏต่อพระผู้เป็นเจ้า เมื่อนึกถึงบาปของตน เขาก็ทุกข์ทรมานแสนสาหัส แม้แต่การจะเข้าไปอยู่ในที่ประทับของพระผู้เป็นเจ้า เขาก็หวาดกลัว แต่ในช่วงเวลาสำคัญนั้น แอลมาระลึกได้ถึงสิ่งที่บิดาเคยสอนไว้เรื่องพระเยซูคริสต์และการชดใช้ของพระองค์</p>
+    <p class="de">Wie dramatisch diese Wandlung sein kann, zeigt Alma der Jüngere. Als junger Mann wollte er die Kirche Gottes zerstören. Da erschien ihm ein Engel, und Alma erkannte, dass er sich gegen Gott aufgelehnt hatte. Er dachte an seine Sünden und litt entsetzliche Qualen. Er fürchtete sich sogar davor, vor das Angesicht Gottes zu treten. Doch im entscheidenden Augenblick erinnerte er sich daran, was sein Vater über Jesus Christus und sein Sühnopfer gelehrt hatte.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">그는 예수 그리스도를 생각하고 마음속으로 주님께 자비를 구합니다. 그러자 그의 고통은 사라지고, 대신 기쁨과 놀라운 빛으로 충만하게 됩니다. 그리고 그는 자신이 “하나님에게서 태어났다”고 증언합니다. 앨마의 이야기는 매우 분명합니다. 그는 자신의 죄를 보면서 절망했지만, 그리스도를 바라보았을 때 죄책감과 고통이 그리스도의 속죄 안에서 기쁨과 빛으로 변화되었습니다.</p>
+    <p class="tgt en">He thinks of Jesus Christ. In his heart, he cries to the Lord for mercy. And his anguish is gone. In its place, he is filled with joy and with a marvelous light. And he testifies that he has been “born of God.” Alma's story is very clear. When he looked at his sins, he despaired. But when he looked to Christ, the Atonement of Christ turned his guilt and pain into joy and light.</p>
+    <p class="zh">他想到耶稣基督，就在心里向主祈求怜悯。他的痛苦不见了，反而有喜乐和奇妙的光充满他。他见证自己「从神而生」。阿尔玛的经历讲得很清楚。他看着自己的罪，感到绝望；可是当他仰望基督，罪咎和痛苦就在基督的赎罪里变成了喜乐和光。</p>
+    <p class="th">เขานึกถึงพระเยซูคริสต์และทูลขอพระเมตตาจากพระเจ้าในใจ แล้วความเจ็บปวดของเขาก็หายไป และเขากลับเปี่ยมไปด้วยปีติและแสงสว่างอันน่าอัศจรรย์แทน แล้วเขาเป็นพยานว่าตน “เกิดแล้วจากพระผู้เป็นเจ้า” เรื่องราวของแอลมาชัดเจนมาก เมื่อมองดูบาปของตนเอง เขาสิ้นหวัง แต่เมื่อเขามองไปที่พระคริสต์ ความรู้สึกผิดและความเจ็บปวดก็เปลี่ยนเป็นปีติและแสงสว่างในการชดใช้ของพระคริสต์</p>
+    <p class="de">Er dachte an Jesus Christus und bat den Herrn in seinem Herzen um Erbarmen. Da wich der Schmerz, und stattdessen erfüllten ihn Freude und ein wunderbares Licht. Und er bezeugte, dass er „aus Gott geboren“ war. Almas Geschichte ist ganz eindeutig. Er sah seine Sünden und verzweifelte. Als er aber auf Christus blickte, wurden Schuld und Schmerz im Sühnopfer Christi zu Freude und Licht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">그리고 그의 삶의 방향 자체가 바뀌었습니다.</p>
+    <p class="tgt en">And the whole direction of his life changed.</p>
+    <p class="zh">他整个人生的方向也改变了。</p>
+    <p class="th">และทิศทางของชีวิตเขาเองก็เปลี่ยนไปโดยสิ้นเชิง</p>
+    <p class="de">Und die ganze Richtung seines Lebens änderte sich.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">3. 이노스</p>
+    <p class="tgt en">3. Enos</p>
+    <p class="zh">3. 以挪士</p>
+    <p class="th">3. อีนัส</p>
+    <p class="de">3. Enos</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">이노스의 이야기는 조금 다릅니다. 이노스는 앨마처럼 큰 죄를 저지른 사람으로 소개되지 않습니다. 그의 아버지는 의로운 사람이었고, 이노스는 어려서부터 하나님의 말씀을 들었습니다. 그런데 어느 날 숲에서 사냥을 하던 중, 과거에 아버지에게 들었던 영생과 성도들의 기쁨에 관한 말씀이 그의 마음 깊이 들어왔습니다. 그리고 이노스는 아주 중요한 표현을 사용합니다. “내 영혼이 굶주렸고.”</p>
+    <p class="tgt en">The story of Enos is a little different. Enos is not introduced as a man who had committed great sins, the way Alma was. His father was a righteous man, and Enos heard the word of God from childhood. Then one day, while he was hunting in the forest, the words his father had spoken about eternal life and the joy of the saints sank deep into his heart. And Enos uses a very important expression: “my soul hungered.”</p>
+    <p class="zh">以挪士的经历有一点不一样。以挪士不像阿尔玛那样，被介绍成犯了大罪的人。他父亲是个义人，以挪士从小就听神的话。可是有一天，他在森林里打猎，从前他从父亲那里听过永生和圣徒的喜乐，那些话深深进到他心里。接着以挪士用了一个很重要的说法。「我的灵魂饥饿。」</p>
+    <p class="th">เรื่องของอีนัสแตกต่างออกไปเล็กน้อย เรื่องของอีนัสไม่ได้เล่าว่าเขาเป็นคนทำบาปร้ายแรงอย่างแอลมา บิดาของเขาเป็นคนชอบธรรม และอีนัสได้ฟังพระวจนะของพระผู้เป็นเจ้ามาตั้งแต่เยาว์วัย แต่วันหนึ่ง ขณะออกล่าสัตว์อยู่ในป่า ถ้อยคำเรื่องชีวิตนิรันดร์และปีติของวิสุทธิชนที่เคยได้ยินจากบิดาก็เข้ามาลึกถึงใจของเขา และอีนัสใช้ถ้อยคำที่สำคัญอย่างยิ่งว่า “จิตวิญญาณข้าพเจ้าหิวโหย”</p>
+    <p class="de">Bei Enos liegt es etwas anders. Er wird uns nicht als ein großer Sünder vorgestellt wie Alma. Sein Vater war ein rechtschaffener Mann, und Enos hörte von klein auf das Wort Gottes. Eines Tages jagte er im Wald. Da gingen ihm die Worte tief ins Herz, die sein Vater früher über das ewige Leben und über die Freude der Heiligen gesprochen hatte. Und dann gebraucht Enos einen sehr wichtigen Ausdruck: „Meine Seele hungerte.“</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">그 영적인 굶주림 때문에 그는 하나님 앞에 무릎을 꿇고 자신의 영혼을 위해 간절히 기도하기 시작합니다. 하루 종일 기도했고, 밤이 되어도 계속 하나님께 부르짖었습니다. 그리고 주님께서는 그의 죄가 사함받았다고 말씀하십니다. 이노스가 어떻게 된 것이냐고 묻자, 주님께서는 그의 그리스도를 믿는 신앙 때문이라고 말씀하십니다. 이노스에게는 먼저 영적인 굶주림이 있었습니다.</p>
+    <p class="tgt en">That spiritual hunger drove him to his knees before God, and he began to pray earnestly for his own soul. He prayed all day long. When night came, he was still crying out to God. And the Lord told him that his sins were forgiven. When Enos asked how this could be, the Lord told him it was because of his faith in Christ. For Enos, the spiritual hunger came first.</p>
+    <p class="zh">因为这份属灵的饥饿，他跪在神面前，开始为自己的灵魂恳切祈祷。他祈祷了一整天，到了晚上还继续向神呼求。后来主对他说，他的罪得赦了。以挪士问这是怎么做成的，主告诉他，是因为他对基督的信心。以挪士身上先有的，是属灵的饥饿。</p>
+    <p class="th">เพราะความหิวโหยทางวิญญาณนั้น เขาจึงคุกเข่าลงต่อพระพักตร์พระผู้เป็นเจ้าและเริ่มสวดอ้อนวอนอย่างสุดใจเพื่อจิตวิญญาณของเขาเอง เขาสวดอ้อนวอนตลอดทั้งวัน และเมื่อถึงกลางคืนก็ยังคงร้องทูลพระผู้เป็นเจ้าต่อไป แล้วพระเจ้าตรัสว่าบาปของเขาได้รับการให้อภัยแล้ว เมื่ออีนัสทูลถามว่าเป็นไปได้อย่างไร พระเจ้าก็ตรัสว่าเป็นเพราะศรัทธาของเขาในพระคริสต์ สำหรับอีนัส สิ่งที่มาก่อนคือความหิวโหยทางวิญญาณ</p>
+    <p class="de">Dieser geistige Hunger brachte ihn dazu, vor Gott niederzuknien und inständig für seine eigene Seele zu beten. Den ganzen Tag lang betete er, und als es Nacht wurde, rief er weiter zu Gott. Da sprach der Herr zu ihm, seine Sünden seien vergeben. Enos fragte, wie das geschehen sei, und der Herr antwortete: wegen seines Glaubens an Christus. Bei Enos kam zuerst der geistige Hunger.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">하나님의 말씀이 그의 마음 깊이 들어오면서 자신에게 무엇인가 부족하다는 것을 느꼈고, 그 부족함 때문에 하나님을 찾았습니다. 그리고 그리스도를 믿는 신앙을 통해 죄 사함을 경험했습니다.</p>
+    <p class="tgt en">As the word of God sank deep into his heart, he felt that something in him was lacking. That lack sent him searching for God. And through faith in Christ, he experienced the remission of his sins.</p>
+    <p class="zh">神的话深深进到他心里，他就觉得自己缺了些什么。因为这份不足，他去寻求神。然后他借着对基督的信心，经历了罪的赦免。</p>
+    <p class="th">เมื่อพระวจนะของพระผู้เป็นเจ้าเข้ามาลึกถึงใจ เขารู้สึกว่าตนเองยังขาดบางสิ่งบางอย่าง และเพราะความขาดนั้นเขาจึงแสวงหาพระผู้เป็นเจ้า แล้วโดยศรัทธาในพระคริสต์ เขาก็ได้ประสบกับการปลดบาป</p>
+    <p class="de">Das Wort Gottes drang ihm tief ins Herz, und er spürte, dass ihm etwas fehlte. Dieser Mangel trieb ihn zu Gott. Und durch seinen Glauben an Christus erfuhr er die Vergebung der Sünden.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">4. 라모나이 왕</p>
+    <p class="tgt en">4. King Lamoni</p>
+    <p class="zh">4. 拉摩那王</p>
+    <p class="th">4. กษัตริย์ลาโมไน</p>
+    <p class="de">4. König Lamoni</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">라모나이 왕의 경우도 흥미롭습니다. 라모나이는 처음부터 하나님을 온전히 알고 있던 사람이 아니었습니다. 그는 자신의 종들이 양 떼를 지키지 못하면 죽이기도 했습니다. 그래서 암몬이 자신의 종들을 구하고 양 떼를 지켜 주었다는 이야기를 들었을 때, 라모나이는 자신이 과거에 종들을 죽였던 일을 생각하며 두려워하기 시작합니다. 암몬은 그에게 하나님의 존재와 창조에 대해 가르칩니다.</p>
+    <p class="tgt en">King Lamoni is another interesting case. Lamoni was not a man who had known God fully from the start. When his servants failed to protect his flocks, he sometimes had them put to death. So when he hears that Ammon has saved his servants and protected the flocks, Lamoni thinks of the servants he killed in the past, and he begins to be afraid. Ammon teaches him that God exists, and that God created all things.</p>
+    <p class="zh">拉摩那王的例子也很有意思。拉摩那一开始并不完全认识神。他的仆人要是没有守住羊群，他甚至会把他们杀掉。所以，他听说艾蒙救了他的仆人，还保住了羊群，就想起自己从前杀过仆人，开始害怕起来。艾蒙教导他，神是存在的，万物是神造的。</p>
+    <p class="th">กรณีของกษัตริย์ลาโมไนก็น่าสนใจเช่นกัน ลาโมไนไม่ใช่คนที่รู้จักพระผู้เป็นเจ้าอย่างถ่องแท้มาตั้งแต่ต้น ถึงขนาดว่าเมื่อข้ารับใช้รักษาฝูงแกะไว้ไม่ได้ เขาก็เคยประหารพวกนั้นเสีย ดังนั้นเมื่อได้ยินว่าแอมันช่วยชีวิตข้ารับใช้ของเขาและปกป้องฝูงแกะไว้ ลาโมไนก็นึกถึงข้ารับใช้ที่ตนเคยสังหารในอดีต และเริ่มหวาดกลัว แอมันจึงสอนเขาเรื่องการดำรงอยู่ของพระผู้เป็นเจ้าและการสร้าง</p>
+    <p class="de">Auch König Lamoni ist ein interessanter Fall. Lamoni kannte Gott anfangs nicht wirklich. Wenn seine Knechte die Herden nicht schützen konnten, ließ er sie sogar töten. Als er nun hörte, dass Ammon seine Knechte gerettet und die Herden verteidigt hatte, dachte er an die Knechte, die er früher hatte töten lassen, und begann sich zu fürchten. Ammon lehrte ihn, dass es einen Gott gibt und dass er alles erschaffen hat.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src ko">그리고 단순히 하나님이 존재한다는 것만 가르친 것이 아니라, 인간의 타락과 구속의 계획, 그리고 예수 그리스도의 오심에 대해서 가르칩니다. 라모나이가 그 말씀을 믿게 되었을 때 그는 하나님께 부르짖습니다. “오 주여, 자비를 베푸소서.” 그리고 땅에 쓰러집니다. 자신의 과거와 자신의 힘을 바라보던 사람이 이제 하나님의 자비를 바라보게 된 것입니다. 그리고 그 중심에는 암몬이 가르친 구속의 계획과 예수 그리스도가 있었습니다.</p>
+    <p class="tgt en">And Ammon does not stop at teaching that God exists. He teaches about the fall of man, about the plan of redemption, and about the coming of Jesus Christ. When Lamoni believes these words, he cries out to God: “O Lord, have mercy.” And he falls to the earth. A man who had been looking at his own past and his own power now looks to the mercy of God. And at the center of it all stand the things Ammon taught: the plan of redemption, and Jesus Christ.</p>
+    <p class="zh">艾蒙不只教导他神存在，还教导他人的坠落、救赎计划，以及耶稣基督的降临。拉摩那相信了这些话，就向神呼求：「主啊，求您怜悯。」然后他倒在地上。一个本来只看自己的过去、只看自己力量的人，现在开始仰望神的怜悯。这一切的中心，是艾蒙所教导的救赎计划，是耶稣基督。</p>
+    <p class="th">และแอมันไม่ได้สอนเพียงว่าพระผู้เป็นเจ้าทรงดำรงอยู่เท่านั้น แต่ยังสอนเรื่องการตกของมนุษย์ แผนแห่งการไถ่ และการเสด็จมาของพระเยซูคริสต์ด้วย เมื่อลาโมไนเชื่อถ้อยคำเหล่านั้น เขาก็ร้องทูลพระผู้เป็นเจ้าว่า “ข้าแต่พระเจ้า, ขอทรงโปรดมีเมตตา” แล้วล้มลงสู่พื้นดิน คนที่เคยมองแต่อดีตของตนและกำลังของตนเอง บัดนี้หันมามองพระเมตตาของพระผู้เป็นเจ้า และที่ศูนย์กลางของเรื่องนี้ก็คือแผนแห่งการไถ่และพระเยซูคริสต์ที่แอมันสอน</p>
+    <p class="de">Und er blieb nicht dabei stehen, dass es einen Gott gibt. Er lehrte ihn auch vom Fall des Menschen, vom Erlösungsplan und vom Kommen Jesu Christi. Als Lamoni das glaubte, rief er zu Gott: „O Herr, sei barmherzig.“ Und er fiel zu Boden. Vorher hatte er auf seine Vergangenheit und auf seine eigene Kraft geblickt; jetzt blickte er auf die Barmherzigkeit Gottes. Und im Mittelpunkt standen der Erlösungsplan und Jesus Christus, wie Ammon sie gelehrt hatte.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">이 사례들의 공통점</p>
+    <p class="tgt en">What These Stories Have in Common</p>
+    <p class="zh">这些例子的共同点</p>
+    <p class="th">สิ่งที่ตัวอย่างเหล่านี้มีเหมือนกัน</p>
+    <p class="de">Was diese Beispiele gemeinsam haben</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src ko">이 네 가지 사례들의 공통점은 그들이 자신의 힘으로는 충분하지 않다는 것을 깨닫습니다. 하나님의 자비가 필요하다는 것을 깨닫습니다. 예수 그리스도와 그분의 속죄를 바라봅니다. 그리스도를 믿는 신앙을 행사하고 그분께 의지합니다. 회개하고 죄를 버리고자 합니다. 그리고 성신을 통해 죄 사함과 평안과 기쁨을 경험합니다. 그 결과 마음의 방향이 바뀐다는 점입니다.</p>
+    <p class="tgt en">In all four of these stories, the pattern is the same. They realize that their own strength is not enough. They realize that they need God's mercy. They look to Jesus Christ and His Atonement. They exercise faith in Christ and rely on Him. They repent and desire to forsake their sins. And through the Holy Ghost, they experience remission of sins, peace, and joy. As a result, the direction of their hearts is changed.</p>
+    <p class="zh">这四个例子的共同点是，他们都认清靠自己的力量不够。他们认清自己需要神的怜悯。他们仰望耶稣基督和祂的赎罪。他们运用对基督的信心，依靠祂。他们悔改，愿意离弃罪。他们借着圣灵，经历罪的赦免、平安和喜乐。结果，他们内心的方向改变了，这就是共同点。</p>
+    <p class="th">สิ่งที่ตัวอย่างทั้งสี่นี้มีเหมือนกันคือ พวกเขาตระหนักว่ากำลังของตนเองไม่เพียงพอ พวกเขาตระหนักว่าตนต้องการพระเมตตาของพระผู้เป็นเจ้า พวกเขามองไปที่พระเยซูคริสต์และการชดใช้ของพระองค์ พวกเขาใช้ศรัทธาในพระคริสต์และพึ่งพาพระองค์ พวกเขากลับใจและพยายามละทิ้งบาป แล้วโดยผ่านพระวิญญาณบริสุทธิ์ พวกเขาก็ประสบกับการปลดบาป สันติสุข และปีติ ผลก็คือทิศทางของใจเปลี่ยนไป</p>
+    <p class="de">Diese vier Beispiele haben Folgendes gemeinsam. Sie erkennen: Die eigene Kraft reicht nicht. Sie erkennen: Sie brauchen die Barmherzigkeit Gottes. Sie blicken auf Jesus Christus und sein Sühnopfer. Sie üben Glauben an Christus aus und verlassen sich auf ihn. Sie kehren um und wollen die Sünde ablegen. Und durch den Heiligen Geist erfahren sie die Vergebung der Sünden, Frieden und Freude. Und so bekommt ihr Herz eine neue Richtung.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">그렇다면 이러한 거듭남은 어떻게 시작되는가?</p>
+    <p class="tgt en">How, Then, Does Being Born Again Begin?</p>
+    <p class="zh">那么，这样的重生是怎么开始的？</p>
+    <p class="th">แล้วการเกิดใหม่เช่นนี้เริ่มต้นอย่างไร</p>
+    <p class="de">Wie beginnt es, dass jemand von neuem geboren wird?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src ko">그렇다면 우리가 거듭나기 위해서는 어떻게 해야 할까요? 먼저 하나님의 말씀이 우리에게 전해져야 합니다. 그리고 성신을 통해 그 말씀이 우리의 삶에 적용될 때, 우리는 자신의 상태가 얼마나 부족한지를 깨닫게 됩니다. 혼자의 노력만으로는 해결할 수 없다는 것을 깨달을 때 우리는 영적으로 굶주리게 됩니다. 예수님께서 말씀하신 “심령이 가난한 자”가 바로 이런 상태가 아닐까 생각합니다.</p>
+    <p class="tgt en">So what must we do to be born again? First, the word of God has to reach us. Then, when the Holy Ghost applies that word to our own lives, we begin to see how much we lack. When we realize that our own efforts cannot solve this, we become spiritually hungry. I think this may be exactly what Jesus meant by “the poor in spirit.”</p>
+    <p class="zh">那么，我们要重生，该怎么做呢？首先，神的话必须传到我们这里。然后，圣灵把那话应用在我们的生活上，我们就会看清自己的光景有多么不足。我们明白光靠自己的努力解决不了，就会产生属灵的饥饿。我想，耶稣所说的「虚心的人」，也许就是这样的状态。</p>
+    <p class="th">แล้วเราต้องทำอย่างไรจึงจะเกิดใหม่ได้ ก่อนอื่นพระวจนะของพระผู้เป็นเจ้าต้องมาถึงเรา และเมื่อพระวจนะนั้นเข้ามาสู่ชีวิตของเราโดยผ่านพระวิญญาณบริสุทธิ์ เราก็ตระหนักว่าสภาพของตนขาดตกบกพร่องเพียงใด เมื่อเราตระหนักว่าลำพังความพยายามของเราเองแก้ไขไม่ได้ เราก็หิวโหยทางวิญญาณ ผมคิดว่า “คนที่ยากจนด้านจิตวิญญาณ” ที่พระเยซูตรัสถึง ก็คือสภาพเช่นนี้นั่นเอง</p>
+    <p class="de">Was müssen wir also tun, um von neuem geboren zu werden? Zuerst muss uns das Wort Gottes erreichen. Wenn der Heilige Geist dieses Wort dann auf unser Leben anwendet, erkennen wir, wie unzulänglich unser Zustand ist. Und wenn wir erkennen, dass wir es mit eigener Anstrengung allein nicht schaffen, werden wir geistig hungrig. Vielleicht ist genau das der Zustand derer, die Jesus „die geistlich Armen“ nannte.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src ko">저는 평생 주님의 계명을 지키려고 많은 노력을 했습니다. 하지만 그것이 쉽지 않다는 것을 자주 느꼈고, 이런저런 이유로 이따금씩 많은 잘못을 저질렀습니다. 점차 승영이라는 목표가 매우 멀게 느껴졌고 희망이 작아지게 되었습니다. 하지만 나이가 들어가고, 특히 감독단으로 일하면서 다른 회원들을 도우면서 저뿐만 아니라 많은 사람들이 비슷한 어려움을 겪고 있다는 것을 알게 되었습니다.</p>
+    <p class="tgt en">All my life, I have tried hard to keep the Lord's commandments. But I often felt how hard it was, and for one reason or another, from time to time I made many mistakes. Little by little, exaltation started to feel very far away, and my hope grew small. But as I got older, and especially as I served in the bishopric and helped other members, I learned something. It was not just me. Many people were struggling in the same way.</p>
+    <p class="zh">我这一辈子花了很多力气想遵守主的诫命。可是我常常觉得这并不容易，因为这样那样的原因，我也一次次犯了不少错。渐渐地，超升这个目标让我觉得很遥远，希望也变小了。不过，年纪大了以后，特别是在主教团服务、帮助其他成员的时候，我发现有这种难处的不只是我，还有很多人。</p>
+    <p class="th">ตลอดชีวิตผมพยายามอย่างมากที่จะรักษาพระบัญญัติของพระเจ้า แต่ผมรู้สึกอยู่บ่อยครั้งว่าไม่ใช่เรื่องง่าย และด้วยเหตุผลต่าง ๆ เป็นครั้งคราวผมก็ทำผิดไปมากมาย เป้าหมายที่เรียกว่าความสูงส่งค่อย ๆ ดูห่างไกลออกไปมาก และความหวังก็เล็กลงทุกที แต่เมื่ออายุมากขึ้น โดยเฉพาะเมื่อได้รับใช้ในฝ่ายอธิการและได้ช่วยเหลือสมาชิกคนอื่น ๆ ผมก็ได้รู้ว่าไม่ใช่เพียงผมเท่านั้น หลายคนก็กำลังเผชิญความยากลำบากคล้าย ๆ กัน</p>
+    <p class="de">Ich habe mich mein Leben lang bemüht, die Gebote des Herrn zu halten. Aber ich habe oft gespürt, wie schwer das ist, und aus diesem und jenem Grund habe ich immer wieder viel falsch gemacht. Nach und nach rückte das Ziel der Erhöhung sehr weit weg, und meine Hoffnung wurde kleiner. Dann wurde ich älter. Und als ich in der Bischofschaft mitarbeitete und anderen Mitgliedern half, merkte ich: Nicht nur mir geht es so. Vielen geht es genauso.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">베냐민 왕의 백성들도 주님의 말씀을 듣고 자신들의 연약함을 깨달았을 때 두려워하며 엎드렸습니다. 니파이도 니파이후서에서 자신의 연약함과 유혹, 죄에 대한 슬픔을 솔직하게 표현하며 “깨어나라, 나의 영혼이여!”라고 외쳤습니다. 우리가 항상 영적으로 깨어 있고 빛 가운데 있다면 계속 강하게 이겨낼 수 있을 것입니다. 하지만 우리의 삶에는 고난과 어려움이 오고, 약해지는 순간도 옵니다.</p>
+    <p class="tgt en">King Benjamin's people also fell down in fear when they heard the word of the Lord and saw their own weakness. Nephi, in 2 Nephi, spoke honestly of his weakness, his temptations, and his sorrow over sin, and he cried, “Awake, my soul!” If we could stay spiritually awake and in the light all the time, we could keep on overcoming. But hardship and trouble come into our lives. Moments of weakness come too.</p>
+    <p class="zh">便雅悯王的人民也是这样。他们听了主的话，认清自己的软弱，就害怕得倒在地上。尼腓在尼腓二书里也很坦白地说出自己的软弱、诱惑，和为罪忧伤的心情，然后喊道：「觉醒吧，我的灵魂！」如果我们在属灵上一直保持清醒，一直在光里面，我们就能一直刚强地胜过去。可是我们的生活里会有苦难，会有难处，也会有软弱的时候。</p>
+    <p class="th">ผู้คนของกษัตริย์เบ็นจามินก็เช่นกัน เมื่อฟังพระวจนะของพระเจ้าและตระหนักถึงความอ่อนแอของตน พวกเขาก็เกิดความกลัวและล้มลงสู่พื้นดิน นีไฟเองก็เช่นกัน ใน 2 นีไฟ ท่านแสดงความโศกเศร้าอย่างตรงไปตรงมาถึงความอ่อนแอ การล่อลวง และบาปของตน แล้วร้องว่า “ตื่นเถิด, จิตวิญญาณข้าพเจ้า !” ถ้าเราตื่นตัวทางวิญญาณและอยู่ในความสว่างอยู่เสมอ เราก็คงเอาชนะต่อไปได้อย่างเข้มแข็ง แต่ในชีวิตของเรา ความทุกข์และความยากลำบากย่อมมาถึง และช่วงเวลาที่เราอ่อนแอลงก็มาถึงเช่นกัน</p>
+    <p class="de">Auch das Volk König Benjamins hörte das Wort des Herrn, erkannte seine Schwäche und fiel voller Furcht zu Boden. Und auch Nephi spricht im zweiten Buch Nephi offen von seiner Schwäche, von Versuchung und von seiner Trauer über die Sünde, und dann ruft er: „Erwache, meine Seele!“ Wenn wir geistig immer wach wären und immer im Licht stünden, könnten wir stark bleiben und alles überwinden. Aber im Leben kommen Not und Schwierigkeiten, und es kommen auch Augenblicke, in denen wir schwach werden.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">그리고 결국 우리는 우리 혼자의 힘으로 구원받을 수 없다는 것을 깨닫게 됩니다. 저는 바로 그때가 중요한 순간이라고 생각합니다.</p>
+    <p class="tgt en">And in the end, we come to see that we cannot save ourselves by our own strength alone. I believe that is the crucial moment.</p>
+    <p class="zh">最后我们会明白，光靠自己的力量，我们得不到救恩。我想，那正是重要的时刻。</p>
+    <p class="th">และในที่สุด เราก็ตระหนักว่าเราไม่อาจรอดได้ด้วยกำลังของเราเองตามลำพัง ผมคิดว่าเวลานั้นเองคือช่วงเวลาที่สำคัญ</p>
+    <p class="de">Und am Ende erkennen wir: Aus eigener Kraft können wir nicht errettet werden. Ich glaube, genau das ist der entscheidende Augenblick.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">예수 그리스도의 속죄를 바라볼 때</p>
+    <p class="tgt en">When We Look to the Atonement of Jesus Christ</p>
+    <p class="zh">当我们仰望耶稣基督的赎罪时</p>
+    <p class="th">เมื่อเรามองไปที่การชดใช้ของพระเยซูคริสต์</p>
+    <p class="de">Wenn wir auf das Sühnopfer Jesu Christi blicken</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">그때 예수 그리스도의 속죄와 은혜에 대해 깊이 생각하고 이야기할 기회가 생겼습니다. 그리고 예수 그리스도를 향한 신앙으로 우리가 작은 불씨 하나를 켠다면, 예수 그리스도께서 준비하신 거대한 대속의 장작이 타오르듯이 그분의 은혜로 부족한 우리가 구원받을 수 있다는 사실이 이해되기 시작했습니다. 우리가 혼자의 힘으로 구원받는 것이 아니라, 주님의 은혜로 구원받는다는 것입니다.</p>
+    <p class="tgt en">Around that time, I had chances to think deeply about the Atonement of Jesus Christ and His grace, and to talk about them. And I began to understand something. If our faith in Jesus Christ lights even one small spark, the great woodpile of redemption that He has already prepared catches fire and blazes. By His grace, we who fall short can be saved. We are not saved by our own strength. We are saved by the grace of the Lord.</p>
+    <p class="zh">那时候，我有机会深入思考耶稣基督的赎罪和恩典，也有机会和别人谈这件事。我开始明白一件事。只要我们凭着对耶稣基督的信心点起一点小小的火苗，耶稣基督预备好的那一大堆救赎的柴就会烧起来；就像这样，不足的我们能靠祂的恩典得救。我们不是靠自己的力量得救，是靠主的恩典得救。</p>
+    <p class="th">ในเวลานั้น ผมมีโอกาสได้ไตร่ตรองและพูดคุยอย่างลึกซึ้งเกี่ยวกับการชดใช้ของพระเยซูคริสต์และพระคุณของพระองค์ แล้วผมก็เริ่มเข้าใจความจริงที่ว่า หากเราจุดประกายไฟเล็ก ๆ ดวงหนึ่งด้วยศรัทธาในพระเยซูคริสต์ กองฟืนอันมหึมาแห่งการไถ่ที่พระองค์ทรงเตรียมไว้ก็จะลุกโชนขึ้น และโดยพระคุณของพระองค์ เราผู้บกพร่องก็รอดได้ นั่นคือ เราไม่ได้รอดด้วยกำลังของเราเองตามลำพัง แต่รอดโดยพระคุณของพระเจ้า</p>
+    <p class="de">Damals bekam ich Gelegenheit, gründlich über das Sühnopfer Jesu Christi und über seine Gnade nachzudenken und darüber zu sprechen. Und langsam begann ich zu verstehen: Wir brauchen im Glauben an Jesus Christus nur einen kleinen Funken zu schlagen. Den gewaltigen Holzstoß des Sühnopfers hat er längst aufgeschichtet, und er fängt Feuer. So können wir durch seine Gnade errettet werden, so unzulänglich wir auch sind. Nicht aus eigener Kraft werden wir errettet, sondern durch die Gnade des Herrn.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src ko">부족한 아기가 포기하지 않고 계속해서 아버지를 바라보며 나아간다면, 결국 그 아버지와 같이 성장할 수 있는 것처럼, 우리도 완벽하지 않더라도 포기하지 않고 그리스도를 믿는 신앙으로 계속 나아간다면 결국 하나님 아버지께서 원하시는 사람이 될 수 있다는 소망이 생겼습니다. 이것이 니파이후서에 나오는 “완전한 소망의 밝은 빛(Perfect Brightness of Hope)”이라는 것을 알게 되었습니다. 그러고 나니 모든 두려움과 좌절이 기쁨과 감사로 차기 시작했습니다.</p>
+    <p class="tgt en">A little child is weak and lacking. But if that child does not give up, and keeps looking to his father and moving toward him, in the end he can grow to be like his father. In the same way, we are not perfect. But if we do not give up, and keep pressing forward in faith in Christ, we can become the people our Heavenly Father wants us to be. That hope was born in me. And I came to see that this is what 2 Nephi calls “a perfect brightness of hope.” Then all my fear and discouragement began to turn to joy and gratitude.</p>
+    <p class="zh">一个什么都还不会的婴孩，只要不放弃，一直看着父亲，一直往前走，最后就能长成像父亲那样。我们也一样。就算我们不完美，只要不放弃，带着对基督的信心继续往前走，最后就能成为天父希望我们成为的人。我心里生出了这样的希望。我明白了，这就是尼腓二书里说的「完全光明的希望（Perfect Brightness of Hope）」。之后，我所有的恐惧和挫折，开始被喜乐和感谢填满。</p>
+    <p class="th">เหมือนทารกน้อยที่ยังทำอะไรไม่ค่อยได้ แต่ถ้าไม่ยอมแพ้ เฝ้ามองบิดา และก้าวต่อไปเรื่อย ๆ ในที่สุดก็จะเติบโตขึ้นเป็นเหมือนบิดาได้ ผมก็เกิดความหวังว่า แม้เราไม่ดีพร้อม แต่ถ้าเราไม่ยอมแพ้และก้าวต่อไปด้วยศรัทธาในพระคริสต์ ในที่สุดเราก็จะเป็นคนอย่างที่พระบิดาบนสวรรค์ทรงประสงค์ได้เช่นกัน ผมได้รู้ว่านี่คือ “ความเจิดจ้าอันบริบูรณ์แห่งความหวัง (Perfect Brightness of Hope)” ที่กล่าวไว้ใน 2 นีไฟ แล้วความกลัวและความท้อแท้ทั้งหมดก็เริ่มกลายเป็นปีติและความสำนึกคุณ</p>
+    <p class="de">Ein Baby kann noch gar nichts. Aber wenn es nicht aufgibt, wenn es immer wieder zum Vater aufschaut und auf ihn zugeht, dann wird es am Ende so groß wie dieser Vater. So ist es auch bei uns. Wir sind nicht vollkommen. Aber wenn wir nicht aufgeben und im Glauben an Christus weitergehen, können wir am Ende die Menschen werden, die der himmlische Vater sich wünscht. Diese Hoffnung wuchs in mir. Und ich erkannte: Das ist der „vollkommene Glanz der Hoffnung (Perfect Brightness of Hope)“, von dem das zweite Buch Nephi spricht. Danach begannen alle Furcht und alle Entmutigung, sich in Freude und Dankbarkeit zu verwandeln.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">20</span>
+    <p class="src ko">그리고 “이렇게 포기하지 않고 계속 나아간다면 해낼 수 있겠다”는 확신이 생겼습니다. 그러자 놀랍게도 더 이상 죄를 짓고자 하는 마음이 사라지는 경험을 하게 되었습니다. 그동안 없어지지 않고 저를 괴롭혀 왔던 크고 많은 나쁜 습관과 생각들이 기꺼이 사라지고 자유로워지게 되었습니다. 여전히 불완전한 인간의 약점은 있지만, 예전과는 비교할 수 없이 더 가볍게 느껴졌고, 더 이상 좌절과 낙담에 머물지 않게 되었습니다.</p>
+    <p class="tgt en">And a conviction settled in me: “If I keep going like this and do not give up, I can make it.” Then, to my amazement, the desire to sin began to leave me. The big, stubborn bad habits and thoughts that had tormented me for so long (the ones that never went away) now fell away freely, and I was free of them. The weaknesses of an imperfect man are still there. But they feel lighter now, beyond any comparison with before, and I no longer stay stuck in frustration and discouragement.</p>
+    <p class="zh">我心里也生出了这样的把握：「这样不放弃，一直走下去，我做得到。」然后，很奇妙，我经历到自己不再想犯罪了。那些一直没有消失、一直折磨我的许多坏习惯和坏念头，就那样心甘情愿地离开了，我自由了。人不完全，软弱还是在，可是跟从前比，轻了太多，我也不再停在挫折和灰心里面。</p>
+    <p class="th">และผมเกิดความมั่นใจว่า “ถ้าไม่ยอมแพ้และก้าวต่อไปอย่างนี้ ผมก็ทำได้แน่” แล้วสิ่งที่น่าอัศจรรย์ก็เกิดขึ้น ผมได้ประสบว่าใจที่อยากทำบาปนั้นหายไป นิสัยไม่ดีและความคิดไม่ดีมากมายที่เคยรบกวนผมมาตลอดโดยไม่เคยหมดไป ก็หลุดหายไปอย่างง่ายดาย และผมก็เป็นอิสระ ความอ่อนแอแบบมนุษย์ที่ไม่ดีพร้อมยังคงมีอยู่ แต่ผมรู้สึกเบาขึ้นอย่างที่เทียบกับเมื่อก่อนไม่ได้เลย และไม่จมอยู่กับความท้อแท้และความท้อถอยอีกต่อไป</p>
+    <p class="de">Und ich wurde gewiss: „Wenn ich so weitergehe und nicht aufgebe, dann schaffe ich es.“ Und dann erlebte ich zu meinem Erstaunen, wie der Wunsch zu sündigen verschwand. Große und viele schlechte Gewohnheiten und Gedanken, die mich all die Jahre nicht losgelassen und gequält hatten, verschwanden bereitwillig, und ich wurde frei. Die Schwächen eines unvollkommenen Menschen habe ich immer noch. Aber es fühlte sich unvergleichlich viel leichter an als früher, und ich blieb nicht mehr in Enttäuschung und Mutlosigkeit stecken.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src ko">주님께서 말씀하신 “나의 멍에는 쉽고 나의 짐은 가벼움이라”는 말씀이 무엇을 의미하는지 조금 알 것 같았습니다.</p>
+    <p class="tgt en">I felt I understood, a little, what the Lord meant when He said, “my yoke is easy, and my burden is light.”</p>
+    <p class="zh">主说的「我的轭是容易的，我的担子是轻省的」，我好像稍微懂了一点这句话的意思。</p>
+    <p class="th">ผมรู้สึกว่าพอจะเข้าใจขึ้นมาบ้างว่า พระดำรัสของพระเจ้าที่ว่า “แอกของเราก็พอเหมาะ และภาระของเราก็เบา” นั้นหมายความว่าอย่างไร</p>
+    <p class="de">Ich glaube, ich verstand nun ein wenig, was der Herr meinte, als er sagte: „Mein Joch ist sanft, und meine Last ist leicht.“</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">거듭남의 공통된 흐름</p>
+    <p class="tgt en">The Common Pattern of Being Born Again</p>
+    <p class="zh">重生的共同过程</p>
+    <p class="th">แบบแผนร่วมกันของการเกิดใหม่</p>
+    <p class="de">Von neuem geboren – der gemeinsame Ablauf</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src ko">지금까지의 이야기를 하나의 흐름으로 정리하면 이렇습니다. 하나님의 말씀을 듣습니다. 성신이 그 말씀을 자신의 삶에 적용하게 합니다. 자신의 참모습과 죄, 연약함, 부족함을 깨닫습니다. 영적인 굶주림과 상한 심령, 통회하는 심령이 생깁니다. 자신의 힘만으로는 충분하지 않다는 것을 인정합니다. 예수 그리스도와 그분의 속죄를 바라봅니다. 그리스도의 자비를 믿고 하나님께 나아갑니다.</p>
+    <p class="tgt en">Let me draw all of this together into one pattern. We hear the word of God. The Holy Ghost applies that word to our own lives. We see our true condition. Our sins, our weakness, our lack. Spiritual hunger comes, and with it a broken heart and a contrite spirit. We admit that our own strength is not enough. We look to Jesus Christ and His Atonement. We trust in the mercy of Christ and come to God.</p>
+    <p class="zh">把到这里为止讲的整理成一个过程，就是这样。听见神的话。圣灵使那话应用在自己的生活上。看清自己真实的样子，看清自己的罪、软弱和不足。产生属灵的饥饿，产生破碎的心和痛悔的灵。承认光靠自己的力量不够。仰望耶稣基督和祂的赎罪。相信基督的怜悯，来到神面前。</p>
+    <p class="th">หากเรียบเรียงเรื่องทั้งหมดที่กล่าวมาเป็นลำดับเดียว ก็จะเป็นดังนี้ เราได้ยินพระวจนะของพระผู้เป็นเจ้า พระวิญญาณบริสุทธิ์ทรงช่วยให้เรานำพระวจนะนั้นมาใช้กับชีวิตของตนเอง เราตระหนักถึงตัวตนที่แท้จริง บาป ความอ่อนแอ และความบกพร่องของตน เกิดความหิวโหยทางวิญญาณ และเกิดใจที่ชอกช้ำและวิญญาณที่สำนึกผิด เรายอมรับว่ากำลังของเราเองอย่างเดียวไม่เพียงพอ เรามองไปที่พระเยซูคริสต์และการชดใช้ของพระองค์ เราเชื่อในพระเมตตาของพระคริสต์และมาสู่พระผู้เป็นเจ้า</p>
+    <p class="de">Fasse ich alles bisher Gesagte zu einem Ablauf zusammen, sieht er so aus. Man hört das Wort Gottes. Der Heilige Geist wendet dieses Wort auf das eigene Leben an. Man erkennt sich selbst, wie man wirklich ist: Sünde, Schwäche, Unzulänglichkeit. Geistiger Hunger entsteht, ein reuiges Herz und ein zerknirschter Geist. Man gibt zu: Die eigene Kraft reicht nicht. Man blickt auf Jesus Christus und sein Sühnopfer. Man glaubt an die Barmherzigkeit Christi und tritt vor Gott.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src ko">회개하고 죄를 버리고자 하는 마음이 생깁니다. 성신을 통해 죄 사함과 평안과 기쁨을 경험합니다. 감사와 소망이 마음을 채웁니다. 더 이상 죄를 짓고자 하지 않는 방향으로 마음이 변화됩니다. 그 이후에도 연약함과 유혹이 있을 수 있지만, 다시 그리스도께 나아갑니다.</p>
+    <p class="tgt en">A desire grows in us to repent and forsake our sins. Through the Holy Ghost, we experience remission of sins, peace, and joy. Gratitude and hope fill our hearts. Our hearts change, until we no longer want to sin. Even after that, weakness and temptation may come. But we come back to Christ again.</p>
+    <p class="zh">心里生出悔改的意愿，愿意离弃罪。借着圣灵，经历罪的赦免、平安和喜乐。感谢和希望充满心里。心改变方向，不再想犯罪。以后还是可能有软弱和诱惑，但是再一次来到基督面前。</p>
+    <p class="th">เกิดใจที่ปรารถนาจะกลับใจและละทิ้งบาป เราประสบกับการปลดบาป สันติสุข และปีติโดยผ่านพระวิญญาณบริสุทธิ์ ความสำนึกคุณและความหวังเข้ามาเต็มใจ ใจเปลี่ยนไปในทิศทางที่ไม่ปรารถนาจะทำบาปอีกต่อไป หลังจากนั้นอาจยังมีความอ่อนแอและการล่อลวงอยู่บ้าง แต่เราก็มาสู่พระคริสต์อีกครั้ง</p>
+    <p class="de">Es entsteht der Wunsch, umzukehren und die Sünde abzulegen. Durch den Heiligen Geist erfährt man die Vergebung der Sünden, Frieden und Freude. Dankbarkeit und Hoffnung erfüllen das Herz. Das Herz wandelt sich, bis man nicht mehr sündigen will. Schwäche und Versuchung kann es auch danach noch geben – aber man tritt wieder vor Christus.</p>
+  </div>
+
+  <div class="talk-h">
+    <p class="src ko">간증</p>
+    <p class="tgt en">Testimony</p>
+    <p class="zh">见证</p>
+    <p class="th">ประจักษ์พยาน</p>
+    <p class="de">Zeugnis</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src ko">마지막으로 저의 간증을 전하겠습니다. 우리가 이 필멸의 몸으로 이 지상을 살아가는 동안 많은 어려움을 겪습니다. 하지만 주님께서 우리 모두를 사랑하셔서 행복의 계획을 만드셨고, 예수 그리스도는 기꺼이 그 계획을 성취하셨다는 것을 알고 있습니다. 우리는 그분의 선물을 이해하고, 그분께 온전히 의지할 때, 이 필멸의 삶을 살아갈 희망과 힘을 얻을 수 있습니다. 오늘부터 이미 준비된 그 선물을 온전히 받고자 한다면 주님께서 약속하신 축복을 모든 분들이 받으실 것이라는 것을 간증 드립니다.</p>
+    <p class="tgt en">In closing, I would like to share my testimony. While we live on this earth in these mortal bodies, we pass through many hardships. But I know that the Lord loves every one of us. He made a plan of happiness for us, and Jesus Christ willingly fulfilled that plan. When we understand His gift, and rely on Him completely, we find hope and strength for this mortal life. I testify that if we begin today to receive that gift fully (the gift already prepared for us) every one of us will receive the blessings the Lord has promised.</p>
+    <p class="zh">最后，我要作我的见证。我们带着这必死的身体活在世上，会遇到很多困难。可是我知道，主爱我们每一个人，所以为我们定下了幸福计划，而耶稣基督心甘情愿地成全了这个计划。我们明白祂的恩赐，完全依靠祂，就能得到走过今生的希望和力量。我见证，从今天起，只要各位愿意完全领受那份已经预备好的恩赐，主所应许的祝福，各位都会得到。</p>
+    <p class="th">สุดท้ายนี้ ผมขอแบ่งปันประจักษ์พยานของผม ขณะที่เรามีชีวิตอยู่บนแผ่นดินโลกนี้ในร่างกายมรรตัย เราพบกับความยากลำบากมากมาย แต่ผมรู้ว่าพระเจ้าทรงรักเราทุกคน จึงทรงสร้างแผนแห่งความสุขขึ้น และพระเยซูคริสต์ก็ทรงเต็มพระทัยทำให้แผนนั้นสำเร็จ เมื่อเราเข้าใจของประทานของพระองค์และพึ่งพาพระองค์อย่างเต็มที่ เราย่อมได้รับความหวังและพลังที่จะดำเนินชีวิตมรรตัยนี้ต่อไป ผมเป็นพยานว่า หากเราปรารถนาจะรับของประทานที่เตรียมไว้แล้วนั้นอย่างเต็มที่ตั้งแต่วันนี้ ทุกท่านจะได้รับพรที่พระเจ้าทรงสัญญาไว้</p>
+    <p class="de">Zum Schluss möchte ich mein Zeugnis geben. Solange wir in diesem sterblichen Körper auf der Erde leben, erleben wir viel Schweres. Aber ich weiß: Der Herr liebt uns alle, und darum hat er den Plan des Glücklichseins bereitet, und Jesus Christus hat diesen Plan bereitwillig erfüllt. Wenn wir sein Geschenk verstehen und uns ganz auf ihn verlassen, bekommen wir Hoffnung und Kraft für dieses irdische Leben. Dieses Geschenk liegt schon bereit. Wenn Sie es von heute an ganz annehmen wollen, dann werden Sie alle die Segnungen empfangen, die der Herr versprochen hat. Das bezeuge ich.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">25</span>
+    <p class="src ko">예수 그리스도 이름으로 말씀 드립니다. 아멘.</p>
+    <p class="tgt en">In the name of Jesus Christ, amen.</p>
+    <p class="zh">我奉耶稣基督的名说这些话，阿们。</p>
+    <p class="th">ผมกล่าวสิ่งเหล่านี้ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

@@ -157,9 +157,16 @@ html.show-en.show-ko .pair:not(.cite) {
 
 /* Citations (scripture / prophet / hymn) — set apart, official text */
 .pair.cite { margin: 1.75rem 0; }
-.pair.cite .src, .pair.cite .tgt {
+.pair.cite blockquote {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
 }
 .pair.cite cite {
   display: block; margin-top: 0.35rem; font-style: normal;
@@ -397,11 +404,11 @@ html:not(.show-de) .de { display: none; }
     <p class="lead src en">A verse I feel is connected to this is in 1 Nephi 1:20.</p>
     <blockquote class="src en">And when the Jews heard these things they were angry with him; yea, even as with the prophets of old, whom they had cast out, and stoned, and slain; and they also sought his life, that they might take it away. But behold, I, Nephi, will show unto you that the tender mercies of the Lord are over all those whom he hath chosen, because of their faith, to make them mighty even unto the power of deliverance.<cite>1 Nephi 1:20</cite></blockquote>
     <p class="lead tgt ko">지금까지 말씀드린 것과 통한다고 느끼는 경전 구절이 하나 있는데, 니파이전서 1장 20절입니다.</p>
-    <blockquote class="tgt ko">이에 유대인들은 이러한 것을 듣고 그에게 화를 내었나니, 참으로 그들이 내어 쫓고 돌로 치며 살해한 옛 선지자들에게 그러하였던 것같이 화를 내었으며, 또한 그들은 그의 생명을 찾아 빼앗으려 하였느니라. 그러나 보라, 나 니파이는 주의 친절하신 자비가 그 신앙으로 말미암아, 그가 택하신 자 모두의 위에 있어 그들을 능하게 하여, 참으로 구원의 능력에 이르게 하였음을 너희에게 보여 주리라.<cite>1 Nephi 1:20</cite></blockquote>
+    <blockquote class="tgt ko">이에 유대인들은 이러한 것을 듣고 그에게 화를 내었나니, 참으로 그들이 내어 쫓고 돌로 치며 살해한 옛 선지자들에게 그러하였던 것같이 화를 내었으며, 또한 그들은 그의 생명을 찾아 빼앗으려 하였느니라. 그러나 보라, 나 니파이는 주의 친절하신 자비가 그 신앙으로 말미암아, 그가 택하신 자 모두의 위에 있어 그들을 능하게 하여, 참으로 구원의 능력에 이르게 하였음을 너희에게 보여 주리라.<cite>니파이전서 1:20</cite></blockquote>
     <p class="lead zh">我觉得有一节经文和这件事有关，就是尼腓一书1：20。</p>
-    <blockquote class="zh">犹太人听了这些事，就恼怒他，是的，正如对昔日的众先知发怒一样，他们曾驱逐先知，又用石头砸和杀害先知；他们也图谋他的性命，想置他于死地。但是，看啊，我，尼腓，要让你们知道，主温柔的慈悲遍及那些因信心而蒙祂拣选的人，使他们强而有力，甚至有获救的力量。<cite>1 Nephi 1:20</cite></blockquote>
+    <blockquote class="zh">犹太人听了这些事，就恼怒他，是的，正如对昔日的众先知发怒一样，他们曾驱逐先知，又用石头砸和杀害先知；他们也图谋他的性命，想置他于死地。但是，看啊，我，尼腓，要让你们知道，主温柔的慈悲遍及那些因信心而蒙祂拣选的人，使他们强而有力，甚至有获救的力量。<cite>尼腓一书 1：20</cite></blockquote>
     <p class="lead th">ข้อพระคัมภีร์ข้อหนึ่งที่ดิฉันรู้สึกว่าเชื่อมโยงกับเรื่องนี้อยู่ใน 1 นีไฟ 1:20</p>
-    <blockquote class="th">และเมื่อชาวยิวได้ยินเรื่องเหล่านี้พวกเขาโกรธท่าน; แท้จริงแล้ว, แม้เหมือนกับศาสดาพยากรณ์ในสมัยโบราณ, ผู้ที่พวกเขาขับไล่, และขว้างปาด้วยหิน, และสังหาร; และพวกเขาหมายมั่นจะเอาชีวิตท่านด้วย, เพื่อพวกเขาจะเอาชีวิตนั้นไปเสีย. แต่ดูเถิด, ข้าพเจ้า, นีไฟ, จะแสดงต่อท่านว่าพระเมตตาอันละเอียดอ่อนของพระเจ้ามีอยู่เหนือคนทั้งปวงที่พระองค์ทรงเลือกไว้, เพราะศรัทธาของพวกเขา, เพื่อทำให้พวกเขาแข็งแกร่งแม้จนถึงพลังแห่งการปลดปล่อย.<cite>1 Nephi 1:20</cite></blockquote>
+    <blockquote class="th">และเมื่อชาวยิวได้ยินเรื่องเหล่านี้พวกเขาโกรธท่าน; แท้จริงแล้ว, แม้เหมือนกับศาสดาพยากรณ์ในสมัยโบราณ, ผู้ที่พวกเขาขับไล่, และขว้างปาด้วยหิน, และสังหาร; และพวกเขาหมายมั่นจะเอาชีวิตท่านด้วย, เพื่อพวกเขาจะเอาชีวิตนั้นไปเสีย. แต่ดูเถิด, ข้าพเจ้า, นีไฟ, จะแสดงต่อท่านว่าพระเมตตาอันละเอียดอ่อนของพระเจ้ามีอยู่เหนือคนทั้งปวงที่พระองค์ทรงเลือกไว้, เพราะศรัทธาของพวกเขา, เพื่อทำให้พวกเขาแข็งแกร่งแม้จนถึงพลังแห่งการปลดปล่อย.<cite>๑ นีไฟ ๑:๒๐</cite></blockquote>
     <p class="lead de">Ein Vers, der für mich damit zu tun hat, steht in 1 Nephi 1:20.</p>
     <blockquote class="de">Und als die Juden das hörten, wurden sie zornig auf ihn, ja, so wie auf die Propheten vor alters, die sie ausgestoßen und gesteinigt und getötet hatten; und sie trachteten danach, auch ihm das Leben zu nehmen. Aber siehe, ich, Nephi, werde euch zeigen, dass die liebevolle, große Barmherzigkeit des Herrn über all denen waltet, die er ihres Glaubens wegen erwählt hat, um sie mächtig zu machen, ja, zur Kraft der Befreiung.<cite>1 Nephi 1:20</cite></blockquote>
   </div>

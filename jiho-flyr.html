@@ -157,9 +157,16 @@ html.show-en.show-ko .pair:not(.cite) {
 
 /* Citations (scripture / prophet / hymn) — set apart, official text */
 .pair.cite { margin: 1.75rem 0; }
-.pair.cite .src, .pair.cite .tgt {
+.pair.cite blockquote {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
 }
 .pair.cite cite {
   display: block; margin-top: 0.35rem; font-style: normal;

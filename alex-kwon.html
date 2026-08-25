@@ -157,9 +157,16 @@ html.show-en.show-ko .pair:not(.cite) {
 
 /* Citations (scripture / prophet / hymn) — set apart, official text */
 .pair.cite { margin: 1.75rem 0; }
-.pair.cite .src, .pair.cite .tgt {
+.pair.cite blockquote {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
 }
 .pair.cite cite {
   display: block; margin-top: 0.35rem; font-style: normal;
@@ -485,10 +492,10 @@ html:not(.show-de) .de { display: none; }
   <div class="pair cite">
     <span class="turn">20</span>
     <blockquote class="src en">Judge not, that ye be not judged.<cite>Matthew 7:1</cite></blockquote>
-    <blockquote class="tgt ko">비판을 받지 아니하려거든 비판하지 말라.<cite>Matthew 7:1</cite></blockquote>
-    <blockquote class="zh">你们不要论断人，免得你们被论断。<cite>Matthew 7:1</cite></blockquote>
-    <blockquote class="th">อย่าพิพากษา เพื่อพระเจ้าจะไม่ทรงพิพากษาท่านทั้งหลาย<cite>Matthew 7:1</cite></blockquote>
-    <blockquote class="de">„Richtet nicht, damit ihr nicht auch gerichtet werdet!“<cite>Matthew 7:1</cite></blockquote>
+    <blockquote class="tgt ko">비판을 받지 아니하려거든 비판하지 말라.<cite>마태복음 7:1</cite></blockquote>
+    <blockquote class="zh">你们不要论断人，免得你们被论断。<cite>马太福音 7：1</cite></blockquote>
+    <blockquote class="th">อย่าพิพากษา เพื่อพระเจ้าจะไม่ทรงพิพากษาท่านทั้งหลาย</blockquote>
+    <blockquote class="de">„Richtet nicht, damit ihr nicht auch gerichtet werdet!“<cite>Matthäus 7:1</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -530,10 +537,10 @@ html:not(.show-de) .de { display: none; }
   <div class="pair cite">
     <span class="turn">25</span>
     <blockquote class="src en">Be ye therefore perfect, even as your Father which is in heaven is perfect.<cite>Matthew 5:48</cite></blockquote>
-    <blockquote class="tgt ko">그러므로 하늘에 계신 너희 아버지의 온전하심과 같이 너희도 온전하라.<cite>Matthew 5:48</cite></blockquote>
-    <blockquote class="zh">所以，你们要完全，像你们的天父完全一样。<cite>Matthew 5:48</cite></blockquote>
-    <blockquote class="th">เพราะฉะนั้นพวกท่านจงเป็นคนดีพร้อม เหมือนอย่างที่พระบิดาของท่าน ผู้สถิตในสวรรค์ทรงดีพร้อม<cite>Matthew 5:48</cite></blockquote>
-    <blockquote class="de">„Darum sollt ihr vollkommen sein, wie euer himmlischer Vater vollkommen ist.“<cite>Matthew 5:48</cite></blockquote>
+    <blockquote class="tgt ko">그러므로 하늘에 계신 너희 아버지의 온전하심과 같이 너희도 온전하라.<cite>마태복음 5:48</cite></blockquote>
+    <blockquote class="zh">所以，你们要完全，像你们的天父完全一样。<cite>马太福音 5：48</cite></blockquote>
+    <blockquote class="th">เพราะฉะนั้นพวกท่านจงเป็นคนดีพร้อม เหมือนอย่างที่พระบิดาของท่าน ผู้สถิตในสวรรค์ทรงดีพร้อม</blockquote>
+    <blockquote class="de">„Darum sollt ihr vollkommen sein, wie euer himmlischer Vater vollkommen ist.“<cite>Matthäus 5:48</cite></blockquote>
   </div>
 
   <div class="pair">
@@ -549,9 +556,9 @@ html:not(.show-de) .de { display: none; }
     <span class="turn">27</span>
     <blockquote class="src en">With that concluding imperative, we want to go back to bed and pull the covers over our head. Such celestial goals seem beyond our reach. Yet surely the Lord would never give us a commandment He knew we could not keep.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
     <blockquote class="tgt ko">이 결론적인 계명에 이르러서는 자리에 도로 누워 이불을 머리끝까지 뒤집어쓰고 싶어질 것입니다. 그같은 해의 왕국의 목표들은 결코 이루지 못할 일들로 보입니다. 그럼에도 분명한 것은, 주님께서 우리가 지키지 못할 것을 아시는 계명은 결코 주지 않으신다는 것입니다.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
-    <blockquote class="zh">看到最后那条诫命，我们会想回到床上，蒙头大睡算了。这样的高荣目标似乎遥不可及，但主一定不会给我们一条祂明知我们做不到的诫命。<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
-    <blockquote class="th">ด้วยพระบัญชาปิดท้ายข้อนั้น เราอยากจะกลับไปนอนคลุมโปง เป้าหมายซีเลสเชียลเช่นนั้นดูเหมือนไกลเกินเอื้อม แต่แน่นอนว่าพระเจ้าจะไม่ประทานพระบัญญัติที่พระองค์ทรงทราบว่าเราจะรักษาไม่ได้<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
-    <blockquote class="de">Nach dieser letzten Aufforderung wollen wir nur noch ins Bett und uns die Decke über den Kopf ziehen. Solche celestialen Ziele erscheinen uns unerreichbar. Doch ganz gewiss hat der Herr uns kein Gebot gegeben, von dem er wusste, dass wir es nicht halten können.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="zh">看到最后那条诫命，我们会想回到床上，蒙头大睡算了。这样的高荣目标似乎遥不可及，但主一定不会给我们一条祂明知我们做不到的诫命。</blockquote>
+    <blockquote class="th">ด้วยพระบัญชาปิดท้ายข้อนั้น เราอยากจะกลับไปนอนคลุมโปง เป้าหมายซีเลสเชียลเช่นนั้นดูเหมือนไกลเกินเอื้อม แต่แน่นอนว่าพระเจ้าจะไม่ประทานพระบัญญัติที่พระองค์ทรงทราบว่าเราจะรักษาไม่ได้</blockquote>
+    <blockquote class="de">Nach dieser letzten Aufforderung wollen wir nur noch ins Bett und uns die Decke über den Kopf ziehen. Solche celestialen Ziele erscheinen uns unerreichbar. Doch ganz gewiss hat der Herr uns kein Gebot gegeben, von dem er wusste, dass wir es nicht halten können.</blockquote>
   </div>
 
   <div class="pair">
@@ -567,9 +574,9 @@ html:not(.show-de) .de { display: none; }
     <span class="turn">29</span>
     <blockquote class="src en">Brothers and sisters, every one of us aspires to a more Christlike life than we often succeed in living. If we admit that honestly and are trying to improve, we are not hypocrites; we are human. May we refuse to let our own mortal follies, and the inevitable shortcomings of even the best men and women around us, make us cynical about the truths of the gospel, the truthfulness of the Church, our hope for our future, or the possibility of godliness. If we persevere, then somewhere in eternity our refinement will be finished and complete—which is the New Testament meaning of perfection.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
     <blockquote class="tgt ko">형제 자매 여러분, 우리는 모두 그리스도와 같은 삶을 열망하는데, 실제 삶에서 해내고 있는 것보다 더 많이 그렇게 살기를 갈망합니다. 우리가 그 점을 솔직하게 인정하고 더 나아지려고 노력한다면, 우리는 위선자가 아닙니다. 우리는 인간입니다. 우리 자신의 인간적인 어리석음 때문에, 또는 우리 주위의 가장 훌륭한 사람들마저도 불가피한 단점을 지녔다는 이유로, 복음 진리, 교회의 참됨, 미래에 대한 희망 혹은 하나님과 같이 될 수 있는 가능성에 대해 냉소적인 태도를 취하지 않기를 바랍니다. 우리가 굴하지 않고 꾸준히 노력한다면, 영원한 시간 어딘가에서 우리의 정화 과정은 끝나고 완성될 것입니다. 이것이 바로 신약전서에서 의미하는 온전함입니다.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
-    <blockquote class="zh">弟兄姊妹们，我们过基督般生活的表现往往差强人意，但每个人都渴望做得更好。如果我们诚实地承认这一点，并尽力去改进，我们就不是伪君子，我们只是普通人。愿我们拒绝因为我们自己尘世的愚蠢行为，和周遭模范男女身上无可避免的缺点，而使得我们对于福音的真理、教会的真实性、我们未来的希望或成为像神一样的可能，产生愤世嫉俗的心态。如果我们坚持不懈，我们在永恒中的精进将会完成与完整，这也就是新约中所说的完全。<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
-    <blockquote class="th">พี่น้องทั้งหลาย เราทุกคนปรารถนาจะมีชีวิตเหมือนพระคริสต์มากกว่าที่เรามักประสบความสำเร็จในการใช้ชีวิต หากเรายอมรับสิ่งนั้นอย่างจริงใจและพยายามปรับปรุง เราไม่ใช่คนหน้าซื่อใจคด เราเป็นมนุษย์ ขอให้เราปฏิเสธอย่ายอมให้ความเขลาเยี่ยงมนุษย์ของตัวเราเอง และความบกพร่องที่ไม่อาจหลีกเลี่ยงแม้ของคนที่ดีที่สุด ทำให้เราเหยียดหยามความจริงของพระกิตติคุณ ความเป็นจริงของศาสนจักร ความหวังสำหรับอนาคตของเรา หรือความเป็นไปได้ของความเป็นเหมือนพระผู้เป็นเจ้า หากเราบากบั่น เมื่อนั้นที่ใดสักแห่งในนิรันดร การขัดเกลาของเราจะเสร็จสิ้นและครบถ้วน—ซึ่งคือความหมายของคำว่าสมบูรณ์แบบซึ่งอยู่ในพันธสัญญาใหม่<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
-    <blockquote class="de">Brüder und Schwestern, jeder von uns strebt danach, ein christlicheres Leben zu führen, als er es oftmals zustande bringt. Wenn wir dies ehrlich eingestehen und uns Mühe geben, uns zu verbessern, sind wir nicht Scheinheilige, sondern Menschen. Lassen wir nicht zu, dass unsere eigenen Dummheiten hier auf Erden und die unvermeidlichen Fehler selbst der Besten in unserem Umfeld uns zu Zynikern machen, was die Wahrheiten des Evangeliums, die Wahrhaftigkeit der Kirche, unsere Hoffnung für unsere Zukunft oder die Möglichkeit angeht, wie Gott zu werden. Wenn wir uns beharrlich weiter bemühen, wird irgendwann in der Ewigkeit unsere Läuterung abgeschlossen und vervollständigt – und das ist im Neuen Testament mit Vollkommenheit gemeint.<cite>Elder Jeffrey R. Holland, Oct 2017</cite></blockquote>
+    <blockquote class="zh">弟兄姊妹们，我们过基督般生活的表现往往差强人意，但每个人都渴望做得更好。如果我们诚实地承认这一点，并尽力去改进，我们就不是伪君子，我们只是普通人。愿我们拒绝因为我们自己尘世的愚蠢行为，和周遭模范男女身上无可避免的缺点，而使得我们对于福音的真理、教会的真实性、我们未来的希望或成为像神一样的可能，产生愤世嫉俗的心态。如果我们坚持不懈，我们在永恒中的精进将会完成与完整，这也就是新约中所说的完全。</blockquote>
+    <blockquote class="th">พี่น้องทั้งหลาย เราทุกคนปรารถนาจะมีชีวิตเหมือนพระคริสต์มากกว่าที่เรามักประสบความสำเร็จในการใช้ชีวิต หากเรายอมรับสิ่งนั้นอย่างจริงใจและพยายามปรับปรุง เราไม่ใช่คนหน้าซื่อใจคด เราเป็นมนุษย์ ขอให้เราปฏิเสธอย่ายอมให้ความเขลาเยี่ยงมนุษย์ของตัวเราเอง และความบกพร่องที่ไม่อาจหลีกเลี่ยงแม้ของคนที่ดีที่สุด ทำให้เราเหยียดหยามความจริงของพระกิตติคุณ ความเป็นจริงของศาสนจักร ความหวังสำหรับอนาคตของเรา หรือความเป็นไปได้ของความเป็นเหมือนพระผู้เป็นเจ้า หากเราบากบั่น เมื่อนั้นที่ใดสักแห่งในนิรันดร การขัดเกลาของเราจะเสร็จสิ้นและครบถ้วน—ซึ่งคือความหมายของคำว่าสมบูรณ์แบบซึ่งอยู่ในพันธสัญญาใหม่</blockquote>
+    <blockquote class="de">Brüder und Schwestern, jeder von uns strebt danach, ein christlicheres Leben zu führen, als er es oftmals zustande bringt. Wenn wir dies ehrlich eingestehen und uns Mühe geben, uns zu verbessern, sind wir nicht Scheinheilige, sondern Menschen. Lassen wir nicht zu, dass unsere eigenen Dummheiten hier auf Erden und die unvermeidlichen Fehler selbst der Besten in unserem Umfeld uns zu Zynikern machen, was die Wahrheiten des Evangeliums, die Wahrhaftigkeit der Kirche, unsere Hoffnung für unsere Zukunft oder die Möglichkeit angeht, wie Gott zu werden. Wenn wir uns beharrlich weiter bemühen, wird irgendwann in der Ewigkeit unsere Läuterung abgeschlossen und vervollständigt – und das ist im Neuen Testament mit Vollkommenheit gemeint.</blockquote>
   </div>
 
   <div class="pair">

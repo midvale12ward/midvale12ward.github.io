@@ -157,9 +157,16 @@ html.show-en.show-ko .pair:not(.cite) {
 
 /* Citations (scripture / prophet / hymn) — set apart, official text */
 .pair.cite { margin: 1.75rem 0; }
-.pair.cite .src, .pair.cite .tgt {
+.pair.cite blockquote {
   border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
   color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
 }
 .pair.cite cite {
   display: block; margin-top: 0.35rem; font-style: normal;
@@ -363,11 +370,11 @@ html:not(.show-de) .de { display: none; }
     <p class="lead tgt en">President Thomas S. Monson said:</p>
     <blockquote class="tgt en">“It may appear to you at times that those out in the world are having much more fun than you are. Some of you may feel restricted by the code of conduct to which we in the Church adhere. My brothers and sisters, I declare to you, however, that there is nothing which can bring more joy into our lives or more peace to our souls than the Spirit which can come to us as we follow the Savior and keep the commandments.”<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
     <p class="lead zh">多马·孟荪会长曾这样说：</p>
-    <blockquote class="zh">「有时候你们可能会觉得，世人的生活比你们的生活有趣多了。还有些人可能觉得，我们在教会里遵守的行为准则让我们处处受到限制。然而，弟兄姊妹们，我要告诉各位，绝对没有任何事情会比跟随救主、遵守祂的诫命、有圣灵为伴更能让我们的生活充满喜乐，更能让我们的灵魂得到平安。」<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="zh">「有时候你们可能会觉得，世人的生活比你们的生活有趣多了。还有些人可能觉得，我们在教会里遵守的行为准则让我们处处受到限制。然而，弟兄姊妹们，我要告诉各位，绝对没有任何事情会比跟随救主、遵守祂的诫命、有圣灵为伴更能让我们的生活充满喜乐，更能让我们的灵魂得到平安。」</blockquote>
     <p class="lead th">ประธานโธมัส เอส. มอนสันกล่าวไว้ดังนี้</p>
-    <blockquote class="th">“บางครั้งท่านอาจเห็นว่าคนที่ออกไปอยู่ในโลกมีความสนุกสนานยิ่งกว่าเรา บางท่านอาจรู้สึกถูกจำกัดให้อยู่กับมาตรฐานความประพฤติซึ่งเรายึดมั่นในศาสนจักร พี่น้องทั้งหลาย ข้าพเจ้าประกาศต่อท่านว่า ไม่มีสิ่งใด สามารถนำปีติมาสู่ชีวิตท่านหรือนำสันติสุขมาสู่จิตวิญญาณท่านได้มากกว่าพระวิญญาณซึ่งมาหาเราได้เมื่อเราติดตามพระผู้ช่วยให้รอดและรักษาพระบัญญัติ”<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="th">“บางครั้งท่านอาจเห็นว่าคนที่ออกไปอยู่ในโลกมีความสนุกสนานยิ่งกว่าเรา บางท่านอาจรู้สึกถูกจำกัดให้อยู่กับมาตรฐานความประพฤติซึ่งเรายึดมั่นในศาสนจักร พี่น้องทั้งหลาย ข้าพเจ้าประกาศต่อท่านว่า ไม่มีสิ่งใด สามารถนำปีติมาสู่ชีวิตท่านหรือนำสันติสุขมาสู่จิตวิญญาณท่านได้มากกว่าพระวิญญาณซึ่งมาหาเราได้เมื่อเราติดตามพระผู้ช่วยให้รอดและรักษาพระบัญญัติ”</blockquote>
     <p class="lead de">Präsident Thomas S. Monson hat Folgendes gesagt:</p>
-    <blockquote class="de">„Vielleicht erscheint es Ihnen manchmal so, dass die Menschen draußen in der Welt viel mehr Spaß haben als Sie. Einige von Ihnen fühlen sich vielleicht durch den Verhaltenskodex, an dem wir in der Kirche festhalten, eingeschränkt. Meine Brüder und Schwestern, ich sage Ihnen jedoch, dass es nichts gibt, was mehr Freude in Ihr Leben bringen und Ihrer Seele mehr Frieden schenken kann, als der Geist, der zu uns kommen kann, wenn wir dem Erlöser folgen und die Gebote halten.“<cite>토마스 에스 몬슨, 「순종이 가져다주는 축복」, 리아호나, 2016년 10월호 · Thomas S. Monson, &quot;The Blessings of Obedience,&quot; Liahona, Oct. 2016</cite></blockquote>
+    <blockquote class="de">„Vielleicht erscheint es Ihnen manchmal so, dass die Menschen draußen in der Welt viel mehr Spaß haben als Sie. Einige von Ihnen fühlen sich vielleicht durch den Verhaltenskodex, an dem wir in der Kirche festhalten, eingeschränkt. Meine Brüder und Schwestern, ich sage Ihnen jedoch, dass es nichts gibt, was mehr Freude in Ihr Leben bringen und Ihrer Seele mehr Frieden schenken kann, als der Geist, der zu uns kommen kann, wenn wir dem Erlöser folgen und die Gebote halten.“</blockquote>
   </div>
 
   <div class="pair">
@@ -436,15 +443,15 @@ html:not(.show-de) .de { display: none; }
   <div class="pair cite">
     <span class="turn">14</span>
     <p class="lead src ko">몰몬경에서 자신의 연약함을 걱정하던 모로나이에게 주님께서는 이렇게 말씀하셨습니다. 이더서 12장 27절입니다.</p>
-    <blockquote class="src ko">또 만일 사람들이 내게로 오면 내가 그들에게 그들의 연약함을 보일 것이라. 내가 사람들에게 연약함을 주는 것은 그들로 겸손하게 하려 함이요, 내 은혜가 내 앞에 스스로 겸손하여진 모든 자에게는 족하니, 이는 만일 그들이 내 앞에 스스로 겸손하여 나를 믿는 신앙을 가지면, 내가 그들을 위하여 연약한 것들을 강하게 되게 할 것임이니라.<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="src ko">또 만일 사람들이 내게로 오면 내가 그들에게 그들의 연약함을 보일 것이라. 내가 사람들에게 연약함을 주는 것은 그들로 겸손하게 하려 함이요, 내 은혜가 내 앞에 스스로 겸손하여진 모든 자에게는 족하니, 이는 만일 그들이 내 앞에 스스로 겸손하여 나를 믿는 신앙을 가지면, 내가 그들을 위하여 연약한 것들을 강하게 되게 할 것임이니라.<cite>이더서 12:27</cite></blockquote>
     <p class="lead tgt en">In the Book of Mormon, the Lord spoke these words to Moroni, who was worried about his own weakness. This is Ether chapter 12, verse 27:</p>
-    <blockquote class="tgt en">And if men come unto me I will show unto them their weakness. I give unto men weakness that they may be humble; and my grace is sufficient for all men that humble themselves before me; for if they humble themselves before me, and have faith in me, then will I make weak things become strong unto them.<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="tgt en">And if men come unto me I will show unto them their weakness. I give unto men weakness that they may be humble; and my grace is sufficient for all men that humble themselves before me; for if they humble themselves before me, and have faith in me, then will I make weak things become strong unto them.<cite>Ether 12:27</cite></blockquote>
     <p class="lead zh">在摩尔门经中，主对忧心自己软弱的摩罗乃这样说。这是以帖书第十二章第二十七节：</p>
-    <blockquote class="zh">如果世人到我这里来，我必让他们看见自己的弱点。我赋予世人弱点，使他们得以谦卑；我给所有在我面前谦抑自己的人的恩典是充分的；因为如果他们在我面前谦抑自己，并对我有信心，我必为他们使软弱的东西变成坚强。<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="zh">如果世人到我这里来，我必让他们看见自己的弱点。我赋予世人弱点，使他们得以谦卑；我给所有在我面前谦抑自己的人的恩典是充分的；因为如果他们在我面前谦抑自己，并对我有信心，我必为他们使软弱的东西变成坚强。<cite>以帖书 12：27</cite></blockquote>
     <p class="lead th">ในพระคัมภีร์มอรมอน พระเจ้าตรัสกับโมโรไนผู้กังวลเรื่องความอ่อนแอของตนเองไว้ดังนี้ อีเธอร์บทที่ ๑๒ ข้อ ๒๗</p>
-    <blockquote class="th">และหากมนุษย์มาหาเรา เราจะแสดงให้พวกเขาเห็นความอ่อนแอของพวกเขา. เราให้ความอ่อนแอแก่มนุษย์เพื่อพวกเขาจะนอบน้อม; และพระคุณของเราเพียงพอสำหรับคนทั้งปวงที่นอบน้อมถ่อมตนต่อหน้าเรา; เพราะหากพวกเขานอบน้อมถ่อมตนต่อหน้าเรา, และมีศรัทธาในเรา, เมื่อนั้นเราจะทำให้สิ่งที่อ่อนแอกลับเข้มแข็งสำหรับพวกเขา.<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="th">และหากมนุษย์มาหาเรา เราจะแสดงให้พวกเขาเห็นความอ่อนแอของพวกเขา. เราให้ความอ่อนแอแก่มนุษย์เพื่อพวกเขาจะนอบน้อม; และพระคุณของเราเพียงพอสำหรับคนทั้งปวงที่นอบน้อมถ่อมตนต่อหน้าเรา; เพราะหากพวกเขานอบน้อมถ่อมตนต่อหน้าเรา, และมีศรัทธาในเรา, เมื่อนั้นเราจะทำให้สิ่งที่อ่อนแอกลับเข้มแข็งสำหรับพวกเขา.<cite>อีเธอร์ ๑๒:๒๗</cite></blockquote>
     <p class="lead de">Im Buch Mormon sprach der Herr diese Worte zu Moroni, der sich wegen seiner eigenen Schwäche sorgte. Ether 12:27:</p>
-    <blockquote class="de">„Und wenn Menschen zu mir kommen, so zeige ich ihnen ihre Schwäche. Ich gebe den Menschen Schwäche, damit sie demütig seien; und meine Gnade ist ausreichend für alle Menschen, die sich vor mir demütigen; denn wenn sie sich vor mir demütigen und Glauben an mich haben, dann werde ich Schwaches für sie stark werden lassen.“<cite>이더서 12:27 · Ether 12:27</cite></blockquote>
+    <blockquote class="de">„Und wenn Menschen zu mir kommen, so zeige ich ihnen ihre Schwäche. Ich gebe den Menschen Schwäche, damit sie demütig seien; und meine Gnade ist ausreichend für alle Menschen, die sich vor mir demütigen; denn wenn sie sich vor mir demütigen und Glauben an mich haben, dann werde ich Schwaches für sie stark werden lassen.“<cite>Ether 12:27</cite></blockquote>
   </div>
 
   <div class="pair">

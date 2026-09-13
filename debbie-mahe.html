@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I Have Experienced God’s Grace as a Young Woman Finding My Way in Life · 인생의 길을 찾아가는 젊은 여성으로서 경험한 하나님의 은혜</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th", "de"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite blockquote {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">How I Have Experienced God’s Grace as a Young Woman Finding My Way in Life</span><span class="ko">인생의 길을 찾아가는 젊은 여성으로서 경험한 하나님의 은혜</span><span class="zh">一个年轻女子在寻找人生道路时所经历的神的恩典</span><span class="th">พระคุณของพระผู้เป็นเจ้าในชีวิตของหญิงสาวที่กำลังหาทางเดินของตัวเอง</span><span class="de">Gottes Gnade erfahren – als junge Frau auf der Suche nach meinem Weg im Leben</span></h1>
+  <p class="byline">Sister Debbie Mahe &nbsp;·&nbsp; 13 September 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">My name is Debbie Mahe, I'm 21 years old and I was born and raised here in Utah in a family of 8. I am half Tongan and before moving to this Ward, I was a member of the Salt Lake Utah South Tongan Stake.</p>
+    <p class="tgt ko">제 이름은 데비 마헤입니다. 스물한 살이고, 이곳 유타의 여덟 식구 가정에서 태어나 자랐습니다. 저는 반은 통가계이고, 이 와드로 옮겨 오기 전에는 솔트레이크 유타 사우스 통가 스테이크 회원이었습니다.</p>
+    <p class="zh">我叫黛比·马赫，今年21岁，就在犹他州这里出生长大，家里一共八口人。我有一半汤加血统，搬到这个支会之前，我是盐湖犹他南汤加支联会的教友。</p>
+    <p class="th">ดิฉันชื่อเด็บบี้ มาเฮ อายุ 21 ปี เกิดและเติบโตที่นี่ในยูทาห์ ครอบครัวของดิฉันมีกันทั้งหมด 8 คน ดิฉันเป็นลูกครึ่งตองกา และก่อนจะย้ายมาอยู่วอร์ดนี้ ดิฉันเป็นสมาชิกของสเตคซอลท์เลคยูทาห์เซาท์ตองกา</p>
+    <p class="de">Mein Name ist Debbie Mahe. Ich bin 21 Jahre alt und bin hier in Utah in einer achtköpfigen Familie geboren und aufgewachsen. Ich bin zur Hälfte Tongaerin, und bevor ich in diese Gemeinde gezogen bin, gehörte ich zum Pfahl Salt Lake Utah South Tongan.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src en">I returned home after completing my mission in Fukuoka, Japan about one year ago. Growing up, I had always wanted to serve a mission for the Church. I was excited when I received my mission call, but at the time I didn't realize the journey I was about to embark on.</p>
+    <p class="tgt ko">저는 일본 후쿠오카 선교부에서 봉사를 마치고 1년쯤 전에 집으로 돌아왔습니다. 어릴 때부터 늘 교회 선교사로 봉사하고 싶었습니다. 그래서 선교사 부름을 받았을 때 정말 기뻤는데, 그때는 제 앞에 어떤 여정이 기다리고 있는지 알지 못했습니다.</p>
+    <p class="zh">大约一年前，我在日本福冈传道部完成了传道，回到家里。从小我就一直想为教会传教。收到传教召唤的时候我很兴奋，但那时候我并不知道，自己即将踏上的是一段怎样的旅程。</p>
+    <p class="th">ดิฉันจบงานเผยแผ่ที่ฟุกุโอกะ ประเทศญี่ปุ่น และกลับบ้านมาได้ประมาณหนึ่งปีแล้ว ตั้งแต่เด็ก ดิฉันอยากรับใช้งานเผยแผ่ให้ศาสนจักรมาตลอด ตอนที่ได้รับหมายเรียกผู้สอนศาสนา ดิฉันดีใจมาก แต่ตอนนั้นยังไม่รู้เลยว่าเส้นทางที่กำลังจะก้าวออกไปนั้นจะเป็นอย่างไร</p>
+    <p class="de">Vor etwa einem Jahr habe ich meine Mission in Fukuoka in Japan abgeschlossen und bin nach Hause zurückgekehrt. Schon als Kind wollte ich immer eine Mission für die Kirche erfüllen. Ich habe mich sehr gefreut, als ich meine Missionsberufung bekam – aber damals ahnte ich noch nicht, auf welche Reise ich mich da einließ.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">My parents have very firm testimonies, I was raised in the church, graduated from seminary, and attended church every Sunday. I never really questioned what I believed or who I was, and there were never any influences in my life that tried to pull me away from the Gospel.</p>
+    <p class="tgt ko">저희 부모님은 간증이 아주 굳건하신 분들입니다. 저는 교회 안에서 자랐고, 세미나리를 졸업했고, 일요일마다 교회에 나갔습니다. 제가 무엇을 믿는지, 제가 누구인지 한 번도 진지하게 의심해 본 적이 없었고, 저를 복음에서 멀어지게 할 만한 어떤 영향도 제 삶에는 없었습니다.</p>
+    <p class="zh">我父母的见证非常坚定。我在教会里长大，福音进修班毕业，每个安息日都去教会。我从来没有真正怀疑过自己信什么、自己是谁，生活中也从来没有什么把我拉离福音的力量。</p>
+    <p class="th">คุณพ่อคุณแม่ของดิฉันมีประจักษ์พยานที่มั่นคงมาก ดิฉันเติบโตมาในศาสนจักร จบเซมินารี และไปโบสถ์ทุกวันอาทิตย์ ดิฉันไม่เคยตั้งคำถามอย่างจริงจังเลยว่าตัวเองเชื่ออะไรหรือเป็นใคร และไม่เคยมีอิทธิพลใดในชีวิตที่พยายามดึงดิฉันออกห่างจากพระกิตติคุณ</p>
+    <p class="de">Meine Eltern haben ein sehr festes Zeugnis. Ich bin in der Kirche aufgewachsen, habe das Seminar abgeschlossen und bin jeden Sonntag in die Kirche gegangen. Ich habe nie wirklich infrage gestellt, was ich glaube oder wer ich bin, und in meinem Leben gab es nie Einflüsse, die versucht hätten, mich vom Evangelium wegzuziehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">On paper you might have looked at me as “the perfect member.” But no, I was not and am not the perfect member. I thought I was so prepared for my mission, but the Lord had other plans for me.</p>
+    <p class="tgt ko">이런 것만 보면 저를 “완벽한 회원”이라고 생각하셨을지도 모릅니다. 하지만 아닙니다. 저는 완벽한 회원이 아니었고, 지금도 아닙니다. 저는 선교 준비가 아주 잘 되어 있다고 생각했지만, 주님께는 저를 위한 다른 계획이 있으셨습니다.</p>
+    <p class="zh">光看这些，你们也许会把我当成“完美的教友”。但不是的。我过去不是，现在也不是完美的教友。我以为自己为传道做好了充分的准备，但主对我另有安排。</p>
+    <p class="th">ถ้าดูแค่จากสิ่งเหล่านี้ ท่านอาจมองว่าดิฉันเป็น “สมาชิกที่สมบูรณ์แบบ” แต่ไม่ใช่เลย ดิฉันไม่ได้เป็นสมาชิกที่สมบูรณ์แบบ ทั้งตอนนั้นและตอนนี้ ดิฉันคิดว่าตัวเองเตรียมพร้อมสำหรับงานเผยแผ่มาอย่างดีแล้ว แต่พระเจ้าทรงมีแผนอื่นไว้สำหรับดิฉัน</p>
+    <p class="de">So gesehen hätte man mich wohl für „das perfekte Mitglied“ halten können. Aber nein – das war ich nicht, und das bin ich auch heute nicht. Ich dachte, ich sei bestens auf meine Mission vorbereitet, doch der Herr hatte andere Pläne mit mir.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">In the last 3 years of my life I have learned more about this journey of mortality than I had in the 19 other years growing up. And everyday I am still learning about what it really means to find my way in life.</p>
+    <p class="tgt ko">지난 3년 동안 이 필멸의 여정에 대해 배운 것이, 그전에 자라 온 19년 동안 배운 것보다 더 많습니다. 그리고 인생에서 제 길을 찾는다는 것이 정말 무슨 뜻인지, 지금도 날마다 배워 가고 있습니다.</p>
+    <p class="zh">过去这3年里，我对今生这段旅程的认识，比之前成长的那19年加起来还要多。而且直到今天，我每天都还在学习：在人生中找到自己的路，究竟意味着什么。</p>
+    <p class="th">ในช่วง 3 ปีหลังมานี้ ดิฉันได้เรียนรู้เกี่ยวกับเส้นทางมรรตัยนี้มากกว่าที่เคยเรียนรู้ตลอด 19 ปีที่เติบโตมาก่อนหน้านั้นเสียอีก และดิฉันก็ยังคงเรียนรู้อยู่ทุกวันว่า การหาทางเดินของตัวเองในชีวิตนั้นแท้จริงแล้วหมายความว่าอย่างไร</p>
+    <p class="de">In den letzten drei Jahren habe ich über diese Reise durch das irdische Dasein mehr gelernt als in den 19 anderen Jahren, in denen ich aufgewachsen bin. Und jeden Tag lerne ich weiter, was es wirklich heißt, meinen Weg im Leben zu finden.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">There is this video that the church made a few years ago called “Your Great Adventure: Overcoming Life’s Obstacles.” I recommend watching it if you haven’t seen it yet.</p>
+    <p class="tgt ko">몇 년 전에 교회에서 만든 “여러분의 위대한 모험: 인생의 장애물 이겨 내기”라는 영상이 있습니다. 아직 못 보셨다면 한번 보시기를 권합니다.</p>
+    <p class="zh">教会几年前制作了一部影片，叫《Your Great Adventure: Overcoming Life’s Obstacles》（你的伟大冒险：克服人生的障碍）。如果你们还没看过，我推荐你们去看一看。</p>
+    <p class="th">มีวิดีโอเรื่องหนึ่งที่ศาสนจักรทำไว้เมื่อไม่กี่ปีก่อน ชื่อว่า “การผจญภัยครั้งยิ่งใหญ่ของท่าน: การเอาชนะอุปสรรคในชีวิต” ถ้าท่านยังไม่เคยดู ดิฉันขอแนะนำให้ลองดู</p>
+    <p class="de">Die Kirche hat vor ein paar Jahren ein Video gemacht mit dem Titel „Your Great Adventure: Overcoming Life’s Obstacles“ – auf Deutsch etwa „Dein großes Abenteuer: Die Hindernisse des Lebens überwinden“. Falls Sie es noch nicht gesehen haben, kann ich es Ihnen nur empfehlen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">The man in the video decides to run a 100 mile marathon in the desert. In the beginning he says that he is so excited to be there so he can train and grow. He says that it’s better than he could have imagined.</p>
+    <p class="tgt ko">영상 속 남자는 사막에서 100마일 마라톤을 뛰기로 합니다. 처음에 그는 그곳에서 훈련하고 성장할 수 있어서 너무 설렌다고 말합니다. 상상했던 것보다 더 좋다고 합니다.</p>
+    <p class="zh">影片里的那个人决定在沙漠里跑一场100英里的马拉松。一开始他说，能来到那里训练和成长，他非常兴奋。他说这比他想象的还要好。</p>
+    <p class="th">ชายในวิดีโอตัดสินใจจะวิ่งมาราธอนระยะทาง 100 ไมล์กลางทะเลทราย ในตอนแรกเขาเล่าว่าตื่นเต้นมากที่ได้มาอยู่ตรงนั้น เพราะจะได้ฝึกฝนและเติบโต เขาบอกว่ามันดีเกินกว่าที่เคยนึกภาพไว้เสียอีก</p>
+    <p class="de">Der Mann in dem Video beschließt, in der Wüste einen 100-Meilen-Marathon zu laufen. Am Anfang sagt er, er sei so begeistert, dort zu sein, weil er dabei trainieren und wachsen könne. Es sei besser, als er es sich je hätte vorstellen können.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">However, about one month into his training he felt like he was starting over again. His body hurt and he had forgotten why he was there. He felt like he couldn’t keep going and that he just wanted to be done.</p>
+    <p class="tgt ko">그런데 훈련을 시작한 지 한 달쯤 되자 그는 다시 처음으로 돌아간 것 같은 느낌이 들었습니다. 몸은 아프고, 자기가 왜 거기 있는지도 잊어버렸습니다. 더는 계속할 수 없을 것 같았고, 그저 빨리 끝나 버렸으면 싶었습니다.</p>
+    <p class="zh">可是训练了大约一个月以后，他觉得自己好像又回到了起点。他浑身酸痛，也忘了自己为什么在那里。他觉得自己撑不下去了，只想赶快结束。</p>
+    <p class="th">แต่พอฝึกไปได้ประมาณหนึ่งเดือน เขากลับรู้สึกเหมือนต้องเริ่มต้นใหม่หมด ร่างกายเจ็บปวดไปทั่ว และเขาก็ลืมไปแล้วว่ามาอยู่ตรงนั้นทำไม เขารู้สึกว่าไปต่อไม่ไหวแล้ว และอยากให้มันจบๆ ไปเสียที</p>
+    <p class="de">Doch nach etwa einem Monat Training kam es ihm vor, als würde er wieder ganz von vorn anfangen. Ihm tat alles weh, und er hatte vergessen, warum er überhaupt dort war. Er hatte das Gefühl, nicht mehr weiterzukönnen. Er wollte nur noch, dass es vorbei wäre.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src en">I have felt just like this in my own life. And maybe you have too.</p>
+    <p class="tgt ko">저도 제 삶에서 꼭 이런 기분을 느껴 봤습니다. 여러분도 그러셨을지 모릅니다.</p>
+    <p class="zh">我在自己的生活中也有过一模一样的感受。也许你们也有过。</p>
+    <p class="th">ดิฉันเองก็เคยรู้สึกแบบนี้ในชีวิตของตัวเอง และบางทีท่านก็อาจจะเคยเหมือนกัน</p>
+    <p class="de">Genau so ist es mir in meinem eigenen Leben auch schon gegangen. Und vielleicht Ihnen auch.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src en">I know that the Lord has promised a way through, but sometimes I lose sight of what that is. I feel uncomfortable, insecure, stuck, overwhelmed, and lost.</p>
+    <p class="tgt ko">주님께서 헤쳐 나갈 길을 약속하셨다는 것을 알면서도, 가끔은 그 길이 무엇인지 잘 보이지 않을 때가 있습니다. 마음이 불편하고, 자신이 없고, 꽉 막힌 것 같고, 벅차고, 길을 잃은 기분이 듭니다.</p>
+    <p class="zh">我知道主应许过，会有一条路可以走过去，但有时候我看不清那条路是什么。我感到不自在、没有自信、动弹不得、喘不过气，也感到迷茫。</p>
+    <p class="th">ดิฉันรู้ว่าพระเจ้าทรงสัญญาไว้ว่าจะมีทางผ่านพ้นไปได้ แต่บางครั้งดิฉันก็มองไม่เห็นว่าทางนั้นคืออะไร ดิฉันรู้สึกอึดอัดใจ ไม่มั่นใจในตัวเอง ติดอยู่กับที่ รับไม่ไหว และหลงทาง</p>
+    <p class="de">Ich weiß, dass der Herr einen Weg hindurch verheißen hat, aber manchmal verliere ich ihn aus den Augen. Ich fühle mich unwohl, unsicher, festgefahren, überfordert und verloren.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">11</span>
+    <p class="lead src en">The man in the video says</p>
+    <blockquote class="src en">You told me once that if I ever hesitated because I doubted my ability, to remember that life’s not about doing things perfectly, it’s about doing things intentionally. You said that it’s your choices that show what you truly are, far more than your abilities.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <p class="lead tgt ko">영상 속 남자는 어떤 분을 향해 이렇게 말합니다.</p>
+    <blockquote class="tgt ko">언젠가 저에게 이렇게 말씀해 주셨습니다. 제 능력이 의심스러워 망설여질 때면, 인생은 완벽하게 해내는 것이 아니라 뜻을 가지고 하는 것임을 기억하라고 말입니다. 그리고 능력보다 선택이 그 사람이 진정 어떤 사람인지를 훨씬 더 잘 보여 준다고도 하셨습니다.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <p class="lead zh">影片里的那个人对某个人这样说：</p>
+    <blockquote class="zh">你曾经告诉我，如果我因为怀疑自己的能力而犹豫，就要记住，人生不在于把事情做得完美，而在于用心去做。你说，一个人的选择，远比他的能力更能显出他的本色。</blockquote>
+    <p class="lead th">ชายในวิดีโอพูดว่า</p>
+    <blockquote class="th">คุณเคยบอกผมไว้ครั้งหนึ่งว่า ถ้าเมื่อไรผมลังเลเพราะไม่มั่นใจในความสามารถของตัวเอง ให้จำไว้ว่าชีวิตไม่ได้อยู่ที่การทำสิ่งต่างๆ ให้สมบูรณ์แบบ แต่อยู่ที่การทำสิ่งต่างๆ ด้วยความตั้งใจ คุณบอกว่าสิ่งที่แสดงให้เห็นว่าคนเราเป็นอย่างไรจริงๆ คือสิ่งที่เราเลือก มากยิ่งกว่าความสามารถของเราเสียอีก</blockquote>
+    <p class="lead de">Der Mann in dem Video sagt:</p>
+    <blockquote class="de">Du hast mir einmal gesagt, wenn ich je zögern sollte, weil ich an meinen Fähigkeiten zweifle, solle ich daran denken, dass es im Leben nicht darum geht, die Dinge perfekt zu machen, sondern sie bewusst zu tun. Du hast gesagt, es sind die Entscheidungen, die zeigen, wer man wirklich ist – weit mehr als die eigenen Fähigkeiten.</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">12</span>
+    <blockquote class="src en">And even if I failed, I could choose to not give up, that I could find my courage, press forward, and rise up; that that was the great test of the journey.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <blockquote class="tgt ko">그리고 설령 실패하더라도 포기하지 않기로 선택할 수 있다고, 용기를 내어 힘써 나아가고 다시 일어설 수 있다고 하셨습니다. 그것이 바로 이 여정의 큰 시험이라고 말입니다.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <blockquote class="zh">你还说，就算我失败了，我也可以选择不放弃，可以找到勇气、努力前进、重新站起来；那才是这段旅程的重大考验。</blockquote>
+    <blockquote class="th">และถึงแม้ผมจะล้มเหลว ผมก็ยังเลือกได้ที่จะไม่ยอมแพ้ ยังรวบรวมความกล้า มุ่งหน้าต่อไป และลุกขึ้นใหม่ได้ คุณบอกว่านั่นแหละคือบททดสอบที่ยิ่งใหญ่ของการเดินทางครั้งนี้</blockquote>
+    <blockquote class="de">Und selbst wenn ich scheitern sollte, könnte ich mich dafür entscheiden, nicht aufzugeben – ich könnte Mut fassen, vorwärtsstreben und wieder aufstehen. Das, hast du gesagt, sei die große Prüfung dieser Reise.</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">13</span>
+    <blockquote class="src en">I’m not perfect, but that’s not why I’m here. I’m here to keep trying, to keep running, to keep pushing. I’m here to keep going. I don’t know why I try to live my life like a sprint. It’s not a sprint, it’s a marathon.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <blockquote class="tgt ko">저는 완벽하지 않지만, 완벽하려고 여기 온 것도 아닙니다. 계속 시도하고, 계속 달리고, 계속 밀고 나가려고 여기 있는 것입니다. 계속 가려고 여기 있는 것입니다. 왜 제 인생을 전력 질주하듯 살려고 하는지 모르겠습니다. 인생은 전력 질주가 아니라 마라톤입니다.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <blockquote class="zh">我并不完美，但我来这里也不是为了做到完美。我来这里，是要继续尝试、继续奔跑、继续拼下去。我来这里，是要继续走下去。我不知道自己为什么总想把人生当成短跑来过。人生不是短跑，而是马拉松。</blockquote>
+    <blockquote class="th">ผมไม่ได้สมบูรณ์แบบ แต่ผมก็ไม่ได้มาที่นี่เพื่อจะเป็นคนสมบูรณ์แบบ ผมมาที่นี่เพื่อพยายามต่อไป วิ่งต่อไป ผลักดันตัวเองต่อไป ผมมาที่นี่เพื่อจะไปต่อ ผมไม่รู้ว่าทำไมตัวเองถึงพยายามใช้ชีวิตเหมือนการวิ่งระยะสั้น ชีวิตไม่ใช่การวิ่งระยะสั้น แต่เป็นการวิ่งมาราธอน</blockquote>
+    <blockquote class="de">Ich bin nicht perfekt, aber ich bin auch nicht hier, um perfekt zu sein. Ich bin hier, um es weiter zu versuchen, um weiterzulaufen, um weiterzukämpfen. Ich bin hier, um weiterzumachen. Ich weiß nicht, warum ich versuche, mein Leben wie einen Sprint zu leben. Es ist kein Sprint. Es ist ein Marathon.</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">14</span>
+    <blockquote class="src en">Now I know that all I have to do is take courage, and with faith in Jesus Christ, just put one foot in front of the other.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <blockquote class="tgt ko">이제는 압니다. 제가 할 일은 용기를 내고, 예수 그리스도를 믿는 신앙으로, 그저 한 발 한 발 내딛는 것뿐입니다.<cite>“Your Great Adventure: Overcoming Life’s Obstacles”</cite></blockquote>
+    <blockquote class="zh">现在我知道了，我要做的就是鼓起勇气，凭着对耶稣基督的信心，一步一步往前走。</blockquote>
+    <blockquote class="th">ตอนนี้ผมรู้แล้วว่าสิ่งเดียวที่ผมต้องทำคือรวบรวมความกล้า และด้วยศรัทธาในพระเยซูคริสต์ ก็แค่ก้าวไปทีละก้าว</blockquote>
+    <blockquote class="de">Jetzt weiß ich: Alles, was ich tun muss, ist, Mut zu fassen und im Glauben an Jesus Christus einfach einen Fuß vor den anderen zu setzen.</blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src en">I don’t have everything figured out, and sometimes living this life can become distracting. There is so much to see, do, and feel. Many days I feel like I am progressing backwards and I want to quit.</p>
+    <p class="tgt ko">저는 아직 모든 것을 다 알아낸 것은 아니고, 이 삶을 살다 보면 가끔 정신이 흐트러지기도 합니다. 볼 것도, 할 것도, 느낄 것도 너무 많습니다. 앞으로 가기는커녕 뒤로 가고 있는 것 같아서 그만두고 싶은 날도 많습니다.</p>
+    <p class="zh">我并没有把一切都想明白，而且有时候，过这样的生活本身就会让人分心。要看的、要做的、要感受的实在太多了。很多日子里，我觉得自己不进反退，想要放弃。</p>
+    <p class="th">ดิฉันยังไม่ได้มีคำตอบให้ทุกเรื่อง และบางครั้งการใช้ชีวิตนี้ก็ทำให้ดิฉันไขว้เขวได้ง่าย มีอะไรให้ดู ให้ทำ และให้รู้สึกมากมายเหลือเกิน มีหลายวันที่ดิฉันรู้สึกเหมือนยิ่งเดินยิ่งถอยหลัง และอยากจะเลิกไปเสีย</p>
+    <p class="de">Ich habe noch längst nicht alles herausgefunden, und manchmal lenkt einen dieses Leben einfach ab. Es gibt so viel zu sehen, zu tun und zu fühlen. An vielen Tagen habe ich das Gefühl, dass es mit mir eher rückwärts als vorwärts geht, und ich will aufgeben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src en">But in all of the times that I felt pushed too far, the Lord has reminded me that I am His daughter. And the first thing that he wants me to know is that He loves me. And He trusts me even when I don’t trust myself.</p>
+    <p class="tgt ko">하지만 더는 못 버티겠다 싶었던 그 모든 순간마다, 주님께서는 제가 그분의 딸이라는 것을 일깨워 주셨습니다. 그리고 그분께서 제가 가장 먼저 알기를 바라시는 것은 저를 사랑하신다는 것입니다. 그리고 제가 저 자신을 믿지 못할 때도 그분께서는 저를 믿어 주십니다.</p>
+    <p class="zh">但每一次我觉得自己被逼到极限的时候，主都提醒我，我是他的女儿。他首先要我知道的，就是他爱我。而且，就算我不相信自己，他也信任我。</p>
+    <p class="th">แต่ทุกครั้งที่ดิฉันรู้สึกว่าถูกผลักดันจนเกินจะรับไหว พระเจ้าทรงย้ำเตือนดิฉันเสมอว่าดิฉันเป็นธิดาของพระองค์ และสิ่งแรกที่พระองค์ทรงต้องการให้ดิฉันรู้ก็คือ พระองค์ทรงรักดิฉัน และพระองค์ทรงไว้วางใจดิฉัน แม้ในยามที่ดิฉันไม่ไว้ใจตัวเอง</p>
+    <p class="de">Aber immer, wenn ich das Gefühl hatte, es wird mir zu viel, hat der Herr mich daran erinnert, dass ich seine Tochter bin. Und das Erste, was er mich wissen lassen will, ist, dass er mich liebt. Und er vertraut mir – auch dann, wenn ich mir selbst nicht vertraue.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src en">Our divine identity as sons and daughters of God is not just words we say. It is a promise. A promise that in this life we will be taken care of, no matter what we experience.</p>
+    <p class="tgt ko">우리가 하나님의 아들과 딸이라는 신성한 정체성은 그냥 입으로 하는 말이 아닙니다. 그것은 약속입니다. 이 삶에서 무엇을 겪든 우리가 보살핌을 받으리라는 약속입니다.</p>
+    <p class="zh">我们身为神儿女的神圣身份，不只是我们口中的一句话。它是一个应许。一个应许：在今生，无论我们经历什么，我们都会得到照顾。</p>
+    <p class="th">อัตลักษณ์อันศักดิ์สิทธิ์ของเราในฐานะบุตรและธิดาของพระผู้เป็นเจ้า ไม่ใช่เพียงถ้อยคำที่เราพูดกัน แต่เป็นคำสัญญา คำสัญญาว่าในชีวิตนี้เราจะได้รับการดูแล ไม่ว่าเราจะต้องเจอกับสิ่งใดก็ตาม</p>
+    <p class="de">Unsere göttliche Identität als Söhne und Töchter Gottes – das sind nicht bloß Worte, die wir sagen. Es ist eine Verheißung. Eine Verheißung, dass in diesem Leben für uns gesorgt wird, ganz gleich, was wir durchmachen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src en">God’s grace is allowing us to face challenges because God’s grace is love.</p>
+    <p class="tgt ko">하나님께서 우리가 어려움을 겪도록 허락하시는 것이 바로 하나님의 은혜입니다. 하나님의 은혜가 곧 사랑이기 때문입니다.</p>
+    <p class="zh">神容许我们经历挑战，这就是神的恩典，因为神的恩典就是爱。</p>
+    <p class="th">พระคุณของพระผู้เป็นเจ้าคือการที่พระองค์ทรงยอมให้เราต้องเผชิญกับความท้าทาย เพราะพระคุณของพระผู้เป็นเจ้าคือความรัก</p>
+    <p class="de">Gottes Gnade besteht darin, dass er Herausforderungen in unserem Leben zulässt – denn Gottes Gnade ist Liebe.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">19</span>
+    <p class="lead src en">I want to end with a quote from C.S. Lewis that says</p>
+    <blockquote class="src en">Imagine yourself as a living house. God comes in to rebuild that house. At first, perhaps, you can understand what He is doing. He is getting the drains right and stopping the leaks in the roof and so on; you knew that those jobs needed doing and so you are not surprised.<cite>C. S. Lewis, Mere Christianity</cite></blockquote>
+    <p class="lead tgt ko">C. S. 루이스의 이 말로 마치고 싶습니다.</p>
+    <blockquote class="tgt ko">자신을 살아 있는 집이라고 상상해 보십시오. 하나님께서 그 집을 다시 지으러 들어오십니다. 처음에는 아마 그분께서 무엇을 하시는지 이해가 될 것입니다. 배수관을 바로잡으시고 지붕에 새는 곳을 막으시는 그런 일입니다. 해야 할 일인 줄 알고 계셨으니 놀라지 않으실 것입니다.<cite>C. S. Lewis, Mere Christianity</cite></blockquote>
+    <p class="lead zh">最后，我想引用C. S. 路易斯的一段话来结束：</p>
+    <blockquote class="zh">把你自己想象成一座活的房子。神走进来，要重建这座房子。起初，你也许还能明白他在做什么：他在修排水管，堵屋顶漏水的地方，诸如此类；你知道这些活本来就该做，所以你并不意外。</blockquote>
+    <p class="lead th">ดิฉันขอจบด้วยคำกล่าวของ ซี. เอส. ลูอิส ที่ว่า</p>
+    <blockquote class="th">ลองนึกภาพว่าตัวท่านเป็นบ้านที่มีชีวิต พระผู้เป็นเจ้าเสด็จเข้ามาเพื่อสร้างบ้านหลังนั้นขึ้นใหม่ ในตอนแรก ท่านอาจพอเข้าใจว่าพระองค์กำลังทรงทำอะไร พระองค์ทรงซ่อมท่อระบายน้ำ ทรงอุดรอยรั่วบนหลังคา และอื่นๆ ทำนองนั้น ท่านรู้อยู่แล้วว่างานพวกนี้จำเป็นต้องทำ ท่านจึงไม่แปลกใจ</blockquote>
+    <p class="lead de">Ich möchte mit einem Zitat von C. S. Lewis schließen:</p>
+    <blockquote class="de">Stellen Sie sich vor, Sie wären ein lebendiges Haus. Gott kommt herein, um es umzubauen. Am Anfang verstehen Sie vielleicht noch, was er tut. Er bringt die Abflüsse in Ordnung, dichtet das undichte Dach ab und so weiter; Sie wussten ja, dass das nötig war, und sind daher nicht überrascht.</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">20</span>
+    <blockquote class="src en">But presently He starts knocking the house about in a way that hurts abominably. …[You see,] He is building quite a different house from the one you thought of. … You thought you were being made into a decent little cottage: but He is building a palace. He intends to come and live in it Himself.<cite>C. S. Lewis, Mere Christianity</cite></blockquote>
+    <blockquote class="tgt ko">그런데 곧 그분께서는 지독하게 아플 만큼 집을 마구 두드려 부수기 시작하십니다. …[실은,] 그분께서는 여러분이 생각했던 것과는 전혀 다른 집을 짓고 계신 것입니다. … 여러분은 자신이 아담하고 괜찮은 오두막으로 지어지는 줄 알았지만, 그분께서는 궁전을 짓고 계십니다. 그분께서 친히 그 안에 들어와 사시려는 것입니다.<cite>C. S. Lewis, Mere Christianity</cite></blockquote>
+    <blockquote class="zh">但不久，他开始对这座房子敲敲打打、大拆大改，痛得你难以忍受。 …[你看，] 他建造的，是一座跟你原本想的完全不同的房子。 … 你以为自己会被造成一间还不错的小屋，但他建造的是一座宫殿。他打算亲自来住在里面。</blockquote>
+    <blockquote class="th">แต่ไม่นานนัก พระองค์ก็ทรงเริ่มทุบรื้อบ้านหลังนั้นอย่างที่เจ็บปวดแสนสาหัส …[ที่จริงแล้ว] พระองค์กำลังทรงสร้างบ้านที่ต่างไปจากที่ท่านคิดไว้อย่างสิ้นเชิง … ท่านคิดว่าตัวเองกำลังถูกสร้างให้เป็นกระท่อมหลังเล็กๆ ที่ดีพอใช้ได้ แต่พระองค์กำลังทรงสร้างพระราชวัง พระองค์ทรงตั้งพระทัยจะเสด็จมาประทับในนั้นด้วยพระองค์เอง</blockquote>
+    <blockquote class="de">Doch bald darauf beginnt er, an dem Haus herumzureißen, auf eine Weise, die entsetzlich wehtut. …[Wissen Sie,] er baut ein ganz anderes Haus als das, an das Sie gedacht hatten. … Sie dachten, aus Ihnen würde ein anständiges kleines Häuschen gemacht – doch er baut einen Palast. Er hat vor, selbst dort einzuziehen.</blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src en">I hope that you can all remember that when you feel lost or perhaps when life doesn’t make sense, that the Great Creator, our Father wants you to keep going because he loves you “deeply, perfectly, and everlastingly.”</p>
+    <p class="tgt ko">길을 잃은 것 같을 때, 또는 인생이 도무지 이해되지 않을 때, 여러분 모두 이것을 기억하시면 좋겠습니다. 위대한 창조주이신 우리 아버지께서는 여러분이 계속 가기를 바라십니다. 그분께서 여러분을 “깊이, 완전히, 영원히” 사랑하시기 때문입니다.</p>
+    <p class="zh">我希望你们都能记住这一点：当你们感到迷失，或者觉得人生怎么也说不通的时候，伟大的创造主，也就是我们的天父，要你们继续走下去。因为他非常爱你们，“他的爱既完美又持久”。</p>
+    <p class="th">ดิฉันหวังว่าท่านทุกคนจะจำไว้ว่า เมื่อใดที่ท่านรู้สึกหลงทาง หรือบางทีเมื่อชีวิตดูไม่เป็นเหตุเป็นผล พระผู้สร้างผู้ยิ่งใหญ่ พระบิดาของเรา ทรงต้องการให้ท่านก้าวต่อไป เพราะพระองค์ทรงรักท่าน “อย่างลึกซึ้ง สมบูรณ์แบบ และยั่งยืน”</p>
+    <p class="de">Ich hoffe, Sie alle können daran denken, wenn Sie sich verloren fühlen oder wenn das Leben vielleicht gerade keinen Sinn ergibt: Der große Schöpfer, unser Vater, will, dass Sie weitermachen – denn er liebt Sie „aus tiefstem Herzen, vollkommen und unaufhörlich“.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">22</span>
+    <p class="lead src en">That love</p>
+    <blockquote class="src en">is the most desirable above all things … and the most joyous to the soul<cite>1 Nephi 11:22–23</cite></blockquote>
+    <p class="lead tgt ko">그 사랑에 대해 이렇게 기록되어 있습니다.</p>
+    <blockquote class="tgt ko">그것은 무엇보다도 가장 바랄만한 것이니이다 … 또한 영혼을 가장 기쁘게 하는 것이니라<cite>니파이전서 11:22~23</cite></blockquote>
+    <p class="lead zh">那爱</p>
+    <blockquote class="zh">比一切都令人渴望 … 而且最能让灵魂快乐<cite>尼腓一书 11：22-23</cite></blockquote>
+    <p class="lead th">ความรักนั้น</p>
+    <blockquote class="th">เป็นที่พึงปรารถนาที่สุดเหนือสิ่งทั้งปวง … และเป็นความปีติยินดีที่สุดแก่จิตวิญญาณ<cite>๑ นีไฟ ๑๑:๒๒–๒๓</cite></blockquote>
+    <p class="lead de">Diese Liebe ist</p>
+    <blockquote class="de">das Begehrenswerteste von allem … und die größte Freude für die Seele<cite>1 Nephi 11:22-23</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src en">I testify that because of His love, we can find our way back to Him. In the name of Jesus Christ, amen.</p>
+    <p class="tgt ko">그분의 사랑 덕분에 우리가 그분께로 돌아가는 길을 찾을 수 있다고 간증합니다. 예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="zh">我见证，因为他的爱，我们能找到回到他面前的路。奉耶稣基督的名，阿们。</p>
+    <p class="th">ดิฉันเป็นพยานว่า เพราะความรักของพระองค์ เราจึงสามารถหาทางกลับไปหาพระองค์ได้ ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Ich bezeuge, dass wir dank seiner Liebe den Weg zurück zu ihm finden können. Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

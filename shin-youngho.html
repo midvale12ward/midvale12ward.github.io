@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recognizing God’s grace during times of Adversity · 역경 가운데 주님의 은혜를 배우는 것</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th", "de"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite blockquote {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Recognizing God’s grace during times of Adversity</span><span class="ko">역경 가운데 주님의 은혜를 배우는 것</span><span class="zh">在逆境中认识主的恩典</span><span class="th">การเรียนรู้พระคุณของพระเจ้าท่ามกลางความทุกข์ยาก</span><span class="de">Inmitten von Widrigkeiten die Gnade des Herrn kennenlernen</span></h1>
+  <p class="byline">신영호 형제 &nbsp;·&nbsp; 13 September 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src ko">안녕하십니까, 신영호 형제입니다. 저는 “역경 가운데 주님의 은혜를 배우는 것”에 대한 주제로 말씀을 해 줄 것을 요청받았습니다.</p>
+    <p class="tgt en">Hello, everyone. I’m Brother Shin Young-ho. I was asked to speak on the topic “Recognizing God’s grace during times of adversity.”</p>
+    <p class="zh">大家好，我是 Shin Young-ho 弟兄。我受邀以「在逆境中认识主的恩典」为题来演讲。</p>
+    <p class="th">สวัสดีครับ ผมบราเดอร์ชิน ยองโฮ ผมได้รับมอบหมายให้พูดในหัวข้อ “การเรียนรู้พระคุณของพระเจ้าท่ามกลางความทุกข์ยาก”</p>
+    <p class="de">Guten Tag, ich bin Bruder Shin Young-ho. Ich wurde gebeten, zum Thema „Inmitten von Widrigkeiten die Gnade des Herrn kennenlernen“ zu sprechen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src ko">제 자신이 역경의 아이콘이라고 생각한 저는, 주제를 받을 땐 역경과 시련과 관련하여 할 얘기가 너무 많을 것이라고 자부하며 쉽게 준비를 할 수 있을 거라 생각했습니다.</p>
+    <p class="tgt en">I thought of myself as something of an icon of adversity. So when I got the topic, I was sure I’d have more than enough to say about hardship and trials, and that this talk would be easy to prepare.</p>
+    <p class="zh">我觉得自己简直就是逆境的代名词，所以接到这个题目的时候，我信心满满，心想关于逆境和考验，我要说的话多得说不完，准备起来一定很轻松。</p>
+    <p class="th">ผมเคยคิดว่าตัวเองเป็นไอคอนแห่งความทุกข์ยากเลยทีเดียว พอได้รับหัวข้อนี้มา ผมจึงมั่นใจว่าเรื่องความทุกข์ยากและการทดลองนั้น ผมคงมีอะไรจะพูดได้มากมายเหลือเกิน และคิดว่าคงเตรียมคำพูดได้อย่างง่ายดาย</p>
+    <p class="de">Ich hielt mich selbst für so etwas wie eine Ikone der Widrigkeiten. Als ich das Thema bekam, war ich mir deshalb sicher, dass ich über Widrigkeiten und Prüfungen mehr als genug zu erzählen hätte und dass diese Ansprache leicht vorzubereiten wäre.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src ko">하지만, 그렇게 자부했던 저는 어제까지도 어떤 힘들었던 이야기를 말씀으로 전달해야 할까 고민을 해야만 했습니다.</p>
+    <p class="tgt en">But for all that confidence, as late as yesterday I was still agonizing over which story of hardship to tell.</p>
+    <p class="zh">可是，虽然当初信心满满，直到昨天我还在发愁，到底该讲哪一段艰难的经历。</p>
+    <p class="th">แต่ทั้งที่มั่นใจขนาดนั้น จนถึงเมื่อวานนี้ผมก็ยังต้องนั่งคิดหนักอยู่ว่าจะหยิบเรื่องลำบากเรื่องไหนมาเล่าในคำพูดนี้ดี</p>
+    <p class="de">Doch trotz all dieser Selbstsicherheit musste ich noch gestern darüber grübeln, von welcher schweren Zeit ich in dieser Ansprache erzählen sollte.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src ko">왜냐하면, 저는 그것들이 중요하지 않다는 느낌을 계속해서 느꼈기 때문입니다. 저는 제가 얼마나 힘든지 주변에 이야기하는 것에만 집중했던 것 같습니다. 그래서 항상 이야기를 들어주시던 Matt 형제님께서 이런 주제로 말씀을 요청해 주셨을 거라 생각합니다.</p>
+    <p class="tgt en">That was because I kept getting the feeling that none of those stories really mattered. I think all I’d really been doing was telling everyone around me how hard I had it. Which is probably why Brother Matt, who always heard me out, asked me to speak on this topic.</p>
+    <p class="zh">因为我心里一直有个感觉：那些经历其实并不重要。我想，我以前只顾着跟身边的人说自己有多苦。大概正因为如此，一直愿意听我诉苦的 Matt 弟兄才请我讲这个题目吧。</p>
+    <p class="th">ที่เป็นอย่างนั้นก็เพราะผมรู้สึกอยู่ตลอดว่าเรื่องเหล่านั้นไม่ได้สำคัญอะไรเลย ผมคิดว่าที่ผ่านมาผมเอาแต่เล่าให้คนรอบข้างฟังว่าตัวเองลำบากแค่ไหน ผมจึงคิดว่านั่นคงเป็นเหตุผลที่บราเดอร์แมตต์ ผู้ที่คอยรับฟังผมมาตลอด ขอให้ผมพูดในหัวข้อนี้</p>
+    <p class="de">Ich hatte nämlich immer wieder das Gefühl, dass keine dieser Geschichten wirklich von Bedeutung war. Ich glaube, ich hatte mich nur darauf konzentriert, allen um mich herum zu erzählen, wie schwer ich es habe. Wahrscheinlich hat mich Bruder Wagner, der sich meine Geschichten immer angehört hat, deshalb gebeten, über dieses Thema zu sprechen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src ko">항상 옆에서 저의 이야기를 들어주고 힘든 시간도 함께하는 우리 아내는 MBTI 성격 테스트에서 T의 성향을 가진 사람입니다. 공감보다는 해결책을 제시하는 것을 우선으로 합니다. 그것이 가끔은 섭섭할 때가 있지만 틀린 말은 아니라 더 얄미울 때가 있습니다.</p>
+    <p class="tgt en">My wife is the one who is always there beside me, listening to my stories and going through the hard times with me. On the MBTI personality test, she comes out as a T. She’d rather hand me a solution than sympathy. Sometimes that stings a little, but she’s not wrong, and that’s the annoying part.</p>
+    <p class="zh">我的妻子总是在我身边听我诉说，陪我一起熬过艰难的日子。她在 MBTI 性格测试里属于 T 型，比起共情，她更愿意直接给出解决办法。有时候这让我心里不是滋味，可她说的偏偏又没错，这就更叫人又气又没辙了。</p>
+    <p class="th">ภรรยาของผมอยู่ข้างผมเสมอ คอยฟังเรื่องของผม และผ่านช่วงเวลาที่ยากลำบากมาด้วยกัน เธอเป็นคนประเภท T ตามแบบทดสอบบุคลิกภาพ MBTI คือจะเสนอทางแก้ก่อนมากกว่าจะเห็นอกเห็นใจ บางครั้งก็ทำให้ผมน้อยใจอยู่บ้าง แต่สิ่งที่เธอพูดก็ไม่ผิด ซึ่งบางทีก็ยิ่งทำให้น่าหมั่นไส้เข้าไปอีก</p>
+    <p class="de">Meine Frau, die immer an meiner Seite ist, sich meine Geschichten anhört und die schweren Zeiten mit mir durchsteht, ist im MBTI-Persönlichkeitstest ein T. Statt Mitgefühl bietet sie mir lieber eine Lösung an. Manchmal kränkt mich das ein wenig, aber Unrecht hat sie nicht, und gerade das ist das Ärgerliche daran.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src ko">이런 저의 아내는 힘들어하며 불평하는 저에게 주님께 의지하고 그 뜻을 이해하려고 해 보는 것이 어떻겠냐는 조언을 단호하게 합니다. 맞는 말입니다.</p>
+    <p class="tgt en">When I’m struggling and complaining, this wife of mine tells me, quite firmly, that I might want to rely on the Lord and try to understand His will. She’s right.</p>
+    <p class="zh">每当我叫苦抱怨的时候，我这位妻子就会斩钉截铁地对我说，不如试着依靠主，也试着去了解祂的旨意。她说得对。</p>
+    <p class="th">เวลาที่ผมทุกข์ใจและบ่นไปเรื่อย ภรรยาของผมคนนี้ก็จะแนะนำอย่างหนักแน่นว่า ลองพึ่งพาพระเจ้าและพยายามทำความเข้าใจพระประสงค์ของพระองค์ดูไหม ซึ่งก็ถูกของเธอ</p>
+    <p class="de">Wenn ich mich schwertue und jammere, rät mir eben diese Frau ganz entschieden, ich solle mich doch auf den Herrn verlassen und versuchen, seinen Willen zu verstehen. Sie hat recht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src ko">역경과 시련에만 집중하다 보니 중요한 복음의 원리를 잊고 있었던 것 같습니다. 우리가 보아야 할 것은 우리가 그 경험을 통해 배우는 것과 우리가 주님의 은혜로 얼마나 성장했는지가 더 중요합니다.</p>
+    <p class="tgt en">Because I was focused only on adversity and trials, I think I’d forgotten an important principle of the gospel. What we ought to be looking at is what we learn from the experience, and how much we’ve grown through the grace of the Lord. That matters more than the trials themselves.</p>
+    <p class="zh">我一心只盯着逆境和考验，似乎把一条重要的福音原则给忘了。我们该看的，是自己从这些经历中学到什么，以及靠着主的恩典成长了多少。这比考验本身更重要。</p>
+    <p class="th">ผมคิดว่าผมเอาแต่จดจ่ออยู่กับความทุกข์ยากและการทดลองเท่านั้น จนลืมหลักธรรมสำคัญข้อหนึ่งของพระกิตติคุณไป สิ่งที่เราควรมองคือ เราได้เรียนรู้อะไรจากประสบการณ์นั้น และเราเติบโตขึ้นมากเพียงใดโดยพระคุณของพระเจ้า สิ่งนี้ต่างหากที่สำคัญกว่า</p>
+    <p class="de">Weil ich nur auf Widrigkeiten und Prüfungen geschaut habe, hatte ich wohl einen wichtigen Grundsatz des Evangeliums vergessen. Wir sollten darauf schauen, was wir aus dieser Erfahrung lernen und wie sehr wir durch die Gnade des Herrn gewachsen sind. Das ist wichtiger als die Prüfungen selbst.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src ko">저는 어제 26마일 마라톤을 뛰는 특별한 경험을 하였습니다. 당연히 못할 것 같다고 극구 부인하던 저를 대신해 감독님께서 제 이름으로 신청을 해 주셔서 감사하게도 마라톤을 함께 준비하게 되었습니다. 이처럼 시련은 제 의지와 상관없이 올 때가 많습니다.</p>
+    <p class="tgt en">Yesterday I had the unusual experience of running a 26-mile marathon. I had insisted there was no way I could do it, so the bishop went and signed me up in my name himself, and thankfully we ended up preparing for the marathon together. Trials are often like that. They come whether I want them or not.</p>
+    <p class="zh">昨天我有了一次特别的经历，跑了一场26英里的马拉松。我原本一口咬定自己肯定跑不下来，主教却拿我的名字去报了名。多亏了他，我就这样和他一起准备起马拉松来。考验往往就是这样，不管我愿不愿意，说来就来。</p>
+    <p class="th">เมื่อวานนี้ผมได้มีประสบการณ์พิเศษ คือได้วิ่งมาราธอน 26 ไมล์ ทั้งที่ผมยืนกรานปฏิเสธว่ายังไงก็ทำไม่ได้แน่ ท่านอธิการก็ยังไปสมัครในชื่อของผมให้เสียเอง และก็ต้องขอบคุณท่านที่ทำให้ผมได้เตรียมตัววิ่งมาราธอนไปพร้อมกับท่าน การทดลองก็มักจะมาแบบนี้เอง คือมาไม่ว่าผมจะเต็มใจหรือไม่ก็ตาม</p>
+    <p class="de">Gestern habe ich etwas Ungewöhnliches erlebt: Ich bin einen Marathon über 26 Meilen gelaufen. Ich hatte steif und fest behauptet, das könne ich unmöglich schaffen. Daraufhin hat der Bischof die Anmeldung kurzerhand für mich übernommen, unter meinem Namen, und so haben wir uns gemeinsam auf den Marathon vorbereitet, wofür ich dankbar bin. So ist das oft mit Prüfungen: Sie kommen, ob ich will oder nicht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src ko">출발 전까지만 해도 한 번도 뛰어 보지 않은 이 긴 거릴 여전히 완주하지 못할 것이라고 생각했습니다. 하지만 출발과 함께 강한 의심이 완주할 수 있다는 강한 확신으로 바뀌었습니다. 함께하는 수많은 사람들을 보며 용기를 얻었고, 아름다운 풍경을 보다 보니 다리의 아픔도 잊고 뛸 수 있었습니다.</p>
+    <p class="tgt en">Right up to the start, I still didn’t think I could finish a distance that long, one I had never once run. But the moment we set off, that strong doubt turned into a strong certainty that I could. The crowd of runners around me gave me courage, and the scenery was so beautiful that I forgot the pain in my legs and kept going.</p>
+    <p class="zh">直到出发之前，我仍然觉得自己跑不完这么长的距离，毕竟我一次也没跑过。可是一出发，那强烈的怀疑就变成了强烈的确信：我能跑完。看着那么多人和我一起跑，我有了勇气；看着一路的美景，连腿上的疼痛都忘了，就这样一直跑了下去。</p>
+    <p class="th">จนถึงก่อนออกตัว ผมก็ยังคิดว่าคงวิ่งไม่ถึงเส้นชัยแน่ กับระยะทางยาวขนาดนี้ที่ผมไม่เคยวิ่งมาก่อนเลยสักครั้ง แต่พอออกตัวเท่านั้น ความไม่มั่นใจอย่างแรงกล้าก็กลับกลายเป็นความมั่นใจอย่างแรงกล้าว่าผมวิ่งจนจบได้ พอได้เห็นผู้คนมากมายที่วิ่งไปด้วยกัน ผมก็ได้กำลังใจ และพอได้มองทิวทัศน์ที่สวยงามไปด้วย ก็ลืมความเจ็บที่ขาและวิ่งต่อไปได้</p>
+    <p class="de">Bis zum Start habe ich noch geglaubt, ich würde diese lange Strecke, die ich noch nie gelaufen war, nicht durchhalten. Doch kaum waren wir losgelaufen, wurde aus dem starken Zweifel die starke Gewissheit, dass ich es schaffen würde. Die vielen Menschen, die mit mir liefen, machten mir Mut, und weil ich auf die schöne Landschaft schaute, vergaß ich sogar den Schmerz in den Beinen und konnte weiterlaufen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src ko">저는 끝까지 완주를 하면서 이런 생각을 했습니다. 1년 전 감독님과 처음 러닝을 시작했을 때만 해도 2.5마일만 뛰어도 죽을 것같이 힘들었습니다. 하지만 이제는 26마일 정도는 뛰어야 죽을 만큼 힘듭니다.</p>
+    <p class="tgt en">As I ran the whole way to the finish, this is what I was thinking. A year ago, when I first started running with the bishop, even 2.5 miles felt like it would kill me. Now it takes about 26 miles before it feels like it will kill me.</p>
+    <p class="zh">我一路跑到终点，心里想的是这么一件事。一年前刚跟主教一起开始跑步的时候，才跑2.5英里我就累得像要死了一样。可现在，得跑上26英里左右，我才会累得像要死了一样。</p>
+    <p class="th">ระหว่างที่วิ่งไปจนถึงเส้นชัย ผมคิดอย่างนี้ เมื่อหนึ่งปีก่อน ตอนที่เริ่มวิ่งกับท่านอธิการเป็นครั้งแรก แค่ 2.5 ไมล์ก็เหนื่อยแทบตายแล้ว แต่ตอนนี้ต้องวิ่งถึงสัก 26 ไมล์จึงจะเหนื่อยแทบตาย</p>
+    <p class="de">Während ich bis ins Ziel lief, ging mir eines durch den Kopf. Als ich vor einem Jahr mit dem Bischof zum ersten Mal laufen ging, fühlten sich schon 2,5 Meilen an, als würden sie mich umbringen. Heute muss ich schon etwa 26 Meilen laufen, damit es sich anfühlt, als würde es mich umbringen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src ko">달려야 할 거리는 훨씬 길어졌지만, 그만큼 저도 성장해 있었습니다.</p>
+    <p class="tgt en">The distance I had to run had gotten much longer. But I had grown just as much.</p>
+    <p class="zh">要跑的距离长了许多，可我也跟着成长了许多。</p>
+    <p class="th">ระยะทางที่ต้องวิ่งยาวขึ้นกว่าเดิมมาก แต่ตัวผมเองก็เติบโตขึ้นมามากพอๆ กัน</p>
+    <p class="de">Die Strecke, die ich laufen musste, war viel länger geworden. Aber im gleichen Maß war auch ich gewachsen.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">12</span>
+    <p class="lead src ko">헨리 비 아이어링 장로님의 2025년 10월 연차 대회 말씀 “그리스도 안에서 시험받고 단련됨”을 인용하고 싶습니다.</p>
+    <blockquote class="src ko">형제 자매 여러분, 여러분의 시험과 단련은 모로나이나 야곱, 선지자 조셉의 것과 같아 보이지 않을 수도 있습니다. 하지만 반드시 겪게 될 것입니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
+    <p class="lead tgt en">I’d like to quote Elder Henry B. Eyring’s October 2025 general conference talk, “Proved and Strengthened in Christ.”</p>
+    <blockquote class="tgt en">Brothers and sisters, your proving and strengthening may not look like Moroni’s or Jacob’s or the Prophet Joseph’s. But it will come.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <p class="lead zh">我想引用亨利·艾宁长老在2025年10月总会大会中题为「在基督里受验证与巩固」的讲话。</p>
+    <blockquote class="zh">弟兄姊妹们，你的验证和巩固可能不会像摩罗乃，或雅各，或先知约瑟的一样。但它会来到。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
+    <p class="lead th">ผมอยากจะยกข้อความจากคำพูดของเอ็ลเดอร์เฮนรีย์ บี. อายริงก์ ในการประชุมใหญ่สามัญเดือนตุลาคม 2025 เรื่อง “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์”</p>
+    <blockquote class="th">พี่น้องทั้งหลาย การพิสูจน์และการเสริมกําลังของท่านอาจไม่เหมือนของโมโรไน หรือของเจคอบ หรือของศาสดาพยากรณ์โจเซฟ แต่มันจะมา<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
+    <p class="lead de">Ich möchte aus der Ansprache „Erprobt und in Christus gestärkt“ zitieren, die Elder Henry B. Eyring bei der Generalkonferenz im Oktober 2025 gehalten hat.</p>
+    <blockquote class="de">Brüder und Schwestern, Ihre Erprobung und Stärkung mag nicht wie die von Moroni oder Jakob oder dem Propheten Joseph aussehen. Aber sie wird kommen.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">13</span>
+    <blockquote class="src ko">그것은 가정생활의 시련을 통해 남몰래 올 수도 있습니다. 질병이나 실망, 슬픔, 외로움을 통해 올 수도 있습니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
+    <blockquote class="tgt en">It may come quietly, through the trials of family life. It may come through illness or disappointment or grief or loneliness.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="zh">它可能会透过家庭生活的考验悄悄来到；它可能会透过疾病，或失望，或哀伤，或孤独来到。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
+    <blockquote class="th">อาจจะมาเงียบๆ ผ่านบททดสอบในชีวิตครอบครัว อาจจะมาผ่านความเจ็บป่วย หรือความผิดหวัง หรือความทุกข์ใจ หรือความโดดเดี่ยว<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
+    <blockquote class="de">Vielleicht kommt sie still, durch die Herausforderungen des Familienlebens. Vielleicht kommt sie durch Krankheit oder Enttäuschung oder Trauer oder Einsamkeit.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">14</span>
+    <blockquote class="src ko">저는 이런 순간들이 주님께서 여러분을 저버렸다는 증거가 아님을 간증드립니다. 오히려 그것은 그분께서 여러분을 정련하고 강화할 만큼 사랑하신다는 증거입니다. 그분은 여러분이 영생의 무게를 감당할 수 있을 만큼 강해지도록 여러분을 단련하고 계신 것입니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
+    <blockquote class="tgt en">I bear witness that these moments are not evidence that the Lord has abandoned you. Rather, they are evidence that He loves you enough to refine and strengthen you. He is making you strong enough to carry the weight of eternal life.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="zh">我见证，这些时刻并非主离弃你的证明。它们反而证明祂非常爱你，以至要淬炼并巩固你。祂在帮助你变得坚强，得以扛起永生的重量。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
+    <blockquote class="th">ข้าพเจ้าเป็นพยานว่าช่วงเวลาเหล่านี้ไม่ใช่หลักฐานว่าพระเจ้าทรงทอดทิ้งท่าน แต่เป็นหลักฐานว่าพระองค์ทรงรักท่านมากพอที่จะขัดเกลาและเสริมกําลังท่าน ทรงกําลังทําให้ท่านแข็งแกร่งพอที่จะแบกรับน้ำหนักของชีวิตนิรันดร์ได้<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
+    <blockquote class="de">Ich gebe Zeugnis, dass diese Zeiten nicht Beweis dafür sind, dass der Herr Sie verlassen hat. Vielmehr sind sie ein Beweis dafür, dass er Sie genug liebt, um Sie zu läutern und zu stärken. Er macht Sie stark genug, das Gewicht des ewigen Lebens zu tragen.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">15</span>
+    <blockquote class="src ko">우리가 계속해서 충실히 봉사한다면, 주님께서는 우리를 정련하시며 강화해 주실 것입니다. 그리고 언젠가 우리는 돌이켜보며 바로 그 시련이 그분이 지니신 사랑의 증거였음을 알게 될 것입니다. 우리는 영광 중에 우리가 그분과 함께 설 수 있도록 그분께서 우리를 빚어내고 계셨음을 알게 될 것입니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
+    <blockquote class="tgt en">If we remain faithful in our service, the Lord will refine us. He will strengthen us. And one day we will look back and see that those very trials were evidence of His love. We will see that He was shaping us to be able to stand with Him in glory.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="zh">如果我们在服务中保持忠信，主必会淬炼我们。祂会巩固我们。有一天，我们会回顾过往，并看出那些考验都是祂爱的证明。我们会看出祂在塑造我们，使我们能与祂一起站在荣耀之中。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
+    <blockquote class="th">หากเรายังคงชื่อสัตย์ในการรับใช้ พระเจ้าจะทรงขัดเกลาเรา พระองค์จะทรงเสริมกําลังเรา และวันหนึ่งเราจะมองย้อนกลับไปแล้วเห็นว่าการทดสอบเหล่านั้นเป็นหลักฐานแห่งความรักของพระองค์ เราจะเห็นว่าพระองค์ทรงหล่อหลอมเราให้สามารถยืนกับพระองค์ในรัศมีภาพ<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
+    <blockquote class="de">Wenn wir in unserem Dienst treu bleiben, läutert uns der Herr. Er stärkt uns. Und eines Tages werden wir zurückblicken und erkennen, dass genau diese Prüfungen ein Beweis seiner Liebe waren. Wir werden sehen, dass er uns geformt hat, sodass wir in Herrlichkeit an seiner Seite stehen können.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src ko">나약하고 갈 길이 아직 먼 저는 앞으로도 주님을 원망할 때가 많을 것입니다. 만약 26마일을 뛰며 아픔과 고통에만 집중했더라면, 우리가 살면서 느낄 수 있는 그 기쁨과 행복을 만끽하지 못할 것입니다.</p>
+    <p class="tgt en">I’m weak, and I still have a long way to go, so there will be many times ahead when I complain to the Lord. But if I had spent those 26 miles focused only on the pain and the suffering, I would have missed the joy and happiness we can feel in this life.</p>
+    <p class="zh">我很软弱，要走的路也还很长，今后还会有很多埋怨主的时候。可是，如果那26英里我一心只盯着疼痛和苦楚，就享受不到我们活在世上所能感受的那份喜乐和幸福了。</p>
+    <p class="th">ผมยังอ่อนแอและยังมีหนทางอีกยาวไกล ต่อจากนี้ก็คงจะมีอีกหลายครั้งที่ผมขุ่นเคืองใจต่อพระเจ้า แต่ถ้าตลอด 26 ไมล์นั้นผมเอาแต่จดจ่ออยู่กับความเจ็บปวดและความทุกข์ทรมานเท่านั้น ผมก็คงไม่ได้ลิ้มรสความปีติและความสุขที่เราสัมผัสได้ในชีวิตนี้อย่างเต็มที่</p>
+    <p class="de">Ich bin schwach und habe noch einen weiten Weg vor mir, und so wird es auch künftig viele Momente geben, in denen ich mit dem Herrn hadere. Hätte ich mich aber während dieser 26 Meilen nur auf Schmerz und Leid konzentriert, dann hätte ich die Freude und das Glück nicht auskosten können, die wir in diesem Leben empfinden dürfen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src ko">주님께 의지할 수 있음에 감사하며, 이 지상에서 살아가며 수많은 경험을 통해 기쁨을 배울 수 있음에 감사합니다. 특히, 참된 교회의 리더들과 회원분들의 모범을 통해 배울 수 있고 큰 위안과 위로를 받을 수 있음에 감사드립니다.</p>
+    <p class="tgt en">I’m grateful that I can rely on the Lord, and grateful that in this life on earth I can learn joy through so many experiences. Most of all, I’m grateful that I can learn from the example of the leaders and members of the true Church, and find such great comfort and consolation in them.</p>
+    <p class="zh">我感激自己能够依靠主，也感激在这世上的生活中，能借着许许多多的经历学会喜乐。尤其感激的是，我能从真实教会的领袖和成员的榜样中学习，并从中得到极大的安慰。</p>
+    <p class="th">ผมซาบซึ้งใจที่สามารถพึ่งพาพระเจ้าได้ และซาบซึ้งใจที่ในชีวิตบนแผ่นดินโลกนี้ผมได้เรียนรู้ถึงความปีติจากประสบการณ์มากมาย โดยเฉพาะอย่างยิ่ง ผมซาบซึ้งใจที่ได้เรียนรู้จากแบบอย่างของผู้นำและสมาชิกของศาสนจักรที่แท้จริง และได้รับความอบอุ่นใจและการปลอบโยนอย่างมากจากท่านเหล่านั้น</p>
+    <p class="de">Ich bin dankbar, dass ich mich auf den Herrn verlassen kann, und dankbar, dass ich hier auf der Erde durch so viele Erfahrungen Freude kennenlernen darf. Vor allem bin ich dankbar, dass ich vom Beispiel der Führungsverantwortlichen und der Mitglieder der wahren Kirche lernen und dadurch so viel Trost und Zuspruch empfangen darf.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src ko">이 말씀을 예수 그리스도의 이름으로 전합니다. 아멘.</p>
+    <p class="tgt en">I say these things in the name of Jesus Christ, amen.</p>
+    <p class="zh">奉耶稣基督的名，阿们。</p>
+    <p class="th">ผมกล่าวสิ่งเหล่านี้ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Dies sage ich im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

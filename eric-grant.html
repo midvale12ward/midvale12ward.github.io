@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Used to Different · 다름에 익숙해져야 합니다</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th", "de"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+/* Korean breaks between words, never inside one. Without this the browser is free to break
+   between any two syllable blocks, and a page read on 2026-09-18 found 은혜 split across two
+   lines in a title and 집중했더라면 split in the body. Thai has no spaces between words at all,
+   so it keeps the browser's own rule. Chinese had the same rule until a page read on 2026-09-19
+   found what it does there: a Chinese clause has no spaces, so keep-all makes the whole clause
+   one word, the emergency break then lands anywhere, and a phone-width page showed a comma alone
+   on a line and "RMN" cut in half. Chinese breaks between characters and keeps its punctuation
+   off the start of a line, which is what strict line-breaking asks for. */
+.ko { word-break: keep-all; }
+.zh { word-break: normal; line-break: strict; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+  /* A title is short enough for the browser to weigh the whole thing, so let it. Without this the
+     Korean title of Brother Grant's talk wrapped to three lines on a phone and left its last word
+     alone on the third, which is the first thing a phone reader sees. Browsers that do not know
+     the property wrap as they did before. 2026-09-19, the proofreader's page read. */
+  text-wrap: balance;
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+/* A single word alone on the last line reads as a mistake, and a list the speaker set out line by
+   line makes one every time a line is a few characters too long: at phone width three of five
+   languages left one word stranded under it. This asks the browser to avoid that where it can, and
+   changes nothing for a browser that does not know it. 2026-09-19, the proofreader's page read. */
+.pair p, blockquote p, blockquote { text-wrap: pretty; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite blockquote {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Get Used to Different</span><span class="ko">다름에 익숙해져야 합니다</span><span class="zh">习惯与世人不同</span><span class="th">หัดชินกับความแตกต่าง</span><span class="de">Gewöhnt euch ans Anderssein</span></h1>
+  <p class="byline">Brother Eric Grant &nbsp;·&nbsp; 20 September 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">When the savior began his ministry, he chose twelve men to follow him. These twelve men were not perfect men. Like each of us, they had flaws.</p>
+    <p class="tgt ko">구주께서 성역을 시작하셨을 때, 당신을 따를 열두 사람을 택하셨습니다. 이 열두 사람은 완전한 사람들이 아니었습니다. 우리 각자와 마찬가지로 그들에게도 결점이 있었습니다.</p>
+    <p class="zh">救主开始传道时，拣选了十二个人跟从他。这十二个人并不是完美的人。他们和我们每一个人一样，都有缺点。</p>
+    <p class="th">เมื่อพระผู้ช่วยให้รอดทรงเริ่มการปฏิบัติศาสนกิจของพระองค์ พระองค์ทรงเลือกชายสิบสองคนให้ติดตามพระองค์ ชายทั้งสิบสองคนนี้ไม่ใช่คนดีพร้อม พวกเขามีข้อบกพร่องเหมือนเราทุกคน</p>
+    <p class="de">Als der Erretter sein Wirken begann, wählte er zwölf Männer aus, die ihm nachfolgen sollten. Diese zwölf Männer waren keine vollkommenen Menschen. Wie wir alle hatten sie Schwächen.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">2</span>
+    <p class="lead src en">In Matthew 9:9 we read:</p>
+    <blockquote class="src en">And as Jesus passed forth from thence, he saw a man, named Matthew sitting at the receipt of custom: and he saith unto him, Follow me. And he arose, and followed him.<cite>Matthew 9:9</cite></blockquote>
+    <p class="lead tgt ko">마태복음 9장 9절에는 이렇게 기록되어 있습니다.</p>
+    <blockquote class="tgt ko">예수께서 그 곳을 떠나 지나가시다가 마태라 하는 사람이 세관에 앉아 있는 것을 보시고 이르시되 나를 따르라 하시니 일어나 따르니라<cite>마태복음 9:9</cite></blockquote>
+    <p class="lead zh">在马太福音9章9节中，我们读到：</p>
+    <blockquote class="zh">耶稣从那里往前走，看见一个人名叫马太，坐在税关上，就对他说：你跟从我来。他就起来，跟从了耶稣。<cite>马太福音 9：9</cite></blockquote>
+    <p class="lead th">ในมัทธิว 9:9 เราอ่านว่า</p>
+    <blockquote class="th">เมื่อพระเยซูเสด็จเลยตำบลนั้นไป ก็ทอดพระเนตรเห็นคนหนึ่งชื่อมัทธิวนั่งอยู่ที่ด่านภาษี จึงตรัสกับเขาว่า “จงตามเรามาเถิด” เขาก็ลุกขึ้นตามพระองค์ไป<cite>มัทธิว ๙:๙</cite></blockquote>
+    <p class="lead de">In Matthäus 9:9 lesen wir:</p>
+    <blockquote class="de">Als Jesus dann von dort weiterging, sah er einen Mann namens Matthäus an der Zollstätte sitzen und sagte zu ihm: „Folge mir nach!“ Da stand er auf und folgte ihm.<cite>Matthäus 9:9</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">Matthew wasn’t just an ordinary person with an ordinary occupation. He was a Publican. Publicans were the tax collectors working for the Roman government.</p>
+    <p class="tgt ko">마태는 그저 평범한 직업을 가진 평범한 사람이 아니었습니다. 그는 세리였습니다. 세리는 로마 정부를 위해 세금을 걷는 사람들이었습니다.</p>
+    <p class="zh">马太并不只是一个从事普通职业的普通人。他是一个税吏，就是替罗马政府收税的人。</p>
+    <p class="th">มัทธิวไม่ใช่แค่คนธรรมดาที่มีอาชีพธรรมดา เขาเป็นคนเก็บภาษีให้รัฐบาลโรมัน</p>
+    <p class="de">Matthäus war nicht bloß ein gewöhnlicher Mann mit einem gewöhnlichen Beruf. Er war ein Zöllner. Die Zöllner waren die Steuereintreiber, die für die römische Regierung arbeiteten.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">The people of that day generally viewed publicans as dishonest. They felt that the Publicans were taking advantage of the Jews. Despite that, Jesus looked at the man sitting in a booth and said, Follow me.</p>
+    <p class="tgt ko">그 시대 사람들은 대체로 세리를 정직하지 못한 자들로 여겼습니다. 세리들이 유대인들을 착취한다고 생각했습니다. 그럼에도 예수님께서는 세관에 앉아 있는 그 사람을 보시고 나를 따르라고 말씀하셨습니다.</p>
+    <p class="zh">当时的人普遍认为税吏不诚实，觉得税吏在占犹太人的便宜。尽管如此，耶稣看着那个坐在税关上的人，说：你跟从我来。</p>
+    <p class="th">ผู้คนในสมัยนั้นส่วนใหญ่มองว่าคนเก็บภาษีเป็นคนไม่ซื่อสัตย์ ผู้คนรู้สึกว่าคนเก็บภาษีเอาเปรียบชาวยิว แต่ถึงอย่างนั้น พระเยซูก็ทอดพระเนตรชายคนที่นั่งอยู่ที่ด่านภาษี แล้วตรัสว่า “จงตามเรามาเถิด”</p>
+    <p class="de">Die Menschen damals hielten die Zöllner im Allgemeinen für unehrlich. Sie meinten, dass die Zöllner die Juden ausnutzten. Trotzdem sah Jesus den Mann an, der an der Zollstätte saß, und sagte: Folge mir nach.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">I would imagine that Jesus asking Matthew to follow him was difficult for his other followers to accept at that time.</p>
+    <p class="tgt ko">제 생각에는, 예수님께서 마태에게 당신을 따르라고 하신 것은 그 당시 그분을 따르던 다른 이들로서는 받아들이기 어려웠을 것입니다.</p>
+    <p class="zh">我想，当时跟随耶稣的其他人，很难接受他叫马太来跟从他。</p>
+    <p class="th">ผมคิดว่าการที่พระเยซูทรงขอให้มัทธิวติดตามพระองค์ คงเป็นเรื่องที่ผู้ติดตามคนอื่นๆ ของพระองค์ยอมรับได้ยากในตอนนั้น</p>
+    <p class="de">Ich kann mir vorstellen, dass es für seine anderen Anhänger damals schwer zu akzeptieren war, dass Jesus Matthäus aufforderte, ihm nachzufolgen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">They most likely felt shocked and angry that Christ would call someone who was not liked by others.</p>
+    <p class="tgt ko">그들은 아마도 그리스도께서 남들이 좋아하지 않는 사람을 부르셨다는 것에 충격을 받고 화가 났을 것입니다.</p>
+    <p class="zh">他们很可能感到震惊和愤怒，因为基督竟然召唤一个不受人喜欢的人。</p>
+    <p class="th">พวกเขาคงตกใจและโกรธที่พระคริสต์ทรงเรียกคนที่ใครๆ ก็ไม่ชอบ</p>
+    <p class="de">Höchstwahrscheinlich waren sie schockiert und verärgert, dass Christus jemanden in seine Nachfolge rief, den andere nicht mochten.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">They might have even been afraid that having Matthew in their company would damage their reputation with the rest of the Jewish community. So why did the Savior pick this man?</p>
+    <p class="tgt ko">심지어 마태를 자기들 무리에 두면 다른 유대인들 사이에서 자기들의 평판이 나빠질까 봐 두려워했을지도 모릅니다. 그렇다면 구주께서는 왜 이 사람을 택하셨을까요?</p>
+    <p class="zh">他们甚至可能担心，马太加入以后，会损害自己在其他犹太人心中的名声。那么，救主为什么挑选了这个人呢？</p>
+    <p class="th">พวกเขาอาจถึงกับกลัวว่าการมีมัทธิวอยู่ในกลุ่มจะทำให้ชื่อเสียงของพวกเขาเสียหายในสายตาของชาวยิวคนอื่นๆ แล้วทำไมพระผู้ช่วยให้รอดจึงทรงเลือกชายคนนี้?</p>
+    <p class="de">Vielleicht hatten sie sogar Angst, dass es ihrem Ansehen bei der übrigen jüdischen Gemeinschaft schaden würde, Matthäus in ihren Reihen zu haben. Warum also wählte der Erretter diesen Mann aus?</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">Christ doesn’t always call the person everyone else thinks is most qualified. He calls the person that is willing to follow him.</p>
+    <p class="tgt ko">그리스도께서는 다른 모든 사람이 가장 자격이 있다고 여기는 사람을 항상 부르시는 것은 아닙니다. 그분은 기꺼이 당신을 따르려는 사람을 부르십니다.</p>
+    <p class="zh">基督召唤的，不一定是大家认为最有资格的人。他召唤的是愿意跟从他的人。</p>
+    <p class="th">พระคริสต์ไม่ได้ทรงเรียกคนที่ใครๆ คิดว่าเหมาะสมที่สุดเสมอไป พระองค์ทรงเรียกคนที่เต็มใจจะติดตามพระองค์</p>
+    <p class="de">Christus ruft nicht immer den Menschen, den alle anderen für den am besten Geeigneten halten. Er ruft den Menschen, der bereit ist, ihm nachzufolgen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">9</span>
+    <p class="src en">Christ called Matthew because he already knew what Matthew would eventually become.</p>
+    <p class="tgt ko">그리스도께서 마태를 부르신 것은, 마태가 결국 어떤 사람이 될지를 그분께서 이미 알고 계셨기 때문입니다.</p>
+    <p class="zh">基督召唤马太，是因为他早已知道马太最终会成为怎样的人。</p>
+    <p class="th">พระคริสต์ทรงเรียกมัทธิว เพราะพระองค์ทรงทราบอยู่แล้วว่าในที่สุดมัทธิวจะเป็นคนอย่างไร</p>
+    <p class="de">Christus rief Matthäus, weil er schon wusste, was aus Matthäus einmal werden würde.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src en">When we receive a calling from the lord, we are not called because we have earned the calling. We are not necessarily the most qualified person for the calling.</p>
+    <p class="tgt ko">우리가 주님으로부터 부름을 받을 때, 우리가 부름을 받는 것은 그 부름을 얻을 자격을 스스로 갖추었기 때문이 아닙니다. 우리가 반드시 그 부름에 가장 자격이 있는 사람인 것도 아닙니다.</p>
+    <p class="zh">我们从主那里接受召唤，并不是因为我们赢得了这项召唤。我们也不一定是最有资格担任这项召唤的人。</p>
+    <p class="th">เมื่อเราได้รับการเรียกจากพระเจ้า เราไม่ได้รับเรียกเพราะเราได้ทำสิ่งใดมาแลกกับการเรียกนั้น และเราก็อาจไม่ใช่คนที่เหมาะสมที่สุดสำหรับการเรียกนั้น</p>
+    <p class="de">Wenn wir vom Herrn eine Berufung erhalten, werden wir nicht berufen, weil wir uns die Berufung verdient hätten. Wir sind nicht unbedingt die am besten Geeigneten für die Berufung.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">We are called because the Savior sees something in us that we may not see in ourselves. He calls us and gives us the opportunity to follow him.</p>
+    <p class="tgt ko">우리가 부름을 받는 것은, 구주께서 우리 안에서 우리 자신은 보지 못할 수도 있는 무언가를 보시기 때문입니다. 그분은 우리를 부르시고, 당신을 따를 기회를 주십니다.</p>
+    <p class="zh">我们蒙召唤，是因为救主在我们身上看到了我们自己可能看不到的东西。他召唤我们，给我们跟从他的机会。</p>
+    <p class="th">เราได้รับเรียกเพราะพระผู้ช่วยให้รอดทรงเห็นบางอย่างในตัวเราที่เราเองอาจมองไม่เห็น พระองค์ทรงเรียกเราและประทานโอกาสให้เราได้ติดตามพระองค์</p>
+    <p class="de">Wir werden berufen, weil der Erretter etwas in uns sieht, was wir selbst vielleicht nicht in uns sehen. Er beruft uns und gibt uns die Gelegenheit, ihm nachzufolgen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">Christ didn’t come to the earth to merely make good people better. He came to make us different. He taught us to be different from the rest of the world.</p>
+    <p class="tgt ko">그리스도께서는 단지 선한 사람을 더 선하게 만들려고 이 땅에 오신 것이 아닙니다. 그분은 우리를 다르게 만들려고 오셨습니다. 그분은 우리에게 세상 사람들과는 다르게 되라고 가르치셨습니다.</p>
+    <p class="zh">基督来到世上，不只是为了让好人变得更好。他来是要使我们与世人不同。他教导我们要与世人不同。</p>
+    <p class="th">พระคริสต์ไม่ได้เสด็จมายังแผ่นดินโลกเพียงเพื่อทำให้คนดีกลายเป็นคนดียิ่งขึ้น พระองค์เสด็จมาเพื่อทำให้เราแตกต่าง พระองค์ทรงสอนให้เราแตกต่างจากชาวโลก</p>
+    <p class="de">Christus kam nicht auf die Erde, um aus guten Menschen bloß bessere zu machen. Er kam, um uns anders zu machen. Er lehrte uns, anders zu sein als der Rest der Welt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src en">In the television show “the Chosen”, Christ answers his apostles by stating that they need to “Get used to different.”</p>
+    <p class="tgt ko">텔레비전 드라마 “더 초즌”에서 그리스도께서는 사도들에게 “다름에 익숙해져야 합니다”라고 답하십니다.</p>
+    <p class="zh">在电视剧《The Chosen》中，基督回答他的使徒说，他们需要“习惯与世人不同”。</p>
+    <p class="th">ในซีรีส์โทรทัศน์เรื่อง “The Chosen” พระคริสต์ตรัสตอบอัครสาวกของพระองค์ว่า พวกเขาต้อง “หัดชินกับความแตกต่าง”</p>
+    <p class="de">In der Fernsehserie „The Chosen“ antwortet Christus seinen Aposteln, indem er ihnen sagt: „Gewöhnt euch ans Anderssein.“</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">14</span>
+    <p class="lead src en">In Matthew 5:44, Christ taught,</p>
+    <blockquote class="src en">“Love your enemies, bless them that curse you, do good to them that hate you.”<cite>Matthew 5:44</cite></blockquote>
+    <p class="lead tgt ko">마태복음 5장 44절에서 그리스도께서는 이렇게 가르치셨습니다.</p>
+    <blockquote class="tgt ko">너희 원수를 사랑하며 너희를 저주하는 자를 축복하고 너희를 미워하는 자에게 선을 행하라<cite>마태복음 5:44</cite></blockquote>
+    <p class="lead zh">在马太福音5章44节中，基督教导说：</p>
+    <blockquote class="zh">“要爱你们的仇敌。”他还教导说，要祝福那咒诅你们的，善待那恨你们的。<cite>马太福音 5：44</cite></blockquote>
+    <p class="lead th">ในมัทธิว 5:44 พระคริสต์ทรงสอนให้เราอวยพรคนที่สาปแช่งเรา และทำดีต่อคนที่เกลียดชังเรา และตรัสว่า</p>
+    <blockquote class="th">“จงรักศัตรูของท่าน”<cite>มัทธิว ๕:๔๔</cite></blockquote>
+    <p class="lead de">In Matthäus 5:44 lehrte Christus:</p>
+    <blockquote class="de">Liebet eure Feinde, segnet, die euch fluchen, tut Gutes denen, die euch hassen.<cite>Matthäus 5:44</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src en">This is a difficult thing for most of us to accept. Our natural inclination is to only love those that love us.</p>
+    <p class="tgt ko">이것은 우리 대부분이 받아들이기 어려운 가르침입니다. 우리는 본래 우리를 사랑해 주는 사람만 사랑하려 합니다.</p>
+    <p class="zh">这对我们大多数人来说都很难接受。我们天生只爱那些爱我们的人。</p>
+    <p class="th">นี่เป็นเรื่องที่เราส่วนใหญ่ยอมรับได้ยาก โดยธรรมชาติแล้วเรามักจะรักแค่คนที่รักเรา</p>
+    <p class="de">Das zu akzeptieren fällt den meisten von uns schwer. Unsere natürliche Neigung ist es, nur die zu lieben, die uns lieben.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">16</span>
+    <p class="lead src en">In Matthew 5:39, Christ taught</p>
+    <blockquote class="src en">“Whosoever shall smite thee on thy right cheek, turn to him the other also.”<cite>Matthew 5:39</cite></blockquote>
+    <p class="lead tgt ko">마태복음 5장 39절에서 그리스도께서는 이렇게 가르치셨습니다.</p>
+    <blockquote class="tgt ko">누구든지 네 오른편 뺨을 치거든 왼편도 돌려 대며<cite>마태복음 5:39</cite></blockquote>
+    <p class="lead zh">在马太福音5章39节中，基督教导说：</p>
+    <blockquote class="zh">“有人打你的右脸，连左脸也转过来由他打。”<cite>马太福音 5：39</cite></blockquote>
+    <p class="lead th">ในมัทธิว 5:39 พระคริสต์ทรงสอนว่า</p>
+    <blockquote class="th">“ถ้าใครตบแก้มขวาของท่านก็จงหันแก้มอีกข้างหนึ่งให้เขาด้วย”<cite>มัทธิว ๕:๓๙</cite></blockquote>
+    <p class="lead de">In Matthäus 5:39 lehrte Christus:</p>
+    <blockquote class="de">… wer dich auf die rechte Wange schlägt, dem halte auch die andere hin.<cite>Matthäus 5:39</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">17</span>
+    <p class="src en">This takes it even a step further. Christ was not teaching us to be tolerant of abuse, rather he was challenging our instinct to retaliate.</p>
+    <p class="tgt ko">이 가르침은 한 걸음 더 나아갑니다. 그리스도께서는 우리에게 학대를 참고 견디라고 가르치신 것이 아니라, 보복하려는 우리의 본능을 거스르라고 하신 것입니다.</p>
+    <p class="zh">这更进了一步。基督并不是在教我们容忍虐待，而是在挑战我们想要报复的本能。</p>
+    <p class="th">ข้อนี้ยิ่งไปไกลกว่านั้นอีกขั้น พระคริสต์ไม่ได้ทรงสอนให้เราทนต่อการถูกทำร้าย แต่พระองค์ทรงท้าทายสัญชาตญาณของเราที่อยากจะตอบโต้</p>
+    <p class="de">Das geht sogar noch einen Schritt weiter. Christus lehrte uns damit nicht, Misshandlung hinzunehmen, sondern er stellte unseren Instinkt, Vergeltung zu üben, in Frage.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">18</span>
+    <p class="lead src en">In Matthew 23:11, Christ taught</p>
+    <blockquote class="src en">“But he that is greatest among you shall be your servant.”<cite>Matthew 23:11</cite></blockquote>
+    <p class="lead tgt ko">마태복음 23장 11절에서 그리스도께서는 이렇게 가르치셨습니다.</p>
+    <blockquote class="tgt ko">너희 중에 큰 자는 너희를 섬기는 자가 되어야 하리라<cite>마태복음 23:11</cite></blockquote>
+    <p class="lead zh">在马太福音23章11节中，基督教导说：</p>
+    <blockquote class="zh">“你们中间谁为大，谁就要作你们的用人。”<cite>马太福音 23：11</cite></blockquote>
+    <p class="lead th">ในมัทธิว 23:11 พระคริสต์ทรงสอนว่า</p>
+    <blockquote class="th">“คนที่เป็นใหญ่ในพวกท่านย่อมต้องปรนนิบัติท่าน”<cite>มัทธิว ๒๓:๑๑</cite></blockquote>
+    <p class="lead de">In Matthäus 23:11 lehrte Christus:</p>
+    <blockquote class="de">Der Größte unter euch soll euer Diener sein.<cite>Matthäus 23:11</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src en">The world typically defines greatness in terms of power, status, recognition, and influence. Christ’s formula is service, sacrifice, and lifting others.</p>
+    <p class="tgt ko">세상은 흔히 위대함을 권력과 지위, 인정과 영향력으로 정의합니다. 그리스도의 방식은 봉사와 희생, 그리고 다른 사람을 일으켜 세우는 것입니다.</p>
+    <p class="zh">世人通常用权力、地位、名望和影响力来定义伟大。基督的公式却是服务、牺牲和扶助他人。</p>
+    <p class="th">โลกมักนิยามความยิ่งใหญ่ด้วยอำนาจ ฐานะ การเป็นที่ยอมรับ และอิทธิพล แต่สูตรของพระคริสต์คือการรับใช้ การเสียสละ และการช่วยยกผู้อื่นขึ้น</p>
+    <p class="de">Die Welt definiert Größe gewöhnlich über Macht, Status, Anerkennung und Einfluss. Die Formel Christi lautet: Dienst, Opfer und das Aufrichten anderer.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">20</span>
+    <p class="lead src en">In Matthew 18:21-22, we read</p>
+    <blockquote class="src en">“Then came Peter to him, and said, Lord, how oft shall my brother sin against me, and I forgive him? Till seven times?<cite>Matthew 18:21–22</cite></blockquote>
+    <p class="lead tgt ko">마태복음 18장 21절과 22절에는 이렇게 기록되어 있습니다.</p>
+    <blockquote class="tgt ko">그 때에 베드로가 나아와 이르되 주여 형제가 내게 죄를 범하면 몇 번이나 용서하여 주리이까 일곱 번까지 하오리이까<cite>마태복음 18:21~22</cite></blockquote>
+    <p class="lead zh">在马太福音18章21至22节中，我们读到：</p>
+    <blockquote class="zh">“那时，彼得进前来对耶稣说：主啊，我弟兄得罪我，我当饶恕他几次呢？到七次可以吗？<cite>马太福音 18：21-22</cite></blockquote>
+    <p class="lead th">ในมัทธิว 18:21-22 เราอ่านว่า</p>
+    <blockquote class="th">ขณะนั้นเปโตรมาทูลพระองค์ว่า “องค์พระผู้เป็นเจ้า ข้าพระองค์ควรยกโทษให้พี่น้องที่ทำผิดต่อข้าพระองค์สักกี่ครั้ง? ถึงเจ็ดครั้งเชียวหรือ?”<cite>มัทธิว ๑๘:๒๑–๒๒</cite></blockquote>
+    <p class="lead de">In Matthäus 18:21-22 lesen wir:</p>
+    <blockquote class="de">Hierauf trat Petrus an ihn heran und fragte ihn: „Herr, wie oft muss ich meinem Bruder vergeben, wenn er sich gegen mich verfehlt? Bis zu siebenmal?“<cite>Matthäus 18:21-22</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">21</span>
+    <blockquote class="src en">Jesus saith unto him, I say not unto thee, Until seven times: but, Until seventy times seven.”<cite>Matthew 18:21–22</cite></blockquote>
+    <blockquote class="tgt ko">예수께서 이르시되 네게 이르노니 일곱 번뿐 아니라 일곱 번을 일흔 번까지라도 할지니라<cite>마태복음 18:21~22</cite></blockquote>
+    <blockquote class="zh">耶稣说：我对你说，不是到七次，乃是到七十个七次。”<cite>马太福音 18：21-22</cite></blockquote>
+    <blockquote class="th">พระเยซูตรัสตอบเขาว่า “เราไม่ได้บอกท่านว่าเจ็ดครั้งแต่เจ็ดสิบครั้งคูณเจ็ด”<cite>มัทธิว ๑๘:๒๑–๒๒</cite></blockquote>
+    <blockquote class="de">Da antwortete ihm Jesus: Ich sage dir: Nicht bis zu siebenmal, sondern bis zu siebzigmal siebenmal.<cite>Matthäus 18:21-22</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src en">If we are true disciples of Christ, and believe him, not just believe in him, we know that his grace is sufficient for all of us. Everyone can access the power of the atonement.</p>
+    <p class="tgt ko">우리가 그리스도의 참된 제자이고, 그분을 믿는 데 그치지 않고 그분이 하신 말씀을 그대로 믿는다면, 우리는 그분의 은혜가 우리 모두에게 충분하다는 것을 압니다. 누구나 속죄의 권능을 힘입을 수 있습니다.</p>
+    <p class="zh">如果我们是基督真正的门徒，不只是相信他，更相信他所说的，我们就知道他的恩典够我们每一个人用。每个人都能获得赎罪的力量。</p>
+    <p class="th">ถ้าเราเป็นสานุศิษย์ที่แท้จริงของพระคริสต์ และเชื่อสิ่งที่พระองค์ตรัส ไม่ใช่แค่เชื่อในพระองค์ เราก็รู้ว่าพระคุณของพระองค์เพียงพอสำหรับเราทุกคน ทุกคนเข้าถึงพลังของการชดใช้ได้</p>
+    <p class="de">Wenn wir wahre Jünger Christi sind und ihm glauben, nicht nur an ihn glauben, dann wissen wir, dass seine Gnade für uns alle ausreichend ist. Jeder hat Zugang zur Macht des Sühnopfers.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src en">As a result, justice has already been served for everything that everyone has ever done wrong. The price has already been paid.</p>
+    <p class="tgt ko">그 결과, 모든 사람이 지금까지 저지른 모든 잘못에 대해 공의는 이미 충족되었습니다. 그 값은 이미 치러졌습니다.</p>
+    <p class="zh">因此，每个人所做过的每一件错事，公道的要求都已经得到了满足。代价已经付清了。</p>
+    <p class="th">ด้วยเหตุนี้ ข้อเรียกร้องของความยุติธรรมจึงได้รับการตอบสนองแล้วสำหรับทุกความผิดที่ทุกคนเคยทำมา ราคานั้นมีผู้จ่ายให้แล้ว</p>
+    <p class="de">Folglich ist der Gerechtigkeit für alles, was irgendjemand jemals falsch gemacht hat, bereits Genüge getan. Der Preis ist bereits bezahlt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src en">This is why he asks us to forgive everyone. Our instincts tell us to never forgive.</p>
+    <p class="tgt ko">그래서 그분은 우리에게 모든 사람을 용서하라고 하시는 것입니다. 우리는 본능적으로 결코 용서하고 싶어 하지 않습니다.</p>
+    <p class="zh">这就是他要我们饶恕每一个人的原因。我们的本能却告诉我们永远不要饶恕。</p>
+    <p class="th">นี่คือเหตุผลที่พระองค์ทรงขอให้เราให้อภัยทุกคน แต่สัญชาตญาณของเรากลับบอกว่าอย่าให้อภัยใครเลย</p>
+    <p class="de">Deshalb bittet er uns, jedem zu vergeben. Unser Instinkt sagt uns, niemals zu vergeben.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">25</span>
+    <p class="lead src en">The book of Mormon expands upon this,</p>
+    <blockquote class="src en">“And now, if God, who has created you…doth grant unto you whatsoever ye ask…how ought ye to impart of the substance that ye have one to another.” – Mosiah 4:21</blockquote>
+    <p class="lead tgt ko">몰몬경은 이를 더 자세히 설명합니다.</p>
+    <blockquote class="tgt ko">또 이제 만일 너희를 창조하셨고… 하나님께서… 구하는 것은 무엇이든지, 너희에게 허락하여 주신다면… 너희가 가진 재물에서 서로 나누어 줌이 얼마나 마땅하냐. – 모사이야서 4:21</blockquote>
+    <p class="lead zh">摩尔门经进一步说明了这一点：</p>
+    <blockquote class="zh">“现在，如果那位创造你们的神……尚且把你们凭信心祈求、相信你们必会得到的正当东西赐给你们，那么你们更是应当如何彼此分享财物啊。”（摩赛亚书4章21节）</blockquote>
+    <p class="lead th">พระคัมภีร์มอรมอนขยายความเรื่องนี้ไว้ว่า</p>
+    <blockquote class="th">“และบัดนี้, หากพระผู้เป็นเจ้า, ผู้ทรงสร้างท่านมา…ประทานให้แก่ท่านสิ่งใดก็ตามที่ถูกต้อง, ซึ่งท่านขอ…ควรที่ท่านจะให้ทรัพย์สินที่ท่านมีอยู่แก่กันเพียงใด” – โมไซยาห์ 4:21</blockquote>
+    <p class="lead de">Das Buch Mormon führt das weiter aus:</p>
+    <blockquote class="de">Und wenn nun Gott, der euch erschaffen hat … euch gewährt, was immer ihr im Glauben erbittet … o wie sehr solltet ihr dann von der Habe, die ihr habt, miteinander teilen. – Mosia 4:21</blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">26</span>
+    <p class="lead src en">Christ continued in Matthew 18:23-35,</p>
+    <blockquote class="src en">“Therefore is the kingdom of heaven likened unto a certain king, which would take account of his servants.<cite>Matthew 18:23–35</cite></blockquote>
+    <p class="lead tgt ko">그리스도께서는 마태복음 18장 23절에서 35절까지 이렇게 말씀을 이어 가셨습니다.</p>
+    <blockquote class="tgt ko">그러므로 천국은 그 종들과 결산하려 하던 어떤 임금과 같으니<cite>마태복음 18:23~35</cite></blockquote>
+    <p class="lead zh">基督在马太福音18章23至35节中继续说：</p>
+    <blockquote class="zh">“天国好像一个王要和他仆人算帐。<cite>马太福音 18：23-35</cite></blockquote>
+    <p class="lead th">พระคริสต์ตรัสต่อในมัทธิว 18:23-35 ว่า</p>
+    <blockquote class="th">“เพราะเหตุนี้ แผ่นดินสวรรค์ก็เปรียบเหมือนเจ้าองค์หนึ่งที่มีพระประสงค์จะคิดบัญชีกับบรรดาทาสของตน<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <p class="lead de">Christus fuhr in Matthäus 18:23-35 fort:</p>
+    <blockquote class="de">Darum ist das Himmelreich einem König vergleichbar, der mit seinen Knechten abrechnen wollte.<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">27</span>
+    <blockquote class="src en">And when had begun to reckon, one was brought unto him, which owed him ten thousand talents. But forasmuch as he had not to pay, his lord commanded him to be sold, and his wife, and children, and all that he had, and payment to be made.<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">결산할 때에 만 달란트 빚진 자 하나를 데려오매 갚을 것이 없는지라 주인이 명하여 그 몸과 아내와 자식들과 모든 소유를 다 팔아 갚게 하라 하니<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">才算的时候，有人带了一个欠一千万银子的来。因为他没有什么偿还之物，主人吩咐把他和他妻子儿女，并一切所有的都卖了偿还。<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">เมื่อท่านทรงเริ่มต้นคิดบัญชี คนหนึ่งที่เป็นหนี้หนึ่งหมื่นตะลันต์ก็ถูกพามาเข้าเฝ้า ท่านจึงมีรับสั่งให้ขายตัวเขาพร้อมกับเมียและลูก รวมทั้งบรรดาสิ่งของที่เขามีอยู่นั้นเพื่อเอามาใช้หนี้ เพราะเขาไม่มีเงินที่จะใช้หนี้นั้น<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Als er nun mit der Abrechnung begann, wurde ihm einer vorgeführt, der ihm zehntausend Talente schuldig war. Weil er nun diese Schuld nicht bezahlen konnte, befahl sein Herr, man solle ihn samt seiner Frau und seinen Kindern und seinem gesamten Besitz verkaufen und so Ersatz schaffen.<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">28</span>
+    <blockquote class="src en">The servant therefore fell down, and worshipped him, saying, Lord, have patience with me, and I will pay thee all. Then the lord of that servant was moved with compassion, and loosed him, and forgave him the debt.<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">그 종이 엎드려 절하며 이르되 내게 참으소서 다 갚으리이다 하거늘 그 종의 주인이 불쌍히 여겨 놓아 보내며 그 빚을 탕감하여 주었더니<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">那仆人就俯伏拜他，说：主啊，宽容我，将来我都要还清。那仆人的主人就动了慈心，把他释放了，并且免了他的债。<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">ทาสคนนั้นจึงกราบลงวิงวอนว่า ‘ขอโปรดผัดไว้ก่อน แล้วข้าพระองค์จะใช้หนี้ทั้งหมด’ เจ้าองค์นั้นทรงสงสาร จึงทรงปล่อยตัวเขาและทรงยกหนี้<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Da warf sich der Knecht vor ihm zur Erde nieder und bat ihn mit den Worten: ‚Habe Geduld mit mir: Ich will dir alles bezahlen.‘ Da hatte der Herr Erbarmen mit diesem Knecht; er gab ihn frei, und die Schuld erließ er ihm auch.<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">29</span>
+    <blockquote class="src en">But the same servant went out, and found one of his fellowservants, which owed him an hundred pence: and he laid hands on him, and took him by the throat, saying, Pay me that thou owest.<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">그 종이 나가서 자기에게 백 데나리온 빚진 동료 한 사람을 만나 붙들어 목을 잡고 이르되 빚을 갚으라 하매<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">那仆人出来，遇见他的一个同伴欠他十两银子，便揪着他，掐住他的喉咙，说：你把所欠的还我！<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">แต่เมื่อทาสคนนั้นออกไปก็พบคนหนึ่งที่เป็นเพื่อนทาสด้วยกัน ที่เป็นหนี้เขาอยู่หนึ่งร้อยเดนาริอันเขาก็จับคนนั้นบีบคอบอกว่า ‘แกต้องใช้หนี้ให้ข้า’<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Als aber dieser Knecht aus dem Haus des Herrn hinausgegangen war, traf er einen seiner Mitknechte, der ihm hundert Denare schuldig war; den ergriff er, packte ihn an der Kehle und sagte zu ihm: ‚Bezahle, was du schuldig bist!‘<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">30</span>
+    <blockquote class="src en">And his fellowservant fell down at his feet, and besought him, saying, Have patience with me, and I will pay thee all. And he would not: but went and cast him into prison, till he should pay the debt.<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">그 동료가 엎드려 간구하여 이르되 나에게 참아 주소서 갚으리이다 하되 허락하지 아니하고 이에 가서 그가 빚을 갚도록 옥에 가두거늘<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">他的同伴就俯伏央求他，说：宽容我吧，将来我必还清。他不肯，竟去把他下在监里，等他还了所欠的债。<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">เพื่อนทาสคนนั้นจึงกราบลงอ้อนวอนว่า ‘ขอผัดไว้ก่อนแล้วข้าจะใช้ให้’ แต่เขาไม่ยอม จึงนำทาสลูกหนี้นั้นไปขังคุกไว้จนกว่าจะสามารถใช้หนี้ได้<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Da warf sich sein Mitknecht vor ihm nieder und bat ihn mit den Worten: ‚Habe Geduld mit mir: Ich will dir’s bezahlen!‘ Er wollte aber nicht, sondern ging hin und ließ ihn ins Gefängnis werfen, bis er die Schuld bezahlt habe.<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">31</span>
+    <blockquote class="src en">So when his fellowservants saw what was done, they were very sorry, and came and told unto their lord all that was done.<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">그 동료들이 그것을 보고 몹시 딱하게 여겨 주인에게 가서 그 일을 다 알리니<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">众同伴看见他所做的事就甚忧愁，去把这事都告诉了主人。<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">พวกเพื่อนทาสเมื่อเห็นเหตุการณ์เช่นนั้น ก็เป็นทุกข์อย่างยิ่ง และนำเหตุการณ์ทั้งหมดไปกราบทูลเจ้าองค์นั้น<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Als nun seine Mitknechte sahen, was da vorgegangen war, wurden sie sehr ungehalten; sie gingen hin und berichteten ihrem Herrn den ganzen Vorfall.<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">32</span>
+    <blockquote class="src en">Then his lord, after that he had called him, said unto him, O thou wicked servant, I forgave thee all that debt, because thou desiredst me: Shouldest not thou also have had compassion on thy fellowservant, even as I had pity on thee?<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">이에 주인이 그를 불러다가 말하되 악한 종아 네가 빌기에 내가 네 빚을 전부 탕감하여 주었거늘 내가 너를 불쌍히 여김과 같이 너도 네 동료를 불쌍히 여김이 마땅하지 아니하냐 하고<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">于是主人叫了他来，对他说：你这恶奴才！你央求我，我就把你所欠的都免了，你不应当怜恤你的同伴，像我怜恤你吗？<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">ท่านจึงเรียกทาสนั้นมาตรัสว่า ‘ไอ้ข้าชั่วร้าย เรายกหนี้ให้เอ็งทั้งหมด ก็เพราะเอ็งอ้อนวอนเรา เอ็งควรจะเมตตาเพื่อนทาสด้วยกัน เหมือนเราเมตตาเอ็งไม่ใช่หรือ?’<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Da ließ sein Herr ihn vor sich rufen und sagte zu ihm: ‚Du böser Knecht! Jene ganze Schuld habe ich dir erlassen, weil du mich darum batest; hättest du da nicht auch Erbarmen mit deinem Mitknecht haben müssen, wie ich Erbarmen mit dir gehabt habe?‘<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">33</span>
+    <blockquote class="src en">And his lord was wroth, and delivered him to the tormentors, till he should pay all that was due unto him. So likewise shall my heavenly Father do also unto you, if ye from your hearts forgive not every one his brother their trespasses.”<cite>Matthew 18:23–35</cite></blockquote>
+    <blockquote class="tgt ko">주인이 노하여 그 빚을 다 갚도록 그를 옥졸들에게 넘기니라 너희가 각각 마음으로부터 형제를 용서하지 아니하면 나의 하늘 아버지께서도 너희에게 이와 같이 하시리라<cite>마태복음 18:23~35</cite></blockquote>
+    <blockquote class="zh">主人就大怒，把他交给掌刑的，等他还清了所欠的债。你们各人若不从心里饶恕你的弟兄，我天父也要这样待你们了。”<cite>马太福音 18：23-35</cite></blockquote>
+    <blockquote class="th">แล้วเจ้าองค์นั้นก็กริ้ว จึงทรงมอบทาสคนนั้นไว้ให้เจ้าหน้าที่ทรมานจนกว่าจะใช้หนี้หมด พระบิดาของเราผู้สถิตในสวรรค์ ก็จะทรงทำต่อพวกท่านอย่างนั้น ถ้าพวกท่านแต่ละคนไม่ยอมยกโทษให้พี่น้องจากใจของพวกท่าน”<cite>มัทธิว ๑๘:๒๓–๓๕</cite></blockquote>
+    <blockquote class="de">Und voller Zorn übergab sein Herr ihn den Folterknechten, bis er ihm seine ganze Schuld abbezahlt habe. Ebenso wird auch mein himmlischer Vater mit euch verfahren, wenn ihr nicht ein jeder seinem Bruder von Herzen vergebt.<cite>Matthäus 18:23-35</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">34</span>
+    <p class="src en">This parable teaches us that if we are not willing to forgive others for the small things that they have done to us, our Savior will not forgive us for our sins.</p>
+    <p class="tgt ko">이 비유는, 우리가 다른 사람들이 우리에게 한 작은 일들을 기꺼이 용서하지 않는다면 구주께서도 우리의 죄를 용서하지 않으실 것임을 가르쳐 줍니다.</p>
+    <p class="zh">这个比喻教导我们，如果我们不愿意饶恕别人对我们所做的小事，救主也不会饶恕我们的罪。</p>
+    <p class="th">อุปมาเรื่องนี้สอนเราว่า ถ้าเราไม่เต็มใจให้อภัยผู้อื่นในเรื่องเล็กน้อยที่เขาทำกับเรา พระผู้ช่วยให้รอดก็จะไม่ทรงให้อภัยบาปของเรา</p>
+    <p class="de">Dieses Gleichnis lehrt uns: Wenn wir nicht bereit sind, anderen die kleinen Dinge zu vergeben, die sie uns angetan haben, wird unser Erretter uns unsere Sünden nicht vergeben.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">35</span>
+    <p class="lead src en">In Luke 9:23, Christ taught</p>
+    <blockquote class="src en">“If any man will come after me, let him deny himself and take up his cross daily, and follow me.”<cite>Luke 9:23</cite></blockquote>
+    <p class="lead tgt ko">누가복음 9장 23절에서 그리스도께서는 이렇게 가르치셨습니다.</p>
+    <blockquote class="tgt ko">아무든지 나를 따라오려거든 자기를 부인하고 날마다 제 십자가를 지고 나를 따를 것이니라<cite>누가복음 9:23</cite></blockquote>
+    <p class="lead zh">在路加福音9章23节中，基督教导说：</p>
+    <blockquote class="zh">“若有人要跟从我，就当舍己，天天背起他的十字架来跟从我。”<cite>路加福音 9：23</cite></blockquote>
+    <p class="lead th">ในลูกา 9:23 พระคริสต์ทรงสอนว่า</p>
+    <blockquote class="th">“ถ้าใครต้องการจะมาติดตามเรา ให้คนนั้นปฏิเสธตนเอง รับกางเขนของตนแบกทุกวันและตามเรามา”<cite>ลูกา ๙:๒๓</cite></blockquote>
+    <p class="lead de">In Lukas 9:23 lehrte Christus:</p>
+    <blockquote class="de">Will jemand mein Nachfolger sein, so verleugne er sich selbst und nehme sein Kreuz Tag für Tag auf sich und folge mir nach!<cite>Lukas 9:23</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">36</span>
+    <p class="src en">The world teaches us to do what makes us happy; whereas Christ teaches us to deny our own desires and follow him. This doesn’t mean that happiness is not important.</p>
+    <p class="tgt ko">세상은 우리에게 스스로를 행복하게 하는 일을 하라고 가르치지만, 그리스도께서는 우리 자신의 욕망을 부인하고 그분을 따르라고 가르치십니다. 이것은 행복이 중요하지 않다는 뜻이 아닙니다.</p>
+    <p class="zh">世人教我们做让自己快乐的事；基督却教我们舍弃自己的欲望，跟从他。这并不是说快乐不重要。</p>
+    <p class="th">โลกสอนให้เราทำสิ่งที่ทำให้เรามีความสุข แต่พระคริสต์ทรงสอนให้เราปฏิเสธความต้องการของตัวเองและติดตามพระองค์ นี่ไม่ได้หมายความว่าความสุขไม่สำคัญ</p>
+    <p class="de">Die Welt lehrt uns, das zu tun, was uns glücklich macht; Christus dagegen lehrt uns, unsere eigenen Wünsche zu verleugnen und ihm nachzufolgen. Das bedeutet nicht, dass Glück nicht wichtig wäre.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">37</span>
+    <p class="src en">The gospel teaches us that true lasting joy comes through discipleship. Christ's definition of happiness is different. Following Christ requires that:</p>
+    <p class="tgt ko">복음은 참되고 지속되는 기쁨이 제자의 길을 통해 온다고 가르칩니다. 그리스도께서 정의하시는 행복은 다릅니다. 그리스도를 따르려면 이런 것들이 필요합니다.</p>
+    <p class="zh">福音教导我们，真正持久的喜乐来自门徒身份。基督对快乐的定义是不一样的。跟从基督要求我们：</p>
+    <p class="th">พระกิตติคุณสอนเราว่าปีติที่แท้จริงและยั่งยืนมาจากการเป็นสานุศิษย์ นิยามความสุขของพระคริสต์นั้นแตกต่างออกไป การติดตามพระคริสต์เรียกร้องให้:</p>
+    <p class="de">Das Evangelium lehrt uns, dass wahre, dauerhafte Freude durch die Nachfolge Christi kommt. Christi Definition von Glück ist anders. Christus nachzufolgen verlangt:</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">38</span>
+    <p class="src en">we say no when everyone else says yes<br>
+we attend our church meetings even when we don’t want to<br>
+we serve others when we’d rather relax</p>
+    <p class="tgt ko">우리는 다른 사람들이 모두 그렇다고 할 때 아니라고 말합니다.<br>
+우리는 가고 싶지 않을 때에도 교회 모임에 참석합니다.<br>
+우리는 쉬고 싶을 때에 다른 사람들을 위해 봉사합니다.</p>
+    <p class="zh">在别人都说“是”的时候说“不”<br>
+即使不想去，也参加教会聚会<br>
+宁愿休息的时候，也去服务他人</p>
+    <p class="th">เราตอบปฏิเสธเมื่อคนอื่นทุกคนตอบตกลง<br>
+เราไปประชุมของศาสนจักรแม้เมื่อเราไม่อยากไป<br>
+เรารับใช้ผู้อื่นทั้งที่อยากจะพักผ่อนมากกว่า</p>
+    <p class="de">wir sagen Nein, wenn alle anderen Ja sagen<br>
+wir besuchen unsere Versammlungen in der Kirche, auch wenn wir keine Lust dazu haben<br>
+wir dienen anderen, wenn wir uns lieber ausruhen würden</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">39</span>
+    <p class="src en">we forgive when we’d rather be angry<br>
+we sacrifice some of the things that we really want</p>
+    <p class="tgt ko">우리는 화를 내고 싶을 때에 용서합니다.<br>
+우리는 정말 원하는 것들 가운데 일부를 희생합니다.</p>
+    <p class="zh">宁愿生气的时候，也去饶恕<br>
+牺牲一些自己真正想要的东西</p>
+    <p class="th">เราให้อภัยทั้งที่อยากจะโกรธมากกว่า<br>
+เราเสียสละบางสิ่งที่เราอยากได้จริงๆ</p>
+    <p class="de">wir vergeben, wenn wir lieber wütend wären<br>
+wir opfern einiges von dem, was wir wirklich wollen</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">40</span>
+    <p class="src en">we keep the commandments, even though some of them are hard and are viewed as out of date by the rest of the world</p>
+    <p class="tgt ko">우리는 계명 가운데 어떤 것은 지키기 어렵고 세상 사람들에게는 시대에 뒤떨어진 것으로 여겨지더라도 계명을 지킵니다.</p>
+    <p class="zh">遵守诫命，即使有些诫命很难，而且被世人视为过时</p>
+    <p class="th">เรารักษาพระบัญญัติ แม้ว่าบางข้อจะยาก และชาวโลกมองว่าล้าสมัยไปแล้ว</p>
+    <p class="de">wir halten die Gebote, auch wenn manche davon schwer sind und vom Rest der Welt als überholt angesehen werden</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">41</span>
+    <p class="lead src en">In John 13:35, Christ taught</p>
+    <blockquote class="src en">“By this shall all men know that ye are my disciples, if ye have love one to another.”<cite>John 13:35</cite></blockquote>
+    <p class="lead tgt ko">요한복음 13장 35절에서 그리스도께서는 이렇게 가르치셨습니다.</p>
+    <blockquote class="tgt ko">너희가 서로 사랑하면 이로써 모든 사람이 너희가 내 제자인 줄 알리라<cite>요한복음 13:35</cite></blockquote>
+    <p class="lead zh">在约翰福音13章35节中，基督教导说：</p>
+    <blockquote class="zh">“你们若有彼此相爱的心，众人因此就认出你们是我的门徒了。”<cite>约翰福音 13：35</cite></blockquote>
+    <p class="lead th">ในยอห์น 13:35 พระคริสต์ทรงสอนว่า</p>
+    <blockquote class="th">“ถ้าท่านรักกันและกัน ดังนี้แหละทุกคนก็จะรู้ว่าท่านเป็นสาวกของเรา”<cite>ยอห์น ๑๓:๓๕</cite></blockquote>
+    <p class="lead de">In Johannes 13:35 lehrte Christus:</p>
+    <blockquote class="de">Daran werden alle erkennen, dass ihr meine Jünger seid, wenn ihr Liebe untereinander habt.<cite>Johannes 13:35</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">42</span>
+    <p class="src en">Christ didn’t say “People will know you’re my disciples because you know the most doctrine or because you never make mistakes, or because you win every argument.”</p>
+    <p class="tgt ko">그리스도께서는 이렇게 말씀하지 않으셨습니다. “사람들은 너희가 교리를 가장 많이 알기 때문에, 결코 실수하지 않기 때문에, 혹은 모든 논쟁에서 이기기 때문에 내 제자라는 것을 알게 될 것이다.”</p>
+    <p class="zh">基督并没有说：“人们会知道你们是我的门徒，是因为你们懂的教义最多，或因为你们从不犯错，或因为你们每次争论都赢。”</p>
+    <p class="th">พระคริสต์ไม่ได้ตรัสว่า “คนจะรู้ว่าท่านเป็นสานุศิษย์ของเราเพราะท่านรู้หลักคำสอนมากที่สุด หรือเพราะท่านไม่เคยทำผิดพลาด หรือเพราะท่านชนะทุกครั้งที่โต้เถียงกัน”</p>
+    <p class="de">Christus hat nicht gesagt: „Die Leute werden erkennen, dass ihr meine Jünger seid, weil ihr am meisten über die Lehre wisst oder weil ihr nie Fehler macht oder weil ihr jeden Streit gewinnt.“</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">43</span>
+    <p class="src en">He said that they will recognize his disciples because of love.</p>
+    <p class="tgt ko">그분은 사람들이 사랑 때문에 그분의 제자를 알아볼 것이라고 말씀하셨습니다.</p>
+    <p class="zh">他说，人们会因为爱而认出他的门徒。</p>
+    <p class="th">พระองค์ตรัสว่าผู้คนจะรู้จักสานุศิษย์ของพระองค์ได้ก็ด้วยความรัก</p>
+    <p class="de">Er sagte, man werde seine Jünger an der Liebe erkennen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">44</span>
+    <p class="src en">Christ’s definition of love is very different than that of the world. His definition is patient, sacrificial, forgiving, inclusive, courageous and even sometimes uncomfortable.</p>
+    <p class="tgt ko">그리스도께서 정의하시는 사랑은 세상이 정의하는 사랑과 매우 다릅니다. 그분이 말씀하시는 사랑은 인내하고, 희생하며, 용서하고, 품어 주며, 용기를 내고, 때로는 불편하기까지 한 사랑입니다.</p>
+    <p class="zh">基督对爱的定义与世人的定义大不相同。他所定义的爱，是忍耐，是牺牲，是饶恕，是包容，是勇敢，有时甚至让人不自在。</p>
+    <p class="th">นิยามความรักของพระคริสต์แตกต่างจากของโลกอย่างมาก ความรักตามนิยามของพระองค์นั้นอดทน ยอมเสียสละ พร้อมให้อภัย โอบรับทุกคน กล้าหาญ และบางครั้งก็ถึงกับทำให้อึดอัดใจ</p>
+    <p class="de">Christi Definition von Liebe unterscheidet sich sehr von der der Welt. Die Liebe, wie er sie definiert, ist geduldig, opferbereit, vergebungsbereit, offen für alle, mutig und manchmal sogar unbequem.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">45</span>
+    <p class="src en">If we love like Christ, we will stand out from the rest of the world.</p>
+    <p class="tgt ko">우리가 그리스도처럼 사랑한다면, 우리는 세상 사람들과 구별될 것입니다.</p>
+    <p class="zh">如果我们像基督那样去爱，就会在世人中间显得与众不同。</p>
+    <p class="th">ถ้าเรารักอย่างที่พระคริสต์ทรงรัก เราจะแตกต่างจากชาวโลกอย่างเห็นได้ชัด</p>
+    <p class="de">Wenn wir lieben wie Christus, werden wir uns vom Rest der Welt abheben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">46</span>
+    <p class="src en">In Luke Chapter 18, a rich young man asks the Savior what he needs to do to receive eternal life.</p>
+    <p class="tgt ko">누가복음 18장에서 한 부유한 청년이 구주께 영생을 얻으려면 무엇을 해야 하는지 묻습니다.</p>
+    <p class="zh">在路加福音18章中，一个富有的青年问救主，他需要做什么才能获得永生。</p>
+    <p class="th">ในลูกาบทที่ 18 ชายหนุ่มร่ำรวยคนหนึ่งทูลถามพระผู้ช่วยให้รอดว่าเขาต้องทำอะไรจึงจะได้รับชีวิตนิรันดร์</p>
+    <p class="de">In Lukas, Kapitel 18, fragt ein reicher junger Mann den Erretter, was er tun muss, um das ewige Leben zu erlangen.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">47</span>
+    <p class="lead src en">The Savior responds,</p>
+    <blockquote class="src en">“Sell all that thou hast, and distribute unto the poor… and come, follow me.”<cite>Luke 18:22</cite></blockquote>
+    <p class="lead tgt ko">구주께서는 이렇게 답하십니다.</p>
+    <blockquote class="tgt ko">네게 있는 것을 다 팔아 가난한 자들에게 나눠 주라… 그리고 와서 나를 따르라<cite>누가복음 18:22</cite></blockquote>
+    <p class="lead zh">救主回答说：</p>
+    <blockquote class="zh">“要变卖你一切所有的，分给穷人……你还要来跟从我。”<cite>路加福音 18：22</cite></blockquote>
+    <p class="lead th">พระผู้ช่วยให้รอดตรัสตอบว่า</p>
+    <blockquote class="th">“จงไปขายสิ่งของทั้งหมดที่ท่านมีอยู่แล้วแจกจ่ายให้คนยากจน… แล้วจงกลับมาติดตามเรา”<cite>ลูกา ๑๘:๒๒</cite></blockquote>
+    <p class="lead de">Der Erretter antwortet:</p>
+    <blockquote class="de">Verkaufe alles, was du besitzt, und verteile den Erlös an die Armen … dann komm und folge mir nach.<cite>Lukas 18:22</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">48</span>
+    <p class="src en">This young man was following the commandments and doing a lot of things right, but Christ knew that his wealth was more important to him than discipleship.</p>
+    <p class="tgt ko">이 청년은 계명을 지켰고 많은 것을 옳게 행했지만, 그리스도께서는 그에게 재물이 제자의 길보다 더 중요하다는 것을 알고 계셨습니다.</p>
+    <p class="zh">这个青年遵守诫命，做对了很多事，但基督知道，对他来说，财富比门徒身份更重要。</p>
+    <p class="th">ชายหนุ่มคนนี้รักษาพระบัญญัติและทำหลายอย่างได้ถูกต้อง แต่พระคริสต์ทรงทราบว่าสำหรับเขาแล้ว ทรัพย์สมบัติสำคัญกว่าการเป็นสานุศิษย์</p>
+    <p class="de">Dieser junge Mann hielt die Gebote und machte vieles richtig, aber Christus wusste, dass ihm sein Reichtum wichtiger war als die Nachfolge Christi.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">49</span>
+    <p class="src en">The lesson here isn’t necessarily that we should sell everything we own and give to the poor, rather, Christ is asking us what we are willing to give up for him.</p>
+    <p class="tgt ko">여기서 얻는 교훈은 반드시 우리가 가진 모든 것을 팔아 가난한 사람들에게 주어야 한다는 것이 아닙니다. 오히려 그리스도께서는 우리가 그분을 위해 무엇을 기꺼이 포기할 것인지 물으십니다.</p>
+    <p class="zh">这里的教训未必是要我们变卖自己所有的一切去分给穷人，而是基督在问我们，我们愿意为他放弃什么。</p>
+    <p class="th">บทเรียนตรงนี้ไม่ได้หมายความว่าเราต้องขายทุกอย่างที่มีแล้วแจกคนยากจนเสมอไป แต่พระคริสต์กำลังทรงถามเราว่า เราเต็มใจจะสละอะไรเพื่อพระองค์บ้าง</p>
+    <p class="de">Die Lektion daraus ist nicht unbedingt, dass wir alles verkaufen sollen, was wir besitzen, und es den Armen geben; vielmehr fragt uns Christus, was wir bereit sind, für ihn aufzugeben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">50</span>
+    <p class="src en">Serving in the temple, keeping our covenants, paying our tithing, missionary service, callings, and Sabbath observance all require us to acknowledge that our will is not the most important thing to us.</p>
+    <p class="tgt ko">성전에서 봉사하는 것, 성약을 지키는 것, 십일조를 내는 것, 선교 봉사, 부름, 안식일 준수는 모두, 우리의 뜻이 우리에게 가장 중요한 것이 아님을 인정하라고 우리에게 요구합니다.</p>
+    <p class="zh">在圣殿里服务、遵守圣约、缴付什一奉献、传道服务、接受召唤和遵守安息日，这些都要求我们承认，自己的意愿并不是我们最看重的东西。</p>
+    <p class="th">การรับใช้ในพระวิหาร การรักษาพันธสัญญา การจ่ายส่วนสิบ การรับใช้เป็นผู้สอนศาสนา การรับใช้ในการเรียก และการรักษาวันสะบาโต ล้วนเรียกร้องให้เรายอมรับว่าความประสงค์ของเราเองไม่ใช่สิ่งสำคัญที่สุดสำหรับเรา</p>
+    <p class="de">Der Dienst im Tempel, das Halten unserer Bündnisse, das Zahlen des Zehnten, der Missionsdienst, Berufungen und das Heiligen des Sabbats verlangen alle von uns, anzuerkennen, dass unser eigener Wille nicht das Wichtigste für uns ist.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">51</span>
+    <p class="src en">By doing these things, we demonstrate that Christ is rearranging our priorities.</p>
+    <p class="tgt ko">이런 일들을 함으로써 우리는 그리스도께서 우리의 우선순위를 다시 정하고 계심을 보여 줍니다.</p>
+    <p class="zh">借着做这些事，我们表明基督正在重新安排我们的优先次序。</p>
+    <p class="th">เมื่อเราทำสิ่งเหล่านี้ เราก็แสดงให้เห็นว่าพระคริสต์กำลังทรงจัดลำดับความสำคัญของเราเสียใหม่</p>
+    <p class="de">Indem wir das tun, zeigen wir, dass Christus unsere Prioritäten neu ordnet.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">52</span>
+    <p class="lead src en">In Ephesians 2:8, we read</p>
+    <blockquote class="src en">“For by grace ye are saved through faith; and that not of yourselves: it is the gift of God.<cite>Ephesians 2:8</cite></blockquote>
+    <p class="lead tgt ko">에베소서 2장 8절에는 이렇게 기록되어 있습니다.</p>
+    <blockquote class="tgt ko">너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라<cite>에베소서 2:8</cite></blockquote>
+    <p class="lead zh">在以弗所书2章8节中，我们读到：</p>
+    <blockquote class="zh">“你们得救是本乎恩，也因着信；这并不是出于自己，乃是神所赐的。”<cite>以弗所书 2：8</cite></blockquote>
+    <p class="lead th">ในเอเฟซัส 2:8 เราอ่านว่า</p>
+    <blockquote class="th">“เพราะว่าท่านทั้งหลายได้รับความรอดแล้วด้วยพระคุณโดยทางความเชื่อ ความรอดนี้ไม่ใช่มาจากตัวท่าน แต่เป็นของประทานจากพระเจ้า”<cite>เอเฟซัส ๒:๘</cite></blockquote>
+    <p class="lead de">In Epheser 2:8 lesen wir:</p>
+    <blockquote class="de">Denn durch die Gnade seid ihr gerettet worden auf Grund des Glaubens, und zwar nicht aus euch (d. h. durch euer Verdienst) — nein, Gottes Geschenk ist es.<cite>Epheser 2:8</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">53</span>
+    <p class="src en">Many Christians believe that this means that we are saved automatically if we have faith. It is important to dive a little bit deeper into this by examining what faith really is.</p>
+    <p class="tgt ko">많은 그리스도인들은 이 말씀이, 믿음만 있으면 우리가 자동으로 구원받는다는 뜻이라고 믿습니다. 믿음이 진정 무엇인지 살펴봄으로써 이 말씀을 조금 더 깊이 파고들어 보는 것이 중요합니다.</p>
+    <p class="zh">许多基督徒认为，这意味着只要有信心，我们就会自动得救。我们有必要更深入地探究一下信心到底是什么。</p>
+    <p class="th">ชาวคริสต์จำนวนมากเชื่อว่าข้อนี้หมายความว่า ถ้าเรามีศรัทธา เราก็จะรอดโดยอัตโนมัติ สิ่งสำคัญคือเราต้องมองให้ลึกลงไปอีกนิด โดยพิจารณาว่าแท้จริงแล้วศรัทธาคืออะไร</p>
+    <p class="de">Viele Christen glauben, das bedeute, dass wir automatisch gerettet sind, wenn wir Glauben haben. Es ist wichtig, hier etwas tiefer einzutauchen und zu untersuchen, was Glaube wirklich ist.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">54</span>
+    <p class="lead src en">In James 2:17, we read that</p>
+    <blockquote class="src en">“Even so faith, if it hath not works, is dead, being alone.”<cite>James 2:17</cite></blockquote>
+    <p class="lead tgt ko">야고보서 2장 17절에는 이렇게 기록되어 있습니다.</p>
+    <blockquote class="tgt ko">이와 같이 행함이 없는 믿음은 그 자체가 죽은 것이라<cite>야고보서 2:17</cite></blockquote>
+    <p class="lead zh">在雅各书2章17节中，我们读到：</p>
+    <blockquote class="zh">“这样，信心若没有行为就是死的。”<cite>雅各书 2：17</cite></blockquote>
+    <p class="lead th">ในยากอบ 2:17 เราอ่านว่า</p>
+    <blockquote class="th">“ทำนองเดียวกัน ลำพังความเชื่อ ถ้าไม่มีการปฏิบัติ ก็เป็นสิ่งที่ตายแล้ว”<cite>ยากอบ ๒:๑๗</cite></blockquote>
+    <p class="lead de">In Jakobus 2:17 lesen wir:</p>
+    <blockquote class="de">So steht es auch mit dem Glauben: hat er keine Werke (aufzuweisen), so ist er an sich selbst (= für sich allein) tot.<cite>Jakobus 2:17</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">55</span>
+    <p class="src en">This means that we demonstrate our faith by our actions. It is not as simple as saying that we believe, rather, we must show that we believe by what we do and how we think.</p>
+    <p class="tgt ko">이는 우리가 행함으로 믿음을 보여 준다는 뜻입니다. 믿는다고 말하는 것처럼 간단한 일이 아닙니다. 오히려 우리는 무엇을 하고 어떻게 생각하는지로 우리가 믿는다는 것을 보여 주어야 합니다.</p>
+    <p class="zh">这意味着我们要用行为来表明自己的信心。这不像说一句“我相信”那么简单，我们必须借着所作所为和所思所想，表明自己真的相信。</p>
+    <p class="th">นี่หมายความว่าเราแสดงศรัทธาของเราด้วยการปฏิบัติ ไม่ใช่แค่พูดว่าเราเชื่อก็พอ แต่เราต้องแสดงว่าเราเชื่อด้วยสิ่งที่เราทำและวิธีที่เราคิด</p>
+    <p class="de">Das heißt, wir zeigen unseren Glauben durch unser Handeln. Es ist nicht so einfach, wie nur zu sagen, dass wir glauben; vielmehr müssen wir zeigen, dass wir glauben – durch das, was wir tun, und dadurch, wie wir denken.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">56</span>
+    <p class="src en">Christ doesn’t ask us to do hard things because he needs us to do them, rather, he asks us to do them to show him that we truly love him.</p>
+    <p class="tgt ko">그리스도께서 우리에게 어려운 일을 하라고 하시는 것은, 우리가 그 일을 하는 것이 그분께 필요해서가 아니라, 우리가 그분을 진정으로 사랑한다는 것을 그분께 보여 드리게 하시려는 것입니다.</p>
+    <p class="zh">基督要我们做困难的事，并不是因为他需要我们去做，而是要我们借此向他表明，我们是真心爱他。</p>
+    <p class="th">พระคริสต์ไม่ได้ทรงขอให้เราทำสิ่งที่ยากเพราะพระองค์ทรงต้องการให้เราทำ แต่ทรงขอให้เราทำเพื่อแสดงให้พระองค์เห็นว่าเรารักพระองค์จริงๆ</p>
+    <p class="de">Christus bittet uns nicht deshalb, schwere Dinge zu tun, weil er darauf angewiesen wäre; vielmehr bittet er uns darum, damit wir ihm zeigen, dass wir ihn wirklich lieben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">57</span>
+    <p class="src en">Brothers and Sisters, the gospel isn’t supposed to make us more comfortable in the world. It is supposed to make us more like our Savior.</p>
+    <p class="tgt ko">형제 자매 여러분, 복음은 우리를 세상에서 더 편안하게 만들기 위한 것이 아닙니다. 복음은 우리가 구주를 더 닮아 가게 하기 위한 것입니다.</p>
+    <p class="zh">弟兄姊妹们，福音不是要让我们在世上过得更舒适。福音是要让我们更像我们的救主。</p>
+    <p class="th">พี่น้องทั้งหลาย พระกิตติคุณไม่ได้มีไว้เพื่อทำให้เราอยู่ในโลกได้อย่างสบายใจขึ้น แต่มีไว้เพื่อทำให้เราเป็นเหมือนพระผู้ช่วยให้รอดมากขึ้น</p>
+    <p class="de">Brüder und Schwestern, das Evangelium soll es uns nicht bequemer in der Welt machen. Es soll uns unserem Erretter ähnlicher machen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">58</span>
+    <p class="src en">By being different from the world and following our Savior we can set ourselves apart. As we get closer to the second coming, the church has been making a lot of changes.</p>
+    <p class="tgt ko">세상과 다르게 살고 우리 구주를 따름으로써 우리는 세상과 구별될 수 있습니다. 재림이 가까워짐에 따라 교회에는 많은 변화가 있어 왔습니다.</p>
+    <p class="zh">借着与世人不同、跟从我们的救主，我们就能与众不同。随着耶稣基督第二次来临的临近，教会一直在作出许多改变。</p>
+    <p class="th">เมื่อเราแตกต่างจากชาวโลกและติดตามพระผู้ช่วยให้รอด เราก็สามารถเป็นคนที่ต่างออกไปจากคนอื่นได้ ในขณะที่เราใกล้การเสด็จมาครั้งที่สองของพระเยซูคริสต์เข้าไปทุกที ศาสนจักรได้ทำการเปลี่ยนแปลงหลายอย่าง</p>
+    <p class="de">Indem wir anders sind als die Welt und unserem Erretter nachfolgen, können wir uns abheben. Während wir dem Zweiten Kommen näher rücken, nimmt die Kirche viele Veränderungen vor.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">59</span>
+    <p class="src en">For me, these are opportunities for us to try to become comfortable for the changes that our Savior will expect of us when he returns. We need to all “Get used to different.”</p>
+    <p class="tgt ko">제 생각에 이러한 변화는, 구주께서 다시 오실 때 우리에게 기대하실 변화에 우리가 익숙해지려고 노력할 기회입니다. 우리 모두 “다름에 익숙해져야 합니다”.</p>
+    <p class="zh">对我来说，这些都是机会，让我们试着去习惯那些改变，就是救主再来时会期望我们作出的改变。我们所有人都需要“习惯与世人不同”。</p>
+    <p class="th">สำหรับผม สิ่งเหล่านี้คือโอกาสให้เราได้ลองปรับตัวให้เข้ากับการเปลี่ยนแปลงที่พระผู้ช่วยให้รอดจะทรงคาดหวังจากเราเมื่อพระองค์เสด็จกลับมา เราทุกคนต้อง “หัดชินกับความแตกต่าง”</p>
+    <p class="de">Für mich sind das Gelegenheiten: Wir können versuchen, uns mit den Veränderungen vertraut zu machen, die unser Erretter von uns erwarten wird, wenn er wiederkommt. Für uns alle heißt es: „Gewöhnt euch ans Anderssein.“</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>

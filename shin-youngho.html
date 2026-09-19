@@ -69,6 +69,11 @@ body {
   min-height: 100vh;
 }
 .ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+/* Korean breaks between words, never inside one. Without this the browser is free to break
+   between any two syllable blocks, and a page read on 2026-09-18 found 은혜 split across two
+   lines in a title and 집중했더라면 split in the body. Thai has no spaces between words at all,
+   so it keeps the browser's own rule. */
+.ko, .zh { word-break: keep-all; }
 
 /* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
    checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
@@ -293,7 +298,7 @@ html:not(.show-de) .de { display: none; }
 <div class="wrap">
 <header class="talk-head">
   <h1><span class="en">Recognizing God’s grace during times of Adversity</span><span class="ko">역경 가운데 주님의 은혜를 배우는 것</span><span class="zh">在逆境中认识主的恩典</span><span class="th">การเรียนรู้พระคุณของพระเจ้าท่ามกลางความทุกข์ยาก</span><span class="de">Inmitten von Widrigkeiten die Gnade des Herrn kennenlernen</span></h1>
-  <p class="byline">신영호 형제 &nbsp;·&nbsp; 13 September 2026</p>
+  <p class="byline">신영호 형제 · Brother Shin Young-ho &nbsp;·&nbsp; 13 September 2026</p>
   <div class="rule"></div>
 </header>
 
@@ -422,7 +427,7 @@ html:not(.show-de) .de { display: none; }
     <p class="lead src ko">헨리 비 아이어링 장로님의 2025년 10월 연차 대회 말씀 “그리스도 안에서 시험받고 단련됨”을 인용하고 싶습니다.</p>
     <blockquote class="src ko">형제 자매 여러분, 여러분의 시험과 단련은 모로나이나 야곱, 선지자 조셉의 것과 같아 보이지 않을 수도 있습니다. 하지만 반드시 겪게 될 것입니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
     <p class="lead tgt en">I’d like to quote Elder Henry B. Eyring’s October 2025 general conference talk, “Proved and Strengthened in Christ.”</p>
-    <blockquote class="tgt en">Brothers and sisters, your proving and strengthening may not look like Moroni’s or Jacob’s or the Prophet Joseph’s. But it will come.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="tgt en">Brothers and sisters, your proving and strengthening may not look like Moroni’s or Jacob’s or the Prophet Joseph’s. But it will come.<cite>Henry B. Eyring, “Proved and Strengthened in Christ,” October 2025</cite></blockquote>
     <p class="lead zh">我想引用亨利·艾宁长老在2025年10月总会大会中题为「在基督里受验证与巩固」的讲话。</p>
     <blockquote class="zh">弟兄姊妹们，你的验证和巩固可能不会像摩罗乃，或雅各，或先知约瑟的一样。但它会来到。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
     <p class="lead th">ผมอยากจะยกข้อความจากคำพูดของเอ็ลเดอร์เฮนรีย์ บี. อายริงก์ ในการประชุมใหญ่สามัญเดือนตุลาคม 2025 เรื่อง “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์”</p>
@@ -434,7 +439,7 @@ html:not(.show-de) .de { display: none; }
   <div class="pair cite">
     <span class="turn">13</span>
     <blockquote class="src ko">그것은 가정생활의 시련을 통해 남몰래 올 수도 있습니다. 질병이나 실망, 슬픔, 외로움을 통해 올 수도 있습니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
-    <blockquote class="tgt en">It may come quietly, through the trials of family life. It may come through illness or disappointment or grief or loneliness.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="tgt en">It may come quietly, through the trials of family life. It may come through illness or disappointment or grief or loneliness.<cite>Henry B. Eyring, “Proved and Strengthened in Christ,” October 2025</cite></blockquote>
     <blockquote class="zh">它可能会透过家庭生活的考验悄悄来到；它可能会透过疾病，或失望，或哀伤，或孤独来到。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
     <blockquote class="th">อาจจะมาเงียบๆ ผ่านบททดสอบในชีวิตครอบครัว อาจจะมาผ่านความเจ็บป่วย หรือความผิดหวัง หรือความทุกข์ใจ หรือความโดดเดี่ยว<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
     <blockquote class="de">Vielleicht kommt sie still, durch die Herausforderungen des Familienlebens. Vielleicht kommt sie durch Krankheit oder Enttäuschung oder Trauer oder Einsamkeit.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>
@@ -443,7 +448,7 @@ html:not(.show-de) .de { display: none; }
   <div class="pair cite">
     <span class="turn">14</span>
     <blockquote class="src ko">저는 이런 순간들이 주님께서 여러분을 저버렸다는 증거가 아님을 간증드립니다. 오히려 그것은 그분께서 여러분을 정련하고 강화할 만큼 사랑하신다는 증거입니다. 그분은 여러분이 영생의 무게를 감당할 수 있을 만큼 강해지도록 여러분을 단련하고 계신 것입니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
-    <blockquote class="tgt en">I bear witness that these moments are not evidence that the Lord has abandoned you. Rather, they are evidence that He loves you enough to refine and strengthen you. He is making you strong enough to carry the weight of eternal life.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="tgt en">I bear witness that these moments are not evidence that the Lord has abandoned you. Rather, they are evidence that He loves you enough to refine and strengthen you. He is making you strong enough to carry the weight of eternal life.<cite>Henry B. Eyring, “Proved and Strengthened in Christ,” October 2025</cite></blockquote>
     <blockquote class="zh">我见证，这些时刻并非主离弃你的证明。它们反而证明祂非常爱你，以至要淬炼并巩固你。祂在帮助你变得坚强，得以扛起永生的重量。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
     <blockquote class="th">ข้าพเจ้าเป็นพยานว่าช่วงเวลาเหล่านี้ไม่ใช่หลักฐานว่าพระเจ้าทรงทอดทิ้งท่าน แต่เป็นหลักฐานว่าพระองค์ทรงรักท่านมากพอที่จะขัดเกลาและเสริมกําลังท่าน ทรงกําลังทําให้ท่านแข็งแกร่งพอที่จะแบกรับน้ำหนักของชีวิตนิรันดร์ได้<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
     <blockquote class="de">Ich gebe Zeugnis, dass diese Zeiten nicht Beweis dafür sind, dass der Herr Sie verlassen hat. Vielmehr sind sie ein Beweis dafür, dass er Sie genug liebt, um Sie zu läutern und zu stärken. Er macht Sie stark genug, das Gewicht des ewigen Lebens zu tragen.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>
@@ -452,7 +457,7 @@ html:not(.show-de) .de { display: none; }
   <div class="pair cite">
     <span class="turn">15</span>
     <blockquote class="src ko">우리가 계속해서 충실히 봉사한다면, 주님께서는 우리를 정련하시며 강화해 주실 것입니다. 그리고 언젠가 우리는 돌이켜보며 바로 그 시련이 그분이 지니신 사랑의 증거였음을 알게 될 것입니다. 우리는 영광 중에 우리가 그분과 함께 설 수 있도록 그분께서 우리를 빚어내고 계셨음을 알게 될 것입니다.<cite>헨리 비 아이어링, “그리스도 안에서 시험받고 단련됨”, 2025년 10월 연차 대회</cite></blockquote>
-    <blockquote class="tgt en">If we remain faithful in our service, the Lord will refine us. He will strengthen us. And one day we will look back and see that those very trials were evidence of His love. We will see that He was shaping us to be able to stand with Him in glory.<cite>Henry B. Eyring, &quot;Proved and Strengthened in Christ,&quot; October 2025</cite></blockquote>
+    <blockquote class="tgt en">If we remain faithful in our service, the Lord will refine us. He will strengthen us. And one day we will look back and see that those very trials were evidence of His love. We will see that He was shaping us to be able to stand with Him in glory.<cite>Henry B. Eyring, “Proved and Strengthened in Christ,” October 2025</cite></blockquote>
     <blockquote class="zh">如果我们在服务中保持忠信，主必会淬炼我们。祂会巩固我们。有一天，我们会回顾过往，并看出那些考验都是祂爱的证明。我们会看出祂在塑造我们，使我们能与祂一起站在荣耀之中。<cite>亨利·艾宁，「在基督里受验证与巩固」，2025年10月总会大会</cite></blockquote>
     <blockquote class="th">หากเรายังคงชื่อสัตย์ในการรับใช้ พระเจ้าจะทรงขัดเกลาเรา พระองค์จะทรงเสริมกําลังเรา และวันหนึ่งเราจะมองย้อนกลับไปแล้วเห็นว่าการทดสอบเหล่านั้นเป็นหลักฐานแห่งความรักของพระองค์ เราจะเห็นว่าพระองค์ทรงหล่อหลอมเราให้สามารถยืนกับพระองค์ในรัศมีภาพ<cite>เฮนรีย์ บี. อายริงก์, “ได้รับการพิสูจน์และเสริมกําลังในพระคริสต์,” การประชุมใหญ่สามัญ ตุลาคม 2025</cite></blockquote>
     <blockquote class="de">Wenn wir in unserem Dienst treu bleiben, läutert uns der Herr. Er stärkt uns. Und eines Tages werden wir zurückblicken und erkennen, dass genau diese Prüfungen ein Beweis seiner Liebe waren. Wir werden sehen, dass er uns geformt hat, sodass wir in Herrlichkeit an seiner Seite stehen können.<cite>Henry B. Eyring, „Erprobt und in Christus gestärkt“, Generalkonferenz, Oktober 2025</cite></blockquote>

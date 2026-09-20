@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enough Light to Take the Next Step · 다음 한 걸음을 내디딜 만큼의 빛</title>
+<script>
+/* Set theme + font choices before first paint (no flash). Saved choice wins; theme else follows device. */
+(function () {
+  var d = document.documentElement;
+  try {
+    var t = localStorage.getItem("talkTheme");
+    if (!t) t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    if (t === "dark") d.classList.add("dark");
+  } catch (e) {}
+  // Which languages are checked. Pre-paint so there's no flash of hidden text.
+  try {
+    var a = JSON.parse(localStorage.getItem("talkLangs"));
+    if (!Array.isArray(a) || !a.length) a = ["en", "ko"];
+    ["en", "ko", "zh", "th", "de"].forEach(function (l) { if (a.indexOf(l) !== -1) d.classList.add("show-" + l); });
+  } catch (e) { d.classList.add("show-en"); d.classList.add("show-ko"); }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&family=Gowun+Batang:wght@400;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F5EFE3;
+  --paper-edge: #ECE4D2;
+  --card: #FBF7EE;
+  --ink: #1B1915;
+  --ink-soft: #3D362D;
+  --gold: #9B7230;
+  --gold-soft: #C9A969;
+  --crimson: #8A2E2E;
+  --muted: #6E5F4E;
+  --hairline: #D9CFB9;
+}
+/* Warm dark theme — overrides the same variables so everything below adapts. */
+html.dark {
+  --paper: #17140F;
+  --paper-edge: #201C16;
+  --card: #221E17;
+  --ink: #EDE6D6;
+  --ink-soft: #C7BBA4;
+  --gold: #D2B173;
+  --gold-soft: #8A6A33;
+  --crimson: #D98A7B;
+  --muted: #9B8C77;
+  --hairline: #38312A;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 18px; line-height: 1.62;
+  font-feature-settings: "liga", "kern";
+  /* defensive: never let a long token force sideways scroll */
+  overflow-wrap: break-word; word-wrap: break-word;
+}
+body {
+  background:
+    radial-gradient(circle at 15% 6%, var(--paper-edge) 0%, transparent 42%),
+    radial-gradient(circle at 85% 94%, var(--paper-edge) 0%, transparent 48%),
+    var(--paper);
+  min-height: 100vh;
+}
+.ko { font-family: "Gowun Batang", "Source Serif 4", serif; }
+/* Korean breaks between words, never inside one. Without this the browser is free to break
+   between any two syllable blocks, and a page read on 2026-09-18 found 은혜 split across two
+   lines in a title and 집중했더라면 split in the body. Thai has no spaces between words at all,
+   so it keeps the browser's own rule. Chinese had the same rule until a page read on 2026-09-19
+   found what it does there: a Chinese clause has no spaces, so keep-all makes the whole clause
+   one word, the emergency break then lands anywhere, and a phone-width page showed a comma alone
+   on a line and "RMN" cut in half. Chinese breaks between characters and keeps its punctuation
+   off the start of a line, which is what strict line-breaking asks for. */
+.ko { word-break: keep-all; }
+.zh { word-break: normal; line-break: strict; }
+
+/* Extra reading-aid language layers (Simplified Chinese, Thai). Opt-in (their
+   checkboxes start off), so the pulpit KO/EN experience is unchanged. Present only
+   on talks that carry a `zh` / `th` field. */
+.zh { font-family: "Noto Serif SC", "Source Serif 4", serif; }
+.th { font-family: "Noto Serif Thai", "Source Serif 4", serif; line-height: 1.9; }
+.de { font-family: "Source Serif 4", serif; }
+.pair .zh, .pair .th, .pair .de { margin: 0.5rem 0 0; color: var(--ink); }
+.talk-h .zh {
+  font-family: "Noto Serif SC", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .th {
+  font-family: "Noto Serif Thai", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.talk-h .de {
+  font-family: "Source Serif 4", "Fraunces", Georgia, serif; font-weight: 600;
+  font-size: 1.2rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+.pair.cite .zh, .pair.cite .th, .pair.cite .de {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: normal;
+}
+
+/* Reading column: a max-width that simply shrinks to fit a phone. */
+.wrap { max-width: 40rem; margin: 0 auto; padding: 0 1.4rem 5rem; }
+
+header.talk-head { padding: 4rem 0 2rem; border-bottom: 1px solid var(--hairline); margin-bottom: 2.5rem; text-align: center; }
+.talk-head h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-variation-settings: "opsz" 144, "wght" 450;
+  font-size: clamp(1.9rem, 6vw, 2.9rem);
+  line-height: 1.08; letter-spacing: -0.012em;
+  margin: 0 0 1rem; color: var(--ink);
+  /* A title is short enough for the browser to weigh the whole thing, so let it. Without this the
+     Korean title of Brother Grant's talk wrapped to three lines on a phone and left its last word
+     alone on the third, which is the first thing a phone reader sees. Browsers that do not know
+     the property wrap as they did before. 2026-09-19, the proofreader's page read. */
+  text-wrap: balance;
+}
+.talk-head h1 .ko { font-weight: 500; }
+/* Title languages stack as blocks so any checkbox combination reads cleanly (no separators). */
+.talk-head h1 .en, .talk-head h1 .ko, .talk-head h1 .zh, .talk-head h1 .th, .talk-head h1 .de { display: block; }
+.talk-head .byline {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin: 0;
+}
+.talk-head .rule { width: 2.5rem; height: 1px; background: var(--gold-soft); margin: 1.1rem auto 0; }
+
+/* Interleaved pair: source block, then translation block. Scripts self-distinguish.
+   Each pair is tappable — tap to highlight where you are (see script at the bottom). */
+.pair {
+  margin: 0 0 1.75rem; cursor: pointer; border-radius: 6px;
+  transition: background 0.15s;
+}
+.pair:not(.cite) { padding: 0.45rem 0 0.45rem 0.9rem; border-left: 1.5px solid transparent; }
+/* A single word alone on the last line reads as a mistake, and a list the speaker set out line by
+   line makes one every time a line is a few characters too long: at phone width three of five
+   languages left one word stranded under it. This asks the browser to avoid that where it can, and
+   changes nothing for a browser that does not know it. 2026-09-19, the proofreader's page read. */
+.pair p, blockquote p, blockquote { text-wrap: pretty; }
+.pair .src { margin: 0; color: var(--ink); }
+.pair .tgt { margin: 0.5rem 0 0; color: var(--ink); }
+
+/* Tap-to-highlight: one pair at a time gets a rosy-clay wash (no bar — the
+   quotation bars own that gesture) so you can keep your place at a glance. */
+.pair.current { background: color-mix(in srgb, var(--crimson) 13%, var(--paper)); }
+
+/* Turn marker — each packet is one spoken turn in the live alternating reading.
+   The number is what the readers call out to stay synced. */
+.turn {
+  display: block; font-family: "Fraunces", Georgia, serif; font-weight: 500;
+  font-size: 0.64rem; letter-spacing: 0.05em; color: var(--muted); opacity: 0.7;
+  margin: 0 0 0.3rem;
+}
+
+/* Subtle pair grouping: when both EN and KO are showing, a faint spine ties each
+   pair into one unit so a reader following along never loses which line matches which. */
+html.show-en.show-ko .pair:not(.cite) {
+  border-left-color: color-mix(in srgb, var(--hairline) 55%, var(--paper));
+  margin-bottom: 2rem;
+}
+
+/* Headings inside the talk */
+.talk-h { margin: 2.75rem 0 1.25rem; }
+.talk-h .src {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0; color: var(--ink);
+}
+.talk-h .tgt {
+  font-family: "Fraunces", Georgia, serif; font-variation-settings: "opsz" 40, "wght" 550;
+  font-size: 1.3rem; margin: 0.25rem 0 0; color: var(--ink);
+}
+
+/* Citations (scripture / prophet / hymn) — set apart, official text */
+.pair.cite { margin: 1.75rem 0; }
+.pair.cite blockquote {
+  border-left: 2px solid var(--gold); padding: 0.1rem 0 0.1rem 1.1rem;
+  color: var(--ink-soft); font-style: italic;
+}
+/* The lead-in is the SPEAKER's own sentence, not part of the quotation, so it is set
+   like the rest of his prose. It used to inherit the citation italic because it carries
+   the same .src/.tgt language classes as the block beside it (Matt, 2026-08-16). */
+.pair.cite .lead {
+  font-style: normal; color: var(--ink);
+  border-left: none; padding: 0; margin: 0 0 0.35rem;
+}
+.pair.cite cite {
+  display: block; margin-top: 0.35rem; font-style: normal;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.72rem;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
+
+/* Flagged passage — surfaced, never hidden */
+.flag {
+  display: inline-block; vertical-align: super; font-size: 0.62em;
+  color: var(--crimson); text-decoration: none; margin-left: 0.15em; font-weight: 600;
+}
+.notes {
+  margin-top: 3.5rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+  font-size: 0.86rem; color: var(--muted);
+}
+.notes h2 {
+  font-family: "Fraunces", Georgia, serif; font-size: 0.7rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin: 0 0 0.8rem;
+}
+.notes li { margin: 0.4rem 0; }
+.notes .ref { color: var(--crimson); font-weight: 600; }
+
+footer.colophon {
+  margin-top: 3rem; font-size: 0.74rem; color: var(--muted); text-align: center;
+}
+.colophon .en, .colophon .ko, .colophon .zh, .colophon .th, .colophon .de { display: block; }
+.colophon .ko, .colophon .zh, .colophon .th, .colophon .de { margin-top: 0.15rem; }
+.feedback-btn {
+  display: inline-block; margin-bottom: 1rem; text-decoration: none;
+  font-family: "Fraunces", Georgia, serif; font-size: 0.92rem; letter-spacing: 0.02em;
+  color: #FBF7EE; background: var(--gold); border: 1.5px solid var(--gold);
+  border-radius: 999px; padding: 0.5rem 1.3rem; line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+.feedback-btn:hover { background: #876328; border-color: #876328; }
+@media print { .feedback-btn { display: none; } }
+
+/* ---- In-browser language toggle (view-only; the saved file is always bilingual) ---- */
+/* Sits directly under the title so a reader can't miss it; sticks to top on scroll. */
+.langbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.75rem 0.6rem; margin: 0 -1.4rem 2.4rem;
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--hairline);
+}
+.langbar button {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.84rem; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: var(--card);
+  border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.45rem 1.15rem; cursor: pointer; line-height: 1;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.langbar button:hover { border-color: var(--gold); color: var(--ink); }
+.langbar button[aria-pressed="true"] {
+  color: #FBF7EE; background: var(--gold); border-color: var(--gold);
+  font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.14);
+}
+.langbar button[data-lang="ko"] { font-family: "Noto Serif KR", serif; }
+.langbar button[data-lang="zh"] { font-family: "Noto Serif SC", serif; }
+.langbar button[data-lang="th"] { font-family: "Noto Serif Thai", serif; }
+
+/* In dark mode the gold is light, so put dark text on the filled buttons. */
+html.dark .langbar button[aria-pressed="true"] { color: #17140F; }
+html.dark .feedback-btn { color: #17140F; }
+html.dark .feedback-btn:hover { background: var(--gold-soft); border-color: var(--gold-soft); color: #EDE6D6; }
+
+/* ---- Text-size control ----
+   Everything on the page is sized in rem, so bumping the ROOT font-size reflows
+   the text larger and the reading column stays inside the screen — unlike pinch-
+   zoom, which scales the whole layout and pushes it off the edge of a phone. */
+.langbar .sep { align-self: stretch; width: 1px; background: var(--hairline); margin: 0.1rem 0.25rem; }
+.langbar button[data-size] {
+  font-family: "Fraunces", Georgia, serif; line-height: 1;
+  padding: 0.3rem 0.7rem; color: var(--ink-soft);
+}
+.langbar button[data-size="md"] { font-size: 0.8rem; }
+.langbar button[data-size="lg"] { font-size: 1rem; }
+.langbar button[data-size="xl"] { font-size: 1.25rem; }
+/* Keep the three size buttons together on their own row so they never wrap apart. */
+.langbar .sizegroup {
+  flex-basis: 100%; display: flex; flex-wrap: nowrap;
+  align-items: center; justify-content: center; gap: 0.45rem;
+}
+
+/* Light/dark slide switch (sun ⇄ moon). */
+.langbar .theme-switch {
+  position: relative; flex: 0 0 auto; width: 3.1rem; height: 1.65rem; padding: 0;
+  background: var(--card); border: 1.5px solid var(--gold-soft); border-radius: 999px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.langbar .theme-switch .knob {
+  position: absolute; top: 50%; left: 0.16rem; transform: translateY(-50%);
+  width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  transition: left 0.18s ease, background 0.18s;
+}
+.langbar .theme-switch .knob svg { width: 0.82rem; height: 0.82rem; }
+.langbar .theme-switch .ic-sun { display: block; color: var(--card); }
+.langbar .theme-switch .ic-moon { display: none; color: var(--paper); }
+.langbar .theme-switch[aria-checked="true"] .knob { left: calc(100% - 1.41rem); background: var(--ink-soft); }
+.langbar .theme-switch[aria-checked="true"] .ic-sun { display: none; }
+.langbar .theme-switch[aria-checked="true"] .ic-moon { display: block; }
+body { font-size: 1rem; }          /* inherit the (scalable) root size instead of a fixed px */
+html.text-lg { font-size: 21px; }  /* "Larger"  */
+html.text-xl { font-size: 25px; }  /* "Largest" */
+
+/* Per-language visibility: each language shows only when its checkbox is on
+   (html gets show-en / show-ko / show-zh). Any combination is allowed; Chinese
+   starts off. Classes live on <html> so they apply pre-paint (no flash). */
+html:not(.show-en) .en { display: none; }
+html:not(.show-ko) .ko { display: none; }
+html:not(.show-zh) .zh { display: none; }
+html:not(.show-th) .th { display: none; }
+html:not(.show-de) .de { display: none; }
+
+@media print { .langbar { display: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="talk-head">
+  <h1><span class="en">Enough Light to Take the Next Step</span><span class="ko">다음 한 걸음을 내디딜 만큼의 빛</span><span class="zh">足以迈出下一步的光</span><span class="th">แสงสว่างพอให้ก้าวต่อไปอีกหนึ่งก้าว</span><span class="de">Genug Licht für den nächsten Schritt</span></h1>
+  <p class="byline">Brother Sam Castro &nbsp;·&nbsp; 20 September 2026</p>
+  <div class="rule"></div>
+</header>
+
+<nav class="langbar" aria-label="Reading options">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ko" aria-pressed="true">한국어</button>
+  <button type="button" data-lang="zh" aria-pressed="false" hidden>中文</button>
+  <button type="button" data-lang="th" aria-pressed="false" hidden>ไทย</button>
+  <button type="button" data-lang="de" aria-pressed="false" hidden>Deutsch</button>
+  <span class="sep" aria-hidden="true"></span>
+  <button type="button" data-theme class="theme-switch" role="switch" aria-checked="false" aria-label="Toggle dark mode">
+    <span class="knob" aria-hidden="true">
+      <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.6v2.2M12 20.2v2.2M1.6 12h2.2M20.2 12h2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M19.4 4.6l-1.6 1.6M6.2 17.8l-1.6 1.6"/></svg>
+      <svg class="ic-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </span>
+  </button>
+  <span class="sizegroup">
+    <button type="button" data-size="md" aria-pressed="true" aria-label="Normal text size">A</button>
+    <button type="button" data-size="lg" aria-pressed="false" aria-label="Larger text size">A</button>
+    <button type="button" data-size="xl" aria-pressed="false" aria-label="Largest text size">A</button>
+  </span>
+</nav>
+
+<main>
+  <div class="pair">
+    <span class="turn">1</span>
+    <p class="src en">Good morning, brothers and sisters. Before I begin my talk, I would like to tell a little bit about myself.</p>
+    <p class="tgt ko">형제 자매 여러분, 안녕하십니까. 말씀을 시작하기 전에 먼저 제 소개를 간단히 드리겠습니다.</p>
+    <p class="zh">各位弟兄姊妹，早上好。在开始讲话之前，我想先简单介绍一下自己。</p>
+    <p class="th">สวัสดีครับ พี่น้องทั้งหลาย ก่อนที่จะเริ่มพูด ผมอยากเล่าเรื่องตัวเองให้ฟังสักหน่อย</p>
+    <p class="de">Guten Morgen, liebe Brüder und Schwestern. Bevor ich mit meiner Ansprache anfange, möchte ich ein bisschen von mir erzählen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">2</span>
+    <p class="src en">My name is Sam Castro. I am from the 17th ward, the Portuguese-speaking ward. I was born in São Paulo, Brazil.</p>
+    <p class="tgt ko">저는 샘 카스트로라고 합니다. 포르투갈어 와드인 제17와드에 다니고 있고, 브라질 상파울루에서 태어났습니다.</p>
+    <p class="zh">我叫山姆·卡斯特罗，来自第十七支会，也就是葡萄牙语支会。我出生在巴西的圣保罗。</p>
+    <p class="th">ผมชื่อแซม คาสโตร ผมมาจากวอร์ด 17 ที่เป็นวอร์ดภาษาโปรตุเกส ผมเกิดที่เซาเปาลู ประเทศบราซิล</p>
+    <p class="de">Ich heiße Sam Castro. Ich gehöre zur 17. Gemeinde, der portugiesischsprachigen. Geboren bin ich in São Paulo in Brasilien.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">3</span>
+    <p class="src en">I love movies, music, and drawing. I served a mission in New Jersey and have been home from my mission for almost a year now.</p>
+    <p class="tgt ko">영화와 음악을 좋아하고 그림 그리는 것도 좋아합니다. 뉴저지 선교부에서 선교사로 봉사했고, 돌아온 지 이제 거의 일 년이 다 되어 갑니다.</p>
+    <p class="zh">我喜欢电影、音乐和画画。我曾在新泽西传教，回来差不多一年了。</p>
+    <p class="th">ผมชอบดูหนัง ฟังเพลง และวาดรูป ผมรับใช้งานเผยแผ่ที่รัฐนิวเจอร์ซีย์ และกลับมาได้เกือบหนึ่งปีแล้ว</p>
+    <p class="de">Ich liebe Filme, Musik und Zeichnen. Ich habe in New Jersey eine Mission erfüllt und bin jetzt seit fast einem Jahr wieder zu Hause.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">4</span>
+    <p class="src en">And since I got back from serving a mission, the hardest part has been adjusting back to life and figuring out what comes next.</p>
+    <p class="tgt ko">선교사 봉사를 마치고 돌아와서 가장 힘들었던 것은, 다시 일상에 적응하는 것과 앞으로 무엇을 해야 할지 찾는 일이었습니다.</p>
+    <p class="zh">传教回来之后，最难的就是重新适应生活，还有想清楚接下来该做什么。</p>
+    <p class="th">และตั้งแต่กลับจากงานเผยแผ่มา ส่วนที่ยากที่สุดคือการปรับตัวกลับมาใช้ชีวิตตามปกติ และการคิดให้ออกว่าต่อจากนี้จะทำอะไร</p>
+    <p class="de">Und seit ich von meiner Mission zurück bin, ist das Schwerste, wieder im Alltag anzukommen und herauszufinden, wie es weitergeht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">5</span>
+    <p class="src en">On my mission, I always knew what I was supposed to be doing and what my purpose was. Coming home was different.</p>
+    <p class="tgt ko">선교사로 봉사할 때는 제가 해야 할 일도, 제 목적도 늘 분명했습니다. 그런데 집으로 돌아오니 그렇지 않았습니다.</p>
+    <p class="zh">传教的时候，我总是清楚自己该做什么，也知道自己的目的是什么。回家以后就不一样了。</p>
+    <p class="th">ตอนที่ผมรับใช้งานเผยแผ่ ผมรู้เสมอว่าตัวเองต้องทำอะไรและมีจุดประสงค์อะไร แต่พอกลับบ้านมา ก็ต่างออกไป</p>
+    <p class="de">Auf meiner Mission wusste ich immer, was ich tun sollte und wozu ich da war. Zu Hause war das anders.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">6</span>
+    <p class="src en">Suddenly, there were so many decisions to make about school, work, and my future, and I didn’t always know which direction to go.</p>
+    <p class="tgt ko">학교와 일, 제 앞날에 대해 결정할 일이 갑자기 너무 많아졌습니다. 하지만 어느 길로 가야 할지 모를 때도 있었습니다.</p>
+    <p class="zh">一下子，学业、工作、未来，有那么多事情要决定，而我并不是每次都知道该往哪个方向走。</p>
+    <p class="th">จู่ๆ ก็มีเรื่องต้องตัดสินใจมากมาย ทั้งเรื่องเรียน เรื่องงาน และอนาคตของผม และผมก็ไม่ได้รู้เสมอไปว่าควรไปทางไหน</p>
+    <p class="de">Auf einmal musste ich so viele Entscheidungen treffen – über mein Studium, meine Arbeit, meine Zukunft – und wusste nicht immer, in welche Richtung ich gehen sollte.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">7</span>
+    <p class="src en">I’ve realized that I often want the Lord to show me the whole plan, when sometimes He is simply asking me to trust Him enough to take the next step.</p>
+    <p class="tgt ko">그러면서 한 가지를 깨달았습니다. 저는 주님께서 계획 전체를 보여 주시기를 바랄 때가 많지만, 주님께서는 그저 다음 한 걸음을 내디딜 만큼만 신뢰해 주기를 바라실 때가 있다는 것입니다.</p>
+    <p class="zh">我发现，我常常希望主把整个计划都给我看，可有时候，他只是要我信赖他，信赖到足以迈出下一步。</p>
+    <p class="th">ผมมารู้ตัวว่า บ่อยครั้งผมอยากให้พระเจ้าทรงแสดงแผนทั้งหมดให้ผมเห็น ทั้งที่บางครั้งพระองค์เพียงแค่ทรงขอให้ผมวางใจพระองค์มากพอที่จะก้าวต่อไปอีกหนึ่งก้าว</p>
+    <p class="de">Mir ist klar geworden: Oft will ich, dass der Herr mir den ganzen Plan zeigt. Dabei bittet er mich manchmal einfach nur, ihm genug zu vertrauen, um den nächsten Schritt zu gehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">8</span>
+    <p class="src en">Last week, we had the privilege of studying some powerful passages of scripture during our Come Follow Me study.</p>
+    <p class="tgt ko">지난주 「와서 나를 따르라」 시간에 우리는 큰 힘이 되는 경전 구절들을 함께 공부하는 축복을 받았습니다.</p>
+    <p class="zh">上个星期，在《来跟从我》的学习中，我们有幸研读了几段很有力量的经文。</p>
+    <p class="th">สัปดาห์ที่แล้ว เรามีโอกาสดีที่ได้ศึกษาข้อพระคัมภีร์ที่ทรงพลังหลายข้อในการศึกษา จงตามเรามา</p>
+    <p class="de">Letzte Woche durften wir bei unserem Studium von „Komm und folge mir nach!“ einige kraftvolle Schriftstellen studieren.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">9</span>
+    <p class="lead src en">One of those passages, Proverbs 3:5-6, teaches us a powerful principle:</p>
+    <blockquote class="src en">“Trust in the Lord with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.”<cite>Proverbs 3:5–6</cite></blockquote>
+    <p class="lead tgt ko">그중 한 구절인 잠언 3장 5~6절은 우리에게 강력한 원리를 가르쳐 줍니다.</p>
+    <blockquote class="tgt ko">너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라 너는 범사에 그를 인정하라 그리하면 네 길을 지도하시리라<cite>잠언 3:5~6</cite></blockquote>
+    <p class="lead zh">其中一段，箴言3章5至6节，教导了我们一个很有力量的原则：</p>
+    <blockquote class="zh">“你要专心仰赖耶和华，不可倚靠自己的聪明，在你一切所行的事上都要认定他，他必指引你的路。”<cite>箴言 3：5-6</cite></blockquote>
+    <p class="lead th">หนึ่งในข้อพระคัมภีร์เหล่านั้นคือ สุภาษิต 3:5-6 ที่สอนหลักธรรมอันทรงพลังแก่เราว่า</p>
+    <blockquote class="th">“จงวางใจในพระยาห์เวห์ด้วยสุดใจของเจ้าและอย่าพึ่งพาความรอบรู้ของตนเอง จงยอมรับรู้พระองค์ในทุกทางของเจ้าแล้วพระองค์เองจะทรงทำให้วิถีของเจ้าราบรื่น”<cite>สุภาษิต ๓:๕–๖</cite></blockquote>
+    <p class="lead de">Eine davon, Sprichwörter 3:5-6, lehrt uns einen kraftvollen Grundsatz:</p>
+    <blockquote class="de">Vertraue auf den HErrn mit ganzem Herzen und verlaß dich nicht auf eigene Klugheit; denke an ihn auf allen deinen Wegen, so wird er dir die Pfade ebnen.<cite>Sprichwörter 3:5-6</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">10</span>
+    <p class="src en">I am sure that all of us are familiar with this truth: If we trust in the Lord, He will bless us. However, this principle can be really hard to actually live.</p>
+    <p class="tgt ko">주님을 신뢰하면 주님께서 축복해 주신다는 이 진리를 우리 모두 잘 알고 있을 것입니다. 그런데 이 원리대로 실제로 살기가 정말 어려울 수 있습니다.</p>
+    <p class="zh">我相信我们每个人都熟悉这个真理：只要我们信赖主，他就会祝福我们。可是，这个原则要真正在生活中做到，其实很难。</p>
+    <p class="th">ผมแน่ใจว่าเราทุกคนคุ้นเคยกันดีกับความจริงข้อนี้ ที่ว่าถ้าเราวางใจพระเจ้า พระองค์จะทรงอวยพรเรา แต่หลักธรรมข้อนี้ พอจะดำเนินชีวิตตามจริงๆ กลับยากมาก</p>
+    <p class="de">Ich bin sicher, wir alle kennen diese Wahrheit: Wenn wir auf den Herrn vertrauen, segnet er uns. Aber diesen Grundsatz wirklich zu leben, kann ganz schön schwer sein.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">11</span>
+    <p class="src en">I think one reason it can be so difficult to live this principle is that trusting the Lord requires us to give up some of our own expectations.</p>
+    <p class="tgt ko">이 원리대로 살기가 그토록 어려운 이유 중 하나는, 주님을 신뢰하려면 우리 자신의 기대를 어느 정도 내려놓아야 하기 때문이라고 생각합니다.</p>
+    <p class="zh">我想，这个原则之所以这么难做到，一个原因是：信赖主，就得放下我们自己的一些期待。</p>
+    <p class="th">ผมคิดว่าเหตุผลหนึ่งที่การดำเนินชีวิตตามหลักธรรมข้อนี้ยากนัก ก็เพราะการวางใจพระเจ้าเรียกร้องให้เรายอมทิ้งความคาดหวังบางอย่างของตัวเราเอง</p>
+    <p class="de">Ich glaube, ein Grund, warum es so schwer sein kann, danach zu leben, ist dieser: Dem Herrn zu vertrauen verlangt von uns, manche unserer eigenen Erwartungen aufzugeben.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">12</span>
+    <p class="src en">Oftentimes, we try to impose our will on God’s will.</p>
+    <p class="tgt ko">우리는 하나님의 뜻을 우리 뜻에 맞추려 할 때가 많습니다.</p>
+    <p class="zh">我们常常想把自己的意愿强加在神的旨意上。</p>
+    <p class="th">บ่อยครั้ง เราพยายามเอาความประสงค์ของเราไปวางไว้เหนือพระประสงค์ของพระผู้เป็นเจ้า</p>
+    <p class="de">Oft versuchen wir, Gott unseren eigenen Willen aufzuzwingen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">13</span>
+    <p class="src en">We might trust that God has a plan set out for us, but at the same time, we have plans of our own.</p>
+    <p class="tgt ko">우리는 하나님께서 우리를 위해 계획을 마련해 두셨다는 것을 믿으면서도, 한편으로는 우리 나름의 계획이 따로 있습니다.</p>
+    <p class="zh">我们也许相信神为我们定好了计划，但与此同时，我们也有自己的计划。</p>
+    <p class="th">เราอาจวางใจว่าพระผู้เป็นเจ้าทรงมีแผนวางไว้ให้เราแล้ว แต่ในขณะเดียวกัน เราก็มีแผนของเราเอง</p>
+    <p class="de">Vielleicht vertrauen wir darauf, dass Gott einen Plan für uns hat, aber gleichzeitig haben wir auch unsere eigenen Pläne.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">14</span>
+    <p class="src en">We know where we want to go, what we want to accomplish, and sometimes even when we think those things should happen.</p>
+    <p class="tgt ko">가고 싶은 곳도, 이루고 싶은 일도 분명합니다. 때로는 그 일이 이루어져야 할 시기까지 생각해 둡니다.</p>
+    <p class="zh">我们知道自己想去哪里、想做成什么，有时候甚至连这些事该在什么时候发生，我们都有自己的想法。</p>
+    <p class="th">เรารู้ว่าเราอยากไปที่ไหน อยากทำอะไรให้สำเร็จ และบางครั้งก็คิดไว้ด้วยซ้ำว่าสิ่งเหล่านั้นควรจะเกิดขึ้นเมื่อไร</p>
+    <p class="de">Wir wissen, wohin wir wollen, was wir erreichen wollen, und manchmal meinen wir sogar zu wissen, wann das alles passieren soll.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">15</span>
+    <p class="src en">However, trusting the Lord is more than asking Him to help our plans work out. Sometimes it means letting His plans replace our own.</p>
+    <p class="tgt ko">그러나 주님을 신뢰한다는 것은 우리 계획이 잘되도록 도와 달라고 구하는 데서 그치지 않습니다. 때로는 주님의 계획이 우리 계획의 자리를 대신하도록 맡겨 드리는 것입니다.</p>
+    <p class="zh">然而，信赖主不只是求他帮我们把计划做成。信赖主，有时候就是让他的计划取代我们自己的计划。</p>
+    <p class="th">แต่การวางใจพระเจ้ามีความหมายมากกว่าการขอให้พระองค์ช่วยให้แผนของเราสำเร็จ บางครั้งก็หมายถึงการยอมให้แผนของพระองค์เข้ามาแทนที่แผนของเรา</p>
+    <p class="de">Aber dem Herrn zu vertrauen heißt mehr, als ihn zu bitten, dass unsere Pläne aufgehen. Manchmal heißt es, zuzulassen, dass seine Pläne an die Stelle unserer eigenen treten.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">16</span>
+    <p class="src en">What if instead of praying for what we want, we prayed to find out what God wants for us?</p>
+    <p class="tgt ko">우리가 바라는 것을 구하는 대신, 하나님께서 우리에게 무엇을 바라시는지 알게 해 달라고 기도해 보면 어떻겠습니까?</p>
+    <p class="zh">如果我们祷告时不是求自己想要的，而是求问神对我们的旨意是什么，那会怎么样呢？</p>
+    <p class="th">จะเป็นอย่างไรถ้าแทนที่จะสวดอ้อนวอนขอสิ่งที่เราต้องการ เราสวดอ้อนวอนเพื่อจะรู้พระประสงค์ที่พระผู้เป็นเจ้าทรงมีต่อเรา?</p>
+    <p class="de">Was wäre, wenn wir nicht um das beten würden, was wir wollen, sondern darum, herauszufinden, was Gott für uns will?</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">17</span>
+    <p class="lead src en">While speaking to the prophet Jeremiah, the Lord said:</p>
+    <blockquote class="src en">“Before I formed thee in the belly I knew thee; and before thou camest forth out of the womb I sanctified thee.”</blockquote>
+    <p class="lead tgt ko">주님께서는 선지자 예레미야에게 이렇게 말씀하셨습니다.</p>
+    <blockquote class="tgt ko">내가 너를 모태에 짓기 전에 너를 알았고 네가 배에서 나오기 전에 너를 성별하였고</blockquote>
+    <p class="lead zh">主对先知耶利米这样说：</p>
+    <blockquote class="zh">“我未将你造在腹中，我已晓得你；你未出母胎，我已分别你为圣。”</blockquote>
+    <p class="lead th">พระเจ้าตรัสกับศาสดาพยากรณ์เยเรมีย์ว่า</p>
+    <blockquote class="th">“เราได้รู้จักเจ้าก่อนที่เราได้ก่อร่างตัวเจ้าขึ้นในครรภ์และก่อนที่เจ้าคลอดจากครรภ์ เราก็ได้กำหนดตัวเจ้าไว้”</blockquote>
+    <p class="lead de">Zum Propheten Jeremia sagte der Herr:</p>
+    <blockquote class="de">Noch ehe ich dich im Mutterschoße bildete, habe ich dich erwählt (oder: ersehen), und ehe du das Licht der Welt erblicktest, habe ich dich geweiht.</blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">18</span>
+    <p class="src en">God is all-knowing, all-powerful, and all-loving. And beyond that, He is our Father. The Lord has known and loved each of His children even before we knew Him.</p>
+    <p class="tgt ko">하나님께서는 모든 것을 아시고, 모든 것을 하실 수 있으며, 한없이 사랑하시는 분이십니다. 그뿐만 아니라 그분은 우리의 아버지이십니다. 우리가 주님을 알기도 전부터, 주님께서는 자녀 한 사람 한 사람을 아시고 사랑하셨습니다.</p>
+    <p class="zh">神是全知、全能的，也充满了爱。不仅如此，他还是我们的父。早在我们认识主以前，主就已经认识并爱着他的每一个孩子了。</p>
+    <p class="th">พระผู้เป็นเจ้าทรงรอบรู้ทุกสิ่ง ทรงมีอำนาจเหนือทุกสิ่ง และทรงเปี่ยมด้วยความรัก ยิ่งกว่านั้น พระองค์ทรงเป็นพระบิดาของเรา พระเจ้าทรงรู้จักและทรงรักลูกๆ ของพระองค์แต่ละคน ตั้งแต่ก่อนที่เราจะรู้จักพระองค์เสียอีก</p>
+    <p class="de">Gott ist allwissend, allmächtig und voller Liebe. Und mehr noch: Er ist unser Vater. Der Herr hat jedes seiner Kinder gekannt und geliebt, schon bevor wir ihn kannten.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">19</span>
+    <p class="src en">He knows us better than we know ourselves. He knows our strengths and our weaknesses; He knows our desires and our potential; He knows our struggles and how to overcome them.</p>
+    <p class="tgt ko">그분은 우리 자신보다도 우리를 더 잘 아십니다. 우리의 강점과 약점, 우리가 바라는 것과 우리 안의 가능성을 모두 아십니다. 무엇 때문에 힘들어하는지, 또 그 어려움을 어떻게 이겨 낼 수 있는지도 아십니다.</p>
+    <p class="zh">他比我们自己更了解我们。他知道我们的长处和弱点，知道我们的渴望和潜力，也知道我们在哪里挣扎，以及该怎样克服。</p>
+    <p class="th">พระองค์ทรงรู้จักเราดียิ่งกว่าที่เรารู้จักตัวเอง ทรงรู้จุดแข็งและจุดอ่อนของเรา ทรงรู้ความปรารถนาและศักยภาพของเรา ทรงรู้ว่าเรากำลังดิ้นรนกับอะไร และจะเอาชนะมันได้อย่างไร</p>
+    <p class="de">Er kennt uns besser, als wir uns selbst kennen. Er kennt unsere Stärken und unsere Schwächen, er kennt unsere Wünsche und unser Potenzial, und er kennt unsere Schwierigkeiten und weiß, wie wir sie überwinden können.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">20</span>
+    <p class="src en">He can also see things we cannot. He knows the end from the beginning.</p>
+    <p class="tgt ko">그분은 우리가 볼 수 없는 것도 보십니다. 처음부터 어떻게 끝날지 알고 계십니다.</p>
+    <p class="zh">他还能看见我们看不见的事。他从一开始就知道结局。</p>
+    <p class="th">พระองค์ยังทรงเห็นสิ่งที่เรามองไม่เห็นด้วย ทรงรู้บั้นปลายตั้งแต่ต้น</p>
+    <p class="de">Er sieht auch, was wir nicht sehen können. Er kennt das Ende von Anfang an.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">21</span>
+    <p class="src en">So when the Lord asks us to trust Him, He is not asking us to blindly follow someone who does not understand our lives.</p>
+    <p class="tgt ko">그러니 주님께서 우리에게 신뢰하라고 하실 때, 그것은 우리 삶을 알지도 못하는 누군가를 무작정 따르라는 말씀이 아닙니다.</p>
+    <p class="zh">所以，当主要我们信赖他的时候，他不是要我们盲目地跟随一个不了解我们生活的人。</p>
+    <p class="th">ดังนั้น เมื่อพระเจ้าทรงขอให้เราวางใจพระองค์ พระองค์ไม่ได้ทรงขอให้เราหลับหูหลับตาเดินตามใครสักคนที่ไม่เข้าใจชีวิตของเรา</p>
+    <p class="de">Wenn der Herr uns also bittet, ihm zu vertrauen, dann bittet er uns nicht, jemandem blind zu folgen, der unser Leben nicht versteht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">22</span>
+    <p class="src en">He is asking us to trust the One who knows us completely and can see the path ahead of us when we cannot.</p>
+    <p class="tgt ko">우리를 속속들이 아시고, 우리가 보지 못하는 앞길까지 내다보시는 분을 신뢰하라는 말씀입니다.</p>
+    <p class="zh">他是要我们信赖那位完全了解我们的神。我们看不见前面的路，他却看得见。</p>
+    <p class="th">พระองค์ทรงขอให้เราวางใจพระองค์ผู้ทรงรู้จักเราอย่างถ่องแท้ และทรงมองเห็นทางข้างหน้าของเราในยามที่เรามองไม่เห็น</p>
+    <p class="de">Er bittet uns, dem zu vertrauen, der uns ganz und gar kennt und den Weg vor uns sehen kann, wenn wir ihn nicht sehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">23</span>
+    <p class="src en">The challenge is that we often want to see that path too. We want to know where we are going before we start moving.</p>
+    <p class="tgt ko">문제는 우리도 그 앞길을 보고 싶어 할 때가 많다는 것입니다. 첫발을 떼기 전에 어디로 가게 될지 알고 싶어 합니다.</p>
+    <p class="zh">难就难在，我们也常常想看见那条路。我们想在动身之前，就知道自己要去哪里。</p>
+    <p class="th">ความท้าทายก็คือ เราเองก็มักจะอยากเห็นทางนั้นด้วย เราอยากรู้ว่าจะไปที่ไหนก่อนที่จะเริ่มออกเดิน</p>
+    <p class="de">Das Schwierige ist nur: Oft wollen auch wir diesen Weg sehen. Wir wollen wissen, wohin es geht, bevor wir losgehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">24</span>
+    <p class="src en">But sometimes the Lord asks us to take a step before He shows us what comes next.</p>
+    <p class="tgt ko">하지만 주님께서는 다음에 어떤 일이 있을지 보여 주시기 전에 먼저 한 걸음을 내디디라고 하실 때가 있습니다.</p>
+    <p class="zh">但主有时候会要我们先迈出一步，之后才让我们看到接下来的路。</p>
+    <p class="th">แต่บางครั้ง พระเจ้าทรงขอให้เราก้าวออกไปหนึ่งก้าว ก่อนที่พระองค์จะทรงแสดงให้เราเห็นว่าต่อไปจะเป็นอย่างไร</p>
+    <p class="de">Aber manchmal bittet uns der Herr, einen Schritt zu gehen, bevor er uns zeigt, wie es weitergeht.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">25</span>
+    <p class="lead src en">In section 80 of the Doctrine and Covenants, the Lord said to Stephen Burnett:</p>
+    <blockquote class="src en">1 Verily, thus saith the Lord unto you my servant Stephen Burnett: Go ye, go ye into the world and preach the gospel to every creature that cometh under the sound of your voice.<cite>Doctrine and Covenants 80:1</cite></blockquote>
+    <p class="lead tgt ko">교리와 성약 제80편에서 주님께서는 스티븐 버넷에게 이렇게 말씀하셨습니다.</p>
+    <blockquote class="tgt ko">1 진실로 이같이 주가 너, 나의 종 스티븐 버넷에게 이르노니, 너는 가라. 세상에 가서 네 음성을 듣게 되는 모든 피조물에게 복음을 전파하라.<cite>교리와 성약 80:1</cite></blockquote>
+    <p class="lead zh">在教义和圣约第80篇里，主对司提反·班尼说：</p>
+    <blockquote class="zh">1 实在的，主这样对我仆人司提反·班尼说：你要去，往普天下去，传福音给听到你声音的万民听。<cite>教义和圣约 80：1</cite></blockquote>
+    <p class="lead th">ในหลักคำสอนและพันธสัญญาภาคที่ 80 พระเจ้าตรัสกับสตีเฟน เบอร์เนตต์ว่า</p>
+    <blockquote class="th">๑ ตามจริงแล้ว, พระเจ้าตรัสดังนี้กับเจ้าผู้รับใช้ของเรา สตีเฟน เบอร์เนตต์ : เจ้าจงไป, เจ้าจงไปในโลกและสั่งสอนพระกิตติคุณแก่ชาวโลกทั้งปวงที่ได้ยินเสียงเจ้า.<cite>หลักคำสอนและพันธสัญญา ๘๐:๑</cite></blockquote>
+    <p class="lead de">In Lehre und Bündnisse, Abschnitt 80, sagte der Herr zu Stephen Burnett:</p>
+    <blockquote class="de">1 Wahrlich, so spricht der Herr zu dir, mein Diener Stephen Burnett: Geh hin, geh hin in die Welt und predige das Evangelium jedem Geschöpf, das vom Klang deiner Stimme erreicht wird.<cite>Lehre und Bündnisse 80:1</cite></blockquote>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">26</span>
+    <blockquote class="src en">3 Wherefore, go ye and preach my gospel, whether to the north or to the south, to the east or to the west, it mattereth not, for ye cannot go amiss.<cite>Doctrine and Covenants 80:3</cite></blockquote>
+    <blockquote class="tgt ko">3 그런즉 너희는 북쪽으로나 남쪽으로, 동쪽으로나 서쪽으로 상관이 없나니, 가서 나의 복음을 전파하라. 이는 너희가 그릇 갈 수 없음이니라.<cite>교리와 성약 80:3</cite></blockquote>
+    <blockquote class="zh">3 因此，你们要去传我的福音，无论去南方或北方，去东方或西方，都没关系，因为你们不会走错。<cite>教义和圣约 80：3</cite></blockquote>
+    <blockquote class="th">๓ ดังนั้น, เจ้าจงไปสั่งสอนกิตติคุณของเรา, ไม่ว่าไปเหนือหรือไปใต้, ไปตะวันออกหรือไปตะวันตก, ก็หาสำคัญไม่, เพราะเจ้าไม่อาจผิดพลาดได้.<cite>หลักคำสอนและพันธสัญญา ๘๐:๓</cite></blockquote>
+    <blockquote class="de">3 Darum geht hin und predigt mein Evangelium, ob im Norden oder im Süden, im Osten oder im Westen, darauf kommt es nicht an, denn ihr könnt nicht fehlgehen.<cite>Lehre und Bündnisse 80:3</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">27</span>
+    <p class="src en">I love the phrase “ye cannot go amiss.”</p>
+    <p class="tgt ko">저는 “그릇 갈 수 없음이니라”라는 말씀이 참 좋습니다.</p>
+    <p class="zh">我很喜欢“你们不会走错”这句话。</p>
+    <p class="th">ผมชอบคำว่า “เจ้าไม่อาจผิดพลาดได้” มาก</p>
+    <p class="de">Ich liebe diese Worte: „ihr könnt nicht fehlgehen“.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">28</span>
+    <p class="src en">The Lord could have told Stephen Burnett exactly where to go. He could have given him specific direction. Instead, He simply told him to go.</p>
+    <p class="tgt ko">주님께서는 스티븐 버넷에게 어디로 가야 하는지 정확히 짚어 주실 수도 있었고, 구체적인 방향을 알려 주실 수도 있었습니다. 그런데 그저 가라고만 하셨습니다.</p>
+    <p class="zh">主本可以告诉司提反·班尼具体该去哪里，本可以给他明确的指示。可他没有这样做，只是叫他去。</p>
+    <p class="th">พระเจ้าจะทรงบอกสตีเฟน เบอร์เนตต์ก็ได้ว่าให้ไปที่ไหนกันแน่ หรือจะประทานคำแนะนำอย่างเจาะจงก็ได้ แต่พระองค์กลับตรัสเพียงแค่ว่า ให้ไป</p>
+    <p class="de">Der Herr hätte Stephen Burnett genau sagen können, wohin er gehen sollte. Er hätte ihm eine konkrete Anweisung geben können. Stattdessen sagte er ihm einfach nur, er solle gehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">29</span>
+    <p class="src en">I think sometimes we wait for the Lord to give us a perfect answer before we are willing to move forward.</p>
+    <p class="tgt ko">저는 우리가 앞으로 나아가기 전에 주님께서 완벽한 답을 주시기를 기다릴 때가 있다고 생각합니다.</p>
+    <p class="zh">我想，有时候我们会等着。等主给我们一个完美的答案，然后才愿意往前走。</p>
+    <p class="th">ผมคิดว่าบางครั้งเรารอให้พระเจ้าประทานคำตอบที่สมบูรณ์แบบก่อน เราถึงจะยอมก้าวไปข้างหน้า</p>
+    <p class="de">Ich glaube, manchmal warten wir darauf, dass der Herr uns eine perfekte Antwort gibt, bevor wir bereit sind, weiterzugehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">30</span>
+    <p class="src en">We want to know which decision is right, where that decision will take us, and how everything will work out.</p>
+    <p class="tgt ko">어느 쪽이 옳은 결정인지, 그 결정이 우리를 어디로 데려갈지, 모든 일이 결국 어떻게 풀릴지 알고 싶어 합니다.</p>
+    <p class="zh">我们想知道哪个决定才是对的，这个决定会把我们带到哪里，还有事情最后会怎么样。</p>
+    <p class="th">เราอยากรู้ว่าตัดสินใจแบบไหนถึงจะถูก การตัดสินใจนั้นจะพาเราไปที่ไหน และทุกอย่างจะลงเอยอย่างไร</p>
+    <p class="de">Wir wollen wissen, welche Entscheidung richtig ist, wohin sie uns führt und wie am Ende alles ausgeht.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">31</span>
+    <p class="src en">But sometimes there may be more than one good path in front of us.</p>
+    <p class="tgt ko">그러나 때로는 우리 앞에 놓인 좋은 길이 하나뿐이 아닐 수도 있습니다.</p>
+    <p class="zh">但有时候，摆在我们面前的，可能不止一条好路。</p>
+    <p class="th">แต่บางครั้ง ทางที่ดีตรงหน้าเราก็อาจมีมากกว่าหนึ่งทาง</p>
+    <p class="de">Aber manchmal könnte mehr als ein guter Weg vor uns liegen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">32</span>
+    <p class="src en">In those moments, perhaps the Lord is not asking us to perfectly predict His will.</p>
+    <p class="tgt ko">그럴 때 주님께서 바라시는 것은 그분의 뜻을 정확히 알아맞히는 일이 아닐 수도 있습니다.</p>
+    <p class="zh">在那样的时刻，主也许不是要我们事先把他的旨意看得分毫不差。</p>
+    <p class="th">ในเวลาแบบนั้น บางทีพระเจ้าอาจไม่ได้ทรงขอให้เราคาดเดาพระประสงค์ของพระองค์ได้อย่างสมบูรณ์แบบ</p>
+    <p class="de">In solchen Momenten bittet uns der Herr womöglich gar nicht darum, seinen Willen genau vorherzusagen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">33</span>
+    <p class="src en">He is asking us to trust Him, make the best decision we can, and move forward in faith. As we do that, He can guide us along the way.</p>
+    <p class="tgt ko">주님께서는 우리가 주님을 신뢰하고, 할 수 있는 최선의 선택을 하며, 신앙으로 나아가기를 바라십니다. 그렇게 나아가면, 그 길로 주님께서 우리를 인도해 주실 수 있습니다.</p>
+    <p class="zh">他是要我们信赖他，尽力做出最好的决定，然后凭着信心往前走。我们这样做的时候，他就能一路引导我们。</p>
+    <p class="th">พระองค์ทรงขอให้เราวางใจพระองค์ ตัดสินใจให้ดีที่สุดเท่าที่จะทำได้ แล้วก้าวไปข้างหน้าด้วยศรัทธา เมื่อเราทำอย่างนั้น พระองค์ก็ทรงนำทางเราไปได้ตลอดทาง</p>
+    <p class="de">Er bittet uns, ihm zu vertrauen, die bestmögliche Entscheidung zu treffen und im Glauben vorwärtszugehen. Wenn wir das tun, kann er uns unterwegs führen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">34</span>
+    <p class="src en">Trusting the Lord does not always mean that He tells us exactly where to go. Sometimes it means trusting that He can guide us once we start moving.</p>
+    <p class="tgt ko">주님을 신뢰한다고 해서 주님께서 늘 어디로 가야 할지 정확히 알려 주시는 것은 아닙니다. 때로는 우리가 일단 발을 떼기만 하면 주님께서 인도해 주실 수 있다고 믿는 것입니다.</p>
+    <p class="zh">信赖主，不一定是说他会告诉我们确切该去哪里。有时候，信赖主就是相信：只要我们动起来，他就能引导我们。</p>
+    <p class="th">การวางใจพระเจ้าไม่ได้หมายความเสมอไปว่าพระองค์จะทรงบอกเราว่าต้องไปที่ไหนกันแน่ บางครั้งก็หมายถึงการวางใจว่า พอเราเริ่มออกเดิน พระองค์ก็ทรงนำทางเราได้</p>
+    <p class="de">Dem Herrn zu vertrauen heißt nicht immer, dass er uns genau sagt, wohin wir gehen sollen. Manchmal heißt es, darauf zu vertrauen, dass er uns führen kann, sobald wir losgehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">35</span>
+    <p class="src en">When we’re trying sincerely to follow God, we don’t always need to be paralyzed trying to discover one “correct” choice.</p>
+    <p class="tgt ko">진심으로 하나님을 따르려고 애쓰고 있다면, 단 하나뿐인 “옳은” 선택을 찾아내려다 늘 제자리에 멈춰 서 있을 필요는 없습니다.</p>
+    <p class="zh">我们真心想跟随神的时候，不必老是为了找出那唯一“正确”的选择而卡在原地不动。</p>
+    <p class="th">เมื่อเราพยายามติดตามพระผู้เป็นเจ้าอย่างจริงใจ เราก็ไม่จำเป็นต้องหยุดชะงักอยู่กับที่เสมอไป เพราะมัวแต่พยายามหาทางเลือกที่ “ถูกต้อง” เพียงหนึ่งเดียว</p>
+    <p class="de">Wenn wir aufrichtig versuchen, Gott zu folgen, müssen wir nicht immer wie gelähmt dastehen und nach der einen „richtigen“ Entscheidung suchen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">36</span>
+    <p class="src en">When we do our best, God will take care of the rest.</p>
+    <p class="tgt ko">우리가 최선을 다하면 나머지는 하나님께서 해 주십니다.</p>
+    <p class="zh">我们尽力而为，其余的事神会照管。</p>
+    <p class="th">เมื่อเราทำดีที่สุดแล้ว ที่เหลือพระผู้เป็นเจ้าจะทรงดูแลเอง</p>
+    <p class="de">Tun wir unser Bestes, tut Gott den Rest.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">37</span>
+    <p class="src en">In 1833, a young minister named John Henry Newman was traveling through Europe. While in Sicily, he got really sick.</p>
+    <p class="tgt ko">1833년에 존 헨리 뉴먼이라는 젊은 목사가 유럽을 여행하고 있었습니다. 시칠리아에 머무는 동안 그는 심하게 아팠습니다.</p>
+    <p class="zh">1833年，一位名叫约翰·亨利·纽曼的年轻牧师正在欧洲旅行。在西西里的时候，他病得很重。</p>
+    <p class="th">ในปี ค.ศ. 1833 ศาสนาจารย์หนุ่มคนหนึ่งชื่อจอห์น เฮนรี นิวแมน กำลังเดินทางอยู่ในยุโรป ขณะอยู่ที่เกาะซิซิลี เขาป่วยหนัก</p>
+    <p class="de">1833 reiste ein junger Geistlicher namens John Henry Newman durch Europa. In Sizilien wurde er richtig krank.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">38</span>
+    <p class="src en">After recovering, he desperately wanted to return home to England, but his journey was filled with delays.</p>
+    <p class="tgt ko">몸이 나은 뒤에는 고국인 영국으로 돌아가고 싶은 마음이 간절했습니다. 하지만 돌아가는 길에 번번이 발이 묶였습니다.</p>
+    <p class="zh">病好之后，他非常想回英国的家，可是一路上不断耽搁。</p>
+    <p class="th">พอหายดี เขาก็อยากกลับบ้านที่อังกฤษใจจะขาด แต่การเดินทางของเขากลับล่าช้าครั้งแล้วครั้งเล่า</p>
+    <p class="de">Als er wieder gesund war, wollte er unbedingt heim nach England, aber auf der Reise gab es eine Verzögerung nach der anderen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">39</span>
+    <p class="src en">Eventually, he found passage on a small ship, but the ship became stuck at sea without enough wind to continue.</p>
+    <p class="tgt ko">마침내 작은 배에 자리를 구했지만, 배를 밀어 줄 바람이 충분하지 않아 바다 한가운데 멈춰 서고 말았습니다.</p>
+    <p class="zh">后来，他终于搭上了一条小船，船却因为风太小，困在海上走不了。</p>
+    <p class="th">ในที่สุดเขาก็ได้โดยสารเรือลำเล็กลำหนึ่ง แต่เรือกลับติดอยู่กลางทะเล เพราะลมไม่พอที่จะแล่นต่อ</p>
+    <p class="de">Schließlich bekam er einen Platz auf einem kleinen Schiff, doch auf See geriet das Schiff in eine Flaute und kam nicht mehr voran.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">40</span>
+    <p class="src en">Newman was far from home, uncertain about his future, and unable to see when or how his journey would continue.</p>
+    <p class="tgt ko">뉴먼은 집에서 멀리 떨어져 있었고, 앞날도 불확실했습니다. 언제, 어떻게 다시 여정을 이어 갈 수 있을지도 내다볼 수 없었습니다.</p>
+    <p class="zh">纽曼远离家乡，不知道自己的未来会怎样，也看不出这趟旅程什么时候、怎样才能继续。</p>
+    <p class="th">นิวแมนอยู่ไกลบ้าน ไม่แน่ใจในอนาคตของตัวเอง และมองไม่เห็นเลยว่าการเดินทางจะไปต่อได้เมื่อไรหรืออย่างไร</p>
+    <p class="de">Newman war weit weg von zu Hause, seine Zukunft war ungewiss, und er konnte nicht sehen, wann oder wie seine Reise weitergehen würde.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">41</span>
+    <p class="src en">During that experience, he wrote a poem that would later become the hymn “Lead, Kindly Light.”</p>
+    <p class="tgt ko">그런 상황에서 뉴먼은 시 한 편을 썼습니다. 훗날 찬송가 「어둠에 싸인 밤에」가 된 시입니다.</p>
+    <p class="zh">就在那段经历中，他写下了一首诗，这首诗后来成了圣诗《慈光歌》。</p>
+    <p class="th">ในช่วงเวลานั้นเอง เขาเขียนบทกวีบทหนึ่งที่ต่อมากลายเป็นเพลงสวด “แสงอันเมตตาโปรดนำ”</p>
+    <p class="de">In dieser Zeit schrieb er ein Gedicht, aus dem später das Kirchenlied „Führ, gütges Licht“ wurde.</p>
+  </div>
+
+  <div class="pair cite">
+    <span class="turn">42</span>
+    <p class="lead src en">In that hymn, Newman wrote,</p>
+    <blockquote class="src en">“Keep thou my feet; I do not ask to see the distant scene—one step enough for me.”<cite>“Lead, Kindly Light”</cite></blockquote>
+    <p class="lead tgt ko">그 찬송가에서 뉴먼은 이렇게 썼습니다.</p>
+    <blockquote class="tgt ko">내 갈 길 모두 보기 원치않으니 발 앞에만 비추어 주옵소서<cite>「어둠에 싸인 밤에」</cite></blockquote>
+    <p class="lead zh">纽曼在那首圣诗里写道：</p>
+    <blockquote class="zh">“我不求主指引遥远路程，我只恳求，一步一步导引。”<cite>《慈光歌》</cite></blockquote>
+    <p class="lead th">ในเพลงสวดบทนั้น นิวแมนเขียนไว้ว่า</p>
+    <blockquote class="th">“ชี้ทางเดินไป ข้าไม่ขอไห้ได้ยล ทางไกลยืดยาว ขอเพียงก้าวเดียวก็พอ”<cite>แสงอันเมตตาโปรดนำ</cite></blockquote>
+    <p class="lead de">In diesem Lied schrieb Newman:</p>
+    <blockquote class="de">Ich will nicht fragend in die Zukunft sehn, nur Schritt für Schritt von dir geleitet gehn.<cite>„Führ, gütges Licht“</cite></blockquote>
+  </div>
+
+  <div class="pair">
+    <span class="turn">43</span>
+    <p class="src en">I think that is what it means to trust in the Lord.</p>
+    <p class="tgt ko">저는 주님을 신뢰한다는 것이 바로 이런 뜻이라고 생각합니다.</p>
+    <p class="zh">我想，这就是信赖主的意思。</p>
+    <p class="th">ผมคิดว่านั่นแหละคือความหมายของการวางใจในพระเจ้า</p>
+    <p class="de">Ich glaube, genau das heißt es, auf den Herrn zu vertrauen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">44</span>
+    <p class="src en">We may want Him to show us exactly where our lives are going. We may want answers before we are willing to move forward.</p>
+    <p class="tgt ko">우리는 주님께서 우리 삶이 어디로 향하고 있는지 정확히 보여 주시기를 바라기도 합니다. 앞으로 나아가기 전에 답부터 얻고 싶어 하기도 합니다.</p>
+    <p class="zh">我们也许希望他清清楚楚地指给我们看，我们的人生要往哪里去。我们也许想先得到答案，然后才愿意往前走。</p>
+    <p class="th">เราอาจอยากให้พระองค์ทรงแสดงให้เห็นชัดๆ ว่าชีวิตของเรากำลังจะไปทางไหน เราอาจอยากได้คำตอบก่อน ถึงจะยอมก้าวไปข้างหน้า</p>
+    <p class="de">Vielleicht wollen wir, dass er uns genau zeigt, wohin unser Leben führt. Vielleicht wollen wir Antworten, bevor wir bereit sind, weiterzugehen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">45</span>
+    <p class="src en">But often, the Lord simply gives us enough light to take the next step.</p>
+    <p class="tgt ko">그러나 주님께서는 딱 다음 한 걸음을 내디딜 만큼의 빛만 주실 때가 많습니다.</p>
+    <p class="zh">但很多时候，主只是给我们足以迈出下一步的光。</p>
+    <p class="th">แต่บ่อยครั้ง พระเจ้าเพียงประทานแสงสว่างพอให้เราก้าวต่อไปได้อีกหนึ่งก้าว</p>
+    <p class="de">Aber oft gibt uns der Herr einfach genug Licht für den nächsten Schritt.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">46</span>
+    <p class="src en">I know that the Lord knows us and loves us. I know that as we trust Him and move forward in faith, He will direct our paths.</p>
+    <p class="tgt ko">저는 주님께서 우리를 아시고 사랑하신다는 것을 압니다. 우리가 주님을 신뢰하고 신앙으로 나아갈 때 주님께서 우리의 길을 지도해 주시리라는 것을 압니다.</p>
+    <p class="zh">我知道主认识我们，也爱我们。我知道，只要我们信赖他，凭着信心往前走，他必指引我们的路。</p>
+    <p class="th">ผมรู้ว่าพระเจ้าทรงรู้จักเราและทรงรักเรา ผมรู้ว่าเมื่อเราวางใจพระองค์และก้าวไปข้างหน้าด้วยศรัทธา พระองค์จะทรงทำให้วิถีของเราราบรื่น</p>
+    <p class="de">Ich weiß, dass der Herr uns kennt und uns liebt. Ich weiß: Wenn wir ihm vertrauen und im Glauben vorwärtsgehen, wird er uns die Pfade ebnen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">47</span>
+    <p class="src en">We may not always end up where we originally planned to go, but if we allow Him to guide us, He can lead us where we need to be.</p>
+    <p class="tgt ko">우리는 처음에 가려던 곳에 늘 다다르지는 못할지도 모릅니다. 그러나 주님께서 인도하시도록 맡겨 드리면, 주님께서는 우리가 있어야 할 바로 그곳으로 이끌어 주실 수 있습니다.</p>
+    <p class="zh">我们不一定总能到达原本打算去的地方，但只要我们让他引导，他就能带我们到该在的地方。</p>
+    <p class="th">เราอาจไม่ได้ไปถึงที่ที่เราวางแผนไว้แต่แรกเสมอไป แต่ถ้าเรายอมให้พระองค์ทรงนำทาง พระองค์จะทรงพาเราไปยังที่ที่เราควรจะอยู่ได้</p>
+    <p class="de">Vielleicht landen wir nicht immer da, wo wir ursprünglich hinwollten. Aber wenn wir uns von ihm führen lassen, kann er uns dorthin bringen, wo wir sein sollen.</p>
+  </div>
+
+  <div class="pair">
+    <span class="turn">48</span>
+    <p class="src en">In the name of Jesus Christ, amen.</p>
+    <p class="tgt ko">예수 그리스도의 이름으로 말씀드립니다. 아멘.</p>
+    <p class="zh">奉耶稣基督的名，阿们。</p>
+    <p class="th">ในพระนามของพระเยซูคริสต์ เอเมน</p>
+    <p class="de">Im Namen Jesu Christi. Amen.</p>
+  </div>
+</main>
+
+
+
+<footer class="colophon">
+  <a class="feedback-btn" href="https://forms.gle/i8CmV68v1TwqLGNd6" target="_blank" rel="noopener">Feedback · 의견 보내기</a>
+  <p style="margin:0;"><span class="en">Translated by AI. Use the feedback button to recommend corrections.</span><span class="ko">AI 번역입니다. 수정 사항은 의견 버튼으로 알려 주세요.</span><span class="zh">本文由人工智能翻译。如需更正，请使用意见按钮。</span><span class="th">แปลโดยปัญญาประดิษฐ์ หากมีข้อเสนอแนะโปรดใช้ปุ่มแสดงความคิดเห็น</span><span class="de">Von KI übersetzt. Nutzen Sie die Feedback-Schaltfläche für Korrekturvorschläge.</span></p>
+</footer>
+</div>
+<script>
+// Language view toggle. Adds a class to <body>; never alters saved content.
+// Preference is remembered in localStorage (per-browser), not written to the file.
+(function () {
+  var bar = document.querySelector(".langbar");
+  if (!bar) return;
+  var btns = bar.querySelectorAll("button[data-lang]");
+  var docEl = document.documentElement;
+  // Feedback link label follows the checked languages.
+  var FB = { en: "Feedback", ko: "의견 보내기", zh: "意见反馈", th: "แสดงความคิดเห็น", de: "Rückmeldung" };
+  var fbBtn = document.querySelector(".feedback-btn");
+  // Reveal an extra-language checkbox only when this talk carries that content.
+  var hasZh = !!document.querySelector("main .zh");
+  var zhBtn = bar.querySelector('button[data-lang="zh"]');
+  if (zhBtn && hasZh) zhBtn.hidden = false;
+  var hasTh = !!document.querySelector("main .th");
+  var thBtn = bar.querySelector('button[data-lang="th"]');
+  if (thBtn && hasTh) thBtn.hidden = false;
+  var hasDe = !!document.querySelector("main .de");
+  var deBtn = bar.querySelector('button[data-lang="de"]');
+  if (deBtn && hasDe) deBtn.hidden = false;
+
+  // Each language is an independent checkbox; any combination may show. At least one
+  // stays on. Native labels (English / 한국어 / 中文 / ไทย) so no one needs language codes.
+  var LANGS = ["en", "ko", "zh", "th", "de"];
+  function apply(active) {
+    LANGS.forEach(function (l) {
+      var on = active.indexOf(l) !== -1;
+      docEl.classList.toggle("show-" + l, on);
+      var b = bar.querySelector('button[data-lang="' + l + '"]');
+      if (b) b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (fbBtn) {
+      fbBtn.textContent = LANGS
+        .filter(function (l) { return active.indexOf(l) !== -1; })
+        .map(function (l) { return FB[l]; })
+        .join(" · ");
+    }
+    try { localStorage.setItem("talkLangs", JSON.stringify(active)); } catch (e) {}
+  }
+  var active;
+  try { active = JSON.parse(localStorage.getItem("talkLangs")); } catch (e) {}
+  if (!Array.isArray(active) || !active.length) active = ["en", "ko"];
+  active = active.filter(function (l) {
+    return LANGS.indexOf(l) !== -1 && (l !== "zh" || hasZh) && (l !== "th" || hasTh) && (l !== "de" || hasDe);
+  });
+  if (!active.length) active = ["en", "ko"];
+  apply(active);
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var l = b.dataset.lang, i = active.indexOf(l);
+      if (i === -1) active.push(l);
+      else if (active.length > 1) active.splice(i, 1); // never turn the last one off
+      apply(active);
+    });
+  });
+
+  // Text-size toggle. Scales the root font-size; everything else is in rem.
+  var sizeBtns = bar.querySelectorAll("button[data-size]");
+  function applySize(size) {
+    document.documentElement.classList.remove("text-lg", "text-xl");
+    if (size === "lg") document.documentElement.classList.add("text-lg");
+    else if (size === "xl") document.documentElement.classList.add("text-xl");
+    sizeBtns.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.dataset.size === size ? "true" : "false");
+    });
+    try { localStorage.setItem("talkSize", size); } catch (e) {}
+  }
+  sizeBtns.forEach(function (b) {
+    b.addEventListener("click", function () { applySize(b.dataset.size); });
+  });
+  var savedSize = "md";
+  try { savedSize = localStorage.getItem("talkSize") || "md"; } catch (e) {}
+  applySize(savedSize);
+
+  // Light/dark toggle. The <head> script already set the class pre-paint; here we
+  // sync the button label and let the reader flip it. Choice is remembered per browser.
+  var themeBtn = bar.querySelector("[data-theme]");
+  function applyTheme(mode) {
+    var dark = mode === "dark";
+    document.documentElement.classList.toggle("dark", dark);
+    if (themeBtn) themeBtn.setAttribute("aria-checked", dark ? "true" : "false");
+    try { localStorage.setItem("talkTheme", mode); } catch (e) {}
+  }
+  if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      applyTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
+    });
+  }
+  applyTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
+})();
+
+// Tap a paragraph to highlight where you are. One at a time; tap it again to clear.
+// Helps everyone keep their place — congregation following along and the pulpit readers.
+(function () {
+  var main = document.querySelector("main");
+  if (!main) return;
+  main.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return; // let links (flag refs) work normally
+    var pair = e.target.closest(".pair");
+    if (!pair || !main.contains(pair)) return;
+    var wasCurrent = pair.classList.contains("current");
+    main.querySelectorAll(".pair.current").forEach(function (p) { p.classList.remove("current"); });
+    if (!wasCurrent) pair.classList.add("current");
+  });
+})();
+</script>
+</body>
+</html>
